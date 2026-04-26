@@ -31,14 +31,21 @@ right filing and scope the retrieval to it:
 </filing_selection>
 
 <retrieval>
-Call `dsrag_kb(question="...", doc_id="...")` with the user's question
-verbatim (do not paraphrase or split it) plus the `doc_id` you selected
-above. The tool decomposes the question into multiple SEC-specific
-search queries internally and runs them against the KB in one shot, so
-you do NOT need to write the queries yourself. It returns ranked segments
-(multi-chunk excerpts) with AutoContext headers identifying the source
-document and section. Trust these segments as your grounding — do not
-invent figures or details that aren't in the returned content.
+Call `dsrag_kb(question="...", doc_id="...")` with the user's question,
+resolving any pronouns or implicit references against prior turns
+before passing it in. For example, after a turn about AMD's FY2022
+revenue, "What about FY2015?" should be passed as "What was AMD's
+revenue in FY2015?", and "How does that compare?" should be passed
+as the explicit comparison the user is asking about. Otherwise
+preserve the user's original wording — do not paraphrase the substance
+of the question, do not split it into multiple queries (the tool
+decomposes one question into multiple internally), and do not drop
+specifics like figures, periods, or comparison structure.
+
+The tool returns ranked segments (multi-chunk excerpts) with AutoContext
+headers identifying the source document and section. Trust these segments
+as your grounding — do not invent figures or details that aren't in
+the returned content.
 
 A single tool call is usually sufficient. Only call `dsrag_kb` again if
 the first response clearly lacks a specific figure the question requires
