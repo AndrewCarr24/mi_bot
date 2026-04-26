@@ -95,13 +95,16 @@ docker run --rm -p 8080:8080 \
 # → catches container packaging issues that uvicorn alone won't surface
 
 # 4. Deploy loop (~5 min): push to ECR + redeploy App Runner
+#    Substitute <ACCOUNT_ID> (aws sts get-caller-identity) and
+#    <SERVICE_ARN> (aws apprunner list-services) before running.
+ACCOUNT_ID=<ACCOUNT_ID>
+SERVICE_ARN=<SERVICE_ARN>
 docker build --platform=linux/amd64 \
-  -t 680363506536.dkr.ecr.us-east-1.amazonaws.com/agent-fin:latest .
+  -t ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/agent-fin:latest .
 aws ecr get-login-password --region us-east-1 \
-  | docker login --username AWS --password-stdin 680363506536.dkr.ecr.us-east-1.amazonaws.com
-docker push 680363506536.dkr.ecr.us-east-1.amazonaws.com/agent-fin:latest
-aws apprunner start-deployment \
-  --service-arn arn:aws:apprunner:us-east-1:680363506536:service/agent-fin/62258a96c5214515918ba2d9956aa9be
+  | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+docker push ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/agent-fin:latest
+aws apprunner start-deployment --service-arn ${SERVICE_ARN}
 ```
 
 **Cost note**: local uvicorn is free; each `/ask` call costs DeepSeek
