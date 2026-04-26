@@ -54,6 +54,14 @@ set -a && . .env && set +a
 orchestrator: KB build calls Bedrock Titan v2 for embeddings, and the
 router/judge always run on Haiku via Converse.
 
+**Optional: LangSmith tracing.** Set `LANGSMITH_TRACING=true`,
+`LANGSMITH_API_KEY=...` (from https://smith.langchain.com/settings),
+and `LANGSMITH_PROJECT=agent-fin` in `.env`. LangChain auto-instruments
+from those env vars — no code changes — and every node, tool call,
+and LLM round-trip shows up in the LangSmith UI with input/output
+prompts, tokens, latency, and cost. Free tier (5K traces/month) covers
+demo traffic comfortably.
+
 ## Running
 
 ```bash
