@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials
+credentials.*
+
+# macOS
+.DS_Store
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+
+# Claude Code local state
+.claude/
+
+# Eval logs roll over each run; keep results CSVs but skip the master log
+# (it's append-only and noisy). Comment this out if you want to track it.
+eval/logs.json
