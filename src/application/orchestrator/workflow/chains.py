@@ -1,6 +1,7 @@
 """Chains for the router, the RAG agent, and the simple-response path."""
 
-from langchain_core.messages import BaseMessage, SystemMessage
+from langchain_core.messages import BaseMessage, SystemMessage, trim_messages
+from langchain_core.messages.utils import count_tokens_approximately
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables import Runnable
 
@@ -12,6 +13,27 @@ from src.domain.prompts import (
 )
 from src.infrastructure.catalog import format_for_prompt as format_catalog
 from src.infrastructure.model import get_model, orchestrator_is_bedrock
+
+# Token budget for history sent to the agent LLM. Bounded by DeepSeek v4
+# Flash's 128K context, with headroom for: the system prompt + filings
+# catalog (~1-2K), the current turn's tool calls/results (up to ~30K
+# across a multi-iteration ReAct loop), and the model's output (~2K).
+# 60K leaves ~70K headroom, comfortably accommodating a long session.
+HISTORY_TOKEN_BUDGET = 60_000
+
+
+def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
+    """Cap the message history at HISTORY_TOKEN_BUDGET, keeping recent
+    turns. `start_on="human"` ensures we never strand a `ToolMessage`
+    without its preceding tool-call `AIMessage` (which would error)."""
+    return trim_messages(
+        messages,
+        max_tokens=HISTORY_TOKEN_BUDGET,
+        strategy="last",
+        token_counter=count_tokens_approximately,
+        start_on="human",
+        allow_partial=False,
+    )
 
 
 def _escape_braces(text: str) -> str:

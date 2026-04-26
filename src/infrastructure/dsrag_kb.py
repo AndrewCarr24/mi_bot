@@ -59,6 +59,38 @@ def _configure_deepseek_as_openai() -> None:
     )
 
 
+def _rewrite_kb_paths_if_needed() -> None:
+    """dsRAG bakes absolute paths for chunk_db / vector_db / file_system
+    into the metadata JSON at build time. When the KB folder moves
+    (container, fork, fresh checkout), those paths are stale and
+    BasicChunkDB.__init__ tries to mkdir at the old location.
+
+    Patch the metadata in-place so paths track DSRAG_STORE_DIR. Idempotent.
+    """
+    import json
+
+    meta_path = DSRAG_STORE_DIR / "metadata" / f"{DSRAG_KB_ID}.json"
+    if not meta_path.exists():
+        return
+    meta = json.loads(meta_path.read_text())
+    components = meta.get("components", {})
+    target_dir = str(DSRAG_STORE_DIR)
+    target_images = str(DSRAG_STORE_DIR / "page_images")
+    changed = False
+    for key in ("chunk_db", "vector_db"):
+        if components.get(key, {}).get("storage_directory") != target_dir:
+            components.setdefault(key, {})["storage_directory"] = target_dir
+            changed = True
+    fs = components.get("file_system", {})
+    if fs.get("base_path") != target_images:
+        fs["base_path"] = target_images
+        components["file_system"] = fs
+        changed = True
+    if changed:
+        meta_path.write_text(json.dumps(meta, indent=2))
+        logger.info(f"Patched KB metadata paths → {target_dir}")
+
+
 def get_kb():
     """Load the persisted KB. NoReranker is baked into the KB metadata at
     build time, so no runtime swap needed."""
@@ -67,6 +99,7 @@ def get_kb():
         return _kb
     _ensure_imports_registered()
     _configure_deepseek_as_openai()
+    _rewrite_kb_paths_if_needed()
     from dsrag.knowledge_base import KnowledgeBase
 
     logger.info(f"Loading dsRAG KB '{DSRAG_KB_ID}' from {DSRAG_STORE_DIR}")

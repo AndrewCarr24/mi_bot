@@ -28,3 +28,7 @@ credentials.*
 # Eval logs roll over each run; keep results CSVs but skip the master log
 # (it's append-only and noisy). Comment this out if you want to track it.
 eval/logs.json
+
+# Chainlit auto-creates language packs on first run; bulk + regenerable.
+# We keep .chainlit/config.toml for project-specific overrides.
+.chainlit/translations/

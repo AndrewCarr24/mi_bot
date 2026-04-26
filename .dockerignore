@@ -1,0 +1,31 @@
+# Local dev junk
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Secrets — never bake into the image
+.env
+.env.*
+*.pem
+*.key
+credentials
+credentials.*
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+
+# Git + Claude state (not needed at runtime)
+.git/
+.gitignore
+.claude/
+
+# Eval artifacts (regenerable, no need to ship)
+eval/results/
+eval/logs.json
+
+# Docs the runtime doesn't need
+README.md

@@ -74,8 +74,14 @@ def create_graph(force_recreate: bool = False):
         checkpointer = ShortTermMemory().get_memory()
         _graph_instance = builder.compile(checkpointer=checkpointer)
     else:
-        logger.warning("MEMORY_ID unset — running without checkpointer or memory hook")
-        _graph_instance = builder.compile()
+        # Fall back to LangGraph's in-process MemorySaver so multi-turn
+        # conversations within a single container remember prior turns.
+        # State is lost when the container is replaced (deploy, AWS infra
+        # churn). For cross-restart persistence, set MEMORY_ID to use
+        # AgentCoreMemorySaver instead.
+        from langgraph.checkpoint.memory import MemorySaver
+        logger.info("MEMORY_ID unset — using in-process MemorySaver checkpointer")
+        _graph_instance = builder.compile(checkpointer=MemorySaver())
     logger.info("RAG agent graph compiled")
     return _graph_instance
 

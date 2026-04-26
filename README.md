@@ -57,7 +57,7 @@ router/judge always run on Haiku via Converse.
 ## Running
 
 ```bash
-# One-shot query
+# One-shot CLI query
 python run_app.py "What was AMD's FY2022 revenue?"
 
 # Eval harness
@@ -67,6 +67,46 @@ python eval/run_eval.py eval/other.csv             # custom CSV
 # Rebuild the KB from data/parsed/*.md (idempotent — `exists_ok=True`)
 python pipelines/build_kb.py
 ```
+
+## Local development
+
+Four loops in increasing cost/time. Use the cheapest one that catches the
+bug you're chasing.
+
+```bash
+# 1. Inner loop (seconds): live-reload FastAPI + curl
+uvicorn api:app --reload --port 8000
+curl -N -X POST http://127.0.0.1:8000/ask \
+  -H 'Content-Type: application/json' \
+  -d '{"question":"What was AMD revenue in FY2022?","conversation_id":"dev-001"}'
+
+# Multi-turn: reuse the same conversation_id across calls; the in-process
+# MemorySaver checkpointer retains history per conversation_id.
+
+# 2. Mid loop (~3-5 min): regression across the FinanceBench eval set
+python eval/run_eval.py
+# → eval/results/<input>_<ts>.csv with per-question correctness + cost
+
+# 3. Outer loop (~1 min): build + run the production container locally
+docker build --platform=linux/amd64 -t agent-fin:local .
+docker run --rm -p 8080:8080 \
+  --env-file .env -e AWS_REGION=us-east-1 \
+  -v ~/.aws:/home/app/.aws:ro agent-fin:local
+# → catches container packaging issues that uvicorn alone won't surface
+
+# 4. Deploy loop (~5 min): push to ECR + redeploy App Runner
+docker build --platform=linux/amd64 \
+  -t 680363506536.dkr.ecr.us-east-1.amazonaws.com/agent-fin:latest .
+aws ecr get-login-password --region us-east-1 \
+  | docker login --username AWS --password-stdin 680363506536.dkr.ecr.us-east-1.amazonaws.com
+docker push 680363506536.dkr.ecr.us-east-1.amazonaws.com/agent-fin:latest
+aws apprunner start-deployment \
+  --service-arn arn:aws:apprunner:us-east-1:680363506536:service/agent-fin/62258a96c5214515918ba2d9956aa9be
+```
+
+**Cost note**: local uvicorn is free; each `/ask` call costs DeepSeek
++ Bedrock Haiku tokens (roughly 1-5¢ per question). The full eval over
+~23 questions costs ~$0.50-1.
 
 ## Switching the orchestrator
 

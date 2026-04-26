@@ -9,6 +9,7 @@ from src.application.orchestrator.workflow.chains import (
     get_finalize_chain,
     get_router_chain,
     get_simple_response_chain,
+    trim_history,
     with_cache_on_last,
 )
 from src.application.orchestrator.workflow.state import AgentState, IntentType
@@ -52,6 +53,7 @@ async def agent_node(state: AgentState, config: RunnableConfig) -> dict:
     configurable = config.get("configurable", {})
     customer_name = configurable.get("customer_name", "Guest")
 
+    messages = trim_history(messages)
     chain = get_agent_chain(customer_name=customer_name)
     response = await chain.ainvoke(
         {"messages": with_cache_on_last(messages)}, config
@@ -86,6 +88,7 @@ async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:
             continue
         condensed.append(msg)
 
+    condensed = trim_history(condensed)
     logger.debug(f"finalize_node: condensed {len(raw_messages)} msgs → {len(condensed)}")
 
     configurable = config.get("configurable", {})
