@@ -5,7 +5,14 @@ from loguru import logger
 
 from src.application.orchestrator.workflow.state import AgentState
 
-MAX_TOOL_CALLS_PER_TURN = 16
+# Maximum number of ReAct iterations (rounds of agent_node → tool_node) per
+# user turn. Each iteration can dispatch multiple tool_calls in parallel, so
+# the effective parallelism budget is roughly 3 × (typical parallel width).
+# After this cap is hit, the graph routes to finalize_node, which forces a
+# text answer from whatever has been retrieved. Tighter than the previous
+# tool-call-count cap (16 individual calls) — encourages decisive retrieval
+# over slow drift across many sequential rounds.
+MAX_ITERATIONS_PER_TURN = 3
 
 
 def route_by_intent(state: AgentState) -> Literal["cache_check", "simple_response"]:
@@ -25,21 +32,21 @@ def route_after_cache(state: AgentState) -> Literal["agent"]:
 
 def should_continue(state: AgentState) -> Literal["tools", "finalize", "end"]:
     """ReAct loop decision:
-    - last message has tool_calls and budget remains → run tools
-    - last message has tool_calls but budget exhausted → finalize (force text answer)
+    - last message has tool_calls and iteration budget remains → run tools
+    - last message has tool_calls but iteration budget exhausted → finalize
     - last message is a plain AI text response → end
     """
     messages = state.get("messages", [])
-    tool_call_count = state.get("tool_call_count", 0)
+    iteration_count = state.get("iteration_count", 0)
 
     if not messages:
         return "end"
 
     last = messages[-1]
     if isinstance(last, AIMessage) and last.tool_calls:
-        if tool_call_count >= MAX_TOOL_CALLS_PER_TURN:
+        if iteration_count >= MAX_ITERATIONS_PER_TURN:
             logger.warning(
-                f"Tool call limit ({MAX_TOOL_CALLS_PER_TURN}) reached, routing to finalize"
+                f"Iteration cap ({MAX_ITERATIONS_PER_TURN}) reached, routing to finalize"
             )
             return "finalize"
         return "tools"

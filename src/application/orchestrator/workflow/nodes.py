@@ -49,6 +49,7 @@ async def agent_node(state: AgentState, config: RunnableConfig) -> dict:
     """Run the ReAct agent for rag_query intents."""
     messages = list(state["messages"])
     tool_call_count = state.get("tool_call_count", 0)
+    iteration_count = state.get("iteration_count", 0)
 
     configurable = config.get("configurable", {})
     customer_name = configurable.get("customer_name", "Guest")
@@ -61,10 +62,16 @@ async def agent_node(state: AgentState, config: RunnableConfig) -> dict:
 
     has_tool_calls = bool(getattr(response, "tool_calls", None))
     new_count = tool_call_count + (len(response.tool_calls) if has_tool_calls else 0)
+    new_iter = iteration_count + (1 if has_tool_calls else 0)
     logger.debug(
-        f"agent_node: has_tool_calls={has_tool_calls}, tool_call_count={new_count}"
+        f"agent_node: has_tool_calls={has_tool_calls}, "
+        f"iteration={new_iter}, tool_call_count={new_count}"
     )
-    return {"messages": response, "tool_call_count": new_count}
+    return {
+        "messages": response,
+        "tool_call_count": new_count,
+        "iteration_count": new_iter,
+    }
 
 
 async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:

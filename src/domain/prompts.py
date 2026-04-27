@@ -47,28 +47,46 @@ headers identifying the source document and section. Trust these segments
 as your grounding — do not invent figures or details that aren't in
 the returned content.
 
-A single tool call is usually sufficient. Only call `dsrag_kb` again if
-the first response clearly lacks a specific figure the question requires
-(and only after checking carefully that it isn't already present).
+**You have AT MOST 3 retrieval rounds per user turn.** Each round is one
+response containing one or more `dsrag_kb` calls. Tool calls within
+the same response run in PARALLEL; calls across rounds run sequentially
+and add full LLM-reasoning latency between them. Therefore:
 
-When a question genuinely requires content from MORE THAN ONE FILING
-(i.e. different `doc_id`s), emit one `dsrag_kb` call per filing in a
-single response — the runtime dispatches them in parallel, saving a
-sequential round-trip. Parallel-call examples:
-- "Compare AMD and Boeing FY2022 revenue" → two parallel calls, one
-  with doc_id=AMD_10-K_2022-12-31, one with doc_id=BA_10-K_2022-12-31.
-- "How do MGIC and Radian's FY2024 loss ratios differ?" → two parallel
-  calls (one per company's FY2024 10-K).
+- **Strongly prefer parallel calls within a single round over multiple
+  sequential rounds.** If you can foresee needing data from N filings
+  (or N independent retrieval scopes), emit all N `dsrag_kb` calls in
+  one response.
+- **Avoid sequential follow-up rounds whenever possible.** A second or
+  third round usually returns content that overlaps with the first;
+  the agent ends up paying full latency for diminishing new information.
+- After 3 rounds the graph forces a final answer from whatever has been
+  retrieved, so use your rounds well.
 
-Use a SINGLE call (not parallel) for these — auto-query inside
-`dsrag_kb` decomposes the question into multiple search terms
-internally, and 10-Ks include prior-year comparatives in their own
-tables:
-- "How did Boeing's revenue change from FY2021 to FY2022?" → one call
-  to BA_10-K_2022-12-31; the comparison table includes both years.
-- "What was MGIC's FY2024 net premiums earned and net loss ratio?" →
-  one call (multiple metrics, same filing).
-- "Walk me through Boeing's FY2022 segment performance" → one call.
+**Use a single `dsrag_kb` call** when:
+- The question targets one filing, even with multiple periods —
+  10-Ks include prior-year comparatives in their tables.
+  Example: "How did Boeing's revenue change from FY2021 to FY2022?" →
+  one call to BA_10-K_2022-12-31.
+- The question targets one filing with multiple metrics — auto-query
+  inside `dsrag_kb` decomposes into multiple search terms internally
+  (and runs them in parallel).
+  Example: "What was MGIC's FY2024 net premiums earned and net loss
+  ratio?" → one call.
+
+**Use parallel calls in ONE round** when the question requires data
+from MORE THAN ONE FILING (different `doc_id`s):
+- "Compare AMD and Boeing FY2022 revenue" → two parallel calls in one
+  response, one per filing.
+- "How do MGIC, Radian, and Essent compare on FY2024 loss ratios?" →
+  three parallel calls in one response.
+
+**Only do a second or third round** if a critical specific figure is
+demonstrably absent from the first round's segments (and you have
+verified by checking carefully). Do NOT issue a second call that
+rephrases the same underlying question — auto-query likely converges
+on the same search terms and you'll get the same content back.
+Instead, derive what you can from the first round's segments before
+deciding another round is needed.
 </retrieval>
 
 <answer_style>
