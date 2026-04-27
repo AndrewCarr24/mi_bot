@@ -14,8 +14,9 @@ have all been removed.
 ```
 agent_fin/
 ├── data/
-│   ├── parsed/                # source markdowns (TICKER_FORM_PERIOD.md)
-│   └── dsrag_store/           # persisted KB (chunks, vectors, metadata)
+│   ├── parsed/                # source markdowns (TICKER_FORM_PERIOD.md) — tracked
+│   ├── dsrag_store/           # persisted KB (chunks, vectors, metadata) — gitignored, rebuild
+│   └── raw/                   # SEC HTML downloaded from EDGAR — gitignored, refetch
 ├── pipelines/
 │   ├── build_kb.py            # parsed/*.md → dsrag_store/*
 │   ├── bedrock_embedding.py   # Titan v2 embedder (registered with dsRAG)
@@ -33,12 +34,34 @@ agent_fin/
 │       ├── streaming.py       # public async iterator interface
 │       └── workflow/          # LangGraph: router → cache → agent → tools
 ├── eval/
-│   ├── run_eval.py            # FinanceBench-style grader
+│   ├── run_eval.py            # FinanceBench-style grader (CSV-driven)
 │   ├── pricing.py
 │   ├── usage.py
-│   └── questions_financebench.csv
-├── scripts/probe_q13_q14.py   # retrieval-vs-harness diagnostic
+│   └── results/               # per-run CSVs of question / answer / correctness
 └── run_app.py                 # one-shot CLI runner
+```
+
+The KB and the raw SEC HTML are **not in git** — at the current corpus
+size the vector store is ~350 MB (over GitHub's 100 MB hard per-file
+limit) and the raw HTML is ~1.3 GB. Both are regenerable from
+`data/parsed/*.md` (which IS tracked, ~22 MB across 72 markdowns).
+
+To rebuild the KB on a fresh checkout:
+
+```bash
+cd agent_fin
+uv sync --extra pipelines    # add Docling + sec-edgar-downloader
+set -a && . .env && set +a
+python pipelines/build_kb.py # ~45-60 min for the current 72-doc corpus
+```
+
+To re-fetch and re-parse from scratch (only needed if `data/parsed/`
+also gets cleaned):
+
+```bash
+python pipelines/fetchers.py # ~10 min, populates data/raw/
+python pipelines/parsers.py  # ~20 min, populates data/parsed/
+python pipelines/build_kb.py # ~45-60 min
 ```
 
 ## Setup

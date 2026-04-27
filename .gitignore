@@ -29,6 +29,15 @@ credentials.*
 # (it's append-only and noisy). Comment this out if you want to track it.
 eval/logs.json
 
+# KB artifacts — regenerable from data/parsed/*.md via pipelines/build_kb.py.
+# Excluded because the vector store pkl alone is ~350 MB at our current
+# corpus size (over GitHub's 100 MB hard per-file limit).
+data/dsrag_store/
+
+# Raw SEC HTML fetched from EDGAR — regenerable via pipelines/fetchers.py.
+# ~1.3 GB at current corpus size; we keep the parsed markdowns instead.
+data/raw/
+
 # Chainlit auto-creates language packs on first run; bulk + regenerable.
 # We keep .chainlit/config.toml for project-specific overrides.
 .chainlit/translations/

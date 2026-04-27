@@ -28,3 +28,11 @@ dependencies = [
     "pydantic>=2.0.0",
     "pydantic-settings>=2.0.0",
 ]
+
+[project.optional-dependencies]
+# Build-time only: needed when (re)fetching from EDGAR or rebuilding the KB.
+# Not in the runtime image — install via `uv sync --extra pipelines`.
+pipelines = [
+    "sec-edgar-downloader>=5.0.0",
+    "docling>=2.0.0",
+]
