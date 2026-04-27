@@ -50,6 +50,25 @@ the returned content.
 A single tool call is usually sufficient. Only call `dsrag_kb` again if
 the first response clearly lacks a specific figure the question requires
 (and only after checking carefully that it isn't already present).
+
+When a question genuinely requires content from MORE THAN ONE FILING
+(i.e. different `doc_id`s), emit one `dsrag_kb` call per filing in a
+single response — the runtime dispatches them in parallel, saving a
+sequential round-trip. Parallel-call examples:
+- "Compare AMD and Boeing FY2022 revenue" → two parallel calls, one
+  with doc_id=AMD_10-K_2022-12-31, one with doc_id=BA_10-K_2022-12-31.
+- "How do MGIC and Radian's FY2024 loss ratios differ?" → two parallel
+  calls (one per company's FY2024 10-K).
+
+Use a SINGLE call (not parallel) for these — auto-query inside
+`dsrag_kb` decomposes the question into multiple search terms
+internally, and 10-Ks include prior-year comparatives in their own
+tables:
+- "How did Boeing's revenue change from FY2021 to FY2022?" → one call
+  to BA_10-K_2022-12-31; the comparison table includes both years.
+- "What was MGIC's FY2024 net premiums earned and net loss ratio?" →
+  one call (multiple metrics, same filing).
+- "Walk me through Boeing's FY2022 segment performance" → one call.
 </retrieval>
 
 <answer_style>
