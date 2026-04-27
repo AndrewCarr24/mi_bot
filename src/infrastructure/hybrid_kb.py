@@ -1,0 +1,218 @@
+"""Hybrid retrieval KB: vector (cosine) + BM25 (lexical) with RRF fusion.
+
+Drop-in subclass of dsRAG's `KnowledgeBase`. Overrides `_search` to combine
+two parallel rankings — semantic and lexical — via Reciprocal Rank Fusion.
+
+Why this exists
+---------------
+Pure semantic retrieval (the default in dsRAG with `BasicVectorDB`) blurs
+queries against a cloud of related concepts. For SEC filings, technical
+phrases like "loss and loss adjustment expense ratio" or "consolidated
+statements of operations" carry a lot of signal that BM25 surfaces well
+(rare phrase → high IDF) but cosine distance can wash out. A hybrid
+approach gives both signals a vote.
+
+Also fixes a quiet bug: dsRAG's `BasicVectorDB.search` accepts
+`metadata_filter` as an argument but never applies it (it's only honored
+by the cloud backends — Milvus, Postgres, Qdrant, etc.). That meant the
+`doc_id` filter we've been passing through `dsrag_kb` has been a no-op
+on retrieval — explaining why we sometimes saw chunks from filings the
+agent didn't ask for. This subclass applies the filter ourselves.
+
+Build cost
+----------
+At KB load, we tokenize every chunk and build a BM25Okapi index in
+memory (~5-15s for our ~35K chunk corpus). This happens inside the
+lazy-eager warmup, so it's hidden behind the first user request.
+
+Per-query cost
+--------------
+~50-100ms additional for BM25 scoring + RRF merge. Negligible vs the
+LLM round-trips on either side.
+"""
+
+from __future__ import annotations
+
+import re
+
+import numpy as np
+from loguru import logger
+from rank_bm25 import BM25Okapi
+from sklearn.metrics.pairwise import cosine_similarity
+
+from dsrag.database.vector.types import VectorSearchResult
+from dsrag.knowledge_base import KnowledgeBase
+
+
+# --- tokenization ----------------------------------------------------------
+
+# Simple, robust tokenizer: lowercase + word characters only. Numbers like
+# "1.5" split into "1", "5", but the BM25 signal we care about is
+# multi-word technical phrases ("loss ratio", "consolidated statements
+# of operations"), not exact numerical values. Easy to swap later.
+_TOKEN_RE = re.compile(r"\w+")
+
+
+def _tokenize(text: str) -> list[str]:
+    return _TOKEN_RE.findall(text.lower())
+
+
+# --- metadata_filter support (dsRAG's filter dict spec) --------------------
+
+def _matches_filter(md: dict, filt: dict | None) -> bool:
+    """Apply a dsRAG-shaped MetadataFilter to a single metadata dict.
+
+    Supports the operators dsRAG documents on its `MetadataFilter` TypedDict:
+    equals, not_equals, in, not_in, greater_than, less_than,
+    greater_than_equals, less_than_equals.
+    """
+    if filt is None:
+        return True
+    field, op, val = filt["field"], filt["operator"], filt["value"]
+    actual = md.get(field)
+    if op == "equals":
+        return actual == val
+    if op == "not_equals":
+        return actual != val
+    if op == "in":
+        return actual in val
+    if op == "not_in":
+        return actual not in val
+    if actual is None:
+        return False
+    if op == "greater_than":
+        return actual > val
+    if op == "less_than":
+        return actual < val
+    if op == "greater_than_equals":
+        return actual >= val
+    if op == "less_than_equals":
+        return actual <= val
+    return True  # unknown op → don't drop
+
+
+# --- the hybrid KB ---------------------------------------------------------
+
+class HybridKnowledgeBase(KnowledgeBase):
+    """Vector + BM25 hybrid retrieval, drop-in for KnowledgeBase."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._build_bm25_index()
+
+    def _build_bm25_index(self) -> None:
+        """Build a BM25 index parallel to vector_db.metadata.
+
+        We rely on `vector_db.metadata[i]["chunk_text"]` being the raw
+        chunk text (not the embed-time text — those are different; see
+        the cosine-1.0 verification work earlier). BM25 scores the same
+        text the chunk_db.get_chunk_text would return.
+        """
+        chunks = self.vector_db.metadata
+        if not chunks:
+            logger.warning("HybridKnowledgeBase: vector_db has no chunks")
+            self._bm25 = None
+            return
+        logger.info(
+            f"HybridKnowledgeBase: building BM25 over {len(chunks):,} chunks"
+        )
+        corpus_tokens = [_tokenize(m["chunk_text"]) for m in chunks]
+        self._bm25 = BM25Okapi(corpus_tokens)
+        logger.info("HybridKnowledgeBase: BM25 ready")
+
+    def _filtered_indices(self, metadata_filter: dict | None) -> np.ndarray:
+        """Return numpy array of indices into vectors/metadata that match
+        the filter. Without a filter, returns all indices."""
+        n = len(self.vector_db.metadata)
+        if metadata_filter is None:
+            return np.arange(n, dtype=int)
+        return np.fromiter(
+            (i for i, m in enumerate(self.vector_db.metadata)
+             if _matches_filter(m, metadata_filter)),
+            dtype=int,
+        )
+
+    def _vector_search_filtered(
+        self, query_vector, top_k: int, metadata_filter: dict | None
+    ) -> list[VectorSearchResult]:
+        """Cosine search with filter applied. Replaces BasicVectorDB.search,
+        which silently drops the filter."""
+        idx = self._filtered_indices(metadata_filter)
+        if len(idx) == 0:
+            return []
+        vectors = np.asarray(self.vector_db.vectors)
+        # Cosine over the filtered subset only — both correct (filter
+        # works) and faster than scoring all vectors when filtered.
+        sims = cosine_similarity([query_vector], vectors[idx])[0]
+        # Take top_k by descending similarity
+        local_top = np.argsort(-sims)[: int(top_k)]
+        return [
+            VectorSearchResult(
+                doc_id=self.vector_db.metadata[int(idx[li])].get("doc_id"),
+                vector=None,
+                metadata=self.vector_db.metadata[int(idx[li])],
+                similarity=float(sims[li]),
+            )
+            for li in local_top
+        ]
+
+    def _bm25_search_filtered(
+        self, query: str, top_k: int, metadata_filter: dict | None
+    ) -> list[VectorSearchResult]:
+        if self._bm25 is None:
+            return []
+        idx = self._filtered_indices(metadata_filter)
+        if len(idx) == 0:
+            return []
+        scores = self._bm25.get_scores(_tokenize(query))
+        scores_subset = scores[idx]
+        local_top = np.argsort(-scores_subset)[: int(top_k)]
+        return [
+            VectorSearchResult(
+                doc_id=self.vector_db.metadata[int(idx[li])].get("doc_id"),
+                vector=None,
+                metadata=self.vector_db.metadata[int(idx[li])],
+                similarity=float(scores_subset[li]),  # raw BM25 score
+            )
+            for li in local_top
+        ]
+
+    def _search(self, query: str, top_k: int, metadata_filter=None) -> list:
+        """Hybrid retrieval: vector + BM25, fused via RRF.
+
+        Each retriever returns top-200 candidates. RRF (k=60) merges them
+        into a single ranked list, then we cut to top_k. The reranker
+        (NoReranker by default) runs at the end, matching dsRAG's
+        original `_search` contract.
+        """
+        # Vector path (with filter applied, since BasicVectorDB ignores it)
+        query_vector = self._get_embeddings([query], input_type="query")[0]
+        vec_hits = self._vector_search_filtered(query_vector, 200, metadata_filter)
+
+        # BM25 path
+        bm25_hits = self._bm25_search_filtered(query, 200, metadata_filter)
+
+        # RRF fusion
+        RRF_K = 60
+        scores: dict[tuple[str, int], float] = {}
+        first_seen: dict[tuple[str, int], VectorSearchResult] = {}
+
+        def add(hits: list[VectorSearchResult]) -> None:
+            for rank, h in enumerate(hits):
+                # VectorSearchResult is a TypedDict (dict at runtime),
+                # so use [] access, not attribute access.
+                md = h["metadata"]
+                key = (md["doc_id"], md["chunk_index"])
+                scores[key] = scores.get(key, 0.0) + 1.0 / (RRF_K + rank)
+                if key not in first_seen:
+                    first_seen[key] = h
+
+        add(vec_hits)
+        add(bm25_hits)
+
+        merged = sorted(scores.items(), key=lambda kv: -kv[1])[: int(top_k)]
+        results = [first_seen[k] for k, _ in merged]
+
+        # Run any configured reranker (NoReranker is a no-op; preserves
+        # the same hook point as dsRAG's original _search).
+        return self.reranker.rerank_search_results(query, results)

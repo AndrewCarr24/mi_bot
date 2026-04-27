@@ -20,6 +20,8 @@ import sys
 from pathlib import Path
 from typing import List
 
+from langsmith import traceable
+from langsmith.wrappers import wrap_openai
 from loguru import logger
 from pydantic import BaseModel
 
@@ -92,18 +94,23 @@ def _rewrite_kb_paths_if_needed() -> None:
 
 
 def get_kb():
-    """Load the persisted KB. NoReranker is baked into the KB metadata at
-    build time, so no runtime swap needed."""
+    """Load the persisted KB wrapped in HybridKnowledgeBase.
+
+    HybridKnowledgeBase subclasses dsRAG's KnowledgeBase and overrides
+    `_search` to combine semantic (cosine) and lexical (BM25) retrieval
+    via RRF fusion. It also applies the metadata_filter ourselves —
+    BasicVectorDB silently drops it.
+    """
     global _kb
     if _kb is not None:
         return _kb
     _ensure_imports_registered()
     _configure_deepseek_as_openai()
     _rewrite_kb_paths_if_needed()
-    from dsrag.knowledge_base import KnowledgeBase
+    from src.infrastructure.hybrid_kb import HybridKnowledgeBase
 
-    logger.info(f"Loading dsRAG KB '{DSRAG_KB_ID}' from {DSRAG_STORE_DIR}")
-    _kb = KnowledgeBase(
+    logger.info(f"Loading hybrid KB '{DSRAG_KB_ID}' from {DSRAG_STORE_DIR}")
+    _kb = HybridKnowledgeBase(
         DSRAG_KB_ID,
         storage_directory=str(DSRAG_STORE_DIR),
         exists_ok=True,
@@ -156,10 +163,15 @@ def _get_auto_query_client():
         base_url=os.environ.get("DSRAG_OPENAI_BASE_URL", "https://api.deepseek.com/v1"),
         timeout=60.0,
     )
+    # Wrap so the auto-query LLM round-trip (prompt, completion, tokens)
+    # appears in LangSmith as a child run when LANGSMITH_TRACING=true.
+    # No-op when tracing is disabled.
+    oa = wrap_openai(oa)
     _auto_query_client = instructor.from_openai(oa, mode=instructor.Mode.TOOLS)
     return _auto_query_client
 
 
+@traceable(run_type="chain", name="auto_query")
 def get_search_queries(
     user_input: str,
     auto_query_guidance: str = AUTO_QUERY_GUIDANCE,
