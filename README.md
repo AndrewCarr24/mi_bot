@@ -13,55 +13,82 @@ have all been removed.
 
 ```
 agent_fin/
-├── data/
-│   ├── parsed/                # source markdowns (TICKER_FORM_PERIOD.md) — tracked
-│   ├── dsrag_store/           # persisted KB (chunks, vectors, metadata) — gitignored, rebuild
-│   └── raw/                   # SEC HTML downloaded from EDGAR — gitignored, refetch
-├── pipelines/
-│   ├── build_kb.py            # parsed/*.md → dsrag_store/*
-│   ├── bedrock_embedding.py   # Titan v2 embedder (registered with dsRAG)
-│   ├── fetchers.py            # SEC EDGAR fetch helpers
-│   └── parsers.py             # filing → markdown
+├── data → data.mi             # symlink (gitignored). Code reads from `data/...`
+├── data.mi/                   # production MI corpus
+│   ├── parsed/                # 72 markdowns — TRACKED in git
+│   ├── dsrag_store/           # gitignored, rebuild via pipelines/build_kb.py
+│   └── raw/                   # gitignored, refetch via pipelines/fetchers.py
+├── data.financebench/         # regression-eval corpus — entirely gitignored, dev-only
+│   ├── parsed/
+│   ├── dsrag_store/
+│   └── raw/
+├── pipelines/                 # KB build pipeline (fetch → parse → index)
 ├── src/
-│   ├── config.py              # pydantic settings (provider, models, memory)
+│   ├── config.py
 │   ├── domain/prompts.py
 │   ├── infrastructure/
-│   │   ├── catalog.py         # data/parsed/ → filings catalog for the prompt
-│   │   ├── dsrag_kb.py        # KB singleton + auto-query helper
+│   │   ├── catalog.py         # reads data/parsed/ via symlink
+│   │   ├── dsrag_kb.py        # KB singleton + hybrid retrieval + auto-query
+│   │   ├── hybrid_kb.py       # vector + BM25 + RRF subclass
 │   │   ├── memory.py          # AgentCore Memory hooks (optional)
-│   │   └── model.py           # ChatBedrockConverse | ChatDeepSeek factory
+│   │   └── model.py
 │   └── application/orchestrator/
-│       ├── streaming.py       # public async iterator interface
+│       ├── streaming.py
 │       └── workflow/          # LangGraph: router → cache → agent → tools
 ├── eval/
 │   ├── run_eval.py            # FinanceBench-style grader (CSV-driven)
-│   ├── pricing.py
-│   ├── usage.py
-│   └── results/               # per-run CSVs of question / answer / correctness
+│   └── results/               # per-run CSVs
+├── scripts/
+│   └── switch_kb.sh           # repoint `data` symlink: mi | financebench
 └── run_app.py                 # one-shot CLI runner
 ```
 
-The KB and the raw SEC HTML are **not in git** — at the current corpus
-size the vector store is ~350 MB (over GitHub's 100 MB hard per-file
-limit) and the raw HTML is ~1.3 GB. Both are regenerable from
-`data/parsed/*.md` (which IS tracked, ~22 MB across 72 markdowns).
+### Two KBs side-by-side
 
-To rebuild the KB on a fresh checkout:
+We keep two corpora at stable paths so switching never requires a
+risky `mv data data.bak` dance:
+
+| Path | What it holds | When to use |
+|---|---|---|
+| `data.mi/` | 72 mortgage-insurance filings (6 companies × 12 quarters) | production agent |
+| `data.financebench/` | 38 mixed filings (AMD, AXP, BA, ACT) | regression eval (`eval/run_eval.py`) |
+
+`data` is a symlink that points at one of them. To switch:
+
+```bash
+./scripts/switch_kb.sh mi             # production (default)
+./scripts/switch_kb.sh financebench   # for the regression eval
+```
+
+Code reads from `data/parsed/`, `data/dsrag_store/` etc. unchanged —
+the symlink resolves transparently.
+
+### What's in git, what isn't
+
+- ✓ `data.mi/parsed/*.md` — 72 markdowns, ~22 MB, TRACKED. Saves ~30 min
+  of fetch+parse on a fresh checkout.
+- ✗ `data.mi/dsrag_store/` — gitignored. Vector pkl is ~350 MB, over
+  GitHub's 100 MB hard per-file limit. Regenerable.
+- ✗ `data.mi/raw/` — gitignored. ~1.3 GB of SEC HTML, regenerable via
+  `pipelines/fetchers.py`.
+- ✗ `data.financebench/` — entirely gitignored. Dev/eval-only.
+
+### Rebuilding from a fresh checkout
 
 ```bash
 cd agent_fin
-uv sync --extra pipelines    # add Docling + sec-edgar-downloader
+uv sync --extra pipelines       # adds Docling + sec-edgar-downloader
 set -a && . .env && set +a
-python pipelines/build_kb.py # ~45-60 min for the current 72-doc corpus
+./scripts/switch_kb.sh mi       # ensures data → data.mi
+python pipelines/build_kb.py    # ~45-60 min for 72 docs
 ```
 
-To re-fetch and re-parse from scratch (only needed if `data/parsed/`
-also gets cleaned):
+Re-fetch + re-parse from scratch (only if `data.mi/parsed/` is gone):
 
 ```bash
-python pipelines/fetchers.py # ~10 min, populates data/raw/
-python pipelines/parsers.py  # ~20 min, populates data/parsed/
-python pipelines/build_kb.py # ~45-60 min
+python pipelines/fetchers.py    # populates data.mi/raw/
+python pipelines/parsers.py     # populates data.mi/parsed/
+python pipelines/build_kb.py    # populates data.mi/dsrag_store/
 ```
 
 ## Setup

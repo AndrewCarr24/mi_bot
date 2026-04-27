@@ -27,5 +27,14 @@ credentials.*
 eval/results/
 eval/logs.json
 
+# FinanceBench regression corpus is dev/eval-only — never ship it in
+# the production image. The `data` symlink (resolves to data.mi) is
+# preserved by COPY and resolves to data.mi/ inside the container.
+data.financebench/
+
+# raw SEC HTML and the FB store binary are not needed at runtime
+# inside the image (the active corpus already has its dsrag_store).
+data.mi/raw/
+
 # Docs the runtime doesn't need
 README.md
