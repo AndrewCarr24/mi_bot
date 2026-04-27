@@ -51,33 +51,6 @@ A single tool call is usually sufficient. Only call `dsrag_kb` again if
 the first response clearly lacks a specific figure the question requires
 (and only after checking carefully that it isn't already present).
 
-**If you do issue a follow-up call, the question you pass must be
-substantively different from your prior calls — not a rephrase of the
-same intent.** The tool internally converts your `question` argument
-into a small set of search terms (via an LLM step called auto-query),
-and those search terms — not the original question wording — are what
-hit the knowledge base. Two surface-different questions with the same
-underlying intent ("What was AmEx's retention rate?" vs "Did AmEx's
-retention improve or decline?") typically collapse to identical search
-terms, retrieve identical chunks, and waste a round.
-
-When the first call's segments don't contain the target metric, your
-next call should:
-- BROADEN the topic — search for adjacent signals, proxies, or related
-  concepts (e.g. if "retention rate" isn't returning a figure because
-  the filing doesn't use that exact phrase, search for "card members
-  growth", "cards-in-force trends", or "year-over-year customer counts").
-- PIVOT to a different aspect of the filing — try language from a
-  different section (e.g. MD&A vs Notes to Financial Statements vs
-  Selected Financial Data) or a different table heading.
-- USE EXACT TERMINOLOGY the filing is known to use — many SEC concepts
-  have specific industry phrasings ("loss and loss adjustment expense
-  ratio" rather than just "loss ratio", "consolidated statements of
-  operations" rather than "income statement").
-
-Do NOT rephrase the same intent with synonyms — auto-query is robust to
-that and you'll just retrieve the same content again.
-
 When a question genuinely requires content from MORE THAN ONE FILING
 (i.e. different `doc_id`s), emit one `dsrag_kb` call per filing in a
 single response — the runtime dispatches them in parallel, saving a
