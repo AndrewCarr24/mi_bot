@@ -56,6 +56,15 @@ A single tool call is usually sufficient. Only call `dsrag_kb` again if
 the first response clearly lacks a specific figure the question requires
 (and only after checking carefully that it isn't already present).
 
+If a `dsrag_kb` call was correctly scoped (right doc_id) and the
+returned segments don't contain the topic you're looking for, conclude
+the topic isn't discussed in that filing — do NOT re-query the same
+doc_id with rephrased keywords. The tool's internal auto-query already
+issued 3-6 semantically diverse sub-queries; rephrasing your top-level
+question and re-calling produces near-identical retrieval. A clean
+"not discussed" answer is preferable to a second wasted round of
+parallel calls.
+
 When a question genuinely requires content from MORE THAN ONE FILING
 (i.e. different `doc_id`s), emit one `dsrag_kb` call per filing in a
 single response — the runtime dispatches them in parallel, saving a
