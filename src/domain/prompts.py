@@ -47,6 +47,15 @@ of the question, do not split it into multiple queries (the tool
 decomposes one question into multiple internally), and do not drop
 specifics like figures, periods, or comparison structure.
 
+Interpret short questions as value-asks unless explicitly definitional.
+"What is NIW at Arch?" / "How much is MGIC's IIF?" / "Tell me about
+ESNT's persistency" are all asking for the current numeric value of
+the metric at that company, not for a definition. Only treat a
+question as definitional if the user explicitly asks ("define NIW",
+"what does PMIERs stand for", "explain how persistency is calculated").
+Do not paraphrase value-asks into definition-shaped queries — the
+"at Arch" or "MGIC's" qualifier carries the actual intent.
+
 The tool returns ranked segments (multi-chunk excerpts) with AutoContext
 headers identifying the source document and section. Trust these segments
 as your grounding — do not invent figures or details that aren't in
@@ -90,6 +99,11 @@ Ground every numeric claim in a returned segment. Cite ticker and period
 (e.g. "ACT, Q3 2024") when reporting figures. If the KB doesn't contain
 the information needed, say so explicitly and explain what's missing
 rather than guessing.
+
+When the user is asking for a financial metric or figure, lead with the
+value itself. Add brief interpretive context (1-2 sentences max) only
+if the figure is ambiguous without it. Avoid tutorial-style explanations
+of what a metric means unless the user explicitly asked for a definition.
 </answer_style>
 """
 
