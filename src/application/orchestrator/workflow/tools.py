@@ -6,6 +6,7 @@ only gets surfaced when AgentCore Memory is configured via MEMORY_ID.
 """
 
 import json
+import os
 from typing import Annotated, Literal
 
 from langchain_core.runnables import RunnableConfig
@@ -13,6 +14,13 @@ from langchain_core.tools import InjectedToolArg, tool
 from loguru import logger
 
 from src.config import settings
+
+
+# Per-thread set of (doc_id, chunk_index) tuples we've already returned
+# in earlier dsrag_kb calls within the same conversation. Used when
+# DEDUP_CHUNKS=true to keep subsequent calls from re-pulling the same
+# content. Keyed by thread_id from RunnableConfig.
+_SEEN_CHUNKS_PER_THREAD: dict[str, set] = {}
 
 
 @tool
@@ -57,7 +65,11 @@ async def memory_retrieval_tool(
 
 
 @tool
-def dsrag_kb(question: str, doc_id: str | None = None) -> str:
+def dsrag_kb(
+    question: str,
+    doc_id: str | None = None,
+    config: Annotated[RunnableConfig, InjectedToolArg] = None,
+) -> str:
     """
     Semantic search over SEC filings via a dsRAG knowledge base. Pass the
     user's question verbatim — the tool decomposes it into multiple
@@ -83,29 +95,75 @@ def dsrag_kb(question: str, doc_id: str | None = None) -> str:
     Returns:
         JSON list of {score, doc_id, content} segments, highest score first.
     """
-    from src.infrastructure.dsrag_kb import get_kb, get_search_queries
+    from src.infrastructure.dsrag_kb import (
+        get_kb,
+        get_search_queries,
+        smart_rrf_alpha,
+    )
 
     try:
         queries = get_search_queries(question, max_queries=6)
     except Exception as e:
         logger.warning(f"dsrag_kb auto-query failed: {e}")
-        # Fall back to the verbatim question if query expansion errors.
         queries = [question]
-    logger.info(
-        f"dsrag_kb invoked: question={question[:80]!r} doc_id={doc_id!r} "
-        f"expanded_to={queries}"
-    )
+
     kb = get_kb()
     metadata_filter = (
         {"field": "doc_id", "operator": "equals", "value": doc_id}
         if doc_id
         else None
     )
+
+    # --- env-var-driven A/B knobs (set per call, reset after) -------------
+    thread_id = ((config or {}).get("configurable") or {}).get("thread_id", "_default")
+
+    # Chunk dedup: when DEDUP_CHUNKS=true, exclude chunks already
+    # returned in earlier calls in this thread.
+    dedup_on = os.environ.get("DEDUP_CHUNKS", "false").lower() == "true"
+    seen = _SEEN_CHUNKS_PER_THREAD.setdefault(thread_id, set()) if dedup_on else None
+    kb._excluded_chunks = seen if dedup_on else None
+
+    # RRF alpha: BM25 weight in fusion. Static float or "smart" (DeepSeek
+    # picks per question). Default 0.4 (semantic-favored) was best on the
+    # FinanceBench eval — see eval/results/alpha_sweep_*.json. BM25 acts
+    # as a tiebreaker rather than a co-equal vote, which suits the
+    # conceptual question style most users ask.
+    alpha_raw = os.environ.get("RRF_ALPHA", "0.4").strip()
+    if alpha_raw.lower() == "smart":
+        alpha = smart_rrf_alpha(question)
+        logger.info(f"dsrag_kb: smart α={alpha:.2f} for question {question[:60]!r}")
+    else:
+        try:
+            alpha = max(0.0, min(1.0, float(alpha_raw)))
+        except ValueError:
+            alpha = 0.5
+    kb._rrf_alpha = alpha
+
+    logger.info(
+        f"dsrag_kb invoked: question={question[:80]!r} doc_id={doc_id!r} "
+        f"expanded_to={queries} α={alpha:.2f} dedup={dedup_on}"
+    )
+
     try:
         results = kb.query(queries, metadata_filter=metadata_filter)
     except Exception as e:
         logger.warning(f"dsrag_kb query failed: {e}")
         return json.dumps({"error": str(e)})
+    finally:
+        # Reset per-call attrs so a stale value can't leak into the next call.
+        kb._excluded_chunks = None
+        kb._rrf_alpha = 0.4
+
+    # If dedup is on, mark every chunk that contributed to a returned
+    # segment as "seen" so it's excluded from future calls in this thread.
+    if dedup_on and seen is not None:
+        for r in results:
+            doc = r.get("doc_id", "")
+            cs, ce = r.get("chunk_start"), r.get("chunk_end")
+            if cs is not None and ce is not None:
+                for ci in range(int(cs), int(ce) + 1):
+                    seen.add((doc, ci))
+
     payload = [
         {
             "score": round(float(r.get("score", 0.0) or 0.0), 3),

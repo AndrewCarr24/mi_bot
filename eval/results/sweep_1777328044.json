@@ -1,0 +1,122 @@
+[
+  {
+    "label": "1a_semantic_no-rerank_top200",
+    "config": {
+      "label": "1a_semantic_no-rerank_top200",
+      "bm25": "false",
+      "reranker": "",
+      "top_k": "200"
+    },
+    "accuracy": 0.8261,
+    "n_correct": 19,
+    "cost_usd": 0.071156,
+    "run_seconds": 491.89,
+    "avg_calls": 1.391304347826087,
+    "wall_seconds": 494.7576768398285
+  },
+  {
+    "label": "1b_semantic_no-rerank_top50",
+    "config": {
+      "label": "1b_semantic_no-rerank_top50",
+      "bm25": "false",
+      "reranker": "",
+      "top_k": "50"
+    },
+    "accuracy": 0.8261,
+    "n_correct": 19,
+    "cost_usd": 0.06693,
+    "run_seconds": 486.42,
+    "avg_calls": 1.3478260869565217,
+    "wall_seconds": 488.45538687705994
+  },
+  {
+    "label": "2a_hybrid_no-rerank_top200",
+    "config": {
+      "label": "2a_hybrid_no-rerank_top200",
+      "bm25": "true",
+      "reranker": "",
+      "top_k": "200"
+    },
+    "accuracy": 0.913,
+    "n_correct": 21,
+    "cost_usd": 0.122151,
+    "run_seconds": 624.64,
+    "avg_calls": 2.391304347826087,
+    "wall_seconds": 626.6405622959137
+  },
+  {
+    "label": "2b_hybrid_no-rerank_top50",
+    "config": {
+      "label": "2b_hybrid_no-rerank_top50",
+      "bm25": "true",
+      "reranker": "",
+      "top_k": "50"
+    },
+    "accuracy": 0.5652,
+    "n_correct": 13,
+    "cost_usd": 0.226224,
+    "run_seconds": 1045.07,
+    "avg_calls": 4.695652173913044,
+    "wall_seconds": 1047.0895700454712
+  },
+  {
+    "label": "3a_semantic_rerank_top200",
+    "config": {
+      "label": "3a_semantic_rerank_top200",
+      "bm25": "false",
+      "reranker": "flashrank",
+      "top_k": "200"
+    },
+    "accuracy": 0.8696,
+    "n_correct": 20,
+    "cost_usd": 0.079338,
+    "run_seconds": 716.66,
+    "avg_calls": 2.3043478260869565,
+    "wall_seconds": 720.000883102417
+  },
+  {
+    "label": "3b_semantic_rerank_top50",
+    "config": {
+      "label": "3b_semantic_rerank_top50",
+      "bm25": "false",
+      "reranker": "flashrank",
+      "top_k": "50"
+    },
+    "accuracy": 0.8696,
+    "n_correct": 20,
+    "cost_usd": 0.076071,
+    "run_seconds": 633.64,
+    "avg_calls": 2.782608695652174,
+    "wall_seconds": 636.6926507949829
+  },
+  {
+    "label": "4a_hybrid_rerank_top200",
+    "config": {
+      "label": "4a_hybrid_rerank_top200",
+      "bm25": "true",
+      "reranker": "flashrank",
+      "top_k": "200"
+    },
+    "accuracy": 0.8261,
+    "n_correct": 19,
+    "cost_usd": 0.092218,
+    "run_seconds": 710.19,
+    "avg_calls": 2.260869565217391,
+    "wall_seconds": 712.7522730827332
+  },
+  {
+    "label": "4b_hybrid_rerank_top50",
+    "config": {
+      "label": "4b_hybrid_rerank_top50",
+      "bm25": "true",
+      "reranker": "flashrank",
+      "top_k": "50"
+    },
+    "accuracy": 0.8261,
+    "n_correct": 19,
+    "cost_usd": 0.090783,
+    "run_seconds": 634.72,
+    "avg_calls": 2.260869565217391,
+    "wall_seconds": 637.985387802124
+  }
+]

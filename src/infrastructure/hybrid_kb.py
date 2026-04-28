@@ -33,6 +33,7 @@ LLM round-trips on either side.
 
 from __future__ import annotations
 
+import os
 import re
 
 import numpy as np
@@ -98,7 +99,26 @@ class HybridKnowledgeBase(KnowledgeBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._build_bm25_index()
+        # Env-var toggles for A/B experiments:
+        #   HYBRID_BM25=false   → skip BM25; pure semantic retrieval
+        #   RETRIEVAL_TOP_K=N   → candidates per retriever (default 200)
+        # Per-call attributes (set by the dsrag_kb tool):
+        #   _excluded_chunks    set of (doc_id, chunk_index) to omit
+        #                       from candidates BEFORE RRF/RSE
+        #   _rrf_alpha          BM25 weight in RRF (0..1, default 0.5
+        #                       = balanced standard RRF)
+        self._use_bm25 = os.environ.get("HYBRID_BM25", "true").lower() != "false"
+        self._top_k_per_retriever = int(os.environ.get("RETRIEVAL_TOP_K", "200"))
+        self._excluded_chunks: set | None = None
+        # 0.4 = semantic-favored. Was 0.5 (balanced standard RRF); the
+        # alpha sweep on FinanceBench (see eval/results/alpha_sweep_*.json)
+        # showed 0.4 strictly dominates 0.5 on accuracy, latency, and cost.
+        self._rrf_alpha: float = 0.4
+        if self._use_bm25:
+            self._build_bm25_index()
+        else:
+            logger.info("HybridKnowledgeBase: BM25 disabled (HYBRID_BM25=false)")
+            self._bm25 = None
 
     def _build_bm25_index(self) -> None:
         """Build a BM25 index parallel to vector_db.metadata.
@@ -177,41 +197,66 @@ class HybridKnowledgeBase(KnowledgeBase):
             for li in local_top
         ]
 
-    def _search(self, query: str, top_k: int, metadata_filter=None) -> list:
-        """Hybrid retrieval: vector + BM25, fused via RRF.
+    def _drop_excluded(self, hits: list[VectorSearchResult]) -> list[VectorSearchResult]:
+        """Remove hits whose (doc_id, chunk_index) is in self._excluded_chunks."""
+        if not self._excluded_chunks:
+            return hits
+        excl = self._excluded_chunks
+        return [
+            h for h in hits
+            if (h["metadata"]["doc_id"], h["metadata"]["chunk_index"]) not in excl
+        ]
 
-        Each retriever returns top-200 candidates. RRF (k=60) merges them
-        into a single ranked list, then we cut to top_k. The reranker
-        (NoReranker by default) runs at the end, matching dsRAG's
-        original `_search` contract.
+    def _search(self, query: str, top_k: int, metadata_filter=None) -> list:
+        """Hybrid retrieval: vector (+ optional BM25), optionally fused via RRF.
+
+        Each retriever returns up to `self._top_k_per_retriever` candidates
+        (env: RETRIEVAL_TOP_K, default 200). When BM25 is on, RRF merges
+        the two ranked lists with weighting controlled by
+        `self._rrf_alpha` (BM25 weight, 0..1; default 0.4 — semantic
+        dominant with BM25 as tiebreaker; 0.5 is unweighted standard
+        RRF). When `self._excluded_chunks` is set, those chunks are
+        dropped from candidates before RRF/RSE — used to dedup chunks
+        across multiple tool calls in one conversation thread.
         """
+        N = self._top_k_per_retriever
+
         # Vector path (with filter applied, since BasicVectorDB ignores it)
         query_vector = self._get_embeddings([query], input_type="query")[0]
-        vec_hits = self._vector_search_filtered(query_vector, 200, metadata_filter)
+        vec_hits = self._drop_excluded(
+            self._vector_search_filtered(query_vector, N, metadata_filter)
+        )
 
-        # BM25 path
-        bm25_hits = self._bm25_search_filtered(query, 200, metadata_filter)
+        if self._use_bm25:
+            bm25_hits = self._drop_excluded(
+                self._bm25_search_filtered(query, N, metadata_filter)
+            )
 
-        # RRF fusion
-        RRF_K = 60
-        scores: dict[tuple[str, int], float] = {}
-        first_seen: dict[tuple[str, int], VectorSearchResult] = {}
+            # Weighted RRF: score(d) = α * 1/(k + rank_BM25)
+            #                       + (1-α) * 1/(k + rank_vec)
+            # α = 0.5 (default) is equivalent to standard unweighted RRF
+            # (constant scale factor doesn't affect the ranking).
+            RRF_K = 60
+            alpha = self._rrf_alpha
+            scores: dict[tuple[str, int], float] = {}
+            first_seen: dict[tuple[str, int], VectorSearchResult] = {}
 
-        def add(hits: list[VectorSearchResult]) -> None:
-            for rank, h in enumerate(hits):
-                # VectorSearchResult is a TypedDict (dict at runtime),
-                # so use [] access, not attribute access.
-                md = h["metadata"]
-                key = (md["doc_id"], md["chunk_index"])
-                scores[key] = scores.get(key, 0.0) + 1.0 / (RRF_K + rank)
-                if key not in first_seen:
-                    first_seen[key] = h
+            def add(hits: list[VectorSearchResult], weight: float) -> None:
+                for rank, h in enumerate(hits):
+                    md = h["metadata"]
+                    key = (md["doc_id"], md["chunk_index"])
+                    scores[key] = scores.get(key, 0.0) + weight / (RRF_K + rank)
+                    if key not in first_seen:
+                        first_seen[key] = h
 
-        add(vec_hits)
-        add(bm25_hits)
+            add(bm25_hits, alpha)
+            add(vec_hits, 1.0 - alpha)
 
-        merged = sorted(scores.items(), key=lambda kv: -kv[1])[: int(top_k)]
-        results = [first_seen[k] for k, _ in merged]
+            merged = sorted(scores.items(), key=lambda kv: -kv[1])[: int(top_k)]
+            results = [first_seen[k] for k, _ in merged]
+        else:
+            # Pure semantic — no fusion, just take top-`top_k` from vector hits
+            results = vec_hits[: int(top_k)]
 
         # Run any configured reranker (NoReranker is a no-op; preserves
         # the same hook point as dsRAG's original _search).

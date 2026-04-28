@@ -37,3 +37,10 @@ pipelines = [
     "sec-edgar-downloader>=5.0.0",
     "docling>=2.0.0",
 ]
+
+# Optional FlashRank cross-encoder reranker (lost the alpha sweep on FB,
+# but reproducible/usable via RERANKER=flashrank env var). Pulls in
+# onnxruntime (~55 MB), kept out of the default runtime image.
+reranker = [
+    "flashrank>=0.2.10",
+]

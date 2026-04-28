@@ -115,6 +115,16 @@ def get_kb():
         storage_directory=str(DSRAG_STORE_DIR),
         exists_ok=True,
     )
+
+    # Optional FlashRank cross-encoder reranker. Enabled via env var so
+    # we can A/B test latency vs accuracy without a code change. Off by
+    # default (NoReranker baked into KB metadata).
+    if os.environ.get("RERANKER", "").lower() == "flashrank":
+        from src.infrastructure.flashrank_reranker import FlashRankReranker
+        model = os.environ.get("FLASHRANK_MODEL", "ms-marco-TinyBERT-L-2-v2")
+        _kb.reranker = FlashRankReranker(model_name=model)
+        logger.info(f"FlashRank reranker active (model={model})")
+
     return _kb
 
 
@@ -197,3 +207,74 @@ def get_search_queries(
         ],
     )
     return resp.queries[:max_queries]
+
+
+# ---------------------------------------------------------------------------
+# Smart RRF alpha — DeepSeek picks BM25 weight per question
+# ---------------------------------------------------------------------------
+
+_smart_alpha_client = None
+
+
+def _get_smart_alpha_client():
+    """Cached raw OpenAI client (no instructor) for the smart-alpha call.
+    Uses the same DeepSeek endpoint as auto_query."""
+    global _smart_alpha_client
+    if _smart_alpha_client is not None:
+        return _smart_alpha_client
+    _configure_deepseek_as_openai()
+    from openai import OpenAI
+
+    oa = OpenAI(
+        api_key=os.environ.get("DEEPSEEK_API_KEY") or os.environ["OPENAI_API_KEY"],
+        base_url=os.environ.get("DSRAG_OPENAI_BASE_URL", "https://api.deepseek.com/v1"),
+        timeout=30.0,
+    )
+    _smart_alpha_client = wrap_openai(oa)
+    return _smart_alpha_client
+
+
+_SMART_ALPHA_SYSTEM = """\
+You are choosing how to weight retrieval over an SEC-filings knowledge base.
+Two retrievers are run in parallel and their rankings are fused via RRF:
+  - BM25 (lexical): rewards exact phrase matches, rare technical terms,
+    specific dollar figures and percentages, exact table headings.
+  - Semantic embedding: rewards conceptual overlap, paraphrase, abstract
+    topic match.
+
+Given the user's question, return a SINGLE FLOAT between 0.0 and 1.0
+representing the BM25 weight in the RRF fusion. The semantic weight is
+1 - alpha. Guidelines:
+  - alpha=0.5: balanced (default for general questions).
+  - alpha=0.65-0.75: question contains specific industry terms, named
+    line items, exact metric phrases ("loss and loss adjustment expenses
+    ratio", "consolidated statements of operations"), or numerical
+    values.
+  - alpha=0.25-0.4: conceptual or abstract question ("what's the
+    company's strategy", "describe risk factors") where exact phrasing
+    matters less than topic overlap.
+
+Return ONLY the float. No explanation."""
+
+
+@traceable(run_type="chain", name="smart_alpha")
+def smart_rrf_alpha(query: str) -> float:
+    """Ask DeepSeek for the optimal BM25 weight (0-1) for this query.
+    Used when env RRF_ALPHA=smart. Falls back to 0.5 on any error."""
+    try:
+        client = _get_smart_alpha_client()
+        resp = client.chat.completions.create(
+            model="deepseek-chat",
+            max_tokens=8,
+            temperature=0.0,
+            messages=[
+                {"role": "system", "content": _SMART_ALPHA_SYSTEM},
+                {"role": "user", "content": query},
+            ],
+        )
+        text = (resp.choices[0].message.content or "").strip()
+        alpha = float(text)
+        return max(0.0, min(1.0, alpha))
+    except Exception as e:
+        logger.warning(f"smart_rrf_alpha failed ({e}); defaulting to 0.5")
+        return 0.5
