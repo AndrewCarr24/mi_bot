@@ -67,6 +67,12 @@ async def on_message(message: cl.Message):
     session_id = cl.context.session.id
     answer: cl.Message | None = None
 
+    # Track unique doc_ids the agent retrieved from, in first-seen order,
+    # so we can list them under the answer as plain text (no clickable
+    # side-panel — earlier attempts hit Chainlit auto-open quirks).
+    source_doc_ids: list[str] = []
+    seen_doc_ids: set[str] = set()
+
     async with cl.Step(
         name="MI Knowledge Base Tool",
         default_open=True,
@@ -100,11 +106,23 @@ async def on_message(message: cl.Message):
                     step.output = (step.output or "") + summary + "\n\n"
                     await step.update()
 
+                elif kind == "tool_result_segment":
+                    doc_id = event.get("doc_id", "")
+                    if doc_id and doc_id not in seen_doc_ids:
+                        seen_doc_ids.add(doc_id)
+                        source_doc_ids.append(doc_id)
+
         except Exception as e:
             if answer is None:
                 answer = cl.Message(content="")
                 await answer.send()
             await answer.stream_token(f"\n\n[error: {type(e).__name__}: {e}]")
+
+    # Append the unique doc_ids the agent searched from as a plain-text
+    # source line under the answer. No clickable element — keeps the UI
+    # simple and avoids Chainlit's auto-opening side panel.
+    if answer is not None and source_doc_ids:
+        answer.content = (answer.content or "") + "\n\nSource: " + ", ".join(source_doc_ids)
 
     if answer is not None:
         await answer.update()

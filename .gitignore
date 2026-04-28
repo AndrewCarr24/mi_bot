@@ -60,3 +60,7 @@ scripts/transcripts/
 # dsrag_store at a known-good state). 100s of MB each — well over GitHub's
 # per-file limit and regenerable from data.mi/parsed via build_kb.py.
 data.mi/*.tar.gz
+
+# Chainlit runtime upload / conversation data store. Auto-created per
+# session; not source of truth.
+.files/

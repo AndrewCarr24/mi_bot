@@ -9,6 +9,7 @@ Two entry points:
   step alongside the final answer.
 """
 
+import json
 import re
 from typing import Any, AsyncGenerator
 
@@ -151,12 +152,16 @@ async def get_streaming_events(
     """Stream tagged events for the Chainlit UI.
 
     Yields dicts with one of these `kind` values:
-      - "answer_token"       {kind, text}        live token for the final answer
-      - "rewind_to_thinking" {kind, text}        retroactively re-classify text
-                                                  as reasoning (rare — only when
-                                                  the agent reasons aloud before
-                                                  calling a tool)
-      - "tool_call"          {kind, tool, args}  search query + doc_id
+      - "answer_token"          {kind, text}             live token for the final answer
+      - "rewind_to_thinking"    {kind, text}             retroactively re-classify text
+                                                          as reasoning (rare — only when
+                                                          the agent reasons aloud before
+                                                          calling a tool)
+      - "tool_call"             {kind, tool, args}       search query + doc_id when a
+                                                          tool starts
+      - "tool_result_segment"   {kind, doc_id, score,    one event per retrieved segment
+                                  content}                returned by dsrag_kb. Used by
+                                                          the UI to build a Sources panel.
 
     Streaming model: text tokens from agent_node are emitted as `answer_token`
     immediately so the user sees the typewriter effect. If a tool_call_chunk
@@ -250,6 +255,38 @@ async def get_streaming_events(
                 raw_input = data.get("input") or {}
                 args = _sanitize_tool_args(raw_input)
                 yield {"kind": "tool_call", "tool": name, "args": args}
+
+            elif event_type == "on_tool_end" and name == "dsrag_kb":
+                # dsrag_kb returns a JSON string of [{score, doc_id, content}, ...]
+                # (or {"error": "..."} on failure). LangGraph wraps the return
+                # in a ToolMessage; pull the JSON string out of .content. Parse
+                # and emit one event per segment so the UI can build a Sources
+                # panel. Read-only; does not affect agent behavior.
+                output = data.get("output")
+                if hasattr(output, "content"):
+                    raw = output.content
+                else:
+                    raw = output
+                if not isinstance(raw, str):
+                    continue
+                try:
+                    parsed = json.loads(raw)
+                except json.JSONDecodeError:
+                    continue
+                if not isinstance(parsed, list):
+                    continue
+                for seg in parsed:
+                    if not isinstance(seg, dict):
+                        continue
+                    content = seg.get("content") or ""
+                    if not content:
+                        continue
+                    yield {
+                        "kind": "tool_result_segment",
+                        "doc_id": seg.get("doc_id", ""),
+                        "score": seg.get("score"),
+                        "content": content,
+                    }
 
     except Exception as e:
         logger.error(f"Event streaming error: {type(e).__name__}: {e}")
