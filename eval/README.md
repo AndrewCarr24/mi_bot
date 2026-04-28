@@ -29,12 +29,19 @@ set -a && . .env && set +a
 python eval/run_eval.py
 ```
 
-For an MI-only eval set (when one exists), pass an alternate CSV:
+For the MI eval set (committed at `eval/questions_mi.csv` — 10
+analyst-style questions about the 6 MI companies' 2024 10-Ks):
 
 ```bash
 ./scripts/switch_kb.sh mi
 python eval/run_eval.py eval/questions_mi.csv
 ```
+
+The MI eval set was hand-constructed (no MI-specific public benchmark
+exists). Questions are framed from analyst concerns — PMIERs
+sufficiency, persistency, reserve development, capital return,
+regulatory impact — rather than derived from our parsed-data
+chunking. Ground-truth answers verified against the filings.
 
 ## Sweep drivers
 
