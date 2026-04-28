@@ -44,3 +44,8 @@ pipelines = [
 reranker = [
     "flashrank>=0.2.10",
 ]
+
+[dependency-groups]
+dev = [
+    "selenium>=4.43.0",
+]

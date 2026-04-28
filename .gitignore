@@ -49,3 +49,14 @@ data.financebench/
 # Chainlit auto-creates language packs on first run; bulk + regenerable.
 # We keep .chainlit/config.toml for project-specific overrides.
 .chainlit/translations/
+
+# Transcript-pull scripts and URL manifests. Kept locally for reproducibility
+# (re-run any time to re-fetch from Insider Monkey via slug-routing) but not
+# tracked in git: the URL JSONs are ad-hoc per fetch, and the scripts depend
+# on Insider Monkey's HTML structure which can change.
+scripts/transcripts/
+
+# Pre-change KB snapshots created before risky operations (tar.gz of the
+# dsrag_store at a known-good state). 100s of MB each — well over GitHub's
+# per-file limit and regenerable from data.mi/parsed via build_kb.py.
+data.mi/*.tar.gz
