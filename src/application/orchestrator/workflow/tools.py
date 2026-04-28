@@ -123,12 +123,17 @@ def dsrag_kb(
     seen = _SEEN_CHUNKS_PER_THREAD.setdefault(thread_id, set()) if dedup_on else None
     kb._excluded_chunks = seen if dedup_on else None
 
-    # RRF alpha: BM25 weight in fusion. Static float or "smart" (DeepSeek
-    # picks per question). Default 0.4 (semantic-favored) was best on the
-    # FinanceBench eval — see eval/results/alpha_sweep_*.json. BM25 acts
-    # as a tiebreaker rather than a co-equal vote, which suits the
-    # conceptual question style most users ask.
-    alpha_raw = os.environ.get("RRF_ALPHA", "0.4").strip()
+    # RRF alpha: BM25 weight in fusion. Default "smart" — DeepSeek picks
+    # per question. Numeric value (e.g. "0.4") forces a static alpha for
+    # the whole session. Smart mode is generalizable (adapts to question
+    # character) at near-equal quality.
+    #
+    # Note: on the 23-question FinanceBench eval, the static value
+    # alpha=0.4 was technically the most accurate (22/23 vs smart at
+    # 21/23). Smart mode trades 1 question of accuracy for fewer
+    # iterations (1.52 calls/q vs 1.61) and slightly lower cost
+    # ($0.081 vs $0.085). See eval/results/alpha_sweep_*.json.
+    alpha_raw = os.environ.get("RRF_ALPHA", "smart").strip()
     if alpha_raw.lower() == "smart":
         alpha = smart_rrf_alpha(question)
         logger.info(f"dsrag_kb: smart α={alpha:.2f} for question {question[:60]!r}")

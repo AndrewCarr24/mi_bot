@@ -260,7 +260,9 @@ Return ONLY the float. No explanation."""
 @traceable(run_type="chain", name="smart_alpha")
 def smart_rrf_alpha(query: str) -> float:
     """Ask DeepSeek for the optimal BM25 weight (0-1) for this query.
-    Used when env RRF_ALPHA=smart. Falls back to 0.5 on any error."""
+    Used when env RRF_ALPHA=smart (the default). Falls back to 0.4 on
+    any error — that's the static value that won the FinanceBench
+    sweep, so it's a sensible prior if the per-question call fails."""
     try:
         client = _get_smart_alpha_client()
         resp = client.chat.completions.create(
@@ -276,5 +278,5 @@ def smart_rrf_alpha(query: str) -> float:
         alpha = float(text)
         return max(0.0, min(1.0, alpha))
     except Exception as e:
-        logger.warning(f"smart_rrf_alpha failed ({e}); defaulting to 0.5")
-        return 0.5
+        logger.warning(f"smart_rrf_alpha failed ({e}); defaulting to 0.4")
+        return 0.4

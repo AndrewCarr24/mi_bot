@@ -35,11 +35,13 @@ agent_fin/
 │   └── application/orchestrator/
 │       ├── streaming.py
 │       └── workflow/          # LangGraph: router → cache → agent → tools
-├── eval/
-│   ├── run_eval.py            # FinanceBench-style grader (CSV-driven)
-│   └── results/               # per-run CSVs
+├── eval/                      # regression harness — see eval/README.md
+│   ├── run_eval.py            # CSV-driven grader (Bedrock Haiku judge)
+│   └── results/               # per-run CSVs + sweep summary JSONs (durable record)
 ├── scripts/
-│   └── switch_kb.sh           # repoint `data` symlink: mi | financebench
+│   ├── switch_kb.sh           # repoint `data` symlink: mi | financebench
+│   ├── run_sweep.py           # 2×2×2 retrieval sweep driver
+│   └── run_alpha_sweep.py     # 2×4 alpha × dedup sweep driver
 └── run_app.py                 # one-shot CLI runner
 ```
 
