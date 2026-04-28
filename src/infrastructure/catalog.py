@@ -16,7 +16,7 @@ _REPO_ROOT = Path(__file__).resolve().parents[2]
 PARSED_ROOT = _REPO_ROOT / "data" / "parsed"
 
 _PARSED_MD_RE = re.compile(
-    r"^(?P<ticker>[A-Z]+)_(?P<form>10-K|10-Q|10-K-A|10-Q-A)_(?P<period>\d{4}-\d{2}-\d{2})\.md$"
+    r"^(?P<ticker>[A-Z]+)_(?P<form>10-K|10-Q|10-K-A|10-Q-A|8-K|8-K-A|TRANSCRIPT)_(?P<period>\d{4}-\d{2}-\d{2})\.md$"
 )
 
 TICKER_TO_COMPANY = {
@@ -41,6 +41,13 @@ def _period_label(filing_type: str, period_end: str) -> str:
     if form == "10-Q":
         quarter = (month - 1) // 3 + 1
         return f"Q{quarter} {year}"
+    if form == "TRANSCRIPT":
+        # Period is fiscal quarter end: 2024-09-30 → "Q3 2024 call"
+        quarter = (month - 1) // 3 + 1
+        return f"Q{quarter} {year} call"
+    if form == "8-K":
+        # Period is the event date (release/news date), not a fiscal period.
+        return f"{period_end} (8-K)"
     return period_end
 
 
