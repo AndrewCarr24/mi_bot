@@ -1,7 +1,16 @@
-"""Run the graph and yield only the final-answer tokens to the user."""
+"""Run the graph and yield streaming output to the caller.
+
+Two entry points:
+- get_streaming_response: yields plain strings (final-answer tokens). Used by
+  the CLI runner and the FastAPI /ask endpoint where intermediate state is
+  not surfaced to the user.
+- get_streaming_events: yields tagged dict events (thinking / tool_call /
+  answer_token). Used by the Chainlit UI to render an ephemeral "Working..."
+  step alongside the final answer.
+"""
 
 import re
-from typing import AsyncGenerator
+from typing import Any, AsyncGenerator
 
 from langchain_core.messages import AIMessage, AIMessageChunk, HumanMessage
 from loguru import logger
@@ -103,3 +112,163 @@ def _sanitize_actor_id(name: str) -> str:
     sanitized = re.sub(r"[^a-zA-Z0-9\-_ ]", "", name)
     sanitized = sanitized.replace(" ", "-").lower()
     return f"user:{sanitized or 'guest'}"
+
+
+# ---------------------------------------------------------------------------
+# Tagged-event stream for the Chainlit UI
+# ---------------------------------------------------------------------------
+
+# Tool args we surface in the UI. Anything else (cache flags, internal
+# config) is omitted to keep the step display clean.
+_VISIBLE_TOOL_ARG_KEYS = {"question", "doc_id", "query", "memory_types"}
+
+
+def _sanitize_tool_args(raw: Any) -> dict:
+    """Pull out only user-facing tool args. Drops InjectedToolArg fields,
+    runtime config, falsy values, and the literal string "None" (which
+    DeepSeek and other models sometimes emit instead of leaving an
+    optional arg unset)."""
+    if not isinstance(raw, dict):
+        return {}
+    out = {}
+    for k, v in raw.items():
+        if k not in _VISIBLE_TOOL_ARG_KEYS:
+            continue
+        if not v:
+            continue
+        if isinstance(v, str) and v.strip().lower() in ("none", "null"):
+            continue
+        out[k] = v
+    return out
+
+
+async def get_streaming_events(
+    messages: str,
+    customer_name: str = "Guest",
+    conversation_id: str | None = None,
+    callbacks: list | None = None,
+) -> AsyncGenerator[dict, None]:
+    """Stream tagged events for the Chainlit UI.
+
+    Yields dicts with one of these `kind` values:
+      - "answer_token"       {kind, text}        live token for the final answer
+      - "rewind_to_thinking" {kind, text}        retroactively re-classify text
+                                                  as reasoning (rare — only when
+                                                  the agent reasons aloud before
+                                                  calling a tool)
+      - "tool_call"          {kind, tool, args}  search query + doc_id
+
+    Streaming model: text tokens from agent_node are emitted as `answer_token`
+    immediately so the user sees the typewriter effect. If a tool_call_chunk
+    arrives mid-invocation, the tokens we already streamed turn out to have
+    been reasoning, not the final answer — we emit a rewind_to_thinking
+    event so the UI can move that text from the answer pane into the
+    working step. In practice the agent rarely reasons-then-acts in the
+    same invocation (it usually calls the tool directly), so rewinds are
+    uncommon.
+    """
+    graph = create_graph()
+    thread_id = conversation_id or "default-thread"
+    actor_id = _sanitize_actor_id(customer_name)
+
+    config: dict = {
+        "configurable": {
+            "thread_id": thread_id,
+            "customer_name": customer_name,
+            "actor_id": actor_id,
+        },
+        "recursion_limit": 55,
+    }
+    if callbacks:
+        config["callbacks"] = callbacks
+
+    input_data = {
+        "messages": [HumanMessage(content=messages)],
+        "customer_name": customer_name,
+        "tool_call_count": 0,
+    }
+
+    logger.info(
+        f"Streaming events for thread_id={thread_id}, actor_id={actor_id}"
+    )
+
+    # Per-invocation tracking: any text streamed as answer_token in the
+    # current node invocation. If a tool_call_chunk arrives, those tokens
+    # are retroactively reclassified as thinking via a rewind event.
+    streamed_in_invocation: list[str] = []
+    in_response_node = False
+
+    try:
+        async for event in graph.astream_events(
+            input=input_data, config=config, version="v2"
+        ):
+            event_type = event.get("event")
+            name = event.get("name", "")
+            data = event.get("data", {})
+
+            if event_type == "on_chain_start" and name in _RESPONSE_NODES:
+                in_response_node = True
+                streamed_in_invocation = []
+
+            elif event_type == "on_chain_end" and name in _RESPONSE_NODES:
+                in_response_node = False
+                # If this invocation produced tool_calls but we never saw a
+                # tool_call_chunk during streaming (some providers only emit
+                # tool_calls at end-of-message), rewind here too.
+                output = data.get("output")
+                last_msg = _last_ai_message(output)
+                has_tool_calls = bool(getattr(last_msg, "tool_calls", None)) if last_msg else False
+                if has_tool_calls and streamed_in_invocation:
+                    yield {
+                        "kind": "rewind_to_thinking",
+                        "text": "".join(streamed_in_invocation),
+                    }
+                streamed_in_invocation = []
+
+            elif event_type == "on_chat_model_stream":
+                if not in_response_node:
+                    continue
+                chunk = data.get("chunk")
+                if not chunk or not isinstance(chunk, AIMessageChunk):
+                    continue
+                if chunk.tool_calls or chunk.tool_call_chunks:
+                    # Tool-args coming through. If we already streamed text
+                    # tokens in this invocation, they were reasoning; rewind.
+                    if streamed_in_invocation:
+                        yield {
+                            "kind": "rewind_to_thinking",
+                            "text": "".join(streamed_in_invocation),
+                        }
+                        streamed_in_invocation = []
+                    continue
+                content = extract_text_content(chunk.content)
+                if content:
+                    streamed_in_invocation.append(content)
+                    yield {"kind": "answer_token", "text": content}
+
+            elif event_type == "on_tool_start":
+                raw_input = data.get("input") or {}
+                args = _sanitize_tool_args(raw_input)
+                yield {"kind": "tool_call", "tool": name, "args": args}
+
+    except Exception as e:
+        logger.error(f"Event streaming error: {type(e).__name__}: {e}")
+        logger.exception("Full traceback:")
+        raise
+
+
+def _last_ai_message(state_or_output: Any) -> AIMessage | None:
+    """Pull the most recent AIMessage from a graph state/output dict."""
+    if not state_or_output or not isinstance(state_or_output, dict):
+        return None
+    messages = state_or_output.get("messages")
+    if not messages:
+        return None
+    if isinstance(messages, list):
+        for msg in reversed(messages):
+            if isinstance(msg, AIMessage):
+                return msg
+        return None
+    if isinstance(messages, AIMessage):
+        return messages
+    return None
