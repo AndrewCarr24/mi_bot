@@ -1,6 +1,6 @@
 # NMI Holdings Inc. (NMIH / National MI)
 
-> NMI Holdings, Inc. (ticker: NMIH) is the youngest of the six major U.S. private mortgage insurers, having written its first policy in 2013. Through its primary subsidiary, National Mortgage Insurance Corporation (NMIC), the company has grown rapidly to become a top-tier competitor with $210.2 billion in primary insurance-in-force (IIF) as of December 31, 2024. NMIH is known for its technology-driven pricing platform (Rate GPS®), industry-leading credit performance, and disciplined capital management. The company operates as a single segment and is headquartered in Emeryville, California.
+> NMI Holdings, Inc. (ticker: NMIH) is the youngest of the six major U.S. private mortgage insurers, having written its first policy in 2013. Through its primary subsidiary, National Mortgage Insurance Corporation (NMIC), the company has grown rapidly to become a top-tier competitor with $221.4 billion in primary insurance-in-force (IIF) as of December 31, 2025 (up from $210.2 billion at year-end 2024). NMIH is known for its technology-driven pricing platform (Rate GPS®), industry-leading credit performance, and disciplined capital management. The company operates as a single segment and is headquartered in Emeryville, California.
 
 ## What it is
 

@@ -322,6 +322,26 @@ Bug fix caught during the read:
 Sources block updated to include the 2025 10-Ks for both MTG and
 RDN, with each entry tagged for what it contributed.
 
+## 2026-04-29 (continued staleness sweep)
+
+User asked for a sweep of remaining "as of 2024" sections that
+could be refreshed to "as of 2025". Two of my own edits, the rest
+already in flight from the other agent.
+
+- metrics/reinsurance_crt: in the Why it matters section, the
+  Radian example was using year-end 2024 figures ($1.46B / 27.4%)
+  while the Current state (which I had just refreshed) cites the
+  year-end 2025 figures ($1.78B / 31.8%). Updated the Why it
+  matters example so the page is internally consistent.
+- companies/nmih_nmi: summary blockquote claimed $210.2B IIF at
+  year-end 2024. Refreshed to $221.4B at year-end 2025 with the
+  2024 figure preserved as historical context.
+
+The four metric pages with "Current state (as of 2024-12-31)"
+headers (iif, niw, persistency, loss_ratio) had already been
+refreshed by the other agent to year-end 2025 with full cross-MI
+tables. Verified each is internally consistent.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated

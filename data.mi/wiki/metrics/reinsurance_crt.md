@@ -16,7 +16,7 @@ Reinsurance in the MI context refers to arrangements where a mortgage insurer ce
 
 Reinsurance serves multiple strategic purposes for MIs and is closely watched by analysts:
 
-**PMIERs capital relief:** Reinsurance directly reduces an MI's Minimum Required Assets under PMIERs. For example, Radian Guaranty's reinsurance programs reduced its Minimum Required Assets by $1.46 billion as of December 31, 2024, representing 27.4% of gross Minimum Required Assets (RDN_10-K_2024-12-31). This capital relief is a key driver of PMIERs cushion levels and the ability to write new business.
+**PMIERs capital relief:** Reinsurance directly reduces an MI's Minimum Required Assets under PMIERs. For example, Radian Guaranty's reinsurance programs reduced its Minimum Required Assets by $1.78 billion as of December 31, 2025, representing 31.8% of gross Minimum Required Assets (RDN_10-K_2025-12-31). This capital relief is a key driver of PMIERs cushion levels and the ability to write new business.
 
 **Loss volatility management:** By transferring tail risk, MIs reduce the earnings impact of severe loss events. The industry's shift to an "aggregate-manage-distribute" model means MIs act as sophisticated risk managers rather than passive holders (INDUSTRY_USMI_RESILIENCY_2023-11).
 
