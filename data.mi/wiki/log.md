@@ -80,6 +80,56 @@ errors after manual verification (the triage judge mis-labeled 2 of them
   practice, (b) current weighted-average FICO of 747, and (c) USMI's
   documented post-crisis tightening of underwriting.
 
+## 2026-04-29 (topic-page audit + Pulte rewrite)
+
+User-led read-through of the topic pages caught a Pulte-pattern issue
+(picking the most quotable phrase rather than the most representative
+one) and surfaced 9 broader fixes across all 5 topic pages. All from
+DeepSeek-V4-Flash's original generation pass — failure modes are typical
+LLM hallucinations on regulatory specifics.
+
+Hard factual errors (high priority):
+- `topics/gse_relationship`: PMIERs 2.0 was dated "(2020)" and labeled
+  "the first major aligned PMIERs framework." Both wrong. Aligned PMIERs
+  was first drafted by FHFA in 2014 and effective in 2015; PMIERs 2.0
+  was effective March 31, 2019. Rewrote the bullet.
+- `topics/mi_regulatory_landscape`: claimed "the Dodd-Frank Act (2010)
+  established the FHFA." Wrong — FHFA was established by HERA (Housing
+  and Economic Recovery Act of 2008). Rewrote with Dodd-Frank's actual
+  contribution (Ability-to-Repay/QM downstream).
+- `topics/pmiers_aug_2024_update`: claimed "PMIERs framework was
+  originally established in 2008." Wrong — PMIERs were drafted in 2014
+  and took effect 2015. Rewrote.
+
+Stand-in / under-specified claims (medium priority):
+- `topics/gse_relationship`: Pulte's "operate safely and soundly" quote
+  was the boilerplate landing pad in his foreword, not his actual
+  agenda. Replaced with his explicit priorities: "combating waste and
+  fraud, ensuring compliance with all applicable laws, eliminating
+  unnecessary regulations, and boosting productivity," GSEs as "engines
+  of America's housing revival," and explicit non-position on pre-tenure
+  FHFA activity.
+- `topics/us_mortgage_market`: cited 2019 demographic data as if it
+  were current. Updated to 2022 figures from USMI Resiliency 2023 (62%
+  first-time, 34% under $75k), with 2019 as historical baseline.
+- `topics/catastrophe_impact_on_mi`: "Miami-Dade County, where several
+  MIs have elevated exposure" had no source. Replaced with generic
+  "high-LTV coastal market with elevated MI exposure (e.g., Florida or
+  Texas)."
+
+Citation hygiene (low priority):
+- `topics/mi_regulatory_landscape`: pre-2008 narrative paragraph picked
+  up an INDUSTRY_USMI_RESILIENCY_2023-11 citation it was already
+  drawing on; CRT cumulative figure ($73.8B/$3.4T) timestamped "as of
+  late 2023."
+- `topics/gse_relationship`: enumerated the consequential PMIERs §901
+  remediation tiers (volume limits, capital infusion, restricted
+  delegated underwriting, MRA increase, RIF commutation, differential
+  pricing, suspension, termination) instead of just naming "21 actions."
+- `topics/pmiers_aug_2024_update`: stripped backtick wrapping from
+  inline citations and converted Sources entries from backtick to
+  square-bracket form to match the schema's canonical convention.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated

@@ -16,7 +16,7 @@ Catastrophes are a tail risk for MIs that is difficult to model precisely. Unlik
 2. **Cure rates** — whether catastrophe-related defaults cure faster than normal defaults, which determines whether the spike translates into paid claims.
 3. **Home price impact** — if a catastrophe destroys housing stock in a concentrated area, it can depress local home prices, increasing claim severity on loans that do go to claim.
 
-The MIs have consistently stated that they do not expect material losses from recent events, but the risk is asymmetric: a single large catastrophe in a high-concentration area (e.g., a major hurricane hitting Miami-Dade County, where several MIs have elevated exposure) could produce a meaningful earnings event.
+The MIs have consistently stated that they do not expect material losses from recent events, but the risk is asymmetric: a single large catastrophe in a high-LTV coastal market with elevated MI exposure (e.g., a major hurricane hitting a top-state concentration like Florida or Texas) could produce a meaningful earnings event.
 
 ## Current state (as of 2025-02-28)
 
