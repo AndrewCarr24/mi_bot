@@ -142,8 +142,8 @@ def _get_judge():
 
 
 _EXTRACTOR_SYSTEM = """\
-You extract atomic verifiable claims from a wiki page about US private
-mortgage insurance. Each claim should be:
+You extract verifiable claims from a wiki page about US private mortgage
+insurance. Each claim should be:
   - factual and specific (a number, a named entity, a regulatory rule,
     a definition, a date, a relationship)
   - self-contained (resolve pronouns; include subject and condition)
@@ -156,9 +156,19 @@ focus on the body where claims live. Do NOT extract:
   - the structural section headings themselves
   - claims about *what the page itself says* (meta-content)
 
-If a claim packs multiple facts ("X is Y and Z"), split into separate
-claims. Aim for high recall on quantitative claims (figures, percentages,
-dates, thresholds) — those are the most-likely-to-be-wrong category.
+**Combine tightly related facts into one claim.** A figure paired with
+its per-share equivalent, a balance with its year-over-year change, or
+a list of three related ratings should each be ONE claim, not three.
+"For FY2025 Essent reported net income of $690M ($6.90/diluted share),
+down from $729M ($6.85/diluted share) in 2024" is ONE claim. Aim for
+**15–30 claims per page**, not 50+. Quality over quantity — the lint
+verifies each claim individually so over-splitting wastes time without
+adding signal.
+
+Be strict about quantitative claims (figures, percentages, dates,
+thresholds) — those are the most-likely-to-be-wrong category. But don't
+extract qualitative prose claims that can't be checked against a single
+source segment ("X is the largest", "Y is conservatively managed").
 
 For each claim, capture a short page_quote (≤200 chars, exact text from
 the page) so a human can locate it.
@@ -167,10 +177,13 @@ the page) so a human can locate it.
 
 def extract_claims(page_text: str, page_slug: str) -> list[Claim]:
     client = _get_extractor()
+    # max_tokens=8000 covers even verbose pages; max_retries=1 stops
+    # instructor from re-running the same too-small budget repeatedly.
     resp = client.chat.completions.create(
         model="deepseek-chat",
-        max_tokens=4000,
+        max_tokens=8000,
         temperature=0.1,
+        max_retries=1,
         response_model=Claims,
         messages=[
             {"role": "system", "content": _EXTRACTOR_SYSTEM},
