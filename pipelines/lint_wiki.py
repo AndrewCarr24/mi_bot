@@ -81,8 +81,10 @@ class Verdict(BaseModel):
         "the cited segment can't reasonably confirm/deny it."
     )
     reason: str = Field(
-        description="One sentence explaining the verdict. Cite specific "
-        "evidence quote (≤120 chars) where applicable."
+        max_length=300,
+        description="Single sentence, MAX 300 CHARACTERS, explaining the "
+        "verdict. NO multi-paragraph deliberation — pick a status and "
+        "give one short reason. If undecided, status='uncheckable'.",
     )
 
 
@@ -199,29 +201,30 @@ def extract_claims(page_text: str, page_slug: str) -> list[Claim]:
 
 
 _JUDGE_SYSTEM = """\
-You are a fact-checker. Given a CLAIM and EVIDENCE retrieved from the
-cited source document, decide whether the claim is supported, contradicted,
-unsupported, or uncheckable by the evidence.
+You are a fact-checker. Be FAST and DECISIVE. Decide whether the claim
+is supported, contradicted, unsupported, or uncheckable. Output a
+single short sentence explanation (max 300 chars). DO NOT deliberate
+across multiple paragraphs.
 
 Definitions:
-  - supported: the evidence directly confirms the claim. The numeric
-    value, name, or condition matches.
-  - contradicted: the evidence directly disagrees with the claim
-    (different value, different name, different condition).
-  - unsupported: the evidence is silent on the claim — it neither
-    confirms nor denies. Use this when the retrieval simply missed
-    the relevant section, OR when the cited doc genuinely doesn't say
-    what the claim asserts (which is itself a citation error).
-  - uncheckable: the claim is qualitative, cross-document, or otherwise
-    not amenable to single-segment verification (e.g. "X is the largest
-    by market share" needs cross-MI synthesis).
+  - supported: evidence directly confirms (matching numeric value,
+    name, or condition).
+  - contradicted: evidence directly disagrees (different value, name,
+    or condition).
+  - unsupported: evidence is silent on the claim.
+  - uncheckable: claim is qualitative, cross-document, or otherwise
+    requires multi-source synthesis.
 
-Be strict on numbers: "approximately 25%" vs "25%" → supported; "25%"
-vs "0.20%" → contradicted. Do NOT infer values; if the evidence doesn't
-state the number, it's unsupported.
+Tie-break rules (use to avoid endless reasoning):
+  - "approximately X" vs "X" → supported.
+  - rounded "X" vs "X.YYZ" within 1% → supported.
+  - segment-level value vs consolidated value with same rounding →
+    supported (don't worry about which the source is showing).
+  - if you find yourself writing more than one sentence of reasoning,
+    return uncheckable instead.
 
-Be lenient on rephrasing: a claim is supported if its substance matches
-even if the wording differs.
+Reason field is CAPPED at 300 chars. One sentence. Quote ≤80 chars
+of evidence where applicable.
 """
 
 
@@ -288,17 +291,27 @@ def verify_claim(claim: Claim, kb) -> Verdict:
         f"EVIDENCE (top retrieved segments from the cited doc(s)):\n\n"
         f"{evidence_str}"
     )
-    resp = client.chat.completions.create(
-        model="deepseek-chat",
-        max_tokens=400,
-        temperature=0.0,
-        response_model=Verdict,
-        messages=[
-            {"role": "system", "content": _JUDGE_SYSTEM},
-            {"role": "user", "content": user_msg},
-        ],
-    )
-    return resp
+    try:
+        resp = client.chat.completions.create(
+            model="deepseek-chat",
+            max_tokens=600,
+            temperature=0.0,
+            max_retries=1,
+            response_model=Verdict,
+            messages=[
+                {"role": "system", "content": _JUDGE_SYSTEM},
+                {"role": "user", "content": user_msg},
+            ],
+        )
+        return resp
+    except Exception as e:
+        # Fallback when the judge can't fit a verdict in the token budget
+        # (the model rambles past max_tokens; instructor exhausts retries).
+        # Emit 'uncheckable' rather than crashing the whole page lint.
+        return Verdict(
+            status="uncheckable",
+            reason=f"Judge call failed: {type(e).__name__}",
+        )
 
 
 # ---------------------------------------------------------------------------

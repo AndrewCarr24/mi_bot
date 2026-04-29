@@ -36,6 +36,50 @@ Schema: one entry per change, newest at top, ISO date prefix.
   insurers to set and disclose their own limits (no fixed number).
   Restated correctly.
 
+## 2026-04-29 (lint pass + resolutions)
+
+Ran the new `pipelines/lint_wiki.py` (per-claim verification via dsRAG +
+DeepSeek judge) over all 17 pages, then `pipelines/triage_lint_findings.py`
+(grep-the-source second pass) on the flagged subset. Cost: $0.29 in
+DeepSeek tokens. 306 claims checked, 8 flagged, 6 confirmed real
+errors after manual verification (the triage judge mis-labeled 2 of them
+— see `wiki_triage_log.md` for the full audit chain).
+
+- Arch segment table (`companies/acgl_arch`): the 2024 column of the
+  mortgage segment financial table was a verbatim copy of the 2023
+  column (gross premiums, net premiums, loss ratio, combined ratio all
+  identical across both years), and the 2025 column was empty. Caused
+  by retrieval pulling the 3-year segment summary section but missing
+  the head-to-head 2025-vs-2024 segment table. Fixed by replacing the
+  table with the actual values from ACGL_10-K_2025-12-31 lines 1018-
+  1038 (2025/2024) and 2567-2598 (2023). Single root cause, four
+  flagged contradictions.
+
+- Essent buyback (`companies/esnt_essent`): wiki claimed "$588 million
+  of stock repurchased in 2025"; source (Note 9) clearly says
+  "9,862,699 common shares at a cost of $575.6 million." Fixed.
+
+- MGIC NIW history (`metrics/niw`): wiki said MGIC's 2022 NIW of
+  $76.4B was "down from even higher levels in 2020-2021"; source has
+  2020 = $38.0B and 2021 = $69.8B — both lower than 2022, not higher.
+  2022 was actually the cycle peak. Rewrote the bullet with the
+  correct trajectory.
+
+- Regulatory landscape 2015/2018 dates (`topics/mi_regulatory_landscape`):
+  cited a 2014 FHFA draft for dates that postdate it. Re-cited to
+  INDUSTRY_USMI_RESILIENCY_2023-11 (which explicitly states "PMIERs
+  were significantly updated in 2015, and in 2018, the revised PMIERs
+  2.0...") and added INDUSTRY_PMIERS_2.0_BASE for the March 31, 2019
+  effective date.
+
+- Catastrophe pre-GFC vintage (`topics/catastrophe_impact_on_mi`):
+  the comparative claim about FICO/LTV/equity vs pre-GFC vintages
+  wasn't directly supported by the cited 10-K (which separates 2005-
+  2008 vintage but doesn't make the explicit comparison in narrative).
+  Reframed to ground the claim in (a) MGIC's vintage segregation
+  practice, (b) current weighted-average FICO of 747, and (c) USMI's
+  documented post-crisis tightening of underwriting.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated
@@ -45,3 +89,15 @@ Schema: one entry per change, newest at top, ISO date prefix.
   the figure is round/memorable. Off-by-one row errors and decimal
   misreads are the failure modes seen so far. Worked-example arithmetic
   in the source is a useful internal cross-check.
+- Multi-year financial tables on company pages are a hot spot. The Arch
+  bug shows that retrieval can land on the 3-year summary section
+  without the head-to-head segment detail, leading the LLM to fill
+  multiple year columns from a single year of underlying data. When
+  building a new company page, eyeball any year-over-year table for
+  identical-row-across-columns artifacts.
+- Triage methodology caveats (from this run): the judge LLM can (a)
+  conflate the wiki's `page_quote` field with source evidence, and (b)
+  produce status/recommended_action inconsistencies (status="lint_noise"
+  while reasoning concludes "this is a real error"). Always sanity-check
+  triage verdicts manually — it speeds the lint up but is not a
+  substitute for human review on the flagged subset.

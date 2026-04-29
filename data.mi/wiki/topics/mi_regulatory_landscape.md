@@ -6,7 +6,7 @@
 
 The regulatory framework governing private mortgage insurers operates at two primary levels. At the state level, MIs are regulated as insurance companies by state insurance departments, which set statutory capital requirements, contingency reserve rules (typically 50% of premiums held for ten years), and risk exposure limits — in most states, twenty-five dollars of risk in force for every dollar of regulatory capital (INDUSTRY_PMIERS_OVERVIEW_FHFA). State regulation focuses on solvency and claims-paying ability.
 
-At the federal level, the FHFA oversees MIs indirectly through its role as conservator of Fannie Mae and Freddie Mac. The GSEs' charter acts require credit enhancement on loans exceeding 80% LTV, and each Enterprise determines which MIs qualify as approved counterparties (INDUSTRY_PMIERS_OVERVIEW_FHFA). The PMIERs, first aligned across both GSEs in 2015 and updated in 2018, establish the operational and capital standards MIs must meet to insure loans acquired by the Enterprises. These requirements replaced the earlier reliance on rating agency approvals with specific risk-based capital standards, liquidity requirements, and operational benchmarks.
+At the federal level, the FHFA oversees MIs indirectly through its role as conservator of Fannie Mae and Freddie Mac. The GSEs' charter acts require credit enhancement on loans exceeding 80% LTV, and each Enterprise determines which MIs qualify as approved counterparties (INDUSTRY_PMIERS_OVERVIEW_FHFA). PMIERs were significantly updated in 2015 and again in 2018 with the revised PMIERs 2.0, which addressed lessons learned from the housing downturn (INDUSTRY_USMI_RESILIENCY_2023-11); PMIERs 2.0 became effective March 31, 2019 for existing approved insurers (INDUSTRY_PMIERS_2.0_BASE). These requirements replaced the earlier reliance on rating agency approvals with specific risk-based capital standards, liquidity requirements, and operational benchmarks.
 
 The PMIERs require an MI's Available Assets to exceed its Minimum Required Assets, defined as the greater of a risk-based stress scenario projection or a $400 million floor (INDUSTRY_PMIERS_OVERVIEW_FHFA). The risk-based calculation uses a grid of factors including vintage, original LTV, credit score, and delinquency status to project claims under stress.
 
@@ -39,6 +39,7 @@ The regulatory framework has undergone three distinct phases. **Pre-2008**: MIs 
 - INDUSTRY_USMI_RESILIENCY_2023-11 — USMI white paper on post-crisis MI industry enhancements, capital levels, CRT volumes, and business model transformation
 - INDUSTRY_FHFA_ANNUAL_REPORT_2024 — FHFA 2024 Report to Congress covering Enterprise capital positions, CRT volumes, appraisal modernization, and regulatory priorities
 - INDUSTRY_PMIERS_OVERVIEW_FHFA — FHFA draft revised PMIERs overview detailing capital requirements, operational standards, risk diversification policies, and new insurer requirements
+- INDUSTRY_PMIERS_2.0_BASE — PMIERs 2.0 base document; provides the March 31, 2019 effective date for existing approved insurers
 
 ## Related
 

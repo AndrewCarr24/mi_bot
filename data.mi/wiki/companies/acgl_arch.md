@@ -30,14 +30,14 @@ Based on Arch's 2025 Form 10-K, the mortgage segment reported:
 
 | Metric | 2025 | 2024 | 2023 |
 |---|---|---|---|
-| Gross premiums written | — | $1,387M | $1,387M |
-| Net premiums written | — | $1,052M | $1,052M |
-| Net premiums earned | — | $1,158M | $1,158M |
-| Underwriting income | — | $1,064M | $1,064M |
-| Loss ratio | — | -8.9% | -8.9% |
-| Combined ratio | — | 9.3% | 9.3% |
+| Gross premiums written | $1,305M | $1,351M | $1,387M |
+| Net premiums written | $1,060M | $1,112M | $1,052M |
+| Net premiums earned | $1,172M | $1,231M | $1,158M |
+| Underwriting income | $1,000M | $1,094M | $1,064M |
+| Loss ratio | -0.4% | -4.4% | -8.9% |
+| Combined ratio | 14.6% | 12.6% | 9.3% |
 
-*Note: The 2025 segment data was not fully extracted in the available context; the table above reflects 2024 and 2023 comparative data from the 2025 filing.*
+The 2025 result marks the fourth consecutive year of mortgage-segment underwriting income above $1 billion. The trend in the loss and combined ratios — moving from a deeply negative loss ratio of -8.9% in 2023 toward -0.4% in 2025 — reflects normal aging of the in-force book as favorable prior-year reserve development moderates from the post-COVID peak (ACGL_10-K_2025-12-31).
 
 At the group level, Arch reported $23.5 billion in capital at December 31, 2024, with book value per share of $53.11, a 13% increase from $46.94 at year-end 2023 (ACGL_10-K_2024-12-31). The company paid a $5 per share special dividend in December 2024 and repurchased $24 million in shares during Q4 2024 (ACGL_TRANSCRIPT_2024-12-31).
 

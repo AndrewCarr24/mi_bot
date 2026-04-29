@@ -36,9 +36,9 @@ The total private mortgage insurance market was approximately $300 billion in 20
 
 NIW has been highly cyclical over the past five years, driven primarily by interest rate movements:
 
-- **2020-2021**: Record-low mortgage rates drove a massive refinance boom, pushing industry NIW to historic highs. MGIC wrote $76.4 billion in 2022, down from even higher levels in 2020-2021 (MTG_10-K_2024-12-31).
+- **2020-2021**: Record-low mortgage rates drove a massive refinance boom. MGIC's NIW rose from $38.0 billion in 2020 to $69.8 billion in 2021 (MTG_10-K_2024-12-31).
 
-- **2022**: The Federal Reserve's rate hiking cycle sharply reduced refinance volumes. Purchase originations also declined as affordability deteriorated. Industry NIW contracted significantly.
+- **2022**: NIW reached its cycle peak before the rate-hiking cycle bit. MGIC wrote $76.4 billion in 2022 (MTG_10-K_2024-12-31). The Federal Reserve's rate hikes that year sharply reduced refinance volumes and purchase originations also declined as affordability deteriorated, setting up the contraction in subsequent years.
 
 - **2023**: NIW remained depressed as rates stayed elevated. Purchase originations stabilized at lower levels, while refinance activity was minimal. MGIC's NIW fell to $46.1 billion (MTG_10-K_2024-12-31).
 

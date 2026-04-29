@@ -36,7 +36,7 @@ Essent Re generated approximately $80 million in third-party revenues in 2024 an
 
 The company's investment portfolio totaled $6.5 billion at fair value as of December 31, 2025, with a new money yield over 5% in the fourth quarter of 2024 (ESNT_10-K_2025-12-31; ESNT_TRANSCRIPT_2024-12-31). Net investment income was $237 million in 2025, up from $222 million in 2024 (ESNT_10-K_2025-12-31).
 
-Capital management: In early 2025, the Board approved an 11% increase in the quarterly dividend to $0.31 per share and a $500 million share repurchase authorization through year-end 2026 (ESNT_TRANSCRIPT_2024-12-31). The company repurchased $588 million of stock in 2025 (ESNT_10-K_2025-12-31).
+Capital management: In early 2025, the Board approved an 11% increase in the quarterly dividend to $0.31 per share and a $500 million share repurchase authorization through year-end 2026 (ESNT_TRANSCRIPT_2024-12-31). During 2025 the company repurchased 9,862,699 common shares at a cost of $575.6 million; in November 2025 the Board approved an additional $500 million authorization running through year-end 2027 (ESNT_10-K_2025-12-31).
 
 ## How it has evolved
 
