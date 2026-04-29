@@ -101,3 +101,14 @@ errors after manual verification (the triage judge mis-labeled 2 of them
   while reasoning concludes "this is a real error"). Always sanity-check
   triage verdicts manually — it speeds the lint up but is not a
   substitute for human review on the flagged subset.
+- Agency annual reports (FHFA, etc.) are dated by reporting period but
+  published the following year. INDUSTRY_FHFA_ANNUAL_REPORT_2024 is the
+  FY2024 report published in 2025 — its foreword is signed by Director
+  Pulte who arrived March 2025. Citing post-period commentary from this
+  doc next to a "2024" filename label looks paradoxical even when
+  factually correct. Catalog labels were updated to read "FY 2024
+  (published 2025)" so the dating mismatch is visible everywhere the
+  doc surfaces. When citing such a report, consider: is the underlying
+  fact a FY2024 actual (CRT volume, GSE acquisitions) or post-period
+  framing in the foreword (Director's priorities, 2025 outlook)?
+  Phrase accordingly.

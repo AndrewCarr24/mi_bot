@@ -24,7 +24,7 @@ For MI analysts, the GSE relationship is the single most important external fact
 As of FHFA's 2024 Report to Congress (published June 2025), the key developments in the GSE-MI relationship include:
 
 - **PMIERs update**: In August 2024, the Enterprises issued updates to the PMIERs, which outline financial and operational standards for private mortgage insurance companies (INDUSTRY_FHFA_ANNUAL_REPORT_2024). This was the most recent update to the eligibility requirements.
-- **Conservatorship continues**: FHFA remains conservator of both GSEs. Director William J. Pulte, appointed in March 2025, has stated a focus on ensuring the GSEs "operate safely and soundly" (INDUSTRY_FHFA_ANNUAL_REPORT_2024).
+- **Conservatorship continues**: FHFA remains conservator of both GSEs. New Director William J. Pulte, who arrived in March 2025, opens FHFA's FY2024 Report to Congress (published 2025) with a focus on ensuring the GSEs "operate safely and soundly" (INDUSTRY_FHFA_ANNUAL_REPORT_2024).
 - **Credit score transition**: The GSEs are implementing updated credit score requirements (FICO 10T and VantageScore 4.0), which may affect the risk profile of loans flowing through the MI channel (INDUSTRY_FHFA_ANNUAL_REPORT_2024).
 - **Coverage requirements unchanged**: Standard MI coverage requirements remain as outlined in Freddie Mac's PMI Handbook, with coverage ranging from 6% to 35% depending on LTV and loan term (INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09).
 

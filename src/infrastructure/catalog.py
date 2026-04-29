@@ -34,8 +34,8 @@ _INDUSTRY_LABELS: dict[str, tuple[str, str]] = {
     "INDUSTRY_USMI_WHITE_PAPER_2020-10": ("USMI policy white paper", "Oct 2020"),
     "INDUSTRY_USMI_RESILIENCY_2023-11": ("USMI resiliency white paper", "Nov 2023"),
     "INDUSTRY_USMI_PMIERS_FACTSHEET_2015-10": ("USMI PMIERs fact sheet", "Oct 2015"),
-    "INDUSTRY_FHFA_ANNUAL_REPORT_2024": ("FHFA Annual Report to Congress", "2024"),
-    "INDUSTRY_FHFA_PAR_2024": ("FHFA Performance and Accountability Report", "FY 2024"),
+    "INDUSTRY_FHFA_ANNUAL_REPORT_2024": ("FHFA Annual Report to Congress", "FY 2024 (published 2025)"),
+    "INDUSTRY_FHFA_PAR_2024": ("FHFA Performance and Accountability Report", "FY 2024 (published 2025)"),
     "INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09": ("Private MI Handbook (industry primer)", "Freddie Mac, Sep 2021"),
 }
 
