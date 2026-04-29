@@ -6,7 +6,7 @@
 
 PMIERs establish the conditions under which a private mortgage insurer can be an "approved insurer" eligible to write coverage on loans acquired by Fannie Mae and Freddie Mac. The core financial test is a risk-based evaluation performed each quarter: an insurer must maintain **available assets** that equal or exceed its **minimum required assets** (INDUSTRY_PMIERS_2.0_BASE).
 
-**Available assets** are the most liquid assets on the insurer's statutory balance sheet — cash, bonds, publicly traded equities (discounted 25%), certain receivables, and assets held by exclusive affiliated reinsurers. The calculation subtracts unearned premium reserves, outstanding debt obligations, and pledged collateral (INDUSTRY_PMIERS_2.0_BASE).
+**Available assets** are the most liquid assets on the insurer's statutory balance sheet — cash, bonds, publicly traded equities, certain receivables, and assets held by exclusive affiliated reinsurers. The calculation subtracts unearned premium reserves, outstanding debt obligations, and pledged collateral. Under the PMIERs 2.0 base, equities were discounted 25% (INDUSTRY_PMIERS_2.0_BASE); the August 2024 update doubled that haircut to 50% effective March 31, 2025, with bond-level haircuts and concentration limits introduced for the first time (INDUSTRY_PMIERS_GUIDANCE_2024-01).
 
 **Minimum required assets** are derived from the insurer's risk-in-force (RIF) — the sum of each insured loan's current principal balance multiplied by the applicable coverage percentage. The RIF is then weighted by risk attributes (loan-to-value ratio, credit score, loan purpose, occupancy type, etc.) using factors specified in Exhibit A of the PMIERs document (INDUSTRY_PMIERS_2.0_BASE).
 
@@ -26,8 +26,8 @@ The August 2024 update (Guidance 2024-01) is particularly significant because it
 
 Guidance 2024-01 became effective March 31, 2025, with a phased transition schedule for the new available-asset requirements. Key provisions include:
 
-- **Bond haircuts**: A sliding scale based on credit rating — AAA-rated bonds receive a 2% haircut, while BBB-rated bonds receive 10% or more. Bonds rated below BBB- are ineligible for inclusion in available assets (INDUSTRY_PMIERS_GUIDANCE_2024-01).
-- **Concentration limits**: No single issuer (excluding U.S. government and agency securities) may exceed 5% of available assets. Aggregate below-investment-grade exposure is capped at 5% of available assets (INDUSTRY_PMIERS_GUIDANCE_2024-01).
+- **Bond haircuts**: A sliding scale based on credit rating — 0.20% for AAA, 0.60% for AA, 1.30% for A, 2.10% for BBB, 10% for BB (with a 5-year max remaining term), 25% for B (with a 2-year max remaining term), and 100% for CCC and below. Securities backed by the full faith and credit of the U.S. Government receive a 0% haircut. Sub-investment-grade bonds remain eligible but are subject to the aggregate cap below (INDUSTRY_PMIERS_GUIDANCE_2024-01).
+- **Concentration limits**: Total Freddie Mac and Fannie Mae debt and MBS combined may not exceed 25% of available assets; ABS may not exceed 20%; non-agency CMBS rated at least BBB- may not exceed 5%. The aggregate of common and preferred shares plus BB-rated and B-rated bonds may not exceed 5% of available assets. Approved insurers must also set and disclose their own concentration limits for any single non-U.S.-Government issuer (INDUSTRY_PMIERS_GUIDANCE_2024-01).
 - **COLI limit**: Corporate-owned life insurance assets are capped at 10% of the insurer's risk-based required asset amount (INDUSTRY_PMIERS_GUIDANCE_2024-01).
 - **Surplus notes**: Eligible surplus notes are limited to 9% of minimum required assets; amounts above that threshold are excluded from available assets (INDUSTRY_PMIERS_GUIDANCE_2024-01).
 

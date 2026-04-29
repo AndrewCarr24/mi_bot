@@ -12,9 +12,36 @@ Schema: one entry per change, newest at top, ISO date prefix.
   impact). Schema in `AGENTS.md`. Exposed to the agent via the
   `wiki_read_page(slug)` tool (alongside `dsrag_kb` for chunk retrieval).
 
-## Open lint items
-- Resolve discrepancy in equity haircut on PMIERs available assets:
-  `metrics/pmiers.md` says common/preferred shares are discounted 25%;
-  `topics/pmiers_aug_2024_update.md` says 50%. One reflects the 2.0 base,
-  one reflects the August 2024 update — but they should not contradict
-  without explicit framing.
+## 2026-04-28 (resolutions)
+- Equity haircut: reconciled the "contradiction" between
+  `metrics/pmiers.md` and `topics/pmiers_aug_2024_update.md`. Both
+  numbers were correct in isolation: PMIERs 2.0 base discounts publicly-
+  traded common and preferred shares 25% (INDUSTRY_PMIERS_2.0_BASE
+  §703); Guidance 2024-01 doubles that to 50% effective March 31, 2025
+  (INDUSTRY_PMIERS_GUIDANCE_2024-01 element 3). Edited both pages to
+  make the regime change explicit so a reader bouncing between them
+  doesn't see a free-floating contradiction.
+
+- Bond haircuts: caught and fixed actual hallucinations on both pages.
+  Both claimed "AAA = 2% haircut, BBB = 5–10%" under Guidance 2024-01;
+  the source (and the PDF's own worked example) gives 0.20% / 0.60% /
+  1.30% / 2.10% / 10.00% / 25.00% / 100.00% across the rating spectrum
+  AAA → CCC. The wiki's numbers were ~10x too high on AAA and the BBB
+  figure ("10%") matched the next row down (BB+ to BB-) — likely an
+  off-by-one row error compounded by a decimal misplacement. Replaced
+  with the verbatim table values on both pages.
+
+- Concentration limits: fixed a fabricated "5% per single non-government
+  issuer" claim in `metrics/pmiers.md`. Source actually requires
+  insurers to set and disclose their own limits (no fixed number).
+  Restated correctly.
+
+## Lint patterns to watch
+- "Current state" sections that describe the status quo without flagging
+  it as either pre- or post- the August 2024 update — anything dated
+  March 31, 2025 or later should reflect Guidance 2024-01.
+- LLM-authored numeric specifics (haircut percentages, concentration
+  caps, thresholds) should be spot-checked against the source PDF when
+  the figure is round/memorable. Off-by-one row errors and decimal
+  misreads are the failure modes seen so far. Worked-example arithmetic
+  in the source is a useful internal cross-check.

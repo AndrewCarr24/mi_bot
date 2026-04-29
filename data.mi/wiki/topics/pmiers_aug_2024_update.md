@@ -8,9 +8,9 @@ The August 2024 PMIERs update (Guidance 2024-01) amends Section 703 of the PMIER
 
 Key provisions include:
 
-- **Haircuts on bonds**: All bonds eligible for available assets must be discounted by specified percentages based on their credit rating. For example, AAA-rated bonds receive a 2% haircut, while BBB-rated bonds receive a 5% haircut `(INDUSTRY_PMIERS_GUIDANCE_2024-01)`.
+- **Haircuts on bonds**: All bonds eligible for available assets must be discounted by specified percentages based on their credit rating: 0.20% for AAA, 0.60% for AA+ to AA-, 1.30% for A+ to A-, 2.10% for BBB+ to BBB-, 10% for BB+ to BB- (with a 5-year max remaining term), 25% for B+ to B- (with a 2-year max remaining term), and 100% for CCC and below. Securities backed by the full faith and credit of the U.S. Government receive a 0% haircut regardless of rating `(INDUSTRY_PMIERS_GUIDANCE_2024-01)`.
 - **Concentration limits**: Total debt and MBS issued by Fannie Mae and Freddie Mac cannot exceed 25% of available assets. Asset-backed securities (ABS) are capped at 20%. Non-agency CMBS rated at least BBB- are capped at 5% `(INDUSTRY_PMIERS_GUIDANCE_2024-01)`.
-- **Equity treatment**: Common and preferred shares are valued at 50% of their closing price on the last trading day of the quarter, and the aggregate of sub-investment-grade bonds and equities cannot exceed 5% of available assets `(INDUSTRY_PMIERS_GUIDANCE_2024-01)`.
+- **Equity treatment**: Common and preferred shares are valued at 50% of their closing price on the last trading day of the quarter — double the 25% haircut under the PMIERs 2.0 base (INDUSTRY_PMIERS_2.0_BASE) — and the aggregate of sub-investment-grade bonds and equities cannot exceed 5% of available assets `(INDUSTRY_PMIERS_GUIDANCE_2024-01)`.
 - **New reporting requirements**: Insurers must provide a detailed quarterly COLI investment account statement and a security-level reporting template (Exhibit H) `(INDUSTRY_PMIERS_GUIDANCE_2024-01)`.
 
 A separate but concurrent Guidance 2024-02 addresses the treatment of non-performing loans, replacing the COVID-19-era 2021 Guidance. Effective March 31, 2025, insurers must hold standard risk-based required asset amounts for any loans still in COVID-19 forbearance plans `(INDUSTRY_PMIERS_GUIDANCE_2024-02)`.
@@ -44,6 +44,7 @@ The COVID-19 pandemic prompted temporary relief measures (2021 Guidance) that re
 ## Sources
 
 - `INDUSTRY_PMIERS_GUIDANCE_2024-01` — Primary source for the August 2024 PMIERs update: new haircuts, concentration limits, exclusions, transition schedule, and reporting requirements for available assets.
+- `INDUSTRY_PMIERS_2.0_BASE` — The pre-update PMIERs 2.0 base, used as the comparison point for the equity haircut change (25% → 50%).
 - `INDUSTRY_PMIERS_GUIDANCE_2024-02` — Guidance on non-performing loan treatment, replacing COVID-19-era relief with standard risk-based factors effective March 31, 2025.
 - `MTG_10-K_2024-12-31` — MGIC's disclosure of the estimated ~1% ($50 million) impact on available assets if the update were fully effective at year-end 2024.
 - `ACGL_10-K_2024-12-31` — Arch Capital's disclosure that its eligible mortgage insurers satisfied PMIERs requirements as of December 31, 2024, and that the update will be phased in through September 2026.
