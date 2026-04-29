@@ -31,7 +31,7 @@ Third, **credit normalization is becoming visible in delinquency trends**. Year-
 
 ## Current state (as of 2025-12-31)
 
-- **GSE share of U.S. residential mortgage debt**: GSEs held or guaranteed approximately $7.8 trillion as of September 30, 2025 — about 53% of U.S. 1-4 family residential mortgage debt according to recent Federal Reserve data referenced in Enact's 10-K (ACT_10-K_2025-12-31). Essent's 10-K cites a related but different figure: $6.7 trillion or 45.7% of all U.S. residential mortgage debt outstanding (ESNT_10-K_2025-12-31).
+- **GSE share of U.S. residential mortgage debt**: Per Federal Reserve data referenced in Enact's 10-K, the GSEs held or guaranteed approximately $7.8 trillion as of September 30, 2025 — about 53% of U.S. 1-4 family residential mortgage debt (ACT_10-K_2025-12-31).
 - **PMI industry NIW**: $311 billion in 2025 (per MGIC), $299 billion in 2024, $284 billion in 2023 (MTG_10-K_2025-12-31). NMI management's estimate for 2025 was approximately $310 billion (NMIH_TRANSCRIPT_2025-12-31).
 - **Total insured mortgage market shares (2025 vs. 2024)**: per *Inside Mortgage Finance* via MGIC and Radian, FHA 34.3% (33.5%), VA 26.8% (24.5%), USDA residual, PMI ~38% (41% in 2024) (MTG_10-K_2025-12-31; RDN_10-K_2025-12-31).
 - **Conforming loan limits (2025)**: $806,500 for one-unit properties; $1,209,750 in high-cost areas (MTG_10-K_2025-12-31).
@@ -59,7 +59,6 @@ Looking forward, three forces are most likely to shape 2026: (i) the path of mor
 - [MTG_10-K_2025-12-31] — PMI industry NIW ($311B 2025, $299B 2024, $284B 2023), FHA share (34.3% 2025, 33.5% 2024, 33.2% 2023; historical 23.4%-42.1% range), VA share (26.8%, 24.5%, 21.5%; high 30.9%), combined FHA+VA+USDA share (62.0% 2025, 58.9% 2024), conforming loan limits ($806,500 / $1,209,750 in 2025), refinance share of MGIC NIW (4% 2024 → 9.1% 2025), Anza Mortgage as potential new entrant for 2026.
 - [RDN_10-K_2025-12-31] — PMI share of total insured mortgage market (38% 2025 vs. 41% 2024), FHA share (~35% 2025 vs. 34% 2024), FHA February 2023 premium reduction, FHA MMI Fund capital ratio (11.47% FY 2025), Anza confirmation.
 - [ACT_10-K_2025-12-31] — GSE share of U.S. residential mortgage debt ($7.8T / 53% at Sep 30, 2025 per Federal Reserve data), GSE charter credit-enhancement requirement.
-- [ESNT_10-K_2025-12-31] — Alternative GSE share figure ($6.7T / 45.7% at Sep 30, 2025).
 - [MTG_TRANSCRIPT_2025-12-31] — 2025 industry / MGIC persistency at 85%, credit normalization framing, 748 average credit score on NIW.
 - [RDN_TRANSCRIPT_2025-12-31] — Q4 2025 quarterly-annualized persistency 82% (down from 86% in Q3), ~50% of Radian IIF at note rate ≤ 5.5%, refinance-driven decline narrative.
 - [ESNT_TRANSCRIPT_2025-12-31] — Essent persistency 85.7% at YE2025, ~60% of Essent IIF at note rate ≤ 6%.
