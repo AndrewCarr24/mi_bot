@@ -194,6 +194,40 @@ MI coverage on the metric pages, which is the upstream cause of the
 going forward (one query per MI on cross-MI metric pages), but for
 this round we patched by hand from already-ingested 10-Ks.
 
+## 2026-04-29 (Enact deep-dive)
+
+User requested a focused recheck of `companies/act_enact`. Spot-checked
+every numeric and named claim against ACT_10-K_2025-12-31, ACT_10-K_
+2024-12-31, and ACT_TRANSCRIPT_2024-12-31. Found 8 issues; all fixed.
+
+- Stale PMIERs: page reported "167% as of Q4 2024" in a section dated
+  "2025-12-31." Updated to year-end 2025 (162%; $5,015M Available
+  Assets, $1,919M cushion vs $3,096M required) plus the year-over-year
+  comparison.
+- Missing 2025 NIW ($51.5B) added to the Current state list (was the
+  only major MI metric missing).
+- S&P A- rating mis-attributed to Enact Re. The transcript's BBB+→A-
+  upgrade is explicitly the parent **Enact Holdings issuer credit
+  rating**, not an Enact Re financial strength rating. Reframed.
+- "Enact Re CRT platform was established in 2023" was not directly
+  supported. Source only says "We contributed $500 million into Enact
+  Re in 2023" — a recapitalization, not establishment of the entity.
+  Reframed as a 2023 scale-up rather than a 2023 founding.
+- Enact Re primary function was mis-described. Source frames it as
+  "reinsures EMICO's new and existing insurance-in-force under quota
+  share reinsurance agreements" — i.e., intercompany QSR is its main
+  function and GSE CRT is a smaller leg. The wiki had the priorities
+  reversed. Corrected.
+- Editorial "fourth-largest US private mortgage insurer by market
+  share" stripped — same Pulte-pattern as the Essent "third-largest"
+  fix. Replaced with "one of the six active US private mortgage
+  insurers."
+- Capitalization: standardized "Enact RE" → "Enact Re" throughout
+  (formal subsidiary name is Enact Re Ltd.).
+- Tightened the summary blockquote to reflect the actual Enact Re
+  function (intercompany QSR) rather than the GSE-CRT-first framing
+  the original had.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated
