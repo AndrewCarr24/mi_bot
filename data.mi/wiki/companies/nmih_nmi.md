@@ -38,7 +38,8 @@ NMIH's trajectory is one of rapid, disciplined growth from a de novo entrant to 
 - **2011-2013**: Incorporation, capitalization, licensing, and first policy written in April 2013
 - **2015**: Capitalization of NMI Services for loan review services; initial reinsurance structures put in place
 - **2017-2020**: Steady portfolio growth through multiple housing cycles; development of Rate GPS® pricing platform
-- **2021-2023**: Accelerated growth as the mortgage market expanded; NMIH consistently gained market share, with NIW growing from approximately $30 billion in 2021 to $46 billion in 2024
+- **2020-2021**: Refinance boom drove NIW to a cycle peak — $62.7 billion in 2020 and $85.6 billion in 2021 (NMIH_10-K_2024-12-31)
+- **2022-2024**: Sharp contraction as the Fed's rate-hiking cycle collapsed the mortgage market; NMIH's NIW fell to $58.7 billion (2022), $40.5 billion (2023), and $46.0 billion (2024). NMIH's market share rose over the period even as its NIW levels declined, reflecting a smaller overall PMI market
 - **2024**: Record year — $46 billion NIW, $210.2 billion IIF, record adjusted net income of $365.6 million, and a 17.6% adjusted ROE (NMIH_TRANSCRIPT_2024-12-31). The company also executed a $250 million share repurchase authorization refresh
 - **2025**: Continued earnings growth to $388.9 million net income, with net premiums earned crossing $600 million for the first time (NMIH_10-K_2025-12-31)
 

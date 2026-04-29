@@ -410,6 +410,30 @@ which is what an analyst should know.
 Same Pulte-pattern: quotable disclosure language standing in for
 substantive characterization.
 
+## 2026-04-29 (NMIH 2021 NIW fabrication)
+
+`companies/nmih_nmi` line 41 had: "2021-2023: Accelerated growth as
+the mortgage market expanded; NMIH consistently gained market share,
+with NIW growing from approximately $30 billion in 2021 to $46
+billion in 2024." Two errors in one sentence.
+
+The book-year portfolio statistics in NMIH_10-K_2024-12-31 line 1723
+show NMIH's actual NIW history:
+  2019: $45.1B / 2020: $62.7B / 2021: $85.6B / 2022: $58.7B /
+  2023: $40.5B / 2024: $46.0B / 2025: $48.9B
+
+So NMIH's 2021 NIW was $85.6B, not $30B — off by nearly 3x. And
+NIW didn't "grow" from 2021 to 2024; it peaked in 2021 and
+contracted through 2023 as the Fed's rate hikes collapsed the
+mortgage market. The "consistently gained market share" framing
+conflated rising market share with rising NIW levels — share rose
+because the total PMI market shrank, not because NMIH was growing.
+
+Fixed by replacing the bullet with two bullets that show the
+actual cycle: a 2020-2021 refi-boom peak followed by a 2022-2024
+contraction, with the share-rising-while-NIW-falling dynamic
+explicitly noted.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated
