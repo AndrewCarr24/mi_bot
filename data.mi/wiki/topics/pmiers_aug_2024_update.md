@@ -13,7 +13,7 @@ Key provisions include:
 - **Equity treatment**: Common and preferred shares are valued at 50% of their closing price on the last trading day of the quarter — double the 25% haircut under the PMIERs 2.0 base (INDUSTRY_PMIERS_2.0_BASE) — and the aggregate of sub-investment-grade bonds and equities cannot exceed 5% of available assets (INDUSTRY_PMIERS_GUIDANCE_2024-01).
 - **New reporting requirements**: Insurers must provide a detailed quarterly COLI investment account statement and a security-level reporting template (Exhibit H) (INDUSTRY_PMIERS_GUIDANCE_2024-01).
 
-A separate but concurrent Guidance 2024-02 addresses the treatment of non-performing loans, replacing the COVID-19-era 2021 Guidance. Effective March 31, 2025, insurers must hold standard risk-based required asset amounts for any loans still in COVID-19 forbearance plans (INDUSTRY_PMIERS_GUIDANCE_2024-02).
+A separate but concurrent Guidance 2024-02 addresses the treatment of non-performing loans, replacing the COVID-19-era 2021 Guidance. Since March 31, 2025, insurers have been required to hold standard risk-based required asset amounts for any loans still in COVID-19 forbearance plans (INDUSTRY_PMIERS_GUIDANCE_2024-02).
 
 ## Why it matters
 
@@ -21,19 +21,23 @@ This update represents a structural tightening of the PMIERs framework. For the 
 
 - **Capital efficiency**: Insurers with higher-yielding or lower-credit-quality investment portfolios will see a larger reduction in available assets, potentially pressuring their PMIERs sufficiency ratios.
 - **Portfolio rebalancing**: Insurers may shift toward higher-rated, more liquid assets to minimize haircuts, potentially reducing investment yields.
-- **Phase-in provides runway**: The 24-month phase-in (75% add-back in Q1/Q2 2025, 50% in Q3/Q4 2025, 25% in Q1/Q2 2026, 0% from Q3 2026) gives insurers time to adjust without immediate capital pressure (INDUSTRY_PMIERS_GUIDANCE_2024-01).
-- **Industry-wide impact is manageable**: MGIC estimated that if fully effective at December 31, 2024, its available assets would decrease by approximately 1% ($50 million), reducing its PMIERs excess from $2.2 billion to $2.1 billion (MTG_10-K_2024-12-31). Arch Capital similarly noted the update will become effective March 31, 2025 with phased impact through September 2026 (ACGL_10-K_2024-12-31).
+- **Phase-in schedule** (per Radian's restatement of the GSE timetable): 25% of the calculated adjustment implemented as of March 31, 2025; 50% as of September 30, 2025; 75% as of March 31, 2026; 100% as of September 30, 2026 (RDN_10-K_2025-12-31). Equivalently: 75% add-back in Q1-Q2 2025, 50% add-back in Q3-Q4 2025, 25% add-back in Q1-Q2 2026, 0% add-back from Q3 2026 onward.
+- **Observed impact has been modest**: With 50% of the calculated adjustment already implemented as of September 30, 2025, the major MIs have either had no material impact or expect none. Radian states the updates "have not had and, once fully implemented, are not expected to have a material impact on Radian Guaranty's capital position, its PMIERs Cushion or its investment portfolio asset allocation strategy" (RDN_10-K_2025-12-31). Essent and Enact made similar statements in their 2025 10-Ks (ESNT_10-K_2025-12-31; ACT_10-K_2025-12-31).
 
-## Current state (as of 2025-02-14)
+## Current state (as of 2025-12-31)
 
-The update is effective March 31, 2025, with the first phase-in period (75% add-back) applying to Q1 and Q2 2025 PMIERs submissions. The full impact takes effect September 30, 2026.
+The update has been live since March 31, 2025 and 50% of the calculated adjustment was implemented at September 30, 2025; the next step (75% implemented) landed March 31, 2026, with full effect on September 30, 2026. Year-end 2025 PMIERs sufficiency disclosures from each MI's 2025 10-K — which already reflect the 50% phase-in — show modest movement and no compliance issues:
 
-Based on year-end 2024 disclosures:
+| MI | Sufficiency (year-end 2025) | Sufficiency (year-end 2024) | Observed / expected impact of the update |
+|---|---|---|---|
+| MGIC | ~178% ($5.7B Available Assets / $2.5B excess) | ~161% ($5.8B Available / $2.2B excess) | Sufficiency improved YoY despite 50% phase-in; MGIC's 2024 forward estimate of ~1% / $50M reduction has not materialized in a way that compresses the cushion (MTG_10-K_2025-12-31) |
+| Essent | 169% ($3.5B Available / $2.1B Required, $1.4B cushion) | 178% (transcript figure) | Down ~9 points YoY; Essent expects to remain in full compliance with the PMIERs requirements (ESNT_10-K_2025-12-31) |
+| NMI Holdings | 170% (Available Assets exceeded risk-based required by 70%) | (not separately disclosed in corpus) | NMIH maintains its strong PMIERs surplus position post-phase-in (NMIH_10-K_2025-12-31) |
+| Enact | 162% ($5,015M Available, $1,919M cushion above $3,096M required) | 167% / $2,052M cushion | Down ~5 points; Enact "expects to hold capital sufficiency well in excess of these requirements" and does not expect a material impact (ACT_10-K_2025-12-31) |
+| Arch (AMIC, UGRIC) | In compliance and "well in excess" (no specific %) | In compliance | Arch frames the update as immaterial to its mortgage subsidiaries' compliance trajectory (ACGL_10-K_2025-12-31) |
+| Radian Guaranty | $1.6B PMIERs Cushion | $2.2B Cushion | Down $0.6B YoY, but the decline was driven by the $600M intercompany note funding the Inigo acquisition — not the PMIERs Update. Radian states the updates "have not had and... are not expected to have a material impact" on its capital position (RDN_10-K_2025-12-31) |
 
-- **MGIC**: Available assets of $5.8 billion, excess of $2.2 billion over minimum required assets. Full implementation would reduce available assets by ~$50 million (1%), leaving excess of ~$2.1 billion (MTG_10-K_2024-12-31).
-- **Arch Capital**: Its eligible mortgage insurers (AMIC and UGRIC) satisfied PMIERs financial requirements as of December 31, 2024. The company noted the update will be phased in through September 2026 (ACGL_10-K_2024-12-31).
-
-The other four MIs (Radian, Essent, NMI Holdings, Enact) have not yet disclosed specific impact estimates in the available corpus, but the industry-wide expectation is that the impact will be modest given the conservative investment portfolios most MIs maintain.
+In other words, every MI's year-end 2025 disclosure either shows the update has had no material capital impact through 50% phase-in, or affirmatively states management does not expect a material impact through full implementation. The 2024-vintage forward estimates (e.g., MGIC's "~1% / $50M reduction" projection) were directionally consistent with the modest movements actually observed.
 
 ## How it has evolved
 
@@ -46,8 +50,15 @@ The COVID-19 pandemic prompted temporary relief measures (2021 Guidance) that re
 - [INDUSTRY_PMIERS_GUIDANCE_2024-01] — Primary source for the August 2024 PMIERs update: new haircuts, concentration limits, exclusions, transition schedule, and reporting requirements for available assets.
 - [INDUSTRY_PMIERS_2.0_BASE] — The pre-update PMIERs 2.0 base, used as the comparison point for the equity haircut change (25% → 50%).
 - [INDUSTRY_PMIERS_GUIDANCE_2024-02] — Guidance on non-performing loan treatment, replacing COVID-19-era relief with standard risk-based factors effective March 31, 2025.
-- [MTG_10-K_2024-12-31] — MGIC's disclosure of the estimated ~1% ($50 million) impact on available assets if the update were fully effective at year-end 2024.
-- [ACGL_10-K_2024-12-31] — Arch Capital's disclosure that its eligible mortgage insurers satisfied PMIERs requirements as of December 31, 2024, and that the update will be phased in through September 2026.
+- [INDUSTRY_PMIERS_OVERVIEW_FHFA] — FHFA overview describing the original PMIERs framework drafted in 2014; cited for the historical context in "How it has evolved."
+- [MTG_10-K_2024-12-31] — MGIC's 2024 forward estimate of ~1% / $50 million reduction in available assets if fully effective at year-end 2024.
+- [MTG_10-K_2025-12-31] — MGIC's year-end 2025 PMIERs disclosure: $5.7B Available Assets, $2.5B excess (~178% sufficiency) post 50% phase-in.
+- [ACGL_10-K_2024-12-31] — Arch Capital's 2024 disclosure that AMIC and UGRIC satisfied PMIERs requirements; phase-in framing.
+- [ACGL_10-K_2025-12-31] — Arch's year-end 2025 confirmation of continued compliance.
+- [RDN_10-K_2025-12-31] — Radian's year-end 2025 PMIERs Updates language: "have not had and... are not expected to have a material impact"; phase-in restatement (25%/50%/75%/100% at quarter-ends Mar 31 2025, Sep 30 2025, Mar 31 2026, Sep 30 2026).
+- [ESNT_10-K_2025-12-31] — Essent's year-end 2025 PMIERs sufficiency (169%, $3.5B Available vs $2.1B Required) and post-update compliance statement.
+- [ACT_10-K_2025-12-31] — Enact's year-end 2025 PMIERs sufficiency (162%, $1.92B cushion) and management statement that the update is not expected to be material.
+- [NMIH_10-K_2025-12-31] — NMIH's year-end 2025 PMIERs sufficiency (170%).
 
 ## Related
 

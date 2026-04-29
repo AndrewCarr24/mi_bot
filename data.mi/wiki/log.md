@@ -342,6 +342,40 @@ headers (iif, niw, persistency, loss_ratio) had already been
 refreshed by the other agent to year-end 2025 with full cross-MI
 tables. Verified each is internally consistent.
 
+## 2026-04-29 (PMIERs update topic refresh)
+
+`topics/pmiers_aug_2024_update` had "Current state (as of 2025-02-14)"
+— ~14 months stale, written before any of the phase-in had actually
+happened. Refreshed to 2025-12-31 using year-end 2025 10-K disclosures
+from all six MIs. Key updates:
+
+- Replaced the forward-looking "MGIC estimated $50M reduction if
+  fully effective at year-end 2024" framing with a 6-MI table of
+  year-end 2025 PMIERs sufficiency ratios that reflect actual 50%
+  phase-in implementation.
+- Added Radian's strong year-end 2025 statement: PMIERs Updates
+  "have not had and... are not expected to have a material impact"
+  on its capital position.
+- Removed the now-false claim that "the other four MIs (Radian,
+  Essent, NMI Holdings, Enact) have not yet disclosed specific
+  impact estimates" — each has, in their 2025 10-Ks.
+- Reframed the phase-in description to clarify both the
+  implementation cadence (25% Mar-31-2025, 50% Sep-30-2025, 75%
+  Mar-31-2026, 100% Sep-30-2026) and the equivalent add-back
+  framing for any reader looking at it from the other angle.
+- Updated the Guidance 2024-02 sentence from forward-tense
+  ("Effective March 31, 2025, insurers must hold...") to past-tense
+  ("Since March 31, 2025...") since the date has passed.
+- Sources block expanded to include the 2025 10-Ks for each of MTG,
+  RDN, ACGL, ESNT, ACT, NMIH with one-line context for what each
+  contributed.
+
+Lesson: any wiki page that quotes "estimated impact if fully
+effective" language from a 10-K vintage that predates the actual
+implementation date should be revisited as soon as a year-end
+report covering an implementation period is in the corpus. The
+forward estimate becomes uninteresting once observed data exists.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated
