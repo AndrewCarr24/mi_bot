@@ -434,6 +434,24 @@ actual cycle: a 2020-2021 refi-boom peak followed by a 2022-2024
 contraction, with the share-rising-while-NIW-falling dynamic
 explicitly noted.
 
+## 2026-04-29 (loss_ratio MGIC/Radian decomposition swap)
+
+`metrics/loss_ratio` line 40 attributed Radian's 2025 loss
+decomposition to MGIC. The sentence claimed MGIC had "favorable
+prior-year development of $144.6 million was no longer enough to
+fully offset new delinquency notices of $211.4 million" — but
+those are Radian's numbers (current year defaults $211,355K and
+prior year favorable development $(144,587)K per RDN_10-K_2025-
+12-31 line 2657-2658). MGIC's actual 2025 decomposition is
+current year $204.1M, prior year favorable $(155.2)M, total
+$48.9M (per MTG_10-K_2025-12-31 line 3403). The math in the
+wiki sentence didn't even close: $211.4M - $144.6M = $66.8M,
+not the $48.9M MGIC total losses-incurred figure stated
+immediately before. Whoever wrote the line copy-pasted Radian's
+figures and then repeated them, correctly attributed, in the
+next paragraph (line 42 about Radian). Fixed by substituting
+MGIC's correct 2025 figures.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated
