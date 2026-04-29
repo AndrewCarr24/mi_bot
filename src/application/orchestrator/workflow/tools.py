@@ -1,12 +1,19 @@
 """Tools available to the agent.
 
-Single-tool retrieval stack: `dsrag_kb` is the only document-RAG tool.
+Two-tool retrieval stack:
+  - `dsrag_kb`        — semantic RAG over the full filings + industry corpus
+                        for point-in-time facts, figures, and disclosures.
+  - `wiki_read_page`  — read a synthesized wiki page (per Karpathy's LLM-Wiki
+                        pattern) for definitions, cross-MI overviews, and
+                        regulatory context. Page slate listed inline below.
+
 `memory_retrieval_tool` is orthogonal (user preferences/facts/summaries) and
 only gets surfaced when AgentCore Memory is configured via MEMORY_ID.
 """
 
 import json
 import os
+from pathlib import Path
 from typing import Annotated, Literal
 
 from langchain_core.runnables import RunnableConfig
@@ -14,6 +21,11 @@ from langchain_core.tools import InjectedToolArg, tool
 from loguru import logger
 
 from src.config import settings
+
+
+# Wiki lives next to the dsRAG store. Resolve from this file so the path
+# is correct in dev (data.mi/wiki) and in deployed packages.
+_WIKI_ROOT = Path(__file__).resolve().parents[4] / "data" / "wiki"
 
 
 # Per-thread set of (doc_id, chunk_index) tuples we've already returned
@@ -180,13 +192,71 @@ def dsrag_kb(
     return json.dumps(payload, indent=2, default=str)
 
 
+@tool
+def wiki_read_page(slug: str) -> str:
+    """
+    Read a single LLM-authored wiki page about US private mortgage insurance.
+
+    The wiki holds pre-synthesized analyst-perspective pages — definitions
+    of MI metrics (PMIERs, NIW, IIF, persistency, loss ratio, reinsurance),
+    one page per MI in the corpus, and regulatory / industry topic pages.
+    Each page follows a fixed schema (summary → What it is → Why it matters →
+    Current state → How it has evolved → Sources → Related) and cites
+    underlying filings by `doc_id`.
+
+    Use this tool over `dsrag_kb` when the user is asking for a definition,
+    a synthesized overview, a structural / regulatory explanation, or a
+    cross-MI comparison that doesn't depend on a specific filing's exact
+    wording.
+
+    Available slugs:
+      Metrics:    metrics/pmiers, metrics/niw, metrics/iif,
+                  metrics/persistency, metrics/loss_ratio,
+                  metrics/reinsurance_crt
+      Companies:  companies/mtg_mgic, companies/rdn_radian,
+                  companies/esnt_essent, companies/nmih_nmi,
+                  companies/acgl_arch, companies/act_enact
+      Topics:     topics/pmiers_aug_2024_update, topics/gse_relationship,
+                  topics/us_mortgage_market, topics/mi_regulatory_landscape,
+                  topics/catastrophe_impact_on_mi
+      Index:      index   (the catalog of all pages)
+
+    Args:
+        slug: Page slug, e.g. "metrics/pmiers" or "companies/mtg_mgic".
+            Must match exactly. Pass "index" for the page catalog.
+
+    Returns:
+        The page's markdown content, or an error string if the slug is
+        unknown.
+    """
+    slug = (slug or "").strip().strip("/")
+    if not slug:
+        return json.dumps({"error": "slug is required"})
+    # Allow "index" as shorthand for the top-level catalog
+    rel = "index.md" if slug == "index" else f"{slug}.md"
+    page_path = (_WIKI_ROOT / rel).resolve()
+    # Containment check: refuse paths that escape the wiki dir.
+    try:
+        page_path.relative_to(_WIKI_ROOT.resolve())
+    except ValueError:
+        return json.dumps({"error": f"slug outside wiki root: {slug!r}"})
+    if not page_path.is_file():
+        return json.dumps({
+            "error": f"unknown wiki page: {slug!r}",
+            "hint": "call wiki_read_page('index') to list available pages",
+        })
+    logger.info(f"wiki_read_page invoked: slug={slug!r} → {page_path.name}")
+    return page_path.read_text()
+
+
 def get_tools() -> list:
     """Return the tools bound to the ReAct agent.
 
-    `dsrag_kb` is always present. `memory_retrieval_tool` is only added
-    when AgentCore Memory is configured (MEMORY_ID set).
+    `dsrag_kb` and `wiki_read_page` are always present.
+    `memory_retrieval_tool` is only added when AgentCore Memory is
+    configured (MEMORY_ID set).
     """
-    tools = [dsrag_kb]
+    tools = [dsrag_kb, wiki_read_page]
     if settings.MEMORY_ID:
         tools.append(memory_retrieval_tool)
     return tools
