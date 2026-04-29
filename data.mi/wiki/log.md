@@ -278,6 +278,17 @@ persistency figures kept landing on the transcript versions. Worth
 fixing in the build pipeline (prefer 10-K for balance-sheet metrics,
 prefer transcripts only for management commentary).
 
+## 2026-04-29 (continued bug-scan)
+
+- `metrics/pmiers`: line 40 conflated the original PMIERs (2014 draft
+  / 2015 effective, with a two-year transition period for existing
+  insurers per the FHFA Overview) with PMIERs 2.0 (2018 publication
+  / 2019 effective, with only ~6 months of lead time for existing
+  insurers per INDUSTRY_PMIERS_2.0_BASE). Rewrote to keep the two
+  regimes separate and explicit. Same family of error as the
+  HERA-vs-Dodd-Frank, PMIERs-2.0-dated-2020, and PMIERs-origin-2008
+  bugs caught earlier.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated
