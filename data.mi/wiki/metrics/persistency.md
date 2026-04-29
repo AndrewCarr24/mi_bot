@@ -14,35 +14,36 @@ Persistency is a critical sensitivity for MI revenue models. Because most premiu
 
 Analysts watch persistency as a leading indicator of revenue trajectory and as a barometer of the interest rate environment's effect on the mortgage market. The metric also has a credit quality dimension: when refinancing activity is high, borrowers with strong credit and significant home equity tend to refinance out of MI coverage, while riskier borrowers remain, potentially degrading the credit profile of the remaining IIF (MTG_10-K_2024-12-31). This adverse selection dynamic means that periods of low persistency can be accompanied by a worsening of the in-force book's risk characteristics.
 
-## Current state (as of 2024-12-31)
+## Current state (as of 2025-12-31)
 
-Persistency rates across the six MIs remain at historically elevated levels, though they have edged down slightly from their 2023 peaks. Year-end 2024 figures:
+Persistency rates across the six MIs remain at historically elevated levels but eased modestly in 2025 as a brief late-2024 / 2025 decline in mortgage rates lifted refinance activity off the floor. Year-end 2025 figures:
 
-| MI | Persistency (2024) | Persistency (2023) | Source |
-|---|---|---|---|
-| Essent | 86% | 87% | ESNT_TRANSCRIPT_2024-12-31 |
-| NMI Holdings | 85% | 86% | NMIH_10-K_2024-12-31 |
-| MGIC | 84.8% | 86.1% | MTG_10-K_2024-12-31 |
-| Radian | 83.6% | n/a | RDN_TRANSCRIPT_2024-12-31 |
-| Enact | 83% | 85% | ACT_10-K_2024-12-31 |
-| Arch (US primary mortgage) | 82.1% | 83.6% | ACGL_10-K_2024-12-31 |
+| MI | Persistency (2025) | Persistency (2024) | Persistency (2023) | Source |
+|---|---|---|---|---|
+| Essent | 85.7% | 85.7% | 86.9% | ESNT_10-K_2025-12-31 |
+| MGIC | 84.8% | 84.8% | 86.1% | MTG_10-K_2025-12-31 |
+| Radian (12-month) | 83.6% | 83.6% | 84.0% | RDN_10-K_2025-12-31 |
+| NMI Holdings | 83.4% | 84.6% | 86.1% | NMIH_10-K_2025-12-31 |
+| Enact | 82% | 83% | 85% | ACT_10-K_2025-12-31 |
+| Arch (US primary mortgage) | 81.8% | 82.1% | 83.6% | ACGL_10-K_2025-12-31 |
 
-The elevated persistency is attributed to the high mortgage interest rate environment that has persisted through 2024. Despite the Federal Reserve lowering interest rates in 2024, the 10-year Treasury yield and 30-year fixed-rate mortgage rates remained elevated, suppressing refinancing activity (NMIH_10-K_2024-12-31). Refinance-related NIW was only 4% of MGIC's total NIW in 2024, compared to 2% in 2023 and 3% in 2022 (MTG_10-K_2024-12-31).
+On the 12-month measure, persistency eased the most at NMIH (down 1.2 points to 83.4%) and Enact (down ~1 point to 82%), while MGIC, Essent, and Radian all ran flat year-over-year and Arch ticked down 0.3 points (82.1% → 81.8%). The softening is more visible in Radian's quarterly-annualized persistency, which dropped to 81.6% at Q4 2025 from 82.7% at Q4 2024 — primarily because of higher refinance activity in the fourth quarter as rates fell (RDN_10-K_2025-12-31). Refinance-related NIW jumped from 4% of MGIC's total NIW in 2024 to 9.1% in 2025, the most visible sign of the lock-in effect loosening (MTG_10-K_2025-12-31).
 
 ## How it has evolved
 
 Persistency has undergone dramatic swings over the past five years, driven primarily by the interest rate cycle. MGIC's persistency ranged from a low of 60.7% at March 31, 2021 — when mortgage rates were at historic lows and refinancing was rampant — to a high of 86.3% at September 30, 2023, as rates had risen sharply (MTG_10-K_2024-12-31). The 2021 trough reflected the massive refinance wave triggered by pandemic-era monetary policy, which caused rapid turnover in IIF. As the Federal Reserve began raising rates in 2022, refinancing collapsed and persistency surged, reaching levels not seen in the prior decade.
 
-The current elevated persistency environment (84-86% range) has persisted since mid-2023, with only modest declines as some borrowers adjust to the higher-rate environment through cash-out refinancing or home sales. The trajectory of persistency going forward depends on the path of mortgage rates: a significant decline in rates would likely trigger a refinance wave that could push persistency back toward historical norms, while rates remaining elevated would keep persistency high.
+The elevated persistency environment (~82-86% range across MIs) has persisted since mid-2023. Through 2024, persistency rates were essentially flat year-over-year. In 2025, NMIH, Enact, and Arch saw modest 12-month declines (down 1.2, ~1, and 0.3 points respectively) as the Federal Reserve's late-2024 / 2025 rate cuts pulled some refinance activity forward; MGIC, Essent, and Radian's 12-month figures held flat year-over-year, though Radian's quarterly-annualized rate did soften to 81.6% in Q4 2025. The trajectory going forward depends on the path of mortgage rates: a significant decline in rates would likely trigger a broader refinance wave that could push persistency back toward historical norms, while rates remaining elevated would keep persistency high.
 
 ## Sources
 
+- [MTG_10-K_2025-12-31] — Provided MGIC's year-end 2025 persistency of 84.8% (flat versus year-end 2024) and the 2025 refinance share of NIW (9.1%).
 - [MTG_10-K_2024-12-31] — Provided MGIC's persistency rates for 2022-2024, the historical range (60.7% low to 86.3% high), and discussion of factors affecting persistency including HOPA, GSE cancellation guidelines, and adverse selection dynamics.
-- [NMIH_10-K_2024-12-31] — Provided NMIH's persistency rates for 2022-2024, the composition of IIF by premium type (91% monthly at year-end 2024), and discussion of the revenue sensitivity to persistency changes.
-- [ACT_10-K_2024-12-31] — Provided Enact's primary persistency rates of 83% (2024), 85% (2023), 80% (2022).
-- [ACGL_10-K_2024-12-31] — Provided Arch's US primary mortgage persistency of 82.1% at year-end 2024 vs 83.6% at year-end 2023.
-- [RDN_TRANSCRIPT_2024-12-31] — Provided Radian's Q4 2024 persistency rate of 83.6%.
-- [ESNT_TRANSCRIPT_2024-12-31] — Provided Essent's year-end 2024 persistency rate of 86%.
+- [NMIH_10-K_2025-12-31] — Provided NMIH's persistency rates of 83.4% (2025), 84.6% (2024), and 86.1% (2023).
+- [ACT_10-K_2025-12-31] — Provided Enact's primary persistency rates of 82% (2025), 83% (2024), and 85% (2023).
+- [ACGL_10-K_2025-12-31] — Provided Arch's US primary mortgage persistency of 81.8% at year-end 2025 vs 82.1% at year-end 2024.
+- [RDN_10-K_2025-12-31] — Provided Radian's 12-month persistency of 83.6% at year-end 2025 (flat vs year-end 2024) and the quarterly-annualized rate of 81.6% at Q4 2025.
+- [ESNT_10-K_2025-12-31] — Provided Essent's year-end 2025 annual persistency of 85.7% (flat vs year-end 2024).
 - [INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09] — Provided background on the GSE framework for MI coverage requirements and cancellation guidelines that influence persistency.
 
 ## Related

@@ -452,6 +452,28 @@ figures and then repeated them, correctly attributed, in the
 next paragraph (line 42 about Radian). Fixed by substituting
 MGIC's correct 2025 figures.
 
+## 2026-04-29 (persistency Radian framing)
+
+`metrics/persistency` line 30 said: "Persistency eased the most at
+NMIH... and Enact..., while MGIC and Essent ran flat" — implying
+by omission that Radian declined. Line 36 doubled down: "every MI
+except MGIC and Essent saw a modest decline." Per RDN_10-K_2025-
+12-31 line 2376, Radian's 12-month persistency was 83.6% at year-
+end 2025 and 83.6% at year-end 2024 — flat. Only the quarterly-
+annualized rate softened (82.7% → 81.6%), but the table on the
+page reports the 12-month figure. Reframed both lines so that
+MGIC, Essent, and Radian are correctly grouped as flat on the
+12-month metric, with Radian's quarterly-annualized softening
+called out as a separate observation.
+
+Methodological note from this catch: validation should always go
+back to the source 10-K, not to other parts of the wiki. The
+table itself was correct (sourced to RDN_10-K_2025-12-31), but
+that doesn't tell us anything about whether the table is right —
+both the table and a contradicting prose claim could be wrong in
+synced ways. Cross-page consistency is a smoke test, not a
+verification.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated
