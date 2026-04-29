@@ -376,6 +376,25 @@ implementation date should be revisited as soon as a year-end
 report covering an implementation period is in the corpus. The
 forward estimate becomes uninteresting once observed data exists.
 
+## 2026-04-29 (Radian three-pillars fabrication)
+
+`companies/rdn_radian` line 11 (my own earlier rewrite) invented a
+"three pillars" structure for post-Inigo Radian: (1) private MI,
+(2) Lloyd's specialty insurance, and (3) "the smaller GSE credit-
+risk-transfer book underwritten alongside Radian Guaranty." Pillar
+(3) doesn't exist as a separate business line. The 2025 10-K (line
+460) describes Radian post-acquisition as having "private mortgage
+insurance, specialty insurance and reinsurance lines" — two lines,
+not three. What I called "GSE CRT" was actually Radian Guaranty's
+own reinsurance / Eagle Re ILN program, which is risk distribution
+within the mortgage business, not a separate pillar. Reframed as
+two lines of business with the reinsurance machinery noted as part
+of Radian Guaranty's operations.
+
+Lesson: when rewriting a page from scratch (as I did with Radian),
+resist the temptation to over-structure. If the source says "two
+lines," don't invent a third.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated

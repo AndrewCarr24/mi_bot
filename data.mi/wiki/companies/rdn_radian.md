@@ -8,7 +8,7 @@ Radian Group Inc. (NYSE: RDN) is a holding company whose principal U.S. mortgage
 
 In February 2026 Radian Group acquired Inigo Limited, an England-and-Wales-incorporated global specialty insurance and reinsurance company that underwrites through Lloyd's Syndicate 1301 (RDN_10-K_2025-12-31). The acquisition was announced in September 2025 and is the centerpiece of Radian's "planned strategic transformation to a global multi-line specialty insurer" (RDN_10-K_2025-12-31). At the same time, Radian announced the planned divestiture of its Mortgage Conduit, Title, and Real Estate Services businesses; in Radian's third-quarter 2025 reporting these were reclassified as held for sale and discontinued operations for all periods presented (RDN_10-K_2025-12-31).
 
-The post-transformation company has three pillars: (1) U.S. private mortgage insurance through Radian Guaranty, (2) Lloyd's specialty insurance and reinsurance through Inigo (Syndicate 1301), and (3) the smaller GSE credit-risk-transfer book underwritten alongside Radian Guaranty (RDN_10-K_2025-12-31).
+The post-transformation company is a multi-line specialty insurer organized around two lines of business: (1) U.S. private mortgage insurance through Radian Guaranty, and (2) Lloyd's specialty insurance and reinsurance through Inigo (Syndicate 1301). As of December 31, 2025, Radian still reported one reportable segment (Mortgage Insurance) — the Inigo acquisition closed in February 2026 and will appear as a second segment from FY2026 onward. Within the Mortgage Insurance line, Radian Guaranty distributes a portion of its risk through reinsurance — including QSR transactions, traditional XOL, and the Eagle Re mortgage insurance-linked notes program — but this is risk distribution within the mortgage business, not a separate business pillar (RDN_10-K_2025-12-31).
 
 ## Why it matters
 
@@ -49,7 +49,7 @@ Radian's history breaks into three phases:
 
 **Post-financial-crisis recovery (2010-2019)**: Radian rebuilt capital after the 2008 crisis, benefited from the original PMIERs framework (effective 2015) and PMIERs 2.0 (effective March 31, 2019), and grew its insurance in force from roughly $150 billion to over $200 billion as the housing market recovered.
 
-**Refinance boom and lock-in (2020-2024)**: The pandemic-era refinancing wave drove persistency from low-40s in 2020-2021 down to a multi-year low, then sharply higher as rates rose in 2022-2023. By Q4 2024 persistency reached 83.6%, supporting stable in-force premium income (RDN_TRANSCRIPT_2024-12-31). Adjusted pretax operating income hit $867 million in 2024 with $604 million of consolidated net income.
+**Refinance boom and lock-in (2020-2024)**: The pandemic-era refinancing wave drove Radian's 12-month persistency to a cycle trough of 64.3% at year-end 2021, then sharply higher as rates rose — to 79.6% at year-end 2022 and 84.0% at year-end 2023 (RDN_10-K_2023-12-31). By Q4 2024 12-month persistency was 83.6%, supporting stable in-force premium income (RDN_TRANSCRIPT_2024-12-31). Adjusted pretax operating income hit $867 million in 2024 with $604 million of consolidated net income.
 
 **Strategic transformation (September 2025 onward)**: Following a comprehensive strategic review, Radian (1) announced the Inigo acquisition (closed February 2, 2026), (2) announced the planned divestiture of its Mortgage Conduit, Title, and Real Estate Services businesses (target completion by Q3 2026, reclassified as discontinued operations in Q3 2025 reporting), and (3) used a $600 million intercompany note from Radian Guaranty to fund a portion of the Inigo deal — reducing the PMIERs Cushion from $2.2B to $1.6B and subjecting Radian Guaranty to enhanced dividend restrictions for at least three years (RDN_10-K_2025-12-31). The post-transformation Radian Group is positioned as a "global, multi-line specialty insurer with a diverse portfolio of private mortgage insurance, specialty insurance and reinsurance lines" (RDN_10-K_2025-12-31).
 
@@ -57,6 +57,7 @@ Radian's history breaks into three phases:
 
 - [RDN_10-K_2025-12-31] — 2025 10-K covering the strategic transformation (Inigo acquisition, divestitures, intercompany note), FY2025 continuing-operations financials, PMIERs Cushion, risk-to-capital, dividend capacity, and post-transformation strategic framing.
 - [RDN_10-K_2024-12-31] — 2024 10-K covering business description, segment reporting (pre-discontinued-ops reclassification), regulatory framework, credit ratings, and definitions of key terms.
+- [RDN_10-K_2023-12-31] — Source for Radian's pre-2022 12-month persistency history, including the 64.3% cycle trough at year-end 2021.
 - [RDN_TRANSCRIPT_2024-12-31] — Q4 2024 earnings call transcript providing 2024 financial results, persistency (83.6%), NIW, premium yield, and management commentary on capital return.
 
 ## Related
