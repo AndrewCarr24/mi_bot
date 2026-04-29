@@ -1,0 +1,74 @@
+# Enact Holdings, Inc. (ACT)
+
+> Enact Holdings, Inc. is a U.S. private mortgage insurer that has served the housing finance market since 1981 and is majority-owned by Genworth Financial, which retained approximately 81.6% of the common stock after Enact's September 2021 IPO. The company writes primary mortgage insurance through Enact Mortgage Insurance Corporation ("EMICO"), a North Carolina-domiciled, GSE-approved monoline, and reinsures portions of that book through its wholly owned Bermuda subsidiary Enact Re. At year-end 2025 Enact held $273.1 billion of primary insurance in force, posted a 162% PMIERs sufficiency ratio ($5,015M Available / $3,096M Required), and earned $674 million of net income on $51.5 billion of new insurance written. 2025 marked a step down in headline credit metrics — loss ratio 11% (vs. 4% in 2024), persistency 82% (vs. 83%), PMIERs cushion $1.9B (vs. $2.1B) — as the in-force book seasoned and the 0.30x PMIERs multiplier for non-performing forbearance loans expired (ACT_10-K_2025-12-31).
+
+## What it is
+
+Enact Holdings, Inc. (NASDAQ: ACT) is the publicly traded holding company for the mortgage insurance business that operated for many years inside Genworth Financial. The company writes private mortgage insurance on residential first-lien loans with down payments of less than 20%, satisfying the credit-enhancement requirement that the GSEs impose on high-LTV loans they purchase (ACT_10-K_2025-12-31).
+
+The operating structure has three layers. EMICO is the principal U.S. operating subsidiary — a North Carolina-domiciled monoline mortgage guaranty insurer approved by Fannie Mae and Freddie Mac, and the entity through which a majority of the business flows (ACT_10-K_2025-12-31). EMIC-NC (Enact Mortgage Insurance Corporation of North Carolina) is a separately licensed subsidiary that writes mortgage insurance on loans not intended for sale to the GSEs; because EMIC-NC is not GSE-approved, it is not subject to PMIERs, which Enact characterizes as preserving optionality if the private-label MBS market grows (ACT_10-K_2025-12-31). Enact Re Ltd., a wholly owned Bermuda-based reinsurer to which Enact contributed $500 million of capital in 2023, reinsures EMICO's new and existing IIF under quota share agreements and also writes third-party GSE credit-risk-transfer business (ACT_10-K_2025-12-31).
+
+Distribution is to a base of roughly 1,600 customers in 2025, ranging from national banks and non-bank originators to community banks and credit unions (ACT_10-K_2025-12-31). Enact's risk on a typical primary policy is approximately 25% of the underlying IIF, varying loan-by-loan between 6% and 35% coverage (ACT_10-K_2025-12-31). Pricing is managed through a proprietary risk-based pricing engine that evaluates each loan under both PMIERs and Enact's internal economic capital framework (ACT_10-K_2025-12-31).
+
+## Why it matters
+
+Enact is one of six active U.S. private mortgage insurers — alongside Arch, Essent, MGIC, NMI Holdings, and Radian — and reports that since 2012 it has held between 12.0% and 20.4% per-quarter share of industry NIW based on Inside Mortgage Finance data (ACT_10-K_2025-12-31). That range, together with the company's $51.5 billion of 2025 NIW, makes Enact a meaningful counter-cyclical reference point for analysts tracking the industry's pricing posture and credit cycle.
+
+Two structural features make Enact distinct among the six. First, Enact is a controlled subsidiary: Genworth retains approximately 80% or more of the common stock and has the right to nominate a majority of the directors so long as that ownership exceeds 50% (ACT_10-K_2025-12-31). Genworth's continued ownership of at least 80% is described as expected because it preserves U.S. tax consolidation benefits — but it also limits Enact's ability to raise capital by issuing new common stock to third parties without Genworth participating (ACT_10-K_2025-12-31). Genworth participates pro rata in Enact's repurchase program through a separate share repurchase agreement so that its ownership stake is maintained, and dividends and other capital actions require approval by Enact's Independent Capital Committee, composed entirely of independent directors (ACT_10-K_2025-12-31).
+
+Second, Enact Re is a meaningful contributor to consolidated capital and earnings: it reinsures EMICO's book under quota share, writes third-party GSE single-family and multi-family CRT, was capitalized with a $500 million contribution in 2023, and carries A- ratings from both A.M. Best and S&P (the S&P rating was assigned during 2024) (ACT_10-K_2025-12-31; ACT_TRANSCRIPT_2024-12-31). The program reduces tail risk on the EMICO book and provides a vehicle for the company to pursue what management describes as adjacent capital-and-expense-efficient growth (ACT_TRANSCRIPT_2024-12-31). For tax purposes, however, Enact Re is subject to U.S. federal income tax on its income, so neither the One Big Beautiful Bill Act of 2025 nor Bermuda's new 15% Corporate Income Tax (effective January 1, 2025) had a material impact on 2025 results (ACT_10-K_2025-12-31).
+
+Third, the FHFA-mandated 18:1 maximum statutory RIF-to-statutory-capital ("RTC") ratio for reinsurance credit, combined with PMIERs and North Carolina's 25:1 RTC ceiling, define the binding constraints on capacity. EMICO's RTC ratio was 10.1:1 at year-end 2025, well below either limit (ACT_10-K_2025-12-31).
+
+## Current state (as of 2025-12-31)
+
+For the fiscal year ended December 31, 2025, Enact reported (ACT_10-K_2025-12-31):
+
+- **Net income**: $674 million, down from $688 million in 2024 and above $666 million in 2023.
+- **Adjusted operating income**: $688 million, down from $718 million in 2024 and above $676 million in 2023.
+- **NIW**: $51.5 billion in 2025 (up 1% from $51.0 billion in 2024; below $53.1 billion in 2023).
+- **Primary IIF**: $273.1 billion, up 2% from $268.8 billion at year-end 2024 ($262.9 billion at year-end 2023).
+- **Net earned premium rate**: 35 basis points, down slightly from 36 bps in 2024.
+- **Persistency**: 82% (2025), versus 83% (2024) and 85% (2023). Management attributed the decline to mortgage-rate volatility through 2025 that pulled some refinance activity forward off the lock-in floor.
+- **Loss ratio**: 11% in 2025, up from 4% in 2024 and 3% in 2023. The 2025 figure includes a $200 million net reserve release; the 2024 figure included a $252 million release. Most of the 2025 release was on prior-period delinquencies, but a portion related to 2025 delinquencies as Enact reduced expected claim rates on the strength of cure performance.
+- **Loss reserves**: $572 million at year-end 2025, up $48 million from year-end 2024.
+- **Statutory contingency reserve**: $4,513 million at year-end 2025 (vs. $4,336 million at year-end 2024).
+
+Capital and PMIERs:
+- **PMIERs sufficiency**: 162% at year-end 2025 ($5,015M Available / $3,096M Required), with a $1,919M cushion. That compares to 167% / $5,095M / $3,043M / $2,052M cushion at year-end 2024. Two factors contributed to the year-over-year tightening: discontinuation effective March 31, 2025 of the 0.30 multiplier on risk-based required assets for non-performing loans related to COVID-era forbearance (which had benefited 2024 required assets by approximately $28 million), and growth in required assets from a larger book. Third-party reinsurance provided $1,932 million of PMIERs credit in 2025, versus $1,885 million in 2024 (ACT_10-K_2025-12-31).
+- **EMICO RTC ratio**: 10.1:1 at year-end 2025 (vs. 10.5:1 at year-end 2024); North Carolina's regulatory ceiling is 25:1 (ACT_10-K_2025-12-31).
+- **August 2024 PMIERs update**: phases in revised available-assets standards between March 31, 2025 and September 30, 2026, differentiating bonds by credit quality and liquidity and limiting assets backed by residential or commercial real estate. Enact says it expects to remain well in excess of the new requirements (ACT_10-K_2025-12-31).
+- **Investment portfolio**: $6.1 billion fair value of fixed-maturity assets (99% investment-grade) plus $582 million of cash and cash equivalents at year-end 2025 (ACT_10-K_2025-12-31).
+- **Debt**: $750 million of 6.250% senior notes due 2029, issued in May 2024 (described by management as the company's first investment-grade debt issuance and the largest in the U.S. mortgage insurance industry in over a decade) (ACT_TRANSCRIPT_2024-12-31). On September 30, 2025 Enact also entered into a five-year, $435 million unsecured revolving credit facility, which replaced the prior $200 million facility and remained undrawn at year-end (ACT_10-K_2025-12-31).
+
+Reinsurance and CRT:
+- The CRT program combines traditional excess-of-loss and quota share with insurance-linked notes. On September 23, 2025 EMICO entered a new quota share agreement to cede approximately 34% of a portion of its expected 2027 NIW to a panel of reinsurers (ACT_10-K_2025-12-31). The 2024 program had layered in two quota share agreements ceding roughly 27% of 2025 and 2026 NIW, plus forward XOL agreements providing $225 million and $260 million of coverage on the 2025 and 2026 books respectively (ACT_TRANSCRIPT_2024-12-31).
+
+Capital return in 2025:
+- Cash dividends paid totaled $121 million ($0.185 in Q1 stepping up to $0.21 per share in Q2-Q4 2025, with a $0.21 per-share dividend declared for Q1 2026); share repurchases totaled $382 million (10,532,963 shares at an average price of $36.25), of which $309.5 million was paid to Genworth under the pro-rata repurchase agreement (ACT_10-K_2025-12-31). The April 30, 2025 authorization was for $350 million of common stock; on February 3, 2026 the board approved an additional $500 million authorization (ACT_10-K_2025-12-31). Cumulative capital return since the September 2021 IPO exceeded $1.1 billion as of year-end 2024 (ACT_TRANSCRIPT_2024-12-31).
+
+Portfolio quality at year-end 2025: weighted-average original LTV 93%, weighted-average FICO 746, single-premium policies 9% of primary IIF, largest state concentration California at 12% of primary RIF, largest MSA Phoenix at 3% of primary RIF, and legacy pre-2009 books 2% of both primary IIF and RIF (ACT_10-K_2025-12-31).
+
+## How it has evolved
+
+Enact's mortgage insurance franchise has operated continuously since 1981, well predating EHI's 2012 incorporation in Delaware as the holding company and its 2021 separation from Genworth (ACT_10-K_2025-12-31). The September 2021 IPO sold 18.4% of EHI's common stock to public investors; Genworth retained the balance and remains the controlling shareholder, with the constraint that Genworth is expected to maintain at least 80% ownership to preserve U.S. tax consolidation benefits (ACT_10-K_2025-12-31).
+
+Three strategic moves have shaped the post-IPO trajectory. First was the scale-up of Enact Re: a $500 million capital contribution in 2023 expanded the Bermuda reinsurer that reinsures EMICO under quota share and writes third-party GSE CRT (ACT_10-K_2025-12-31). Second was the May 2024 issuance of $750 million of 6.250% senior notes due 2029 — described by management as the first investment-grade debt issuance by Enact as a public company and the industry's largest in over a decade — which was followed in 2024 by an S&P issuer-rating upgrade from BBB+ to A- and in January 2025 by a Fitch upgrade from A- to A (ACT_TRANSCRIPT_2024-12-31). Third was a steady cadence of capital return: financing cash flows show $213 million of dividends and $88 million of repurchases in 2023 (the 2023 figure included a $0.71 per-share special dividend); $112 million and $244 million in 2024; and $121 million and $382 million in 2025 (ACT_10-K_2025-12-31). Repurchase authorizations stepped from $100 million (August 2023) to $250 million (May 2024) to $350 million (April 2025) to $500 million (February 2026) (ACT_10-K_2025-12-31).
+
+The headline operating numbers reflect both the growing in-force book and the unwinding of post-COVID reserve cushions. Net income drifted modestly from $666 million in 2023 to $688 million in 2024 to $674 million in 2025; adjusted operating income peaked at $718 million in 2024 before easing to $688 million in 2025 (ACT_10-K_2025-12-31). The loss ratio rose from 3% (2023) to 4% (2024) to 11% (2025) as favorable reserve releases narrowed from $252 million in 2024 to $200 million in 2025 against a larger and more seasoned in-force book (ACT_10-K_2025-12-31). Separately, the PMIERs cushion contracted from $2,052 million to $1,919 million year-over-year, driven primarily by the March 31, 2025 discontinuation of the 0.30x PMIERs multiplier for non-performing loans related to COVID-era forbearance, which had benefited 2024 required assets by approximately $28 million (ACT_10-K_2025-12-31). Persistency declined modestly from 85% (2023) to 83% (2024) to 82% (2025) as rate volatility through 2025 lifted refinance activity off historically low levels, partially offsetting the elevated lock-in effect that had supported persistency since 2022 (ACT_10-K_2025-12-31).
+
+## Sources
+
+- [ACT_10-K_2025-12-31] — Primary source for full-year 2025 financials ($674M net income, $688M adjusted operating income, $51.5B NIW, $273.1B primary IIF, 35 bps net earned premium rate), 2025 PMIERs sufficiency (162%, $5,015M/$3,096M, $1.9B cushion) and 2024 comparison, EMICO RTC ratio (10.1:1), August 2024 PMIERs update phase-in, 2025 reserve release ($200M) and loss reserves ($572M), 2025 persistency (82%) and loss ratio (11%), portfolio characteristics (93% LTV, 746 FICO, 9% single-premium share, California 12%, Phoenix 3%), Genworth ownership and 80% threshold, EHI/EMICO/EMIC-NC/Enact Re structure, $500M Enact Re capitalization in 2023, $750M senior notes, $435M revolving credit facility, 2025 capital return ($121M dividends + $382M repurchases) and authorization history, September 23, 2025 quota share for 2027 NIW.
+- [ACT_10-K_2024-12-31] — Cross-check for 2024 and 2023 comparatives and definitional language on the CRT program and reserve methodology.
+- [ACT_TRANSCRIPT_2024-12-31] — Source for 2024 commentary on the $750M senior notes ("first investment-grade debt issuance as a public company" and "largest in the industry in over a decade"), S&P upgrade from BBB+ to A- and Fitch upgrade to A in January 2025, $1.1B+ cumulative capital return since IPO through year-end 2024, 2024 quota share program covering ~27% of 2025/2026 NIW, and forward XOL transactions ($225M / $260M).
+
+## Related
+
+- [[metrics/pmiers]]
+- [[metrics/niw]]
+- [[metrics/iif]]
+- [[metrics/persistency]]
+- [[metrics/loss_ratio]]
+- [[metrics/reinsurance_crt]]
+- [[topics/gse_relationship]]
