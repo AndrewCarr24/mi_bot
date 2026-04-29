@@ -289,6 +289,39 @@ prefer transcripts only for management commentary).
   HERA-vs-Dodd-Frank, PMIERs-2.0-dated-2020, and PMIERs-origin-2008
   bugs caught earlier.
 
+## 2026-04-29 (reinsurance_crt refresh)
+
+User flagged that `metrics/reinsurance_crt` had "Current state (as of
+2024-12-31)" — 18 months stale by today's date. Refreshed to
+year-end 2025 and fixed an additional bug caught during the read.
+
+Year-end 2025 refresh:
+- MGIC: total ceded RIF $18.0B → $20.6B; surfaced full QSR cede-rate
+  trajectory (10-15% in 2021-2023, 30% on 2024 QSR amended to 28%
+  effective Dec 31 2025, 40% on 2025 QSR, 40% on follow-on QSRs for
+  2026 and 2027 NIW). Credit Union QSR steady at 65% since 2020.
+  Active Home Re ILNs: 2021-2, 2022-1, 2023-1 (Home Re 2021-1
+  terminated in 2025, following the 2018-1 / 2019-1 / 2020-1
+  terminations in 2024). Risk-to-capital ratio 10.0:1 at year-end
+  2025.
+- Radian: PMIERs benefit $1.46B → $1.78B (27.4% → 31.8% of gross
+  MRA). Updated breakdown: $913.2M QSR Program + $479.5M traditional
+  XOL + $389.0M ILN program at year-end 2025.
+- Industry: noted that the $73.8B / $3.4T USMI Resiliency figure is
+  late-2023 vintage; explicitly flagged that it's stale rather than
+  refreshing it (no later USMI paper in corpus).
+
+Bug fix caught during the read:
+- "MGIC's 2024 QSR... cedes 30% — the highest cede rate in its
+  program history" was wrong on two counts visible in the same 10-K
+  it cited: (a) the Credit Union QSR has been at 65% since 2020, and
+  (b) MGIC had already executed a 40% QSR for 2025 NIW before
+  year-end 2024. Reframed to show the actual trajectory (10-15% →
+  30% → 40%) without overstated superlative.
+
+Sources block updated to include the 2025 10-Ks for both MTG and
+RDN, with each entry tagged for what it contributed.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated
