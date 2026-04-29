@@ -68,7 +68,7 @@ Looking forward, three forces are most likely to shape 2026: (i) the path of mor
 
 ## Related
 
-- [[gse_relationship]]
-- [[mi_regulatory_landscape]]
-- [[pmiers_aug_2024_update]]
-- [[catastrophe_impact_on_mi]]
+- [[topics/gse_relationship]]
+- [[topics/mi_regulatory_landscape]]
+- [[topics/pmiers_aug_2024_update]]
+- [[topics/catastrophe_impact_on_mi]]

@@ -90,7 +90,7 @@ Third, **the cycle interaction with Arch's broader (P&C / specialty) book is dif
 
 ## Related
 
-- [[pmiers_aug_2024_update]]
-- [[gse_relationship]]
-- [[us_mortgage_market]]
-- [[mi_regulatory_landscape]]
+- [[topics/pmiers_aug_2024_update]]
+- [[topics/gse_relationship]]
+- [[topics/us_mortgage_market]]
+- [[topics/mi_regulatory_landscape]]

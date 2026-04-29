@@ -70,8 +70,8 @@ There is also a **competitive vector** that the GSE relationship doesn't fully c
 
 ## Related
 
-- [[pmiers_aug_2024_update]]
-- [[us_mortgage_market]]
-- [[mi_regulatory_landscape]]
+- [[topics/pmiers_aug_2024_update]]
+- [[topics/us_mortgage_market]]
+- [[topics/mi_regulatory_landscape]]
 - [[companies/mtg_mgic]]
 - [[companies/rdn_radian]]

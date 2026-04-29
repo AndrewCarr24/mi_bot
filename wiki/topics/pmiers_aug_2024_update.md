@@ -101,7 +101,7 @@ The overall trajectory is one of incremental tightening of the asset side of PMI
 
 ## Related
 
-- [[gse_relationship]]
-- [[mi_regulatory_landscape]]
-- [[us_mortgage_market]]
-- [[catastrophe_impact_on_mi]]
+- [[topics/gse_relationship]]
+- [[topics/mi_regulatory_landscape]]
+- [[topics/us_mortgage_market]]
+- [[topics/catastrophe_impact_on_mi]]

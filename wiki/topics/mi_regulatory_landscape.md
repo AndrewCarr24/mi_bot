@@ -98,7 +98,7 @@ Third, **regulatory change is a tailwind or headwind on a 12-24 month lag**. The
 
 ## Related
 
-- [[gse_relationship]]
-- [[pmiers_aug_2024_update]]
-- [[us_mortgage_market]]
-- [[catastrophe_impact_on_mi]]
+- [[topics/gse_relationship]]
+- [[topics/pmiers_aug_2024_update]]
+- [[topics/us_mortgage_market]]
+- [[topics/catastrophe_impact_on_mi]]
