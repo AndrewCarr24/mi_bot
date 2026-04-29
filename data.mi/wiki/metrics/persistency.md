@@ -16,10 +16,16 @@ Analysts watch persistency as a leading indicator of revenue trajectory and as a
 
 ## Current state (as of 2024-12-31)
 
-Persistency rates across the six MIs remain at historically elevated levels, though they have edged down slightly from their 2023 peaks. Key reported figures:
+Persistency rates across the six MIs remain at historically elevated levels, though they have edged down slightly from their 2023 peaks. Year-end 2024 figures:
 
-- **MGIC**: 84.8% at December 31, 2024, down from 86.1% at December 31, 2023, and 82.2% at December 31, 2022 (MTG_10-K_2024-12-31).
-- **NMI Holdings**: 85% at December 31, 2024, down from 86% at December 31, 2023, and up from 84% at December 31, 2022 (NMIH_10-K_2024-12-31).
+| MI | Persistency (2024) | Persistency (2023) | Source |
+|---|---|---|---|
+| Essent | 86% | 87% | ESNT_TRANSCRIPT_2024-12-31 |
+| NMI Holdings | 85% | 86% | NMIH_10-K_2024-12-31 |
+| MGIC | 84.8% | 86.1% | MTG_10-K_2024-12-31 |
+| Radian | 83.6% | n/a | RDN_TRANSCRIPT_2024-12-31 |
+| Enact | 83% | 85% | ACT_10-K_2024-12-31 |
+| Arch (US primary mortgage) | 82.1% | 83.6% | ACGL_10-K_2024-12-31 |
 
 The elevated persistency is attributed to the high mortgage interest rate environment that has persisted through 2024. Despite the Federal Reserve lowering interest rates in 2024, the 10-year Treasury yield and 30-year fixed-rate mortgage rates remained elevated, suppressing refinancing activity (NMIH_10-K_2024-12-31). Refinance-related NIW was only 4% of MGIC's total NIW in 2024, compared to 2% in 2023 and 3% in 2022 (MTG_10-K_2024-12-31).
 
@@ -31,9 +37,13 @@ The current elevated persistency environment (84-86% range) has persisted since 
 
 ## Sources
 
-- MTG_10-K_2024-12-31 — Provided MGIC's persistency rates for 2022-2024, the historical range (60.7% low to 86.3% high), and discussion of factors affecting persistency including HOPA, GSE cancellation guidelines, and adverse selection dynamics.
-- NMIH_10-K_2024-12-31 — Provided NMIH's persistency rates for 2022-2024, the composition of IIF by premium type (91% monthly at year-end 2024), and discussion of the revenue sensitivity to persistency changes.
-- INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09 — Provided background on the GSE framework for MI coverage requirements and cancellation guidelines that influence persistency.
+- [MTG_10-K_2024-12-31] — Provided MGIC's persistency rates for 2022-2024, the historical range (60.7% low to 86.3% high), and discussion of factors affecting persistency including HOPA, GSE cancellation guidelines, and adverse selection dynamics.
+- [NMIH_10-K_2024-12-31] — Provided NMIH's persistency rates for 2022-2024, the composition of IIF by premium type (91% monthly at year-end 2024), and discussion of the revenue sensitivity to persistency changes.
+- [ACT_10-K_2024-12-31] — Provided Enact's primary persistency rates of 83% (2024), 85% (2023), 80% (2022).
+- [ACGL_10-K_2024-12-31] — Provided Arch's US primary mortgage persistency of 82.1% at year-end 2024 vs 83.6% at year-end 2023.
+- [RDN_TRANSCRIPT_2024-12-31] — Provided Radian's Q4 2024 persistency rate of 83.6%.
+- [ESNT_TRANSCRIPT_2024-12-31] — Provided Essent's year-end 2024 persistency rate of 86%.
+- [INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09] — Provided background on the GSE framework for MI coverage requirements and cancellation guidelines that influence persistency.
 
 ## Related
 

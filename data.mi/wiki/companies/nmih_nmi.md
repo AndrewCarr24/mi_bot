@@ -20,9 +20,9 @@ For the fiscal year ended December 31, 2025, NMIH reported:
 - **Diluted EPS**: $4.92, compared to $4.43 in 2024 and $3.84 in 2023
 - **Total revenues**: $706.4 million, driven by $602.2 million in net premiums earned and $102.9 million in net investment income
 - **Insurance claims and claim expenses**: $57.6 million, up from $31.5 million in 2024, reflecting modest normalization from historically low loss levels
-- **Primary IIF**: $210.2 billion as of December 31, 2024 (NMIH_10-K_2024-12-31); the 2025 10-K shows continued growth
-- **Primary risk-in-force (RIF)**: $56.1 billion as of December 31, 2024
-- **NIW**: $46.0 billion for the year ended December 31, 2024
+- **Primary IIF**: $221.4 billion as of December 31, 2025, up from $210.2 billion at year-end 2024 (NMIH_10-K_2025-12-31; NMIH_10-K_2024-12-31)
+- **Primary risk-in-force (RIF)**: $59.3 billion as of December 31, 2025 (NMIH_10-K_2025-12-31)
+- **NIW**: $48.9 billion for the year ended December 31, 2025, up from $46.0 billion in 2024 (NMIH_10-K_2025-12-31; NMIH_10-K_2024-12-31)
 - **Shareholders' equity**: $2.59 billion as of December 31, 2025, up from $2.22 billion a year earlier
 - **Book value per share**: approximately $34.00 (calculated from $2.59 billion equity / 76.3 million shares outstanding)
 - **Debt**: $417.0 million, primarily from the May 2024 senior notes issuance (NMIH_10-K_2025-12-31)

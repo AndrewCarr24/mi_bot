@@ -1,49 +1,63 @@
 # Radian Group Inc. (RDN)
 
-> Radian Group Inc. is a mortgage and real estate company whose primary business is private mortgage insurance, written through its wholly owned subsidiary Radian Guaranty. As of year-end 2024, Radian held $275 billion of primary mortgage insurance in force, an all-time high, and generated $604 million in net income for the full year with a 13.4% return on equity. The company also operates a smaller title insurance business and a mortgage conduit, but these are reported within "All Other" and are not a reportable segment. Radian is one of the six major U.S. private mortgage insurers and is approved under PMIERs to insure loans purchased by Fannie Mae and Freddie Mac.
+> Radian Group Inc. is in the middle of a strategic transformation from a U.S. monoline mortgage insurer into a global multi-line specialty insurer. In September 2025, following a comprehensive strategic review, Radian announced an agreement to acquire Inigo, a Lloyd's specialty insurer (Syndicate 1301), and the planned divestiture of its Mortgage Conduit, Title, and Real Estate Services businesses. The Inigo acquisition closed February 2, 2026; the divestitures are expected to be completed by the end of Q3 2026. The remaining mortgage insurance franchise — anchored by Radian Guaranty — generated $618 million of net income from continuing operations in 2025 ($4.39 diluted EPS) on $282.5 billion of primary IIF and a 10.3:1 risk-to-capital ratio at year-end 2025.
 
 ## What it is
 
-Radian Group Inc. (NYSE: RDN) is a holding company whose principal operating subsidiary is Radian Guaranty, a monoline mortgage insurer domiciled in Pennsylvania and licensed in all 50 states, the District of Columbia, and Guam (RDN_10-K_2024-12-31). Radian Guaranty is the only Radian mortgage insurance subsidiary eligible to provide first-loss mortgage insurance on loans purchased by the GSEs. The company also holds Radian Insurance (a small second-lien book from before the 2008 financial crisis) and Radian Mortgage Assurance (licensed but with no risk in force as of year-end 2024) (RDN_10-K_2024-12-31).
+Radian Group Inc. (NYSE: RDN) is a holding company whose principal U.S. mortgage insurance subsidiary is Radian Guaranty, a monoline mortgage insurer domiciled in Pennsylvania and licensed in all 50 states, the District of Columbia, and Guam (RDN_10-K_2024-12-31). Radian Guaranty is the only Radian mortgage insurance subsidiary eligible to provide first-loss mortgage insurance on loans purchased by the GSEs.
 
-Radian reports a single operating segment — Mortgage Insurance — and consolidates its title insurance business (Radian Title Insurance), mortgage conduit (Radian Mortgage Capital), and real estate technology services (homegenius) into "All Other" (RDN_10-K_2024-12-31). The company uses adjusted pretax operating income as its primary measure of segment profitability, excluding investment gains/losses, amortization of intangibles, and other non-operating items (RDN_10-K_2024-12-31).
+In February 2026 Radian Group acquired Inigo Limited, an England-and-Wales-incorporated global specialty insurance and reinsurance company that underwrites through Lloyd's Syndicate 1301 (RDN_10-K_2025-12-31). The acquisition was announced in September 2025 and is the centerpiece of Radian's "planned strategic transformation to a global multi-line specialty insurer" (RDN_10-K_2025-12-31). At the same time, Radian announced the planned divestiture of its Mortgage Conduit, Title, and Real Estate Services businesses; in Radian's third-quarter 2025 reporting these were reclassified as held for sale and discontinued operations for all periods presented (RDN_10-K_2025-12-31).
+
+The post-transformation company has three pillars: (1) U.S. private mortgage insurance through Radian Guaranty, (2) Lloyd's specialty insurance and reinsurance through Inigo (Syndicate 1301), and (3) the smaller GSE credit-risk-transfer book underwritten alongside Radian Guaranty (RDN_10-K_2025-12-31).
 
 ## Why it matters
 
-Radian is the second-largest U.S. private mortgage insurer by market share and is a bellwether for the industry's credit cycle and capital management. Analysts watch Radian for several reasons:
+Radian is the second-largest U.S. private mortgage insurer by market share, and the strategic pivot reframes how analysts should think about the name. Three things matter most:
 
-- **Capital return**: Radian has been an aggressive returner of capital to shareholders. In 2024, it returned $376 million through share repurchases ($224 million) and dividends ($152 million) (RDN_TRANSCRIPT_2024-12-31). The company's ability to upstream dividends from Radian Guaranty is governed by Pennsylvania insurance law, which permits ordinary dividends out of positive unassigned surplus without prior approval (RDN_10-K_2025-12-31).
-- **PMIERs cushion**: Radian Guaranty's PMIERs cushion was $2.2 billion (41% over Minimum Required Assets) at year-end 2024, providing substantial buffer against stress scenarios (RDN_10-K_2025-12-31).
-- **Persistency exposure**: With more than two-thirds of its insurance in force carrying mortgage rates of 6% or less, Radian's persistency rate was 83.6% as of Q4 2024, meaning policies are unlikely to cancel due to refinancing in the near term (RDN_TRANSCRIPT_2024-12-31). This supports stable premium income but also means the portfolio turns over slowly.
-- **Inigo acquisition**: In December 2025, Radian used a $600 million intercompany note from Radian Guaranty to fund a portion of the Inigo acquisition, which reduced Radian Guaranty's PMIERs cushion and subjected it to enhanced dividend restrictions from the Pennsylvania Insurance Department for three years (RDN_10-K_2025-12-31).
+- **Strategic pivot**: Radian has explicitly stated its goal is to "become a global multi-line specialty insurer." The mortgage insurance franchise is no longer the only story — earnings, capital, and risk now also reflect a Lloyd's specialty platform that writes property and casualty insurance and reinsurance for global commercial and industrial enterprises (RDN_10-K_2025-12-31). The integration risk is acknowledged as a top risk factor.
+
+- **Capital implications of the Inigo deal**: To fund a portion of the acquisition, Radian Guaranty extended a $600 million intercompany note to Radian Group on December 29, 2025 (10-year term, 6.50% interest), approved by the Pennsylvania Insurance Department subject to conditions (RDN_10-K_2025-12-31). The note reduced Radian Guaranty's PMIERs Cushion from $2.2 billion at year-end 2024 to $1.6 billion at year-end 2025 and triggered enhanced dividend restrictions from Pennsylvania for at least three years (and possibly up to five) (RDN_10-K_2025-12-31).
+
+- **Mortgage franchise continues to compound**: Despite the strategic noise, the underlying mortgage book is healthy — favorable credit performance, strong persistency from the lock-in effect of low-rate mortgages, and a still-substantial PMIERs Cushion. 2025 NIW was $55.2 billion, IIF grew to $282.5 billion (from $275.1 billion at year-end 2024), and Radian Guaranty paid $595 million in ordinary dividends plus a $200 million return of capital to Radian Group during the year (RDN_10-K_2025-12-31).
 
 ## Current state (as of 2025-12-31)
 
-Radian's most recent full-year results (2025) show continued strong performance:
+Radian's 2025 results reflect a final full year as a monoline mortgage insurer. The Mortgage Conduit, Title, and Real Estate Services businesses are now reported as discontinued operations.
 
-- **Net income**: $604 million for full-year 2024; adjusted diluted net operating income per share of $4.11 (RDN_TRANSCRIPT_2024-12-31). 2025 results are not yet available in the retrieved corpus, but the 2025 10-K provides capital and regulatory data.
-- **Insurance in force**: $275 billion at year-end 2024, up 2% year-over-year (RDN_TRANSCRIPT_2024-12-31).
-- **New insurance written**: $13.2 billion in Q4 2024, up 24% year-over-year; $52 billion for full-year 2024 (RDN_TRANSCRIPT_2024-12-31).
-- **Premium yield**: Stable at 38 basis points on in-force premiums as of Q4 2024 (RDN_TRANSCRIPT_2024-12-31).
-- **PMIERs position**: Radian Guaranty's Available Assets were $5.4 billion at year-end 2025, with a PMIERs cushion of $1.6 billion (41% over Minimum Required Assets), down from $2.2 billion at year-end 2024 due to the Inigo-related intercompany note (RDN_10-K_2025-12-31).
-- **Statutory capital**: Risk-to-capital ratio of 10.3:1 at year-end 2025; statutory policyholders' surplus of $646 million (RDN_10-K_2025-12-31).
-- **Dividend capacity**: Radian Guaranty paid $595 million in ordinary dividends to Radian Group in 2025, plus a $200 million return of capital. As of year-end 2025, it had positive unassigned surplus of $346 million, supporting continued ordinary dividend capacity (RDN_10-K_2025-12-31).
-- **Credit ratings**: Radian Guaranty holds financial strength ratings of A (Fitch), A3 (Moody's), and A- (S&P), all with stable outlooks. Radian Group's senior debt is rated BBB/Baa3/BBB- (RDN_10-K_2024-12-31).
+**Continuing operations (Mortgage Insurance + parent):**
+- **Net income from continuing operations**: $618 million ($4.39 per diluted share), down from $660 million ($4.28) in 2024 (RDN_10-K_2025-12-31)
+- **Pretax income from continuing operations**: $791 million in 2025 vs. $846 million in 2024
+- **Adjusted pretax operating income**: $802 million in 2025 vs. $867 million in 2024; adjusted diluted net operating income per share $4.45 (2025) vs. $4.39 (2024)
+- **Total net income (incl. discontinued ops)**: $582.6 million in 2025
+
+**Mortgage Insurance segment metrics:**
+- **NIW**: $55.2 billion in 2025 (RDN_10-K_2025-12-31)
+- **IIF**: $282.5 billion at December 31, 2025, up from $275.1 billion at December 31, 2024
+- **Persistency**: 83.6% at year-end 2024 (RDN_TRANSCRIPT_2024-12-31); 2025 figure not surfaced in retrieved corpus
+
+**Capital and regulatory position:**
+- **PMIERs Cushion**: $1.6 billion at year-end 2025, down from $2.2 billion at year-end 2024 due to the Intercompany Note funding the Inigo acquisition (RDN_10-K_2025-12-31)
+- **Risk-to-capital ratio**: 10.3:1 at year-end 2025 (well below the 25:1 statutory cap)
+- **Statutory policyholders' surplus** (Radian Guaranty): $646 million at year-end 2025
+- **Capital return**: Radian Guaranty paid $595 million in ordinary dividends + $200 million return of capital to Radian Group in 2025 (RDN_10-K_2025-12-31)
+
+**Credit ratings**: Radian Guaranty holds A (Fitch), A3 (Moody's), and A- (S&P), all stable outlook; Radian Group senior debt rated BBB / Baa3 / BBB- (RDN_10-K_2024-12-31).
 
 ## How it has evolved
 
-Radian's post-financial-crisis trajectory mirrors the broader MI industry recovery. The company rebuilt capital after the 2008 crisis, benefited from the PMIERs framework implemented in 2015, and has steadily grown its in-force book. Key inflection points include:
+Radian's history breaks into three phases:
 
-- **2015-2019**: Radian grew its insurance in force from ~$150 billion to over $200 billion as the housing market recovered and the company wrote new business at higher premium rates.
-- **2020-2021**: The pandemic-driven refinancing wave caused persistency to drop sharply (to the low 40% range), as borrowers refinanced into lower rates, causing policies to cancel. This temporarily reduced in-force balances but also allowed Radian to re-underwrite at higher rates.
-- **2022-2024**: The rapid rise in mortgage rates reversed the persistency trend. Persistency climbed from ~50% in early 2022 to 83.6% by Q4 2024, as borrowers with sub-6% mortgages had no incentive to refinance (RDN_TRANSCRIPT_2024-12-31). This has been a powerful tailwind for premium income.
-- **2025**: Radian completed the Inigo acquisition, funded in part by a $600 million intercompany note from Radian Guaranty, which reduced the PMIERs cushion and imposed enhanced dividend restrictions for three years (RDN_10-K_2025-12-31). The company also continued its capital return program, with $595 million in ordinary dividends from Radian Guaranty.
+**Post-financial-crisis recovery (2010-2019)**: Radian rebuilt capital after the 2008 crisis, benefited from the original PMIERs framework (effective 2015) and PMIERs 2.0 (effective March 31, 2019), and grew its insurance in force from roughly $150 billion to over $200 billion as the housing market recovered.
+
+**Refinance boom and lock-in (2020-2024)**: The pandemic-era refinancing wave drove persistency from low-40s in 2020-2021 down to a multi-year low, then sharply higher as rates rose in 2022-2023. By Q4 2024 persistency reached 83.6%, supporting stable in-force premium income (RDN_TRANSCRIPT_2024-12-31). Adjusted pretax operating income hit $867 million in 2024 with $604 million of consolidated net income.
+
+**Strategic transformation (September 2025 onward)**: Following a comprehensive strategic review, Radian (1) announced the Inigo acquisition (closed February 2, 2026), (2) announced the planned divestiture of its Mortgage Conduit, Title, and Real Estate Services businesses (target completion by Q3 2026, reclassified as discontinued operations in Q3 2025 reporting), and (3) used a $600 million intercompany note from Radian Guaranty to fund a portion of the Inigo deal — reducing the PMIERs Cushion from $2.2B to $1.6B and subjecting Radian Guaranty to enhanced dividend restrictions for at least three years (RDN_10-K_2025-12-31). The post-transformation Radian Group is positioned as a "global, multi-line specialty insurer with a diverse portfolio of private mortgage insurance, specialty insurance and reinsurance lines" (RDN_10-K_2025-12-31).
 
 ## Sources
 
-- [RDN_TRANSCRIPT_2024-12-31] — Q4 2024 earnings call transcript providing financial results, persistency, NIW, premium yield, and management commentary on capital return and market outlook.
-- [RDN_10-K_2024-12-31] — 2024 10-K providing business description, segment reporting, regulatory framework, ratings, and definitions of key terms.
-- [RDN_10-K_2025-12-31] — 2025 10-K providing updated PMIERs cushion, statutory capital, dividend capacity, intercompany note details, and risk factor disclosures.
+- [RDN_10-K_2025-12-31] — 2025 10-K covering the strategic transformation (Inigo acquisition, divestitures, intercompany note), FY2025 continuing-operations financials, PMIERs Cushion, risk-to-capital, dividend capacity, and post-transformation strategic framing.
+- [RDN_10-K_2024-12-31] — 2024 10-K covering business description, segment reporting (pre-discontinued-ops reclassification), regulatory framework, credit ratings, and definitions of key terms.
+- [RDN_TRANSCRIPT_2024-12-31] — Q4 2024 earnings call transcript providing 2024 financial results, persistency (83.6%), NIW, premium yield, and management commentary on capital return.
 
 ## Related
 

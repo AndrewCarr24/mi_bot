@@ -24,14 +24,19 @@ The loss ratio is the primary lens through which analysts assess an MI's underwr
 
 ## Current state (as of 2024-12-31)
 
-Based on the most recent annual filings:
+Based on the most recent annual filings, the dispersion across MIs is wide — from Arch and MGIC at deeply negative loss ratios to Essent at single-digit positive:
 
-| MI | Loss Ratio (2024) | Loss Ratio (2023) | Loss Ratio (2022) |
-|---|---|---|---|
-| MGIC | (1.5)% | (2.2)% | N/A |
-| Radian | (0.2)% | (4.6)% | (35.5)% |
+| MI | Loss Ratio (2024) | Loss Ratio (2023) | Loss Ratio (2022) | Source |
+|---|---|---|---|---|
+| Arch (mortgage segment) | (4.4)% | (8.9)% | n/a | ACGL_10-K_2024-12-31 |
+| MGIC | (1.5)% | (2.2)% | n/a | MTG_10-K_2024-12-31 |
+| Radian | (0.2)% | (4.6)% | (35.5)% | RDN_10-K_2024-12-31 |
+| Enact | 4% | 3% | (10)% | ACT_10-K_2024-12-31 |
+| Essent | 8.1% | 3.4% | (20.7)% | ESNT_10-K_2024-12-31 |
 
-Radian's 2022 loss ratio of (35.5)% was exceptionally negative, reflecting very large favorable reserve development as COVID-era delinquencies cured at rates far exceeding initial expectations (RDN_10-K_2024-12-31). The narrowing of loss ratios in 2023-2024 reflects the normalization of the delinquency inventory as the COVID book ages and new notices begin to contribute more meaningfully to losses incurred.
+Note: NMIH's loss ratio is calculated on a different basis (its 10-K does not surface a comparable single percentage; insurance claims and claim expenses were $31.5M in 2024 vs. $602.2M in net premiums earned for 2025, suggesting a positive but low single-digit ratio).
+
+Several patterns are visible. First, the dispersion comes from how aggressively each MI has reserved for the seasoning 2022-2023 vintages and how quickly favorable prior-period development has been recognized. Second, Radian's 2022 loss ratio of (35.5)% was exceptionally negative, reflecting very large favorable reserve development as COVID-era delinquencies cured at rates far exceeding initial expectations (RDN_10-K_2024-12-31). Third, the narrowing of loss ratios from 2023 to 2024 across all MIs reflects the normalization of the delinquency inventory as the COVID book ages and new notices on more recent vintages begin to contribute meaningfully to losses incurred — visible most clearly at Essent (3.4% → 8.1%) and Enact (3% → 4%).
 
 For MGIC in 2024, new delinquency notices added $197.6 million to losses incurred, while re-estimation of prior-year reserves produced $212.5 million of favorable development, resulting in net negative losses incurred of $(14.9) million (MTG_10-K_2024-12-31). The favorable development was "primarily result[ing] from a decrease in the expected claim rate on previously received delinquencies" as home price appreciation allowed borrowers to cure through sale (MTG_10-K_2024-12-31).
 

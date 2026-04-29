@@ -40,7 +40,7 @@ All six MIs actively use reinsurance, though structures and scale vary:
 
 **Pre-2008:** MIs operated primarily on a "buy-and-hold" model, retaining virtually all risk on their balance sheets. This left them vulnerable to severe loss cycles.
 
-**Post-2008 transformation:** The PMIERs framework (effective 2011, revised 2019) created explicit capital incentives for risk distribution. MIs began building reinsurance programs to manage PMIERs requirements.
+**Post-2008 transformation:** The aligned PMIERs framework — drafted in 2014, effective in 2015, then refined as PMIERs 2.0 effective March 31, 2019 (INDUSTRY_PMIERS_2.0_BASE) — created explicit capital incentives for risk distribution. MIs built reinsurance programs to manage PMIERs Minimum Required Assets and improve return on equity.
 
 **2015 inflection point:** The industry launched its first ILN programs, accessing capital markets investors. This marked the beginning of the "aggregate-manage-distribute" model (INDUSTRY_USMI_RESILIENCY_2023-11).
 

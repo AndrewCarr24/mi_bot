@@ -22,7 +22,7 @@ Arch is distinctive among the six U.S. mortgage insurers because its mortgage se
 - **Diversified revenue stream** — The mortgage market operates on a distinct underwriting cycle from property/casualty lines, providing earnings diversification (ACGL_10-K_2024-12-31).
 - **Cross-segment expertise** — Arch's reinsurance operations support the mortgage group's participation in GSE credit risk-sharing transactions and international mortgage reinsurance (ACGL_10-K_2025-12-31).
 
-For analysts, Arch's mortgage segment performance must be evaluated both on its own merits (NIW, persistency, loss ratio, PMIERs compliance) and in the context of the group's overall underwriting results. The mortgage segment has historically been a strong contributor to group underwriting income — for example, in 2023 the mortgage segment generated $1,064 million in underwriting income with a negative loss ratio (i.e., loss recoveries exceeded losses), compared to $450 million for insurance and $1,098 million for reinsurance (ACGL_10-K_2025-12-31).
+For analysts, Arch's mortgage segment performance must be evaluated both on its own merits (NIW, persistency, loss ratio, PMIERs compliance) and in the context of the group's overall underwriting results. The mortgage segment has historically been a strong contributor to group underwriting income — for example, in 2023 the mortgage segment generated $1,064 million in underwriting income with a negative loss ratio (i.e., favorable prior-period reserve releases exceeded the current-period provision for new losses), compared to $450 million for insurance and $1,098 million for reinsurance (ACGL_10-K_2025-12-31).
 
 ## Current state (as of 2025-12-31)
 

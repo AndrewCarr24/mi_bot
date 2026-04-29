@@ -12,7 +12,7 @@ Essent Guaranty carries financial strength ratings of A3 (positive outlook) from
 
 ## Why it matters
 
-Essent is the third-largest U.S. private mortgage insurer by market share and is often viewed by analysts as the most conservatively managed of the six MIs. Its "Buy, Manage & Distribute" model — ceding a meaningful portion of mezzanine credit risk through programmatic quota share reinsurance — reduces earnings volatility and capital intensity relative to peers. As of year-end 2024, approximately 97% of Essent's portfolio was covered by some form of reinsurance (ESNT_TRANSCRIPT_2024-12-31).
+Essent is the third-largest U.S. private mortgage insurer by market share. Its "Buy, Manage & Distribute" model — ceding a meaningful portion of mezzanine credit risk through programmatic quota share reinsurance — reduces earnings volatility and capital intensity relative to a fully-retained book. As of year-end 2024, approximately 97% of Essent's portfolio was covered by some form of reinsurance (ESNT_TRANSCRIPT_2024-12-31).
 
 The company's Bermuda domicile provides a tax advantage: Essent Group and Essent Re are not subject to U.S. corporate income tax, though a Bermuda corporate income tax is under legislative consideration (ESNT_10-K_2025-12-31). This structure, combined with the quota share arrangement, means that a significant portion of underwriting profit flows to the Bermuda reinsurer, reducing the effective tax rate on the consolidated entity.
 

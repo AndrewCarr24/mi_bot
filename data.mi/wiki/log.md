@@ -130,6 +130,70 @@ Citation hygiene (low priority):
   inline citations and converted Sources entries from backtick to
   square-bracket form to match the schema's canonical convention.
 
+## 2026-04-29 (company + metric page audit)
+
+User-led read-through of the 6 company pages and 6 metric pages
+applying the same Pulte-pattern lens used on topic pages. The biggest
+finding was a substantively-out-of-date company page (Radian); the
+rest split between hard factual errors, editorial framing, and
+incomplete cross-MI coverage on the metric pages.
+
+Substantive rewrite:
+- `companies/rdn_radian`: page treated Radian as a routine monoline
+  mortgage insurer. Source (RDN_10-K_2025-12-31) actually describes a
+  September-2025 strategic transformation to a global multi-line
+  specialty insurer, anchored by the Inigo (Lloyd's Syndicate 1301)
+  acquisition that closed February 2, 2026, plus planned divestiture
+  of Mortgage Conduit / Title / Real Estate Services (reclassified as
+  discontinued ops in Q3 2025). Full FY2025 financials ($618M net
+  income from continuing ops, $4.39 diluted EPS, $282.5B IIF, $1.6B
+  PMIERs Cushion vs $2.2B at year-end 2024) were already in the corpus
+  but not surfaced. Rewrote the page end-to-end.
+
+Hard factual errors:
+- `companies/acgl_arch`: gloss on Arch's negative loss ratio said
+  "loss recoveries exceeded losses" — wrong mechanism. Corrected to
+  "favorable prior-period reserve releases exceeded the current-period
+  provision for new losses."
+- `metrics/reinsurance_crt`: said the "PMIERs framework (effective
+  2011, revised 2019)." 2011 is wrong; aligned PMIERs were drafted
+  2014 and effective 2015, with PMIERs 2.0 effective March 31, 2019.
+
+Editorial / under-specified claims stripped:
+- `companies/esnt_essent`: removed "often viewed by analysts as the
+  most conservatively managed of the six MIs" — opinion stated as
+  fact with no analyst attribution.
+- `companies/mtg_mgic`: removed "rising to an estimated 19-20% in
+  2025" market-share estimate — fabricated; MGIC's own 10-K wouldn't
+  contain a forward estimate of its own next-year share.
+
+Date/value mismatch:
+- `companies/nmih_nmi`: "Current state (as of 2025-12-31)" was mixing
+  2024 and 2025 figures. Pulled FY2025 IIF ($221.4B), RIF ($59.3B),
+  and NIW ($48.9B) from NMIH_10-K_2025-12-31.
+
+Cross-MI metric pages — surfaced missing 4 MIs each:
+- `metrics/iif`: replaced 2-MI list (MGIC + Radian) with full 6-MI
+  table at year-end 2024 (MGIC $295.4B, Arch $290.4B, Radian $275.1B,
+  Enact $268.8B, Essent $243.6B, NMIH $210.2B). Industry total ~$1.58T.
+- `metrics/persistency`: replaced 2-MI list with full 6-MI table
+  (Essent 86%, NMIH 85%, MGIC 84.8%, Radian 83.6%, Enact 83%, Arch
+  82.1% at year-end 2024).
+- `metrics/loss_ratio`: replaced 2-MI table with 5-MI table (Arch
+  -4.4%, MGIC -1.5%, Radian -0.2%, Enact 4%, Essent 8.1% for 2024).
+  NMIH's loss ratio is calculated on a different basis and isn't
+  directly disclosed as a single percentage; flagged in the table.
+
+Citation hygiene:
+- `metrics/persistency`: Sources entries were bare doc_ids;
+  reformatted to canonical square-bracket form to match other pages.
+
+Process note: build_wiki.py per-page retrieval doesn't enforce cross-
+MI coverage on the metric pages, which is the upstream cause of the
+"only 2 of 6 MIs surfaced" pattern. Worth fixing in build_wiki.py
+going forward (one query per MI on cross-MI metric pages), but for
+this round we patched by hand from already-ingested 10-Ks.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated

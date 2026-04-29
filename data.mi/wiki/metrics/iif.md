@@ -18,12 +18,20 @@ IIF also determines capital requirements under PMIERs. More IIF means more requi
 
 ## Current state (as of 2024-12-31)
 
-As of December 31, 2024, the two largest MIs by IIF reported:
+Primary insurance in force across the six US MIs at December 31, 2024:
 
-- **MGIC**: $295.4 billion in direct primary IIF, up 0.6% from $293.5 billion at year-end 2023. NIW was $55.7 billion in 2024, up from $46.1 billion in 2023 (MTG_10-K_2024-12-31).
-- **Radian**: $275.1 billion in primary IIF, up from $270.0 billion at year-end 2023. Average coverage percentage was 26.2% (RDN_10-K_2024-12-31).
+| MI | Primary IIF (2024) | Source |
+|---|---|---|
+| MGIC | $295.4B | MTG_10-K_2024-12-31 |
+| Arch (US primary mortgage) | $290.4B | ACGL_10-K_2024-12-31 |
+| Radian | $275.1B | RDN_10-K_2024-12-31 |
+| Enact | $268.8B | ACT_10-K_2024-12-31 |
+| Essent | $243.6B | ESNT_10-K_2024-12-31 |
+| NMI Holdings | $210.2B | NMIH_10-K_2024-12-31 |
 
-MGIC's management expects IIF to remain "relatively flat in 2025" given the interest rate outlook, noting that "forecasts from Fannie Mae and the MBA indicate a modest decrease in interest rates in 2025 compared to 2024" (MTG_10-K_2024-12-31).
+The six MIs collectively held roughly $1.58 trillion of primary IIF at year-end 2024 (excluding Arch's CRT and international mortgage books, which add another ~$210B of IIF on the Arch platform alone). MGIC is the largest by IIF, narrowly ahead of Arch's US primary book.
+
+Trajectory: MGIC's IIF was up 0.6% from $293.5 billion at year-end 2023, with $55.7 billion of NIW in 2024 (up from $46.1 billion in 2023) (MTG_10-K_2024-12-31). Radian's IIF was up from $270.0 billion at year-end 2023, with an average coverage percentage of 26.2% (RDN_10-K_2024-12-31). MGIC's management expects IIF to remain "relatively flat in 2025" given the interest rate outlook (MTG_10-K_2024-12-31); Radian subsequently reported $282.5 billion of IIF at year-end 2025 (RDN_10-K_2025-12-31), and NMIH grew to $221.4 billion (NMIH_10-K_2025-12-31).
 
 ## How it has evolved
 
@@ -37,6 +45,12 @@ The composition of IIF has also shifted toward higher-credit-quality vintages. R
 
 - [MTG_10-K_2024-12-31] — Provided MGIC's IIF of $295.4B, NIW of $55.7B, the IIF roll-forward, persistency history, and management's 2025 outlook.
 - [RDN_10-K_2024-12-31] — Provided Radian's IIF of $275.1B, average coverage percentage, premium type composition, and credit profile breakdown.
+- [RDN_10-K_2025-12-31] — Provided Radian's year-end 2025 IIF of $282.5B and continuing-operations financial framing.
+- [ACGL_10-K_2024-12-31] — Provided Arch's US primary mortgage IIF of $290.4B at year-end 2024 and the segment composition (US primary / US CRT / international).
+- [ACT_10-K_2024-12-31] — Provided Enact's primary IIF of $268.8B at year-end 2024.
+- [ESNT_10-K_2024-12-31] — Provided Essent's primary IIF of $243.6B at year-end 2024.
+- [NMIH_10-K_2024-12-31] — Provided NMI Holdings' primary IIF of $210.2B at year-end 2024.
+- [NMIH_10-K_2025-12-31] — Provided NMI Holdings' primary IIF of $221.4B at year-end 2025.
 - [INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09] — Provided the regulatory context for standard MI coverage requirements by LTV tier.
 
 ## Related

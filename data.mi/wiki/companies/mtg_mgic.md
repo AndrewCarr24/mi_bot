@@ -12,7 +12,7 @@ The company uses a risk-based pricing engine called MiQ, which allows frequent g
 
 ## Why it matters
 
-MGIC is the largest player in a six-company oligopoly that dominates the US private mortgage insurance market. Its market share of 18.6% in 2024 (rising to an estimated 19-20% in 2025) gives it significant scale advantages in risk diversification, reinsurance execution, and customer relationships (MTG_10-K_2024-12-31). For analysts, MGIC is a bellwether for industry trends: its NIW volumes, persistency rates, and credit quality shifts signal broader market conditions.
+MGIC is the largest player in a six-company oligopoly that dominates the US private mortgage insurance market. MGIC's estimated share of PMI industry NIW was 18.6% in 2024, up from 16.3% in 2023 (MTG_10-K_2024-12-31), giving it scale advantages in risk diversification, reinsurance execution, and customer relationships. For analysts, MGIC is a bellwether for industry trends: its NIW volumes, persistency rates, and credit quality shifts signal broader market conditions.
 
 The company's capital return story is a key differentiator. MGIC returned approximately $700 million to shareholders in 2024 — a 92% payout ratio — and has made share repurchases the primary means of returning capital (MTG_TRANSCRIPT_2024-12-31). This positions MGIC as a high-yielding capital return story within the financial sector, but it also means the stock is sensitive to any deterioration in the credit cycle that would force capital conservation.
 
