@@ -395,6 +395,21 @@ Lesson: when rewriting a page from scratch (as I did with Radian),
 resist the temptation to over-structure. If the source says "two
 lines," don't invent a third.
 
+## 2026-04-29 (Enact CODM boilerplate)
+
+`companies/act_enact` had a sentence that read: "Enact operates in
+a single reportable segment — Mortgage Insurance — and its chief
+operating decision maker (the CEO) evaluates performance on
+consolidated net income." The CODM/evaluation-metric language is
+ASC 280 segment-reporting boilerplate — it justifies single-segment
+reporting under GAAP but does no analyst work in a wiki. Replaced
+with the substantive implication: consolidated financials roll up
+across EMICO and Enact Re without per-subsidiary P&L visibility,
+which is what an analyst should know.
+
+Same Pulte-pattern: quotable disclosure language standing in for
+substantive characterization.
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated
