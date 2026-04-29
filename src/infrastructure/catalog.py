@@ -19,6 +19,26 @@ _PARSED_MD_RE = re.compile(
     r"^(?P<ticker>[A-Z]+)_(?P<form>10-K|10-Q|10-K-A|10-Q-A|8-K|8-K-A|TRANSCRIPT)_(?P<period>\d{4}-\d{2}-\d{2})\.md$"
 )
 
+# Industry / regulatory reference docs (PMIERs, USMI white papers, FHFA
+# reports). Filename stem is INDUSTRY_<slug>, no fiscal period.
+_INDUSTRY_MD_RE = re.compile(r"^INDUSTRY_(?P<slug>.+)\.md$")
+
+# Human-readable labels for industry docs, keyed on filename stem (without
+# extension). Maps to (filing_type, period_label). Anything not listed
+# here falls back to the slug as the type and an empty period label.
+_INDUSTRY_LABELS: dict[str, tuple[str, str]] = {
+    "INDUSTRY_PMIERS_2.0_BASE": ("PMIERs 2.0 base requirements", "Fannie Mae"),
+    "INDUSTRY_PMIERS_GUIDANCE_2024-01": ("PMIERs Guidance 2024-01 (Aug 2024 update)", "Freddie Mac"),
+    "INDUSTRY_PMIERS_GUIDANCE_2024-02": ("PMIERs Guidance 2024-02", "Freddie Mac"),
+    "INDUSTRY_PMIERS_OVERVIEW_FHFA": ("PMIERs overview", "FHFA"),
+    "INDUSTRY_USMI_WHITE_PAPER_2020-10": ("USMI policy white paper", "Oct 2020"),
+    "INDUSTRY_USMI_RESILIENCY_2023-11": ("USMI resiliency white paper", "Nov 2023"),
+    "INDUSTRY_USMI_PMIERS_FACTSHEET_2015-10": ("USMI PMIERs fact sheet", "Oct 2015"),
+    "INDUSTRY_FHFA_ANNUAL_REPORT_2024": ("FHFA Annual Report to Congress", "2024"),
+    "INDUSTRY_FHFA_PAR_2024": ("FHFA Performance and Accountability Report", "FY 2024"),
+    "INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09": ("Private MI Handbook (industry primer)", "Freddie Mac, Sep 2021"),
+}
+
 TICKER_TO_COMPANY = {
     "ACT": "Enact Holdings",
     "RDN": "Radian",
@@ -62,23 +82,40 @@ def list_filings() -> list[dict]:
     out: list[dict] = []
     for md in sorted(PARSED_ROOT.glob("*.md")):
         m = _PARSED_MD_RE.match(md.name)
-        if not m:
+        if m:
+            ticker = m.group("ticker")
+            form = m.group("form").replace("-A", "/A")  # restore amended suffix
+            period_end = m.group("period")
+            out.append(
+                {
+                    "ticker": ticker,
+                    "company": TICKER_TO_COMPANY.get(ticker, ticker),
+                    "filing_type": form,
+                    "period_end": period_end,
+                    "period_label": _period_label(form, period_end),
+                    # doc_id matches the dsRAG KB's ingestion convention.
+                    "doc_id": md.stem,
+                    "path": str(md),
+                }
+            )
             continue
-        ticker = m.group("ticker")
-        form = m.group("form").replace("-A", "/A")  # restore amended suffix
-        period_end = m.group("period")
-        out.append(
-            {
-                "ticker": ticker,
-                "company": TICKER_TO_COMPANY.get(ticker, ticker),
-                "filing_type": form,
-                "period_end": period_end,
-                "period_label": _period_label(form, period_end),
-                # doc_id matches the dsRAG KB's ingestion convention.
-                "doc_id": md.stem,
-                "path": str(md),
-            }
-        )
+        im = _INDUSTRY_MD_RE.match(md.name)
+        if im:
+            stem = md.stem
+            filing_type, period_label = _INDUSTRY_LABELS.get(
+                stem, (im.group("slug"), "")
+            )
+            out.append(
+                {
+                    "ticker": "INDUSTRY",
+                    "company": "Industry / Regulatory",
+                    "filing_type": filing_type,
+                    "period_end": "",
+                    "period_label": period_label,
+                    "doc_id": stem,
+                    "path": str(md),
+                }
+            )
     return out
 
 
