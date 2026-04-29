@@ -1,6 +1,6 @@
 # Arch Capital Group Ltd. (ACGL)
 
-> Arch Capital Group Ltd. is a Bermuda-based global insurer and reinsurer operating through three segments: insurance, reinsurance, and mortgage. The mortgage segment provides U.S. private mortgage insurance (through Arch MI U.S.), international mortgage insurance and reinsurance, and participation in GSE credit risk-sharing transactions. Arch is one of the six major U.S. mortgage insurers and is unique among them in that mortgage insurance is one of three diversified underwriting segments rather than the sole business. The company reported $23.5 billion in capital at year-end 2024 and is a member of the S&P 500 index (ACGL_10-K_2024-12-31).
+> Arch Capital Group Ltd. is a Bermuda-based global insurer and reinsurer operating through three segments: insurance, reinsurance, and mortgage. The mortgage segment provides U.S. private mortgage insurance (through Arch MI U.S.), international mortgage insurance and reinsurance, and participation in GSE credit risk-sharing transactions. Arch is one of the six major U.S. mortgage insurers and is unique among them in that mortgage insurance is one of three diversified underwriting segments rather than the sole business. At year-end 2025 the group reported approximately $26.9 billion in capital and book value per share of $65.11 (a 22.6% increase from $53.11 at year-end 2024); for full-year 2025 Arch wrote $16.5 billion of net premiums and reported $4.4 billion of net income available to common shareholders (ACGL_10-K_2025-12-31).
 
 ## What it is
 
@@ -39,7 +39,7 @@ Based on Arch's 2025 Form 10-K, the mortgage segment reported:
 
 The 2025 result marks the fourth consecutive year of mortgage-segment underwriting income above $1 billion. The trend in the loss and combined ratios — moving from a deeply negative loss ratio of -8.9% in 2023 toward -0.4% in 2025 — reflects normal aging of the in-force book as favorable prior-year reserve development moderates from the post-COVID peak (ACGL_10-K_2025-12-31).
 
-At the group level, Arch reported $23.5 billion in capital at December 31, 2024, with book value per share of $53.11, a 13% increase from $46.94 at year-end 2023 (ACGL_10-K_2024-12-31). The company paid a $5 per share special dividend in December 2024 and repurchased $24 million in shares during Q4 2024 (ACGL_TRANSCRIPT_2024-12-31).
+At the group level, Arch reported approximately $26.9 billion in capital at December 31, 2025, with book value per share of $65.11 — a 22.6% increase from $53.11 at year-end 2024 (ACGL_10-K_2025-12-31). For full-year 2025, Arch wrote $16.5 billion of net premiums and reported $4.4 billion of net income available to common shareholders (ACGL_10-K_2025-12-31). Capital return shifted from a $1.9 billion special dividend in 2024 to $1.9 billion of share repurchases in 2025 (ACGL_10-K_2025-12-31). The U.S. primary mortgage insurance persistency rate was 81.8% at December 31, 2025, compared to 82.1% at year-end 2024 (ACGL_10-K_2025-12-31).
 
 On the Q4 2024 earnings call, management noted that the mortgage insurance market conditions remained favorable, with the company selectively deploying capital to areas producing attractive risk-adjusted returns (ACGL_TRANSCRIPT_2024-12-31).
 

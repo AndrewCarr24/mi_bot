@@ -6,7 +6,7 @@
 
 NMI Holdings was incorporated in Delaware in May 2011 and began start-up operations in 2012, writing its first mortgage insurance policy in April 2013 through NMIC, its primary insurance subsidiary (NMIH_10-K_2024-12-31). NMIC is licensed in all 50 states and the District of Columbia, and is approved as a mortgage insurer by the GSEs (Fannie Mae and Freddie Mac). The company also owns National Mortgage Reinsurance Inc. One (Re One), which historically provided reinsurance for statutory risk retention but no longer carries active exposures, and NMI Services, Inc. (NMIS), which offers outsourced loan review services to mortgage originators (NMIH_10-K_2024-12-31).
 
-As of December 31, 2024, NMIH had issued master policies with 2,086 customers, including national and regional mortgage banks, money center banks, credit unions, community banks, builder-owned lenders, internet-sourced lenders, and other non-bank lenders (NMIH_10-K_2024-12-31). The company employs approximately 230 full-time and part-time employees.
+As of December 31, 2025, NMIH had issued master policies with 2,193 customers, up from 2,086 a year earlier, including national and regional mortgage banks, money center banks, credit unions, community banks, builder-owned lenders, internet-sourced lenders, and other non-bank lenders (NMIH_10-K_2025-12-31; NMIH_10-K_2024-12-31). The company employs approximately 225 full-time and part-time employees.
 
 ## Why it matters
 
@@ -26,8 +26,10 @@ For the fiscal year ended December 31, 2025, NMIH reported:
 - **Shareholders' equity**: $2.59 billion as of December 31, 2025, up from $2.22 billion a year earlier
 - **Book value per share**: approximately $34.00 (calculated from $2.59 billion equity / 76.3 million shares outstanding)
 - **Debt**: $417.0 million, primarily from the May 2024 senior notes issuance (NMIH_10-K_2025-12-31)
+- **PMIERs sufficiency**: 170% at December 31, 2025 (Available Assets exceeded risk-based required assets by 70%) (NMIH_10-K_2025-12-31)
+- **Persistency**: 83.4% at December 31, 2025, down from 84.6% at year-end 2024 and 86.1% at year-end 2023 (NMIH_10-K_2025-12-31)
 
-The company's investment portfolio totaled $3.14 billion at fair value as of December 31, 2025, predominantly in corporate and municipal debt securities (NMIH_10-K_2025-12-31). NMIH maintained a strong PMIERs surplus position throughout the period, though the exact ratio is disclosed in regulatory filings.
+The company's investment portfolio totaled $3.14 billion at fair value as of December 31, 2025, predominantly in corporate and municipal debt securities (NMIH_10-K_2025-12-31).
 
 ## How it has evolved
 

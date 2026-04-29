@@ -30,7 +30,9 @@ For the fiscal year ended December 31, 2025, MGIC reported:
 - **NIW**: $60.2 billion, up from $55.7 billion in 2024, reflecting higher expected market position (MTG_10-K_2025-12-31)
 - **Losses incurred, net**: $48.9 million (a net expense), compared to a benefit of $14.9 million in 2024 (MTG_10-K_2025-12-31)
 - **Shareholders' equity**: $5.15 billion, with 219.4 million shares outstanding (MTG_10-K_2025-12-31)
-- **PMIERs compliance**: MGIC's Available Assets exceeded Minimum Required Assets; the company does not expect the August 2024 PMIERs update to affect its compliance (MTG_10-K_2024-12-31)
+- **PMIERs sufficiency**: MGIC's Available Assets totaled $5.7 billion at December 31, 2025, $2.5 billion above its Minimum Required Assets — implying roughly 178% sufficiency. MGIC does not expect the August 2024 PMIERs update to materially affect its compliance (MTG_10-K_2025-12-31; MTG_10-K_2024-12-31)
+- **Persistency**: 84.8% at December 31, 2025, unchanged from 84.8% at year-end 2024 (MTG_10-K_2025-12-31)
+- **Dividends to holdco**: MGIC paid $800 million in dividends to the holding company in 2025; in 2026 MGIC can pay $89 million in ordinary dividends without OCI approval (MTG_10-K_2025-12-31)
 
 Credit quality of NIW remained strong: 51.7% of 2025 NIW had FICO scores of 760+, 14.7% had LTVs above 95%, and 27.0% had DTI ratios above 45%. Purchase mortgages accounted for 90.9% of NIW, with refinances at 9.1% (MTG_10-K_2025-12-31).
 

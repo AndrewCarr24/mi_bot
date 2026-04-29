@@ -1,6 +1,6 @@
 # Essent Group Ltd. (ESNT)
 
-> Essent Group Ltd. is a Bermuda-based holding company that provides private mortgage insurance and reinsurance in the U.S. through its primary operating subsidiaries, Essent Guaranty, Inc. and Essent Reinsurance Ltd. The company has built a reputation for conservative underwriting, disciplined capital management, and a "Buy, Manage & Distribute" operating model that relies heavily on programmatic reinsurance. As of year-end 2025, Essent held $248.4 billion of mortgage insurance in force, maintained a PMIERs sufficiency ratio of 178%, and generated a 14% return on average equity in 2024.
+> Essent Group Ltd. is a Bermuda-based holding company that provides private mortgage insurance and reinsurance in the U.S. through its primary operating subsidiaries, Essent Guaranty, Inc. and Essent Reinsurance Ltd. The company has built a reputation for disciplined capital management and a "Buy, Manage & Distribute" operating model that relies heavily on programmatic reinsurance. At year-end 2025, Essent held $248.4 billion of primary mortgage insurance in force, maintained a PMIERs sufficiency ratio of 169% ($3.5B Available Assets vs $2.1B Minimum Required), and generated $690 million of net income for the year ($6.90 per diluted share).
 
 ## What it is
 
@@ -27,10 +27,9 @@ Key metrics as of December 31, 2025:
 - **NIW:** $46.6 billion in 2025, compared to $45.6 billion in 2024 (ESNT_10-K_2025-12-31)
 - **Risk in Force (RIF):** $56.5 billion (ESNT_10-K_2025-12-31)
 - **Average net premium rate:** 0.35% (unchanged from 2024) (ESNT_10-K_2025-12-31)
-- **PMIERs sufficiency ratio:** 178% as of December 31, 2024 (ESNT_TRANSCRIPT_2024-12-31)
-- **Book value per share:** $53.36 as of December 31, 2024, up 11% year-over-year (ESNT_TRANSCRIPT_2024-12-31)
-- **GAAP equity:** $5.8 billion as of December 31, 2025 (ESNT_10-K_2025-12-31)
-- **Persistency:** 86% as of December 31, 2024, with nearly 60% of the in-force portfolio having a note rate of 5.5% or lower (ESNT_TRANSCRIPT_2024-12-31)
+- **PMIERs sufficiency ratio:** 169% as of December 31, 2025 ($3.5B Available Assets vs $2.1B Minimum Required Assets, $1.4B cushion), down from 178% reported at year-end 2024 (ESNT_10-K_2025-12-31; ESNT_TRANSCRIPT_2024-12-31)
+- **GAAP stockholders' equity:** $5.8 billion at December 31, 2025, compared to $5.6 billion at year-end 2024; book value per share was $53.36 at December 31, 2024 (year-end 2025 BVPS not separately disclosed in the 2025 10-K) (ESNT_10-K_2025-12-31; ESNT_TRANSCRIPT_2024-12-31)
+- **Persistency:** 85.7% at December 31, 2025, unchanged from 85.7% at year-end 2024 (down from 86.9% at year-end 2023); roughly 60% of the in-force portfolio carries a note rate of 5.5% or lower (ESNT_10-K_2025-12-31; ESNT_TRANSCRIPT_2024-12-31)
 
 Essent Re generated approximately $80 million in third-party revenues in 2024 and had $2.2 billion in third-party risk in force (ESNT_TRANSCRIPT_2024-12-31). Since 2014, Essent Re has earned over $450 million of net income from its third-party business and contributed approximately $800 million to Essent's book value (ESNT_TRANSCRIPT_2024-12-31).
 

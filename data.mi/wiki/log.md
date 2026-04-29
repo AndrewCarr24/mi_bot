@@ -228,6 +228,56 @@ every numeric and named claim against ACT_10-K_2025-12-31, ACT_10-K_
   function (intercompany QSR) rather than the GSE-CRT-first framing
   the original had.
 
+## 2026-04-29 (cross-company recheck)
+
+User requested the same Enact-style deep-dive applied to the other 5
+company pages. The dominant pattern across all 5: "Current state
+(as of 2025-12-31)" sections were populated with year-end-2024
+figures pulled from transcripts during the original DeepSeek-V4-Flash
+build. The 10-Ks have the year-end 2025 figures but the build
+pipeline preferentially landed on transcripts for capital metrics.
+Patched all 5 pages.
+
+- companies/acgl_arch: refreshed group capital ($23.5B → $26.9B at
+  year-end 2025), book value per share ($53.11 → $65.11, +22.6%),
+  added FY2025 group results ($4.4B net income to common, $16.5B
+  net premiums), refreshed capital activity (2025 was $1.9B share
+  repurchases, not 2024's $1.9B special dividend), and surfaced
+  US primary mortgage persistency (81.8% at Dec 31 2025 vs 82.1%
+  at Dec 31 2024). Updated the summary blockquote in line.
+- companies/esnt_essent: refreshed PMIERs in both summary and
+  Current state (178% from year-end 2024 transcript → 169% from
+  year-end 2025 10-K, $3.5B Available Assets vs $2.1B required,
+  $1.4B cushion). Refreshed persistency (86% → 85.7% at year-end
+  2025, with the year-end 2024 figure also corrected to 85.7%
+  from the wiki's "86%"). Clarified BVPS as a year-end 2024 figure
+  since the 2025 10-K doesn't separately disclose it. Reframed the
+  summary's "14% ROE in 2024" to lead with FY2025 net income.
+- companies/mtg_mgic: replaced PMIERs handwave ("Available Assets
+  exceeded Minimum Required Assets") with the specific year-end
+  2025 figures ($5.7B Available Assets, $2.5B excess, ~178%
+  sufficiency). Surfaced 84.8% persistency at year-end 2025
+  (unchanged from year-end 2024). Added the $800M dividend Radian
+  Guaranty paid up to the holding company in 2025 and the 2026
+  ordinary-dividend capacity ($89M without OCI approval).
+- companies/nmih_nmi: refreshed customer count (2,086 → 2,193) and
+  employees (~230 → 225) to year-end 2025 figures; replaced the
+  PMIERs handwave with the specific 170% sufficiency at year-end
+  2025; surfaced 2025 persistency (83.4%, down from 84.6% at
+  year-end 2024 and 86.1% at year-end 2023).
+- companies/rdn_radian: my own rewrite said "2025 persistency not
+  surfaced in retrieved corpus." It actually was — line 2376 of the
+  2025 10-K. Updated to 83.6% (12-month) at year-end 2025, which
+  matches the year-end 2024 figure, with the quarterly-annualized
+  softening (82.7% Q4 2024 → 81.6% Q4 2025) flagged.
+
+Process note: same root cause as before. build_wiki.py's per-page
+retrieval doesn't distinguish between year-end-current 10-K
+disclosures and year-end-prior transcript commentary, so capital and
+persistency figures kept landing on the transcript versions. Worth
+fixing in the build pipeline (prefer 10-K for balance-sheet metrics,
+prefer transcripts only for management commentary).
+
 ## Lint patterns to watch
 - "Current state" sections that describe the status quo without flagging
   it as either pre- or post- the August 2024 update — anything dated

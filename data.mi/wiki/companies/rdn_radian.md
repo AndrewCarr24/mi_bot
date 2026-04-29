@@ -33,7 +33,7 @@ Radian's 2025 results reflect a final full year as a monoline mortgage insurer. 
 **Mortgage Insurance segment metrics:**
 - **NIW**: $55.2 billion in 2025 (RDN_10-K_2025-12-31)
 - **IIF**: $282.5 billion at December 31, 2025, up from $275.1 billion at December 31, 2024
-- **Persistency**: 83.6% at year-end 2024 (RDN_TRANSCRIPT_2024-12-31); 2025 figure not surfaced in retrieved corpus
+- **Persistency**: 83.6% (12-month) at year-end 2025, unchanged from 83.6% at year-end 2024; quarterly-annualized persistency softened to 81.6% at Q4 2025 from 82.7% at Q4 2024 (RDN_10-K_2025-12-31)
 
 **Capital and regulatory position:**
 - **PMIERs Cushion**: $1.6 billion at year-end 2025, down from $2.2 billion at year-end 2024 due to the Intercompany Note funding the Inigo acquisition (RDN_10-K_2025-12-31)
