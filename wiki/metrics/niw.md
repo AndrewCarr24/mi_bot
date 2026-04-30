@@ -7,12 +7,13 @@
 **Definition.** NIW is "the aggregate original principal amount of the mortgages that are insured during a period" (MTG_10-K_2025-12-31 glossary). Multiple MIs use definitionally consistent language:
 
 - **MGIC**: NIW is the aggregate original principal amount of mortgages insured during a period (MTG_10-K_2025-12-31).
-- **NMI Holdings**: NIW occurs when a lender activates mortgage insurance coverage on a closed mortgage loan; NIW increases IIF, premiums written, and premiums earned (NMIH_10-K_2025-12-31).
-- **Enact**: NIW is "the aggregate original principal amount of the mortgages underlying the Primary Mortgage Insurance" (ACT_10-K_2025-12-31).
+- **Radian**: NIW is "the aggregate original principal amount of the mortgages underlying the Primary Mortgage Insurance" (RDN_10-K_2025-12-31 glossary).
+- **Enact**: "NIW occurs when a lender activates mortgage insurance coverage on a closed mortgage loan. NIW increases our IIF, premiums written and premiums earned" (ACT_10-K_2025-12-31).
+- **NMI Holdings**: "NIW is the aggregate unpaid principal balance of mortgages underpinning new policies written during a given period" (NMIH_10-K_2025-12-31).
 
 NIW reflects the **original** principal amount (not subsequent unpaid balance), so a $300,000 loan generates $300,000 of NIW even though it amortizes down over time.
 
-**Mechanics.** NIW occurs at the moment a lender activates coverage on a closed mortgage loan — generally at loan closing or shortly after (NMIH_10-K_2025-12-31). NIW becomes IIF in the same instant (the loan goes into force) and is the input that drives future earned premium. Over the life of the loan, the original principal balance amortizes and IIF declines proportionally; the loan is removed from IIF entirely upon cancellation (refinance, sale, prepayment, or HOPA-mandated termination).
+**Mechanics.** NIW occurs at the moment a lender activates coverage on a closed mortgage loan — generally at loan closing or shortly after (ACT_10-K_2025-12-31). NIW becomes IIF in the same instant (the loan goes into force) and is the input that drives future earned premium. Over the life of the loan, the original principal balance amortizes and IIF declines proportionally; the loan is removed from IIF entirely upon cancellation (refinance, sale, prepayment, or HOPA-mandated termination).
 
 **Refinance vs. purchase**: When a borrower refinances a mortgage insured by the MI by paying it off in full with the proceeds of a new mortgage that is also insured by the same MI, the insurance on the existing mortgage is cancelled, and insurance on the new mortgage is considered to be NIW. As a result, "continuation of [MI] coverage from a refinanced loan to a new loan results in both a cancellation of insurance and NIW" (MTG_10-K_2025-12-31). When a lender and borrower modify a loan rather than replace it, MI continues without being cancelled and the modification is *not* recorded as NIW (MTG_10-K_2025-12-31).
 
@@ -80,8 +81,8 @@ NMI management's Q4 2025 industry estimate was approximately $310 billion, consi
 
 - [MTG_10-K_2025-12-31] — MGIC's NIW definition (glossary), 2025 NIW ($60.2B), 2024 NIW ($55.7B), 2023 NIW ($46.1B), 19.4% / 18.6% market share for 2025 / 2024, refinance share (9.1% / 4.0% / ~2% per the precision table; rounded as 9% / 4% / 2% in the narrative), monthly premium plan share of NIW (~97%), refinance-as-NIW mechanics, PMI industry NIW figures ($311B / $299B / $284B per *Inside Mortgage Finance*).
 - [RDN_10-K_2025-12-31] — Radian's 2025 NIW ($55.2B vs. $52.0B in 2024), ~18% NIW share, RADAR Rates pricing platform.
-- [ACT_10-K_2025-12-31] — Enact's NIW definition, 2025 / 2024 / 2023 NIW figures ($51.5B / $51.0B / $53.1B), persistency-rate disclosure framing, 2025 weighted-average NIW FICO 753 and LTV 92%, 12.0%-20.4% per-quarter market share band since 2012.
-- [NMIH_10-K_2025-12-31] — NMIC NIW definition (NIW occurs when a lender activates mortgage insurance coverage), 2025 NIW $48.9B, $14.2B Q4 2025.
+- [ACT_10-K_2025-12-31] — Enact's NIW definition ("NIW occurs when a lender activates mortgage insurance coverage on a closed mortgage loan"), 2025 / 2024 / 2023 NIW figures ($51.5B / $51.0B / $53.1B), persistency-rate disclosure framing, 2025 weighted-average NIW FICO 753 and LTV 92%, 12.0%-20.4% per-quarter market share band since 2012.
+- [NMIH_10-K_2025-12-31] — NMI NIW definition ("aggregate unpaid principal balance of mortgages underpinning new policies written during a given period"); 2025 NIW $48.9B; the leading-indicator framing for future earned premium.
 - [NMIH_10-K_2024-12-31] — Cross-check for 2024 monthly-premium share of NIW (~98%).
 - [NMIH_TRANSCRIPT_2025-12-31] — NMI's Q4 2025 industry NIW estimate (~$310B), "near parity" market-share framing, 2026 outlook commentary, 950 NSAs reference under Rate GPS.
 - [ESNT_10-K_2025-12-31] — Essent 2025 / 2024 / 2023 NIW ($46.6B / $45.6B / $47.7B); monthly premium policies comprised 99% of NIW in both 2025 and 2024.
