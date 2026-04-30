@@ -6,8 +6,8 @@
 
 **Definition.** Per MGIC's glossary, "Insurance in force is the unpaid principal balance, either reported to us by mortgage servicers or estimated by us, for the loans we insure" (MTG_10-K_2025-12-31). Other MIs use definitionally consistent language:
 
-- **Enact**: "IIF refers to the unpaid principal balance of mortgage loans that we insure directly" (ACT_10-K_2025-12-31).
-- **Enact (alternate)**: "IIF at the time of origination is used to determine premiums as the premium rate is expressed as a percentage of IIF. IIF is one of the primary drivers of our future earned premium" (ACT_10-K_2025-12-31).
+- **Essent**: "IIF refers to the unpaid principal balance of mortgage loans that we insure directly" (ESNT_10-K_2025-12-31).
+- **Enact**: "IIF at the time of origination is used to determine premiums as the premium rate is expressed as a percentage of IIF. IIF is one of the primary drivers of our future earned premium" (ACT_10-K_2025-12-31).
 
 IIF is reported as **direct primary** (before reinsurance) by default in MI 10-Ks (MTG_10-K_2025-12-31). The portion of IIF subject to quota share or excess-of-loss reinsurance is disclosed separately in segment / Exhibit D footnotes (see [[topics/crt_reinsurance]]).
 
