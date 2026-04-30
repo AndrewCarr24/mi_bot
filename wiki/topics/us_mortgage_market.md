@@ -78,7 +78,7 @@ The U.S. mortgage market has cycled through three regimes since 2020.
 
 The natural-disaster overlay (Hurricane Helene in September 2024, Hurricane Milton in October 2024, January 2025 California wildfires, Q4 2025 Hurricane Melissa) introduces episodic delinquency volatility — see [[topics/catastrophe_impact_on_mi]] — without materially changing the secular cycle (ESNT_10-K_2025-12-31; ACGL_TRANSCRIPT_2025-12-31).
 
-**Long-run context**: Private MI has enabled affordable homeownership for more than 38 million people over more than 65 years of operation (since 1957), and has paid nearly $60 billion in claims to the GSEs since they entered conservatorship in 2008 (INDUSTRY_USMI_RESILIENCY_2023-11). There are nearly $1.4 trillion in mortgages guaranteed by the GSEs with private MI protection (INDUSTRY_USMI_RESILIENCY_2023-11, citing GSE SEC Filings as of September 30, 2023).
+**Long-run context**: Private MI has enabled affordable homeownership for more than 38 million people over more than 65 years of operation, and has paid nearly $60 billion in claims to the GSEs since they entered conservatorship in 2008 (INDUSTRY_USMI_RESILIENCY_2023-11). There are nearly $1.4 trillion in mortgages guaranteed by the GSEs with private MI protection (INDUSTRY_USMI_RESILIENCY_2023-11, citing GSE SEC Filings as of September 30, 2023).
 
 Looking forward, three forces are most likely to shape 2026: (i) the path of mortgage rates and the implied refinance intensity on the 2022-2025 vintages; (ii) any further FHA pricing or programmatic moves; and (iii) the trajectory of GSE recapitalization and conservatorship-release exploration (see [[topics/gse_relationship]]) (MTG_TRANSCRIPT_2025-12-31; RDN_10-K_2025-12-31).
 

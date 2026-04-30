@@ -38,7 +38,7 @@ The Industry's framing in INDUSTRY_USMI_RESILIENCY_2023-11 is that the post-2008
 **Hurricane Helene + Milton (Q4 2024) — through-2025 status:**
 - **Affected geography**: Helene (September 26, 2024): FL, GA, SC, NC, TN, VA; Milton (October 9, 2024): FL (ESNT_10-K_2025-12-31).
 - **Default impact at Essent**: 2,119 hurricane-related defaults out of a 3,620-loan year-over-year increase in defaults in 2024 (i.e., approximately 58% of the YoY increase) (ESNT_10-K_2025-12-31).
-- **Default impact at Enact**: approximately 1,000 of the 2,600-loan sequential increase in delinquencies in Q4 2024 were estimated to be hurricane-related; Enact applied a 2% claim rate to hurricane-related delinquencies (vs. its 9% standard claim rate on new delinquencies), reflecting the historically high cure rate (ACT_TRANSCRIPT_2024-12-31).
+- **Default impact at Enact**: of Enact's approximately 13,700 new delinquencies received in Q4 2024 (with total delinquencies increasing sequentially from 21,000 to 23,600 as new delinquencies outpaced cures), an estimated 1,000 were hurricane-related; Enact applied a 2% claim rate to hurricane-related delinquencies (vs. its 9% standard claim rate on new delinquencies), reflecting the historically high cure rate (ACT_TRANSCRIPT_2024-12-31).
 - **Reserve treatment**: Essent applied a lower estimated claim rate to Q4 2024 affected-area defaults than to other defaults; Enact applied a 2% claim rate to hurricane-related notices (ESNT_10-K_2025-12-31; ACT_TRANSCRIPT_2024-12-31).
 
 **January 2025 California wildfires:**
@@ -76,9 +76,9 @@ The Industry's framing in INDUSTRY_USMI_RESILIENCY_2023-11 is that the post-2008
 
 **Pandemic period (2020-2022)**: Mass forbearance programs and the COVID-extended 0.30x multiplier dampen MI loss-ratio impact from a wave of pandemic-related delinquencies; reserves established in 2020-2021 are subsequently released as cures materialize.
 
-**Q4 2024 (September-October 2024)**: Hurricane Helene (Sep 26) and Hurricane Milton (Oct 9) drive material short-term default increases concentrated in Florida and the Carolinas. MIs apply lower claim-rate assumptions to disaster-affected defaults (Essent, Enact, etc.) (ESNT_10-K_2025-12-31; ACT_TRANSCRIPT_2024-12-31).
-
 **April 10, 2023**: COVID-19 National Emergency, declared on March 13, 2020, ends (INDUSTRY_PMIERS_GUIDANCE_2024-02 Appendix A).
+
+**Q4 2024 (September-October 2024)**: Hurricane Helene (Sep 26) and Hurricane Milton (Oct 9) drive material short-term default increases concentrated in Florida and the Carolinas. MIs apply lower claim-rate assumptions to disaster-affected defaults (Essent, Enact, etc.) (ESNT_10-K_2025-12-31; ACT_TRANSCRIPT_2024-12-31).
 
 **January 2025**: Southern California wildfires occur but affect <0.1% of MI IIF in FEMA-declared zones; not material to reserves (ESNT_10-K_2025-12-31).
 

@@ -6,24 +6,31 @@
 
 **Origin and purpose.** Mortgage insurance is the most commonly used form of credit enhancement for loans the GSEs purchase with LTVs above 80%; the GSEs' charter acts allow each Enterprise to determine whether a mortgage insurer is qualified to insure loans the Enterprise acquires (INDUSTRY_PMIERS_OVERVIEW_FHFA). Prior to PMIERs, the GSEs had not updated their MI eligibility requirements since 2003 (Fannie Mae) and 2008 (Freddie Mac); the existing requirements relied primarily on rating-agency ratings rather than specific counterparty risk and financial standards (INDUSTRY_PMIERS_OVERVIEW_FHFA). The 2008 financial crisis exposed that gap: MIs and the Enterprises both suffered significant losses from defaults and foreclosures, and three MIs were placed into run-off by their state regulators (INDUSTRY_PMIERS_OVERVIEW_FHFA). FHFA, as Conservator, directed the Enterprises to update, expand, and align their counterparty risk management standards. The first coordinated PMIERs framework was published as a draft for public input on July 10, 2014, finalized on April 17, 2015, and made effective December 31, 2015 (INDUSTRY_USMI_PMIERS_FACTSHEET_2015-10; INDUSTRY_PMIERS_OVERVIEW_FHFA). The current base text is **PMIERs dated September 27, 2018** ("PMIERs 2.0"), effective immediately for new applicants and on March 31, 2019 for existing approved insurers (INDUSTRY_PMIERS_2.0_BASE).
 
-**Architecture.** PMIERs is organized into nine sections plus exhibits (INDUSTRY_PMIERS_2.0_BASE):
+**Architecture.** PMIERs is organized into nine numbered sections plus seven exhibits and a glossary. The section organization in the 2018 base text (INDUSTRY_PMIERS_2.0_BASE):
 
-| Section | Title |
-|---|---|
-| 100 | PMIERs Must Be Met at All Times — Compliance with Laws, NAIC regulations, ownership/governance |
-| 200 | Application Criteria — including the $500 million initial capital requirement for newly approved insurers |
-| 300 | Scope of Business — master policies, settlements, diversification, claims processing, loss mitigation |
-| 400 | Policy Underwriting — eligibility evaluation, property valuation, delegated underwriting |
-| 500 | Quality Control Program |
-| 600 | (data reporting / submissions) |
-| 700 | Financial Requirements — including the marquee Section 703 (Available Assets and Minimum Required Assets), 705 (limitations triggered by an available-assets shortfall), and 707 (reinsurance and risk-sharing transactions) |
-| 800 | Reporting (quarterly portfolio supplement, loan-level dataset) |
-| 900 | Failure to Meet Requirements — remediation, suspension, termination |
-| Exhibit A | Risk-based required asset amount factors (the grid tables) |
+| Section | Chapter Title | Notable Subsections |
+|---|---|---|
+| 100 | Introduction | Compliance with Laws (101), NAIC Regulations (102), Ownership/Corporate Governance (103) |
+| 200 | Application | Application Criteria (200), Submission (201), Fee (202), Newly-Approved Insurer Requirements (203, including the $500M initial capital requirement) |
+| 300 | Business Requirements | Scope of Business (300), Master Policies (305), Settlements and Changes to Fannie Mae's Rights (306), Diversification (307), Claims Processing (308), Loss Mitigation (309) |
+| 400 | Policy Underwriting | Loan Eligibility (401), Property Valuation (402), Delegated Underwriting (403), Use of Automated Tools (404) |
+| 500 | Quality Control | Quality Control Program (500), Discretionary Reviews (501), Post-Closing Review (502), QC Sample Selection (503) |
+| 600 | Lender Approval & Monitoring | Lender Approval (600), Lender Monitoring (601), Delegated Underwriting Approval and Monitoring (602) |
+| 700 | Financial Requirements | Meeting Financial Requirements (700), Sources of Capital (701), Available and Minimum Required Assets (703), Limitations Triggered by an Available Assets Shortfall (705), Reinsurance and Risk Sharing Transactions (707), Lender Captive Reinsurance Contracts (708) |
+| 800 | Notices/Reports/Monitoring | Statement of Purpose (800), Notices (801), Reporting (802), Supplemental Information (803), Periodic Audit Reviews (804) |
+| 900 | Failure to Meet Requirements | General Policy (900), Remediation Options, Suspension and Termination (901), Voluntary Suspension or Termination (902), Consequences (903, 904) |
+| Exhibit A | Risk-Based Required Asset Amount factors (the grid tables) | |
+| Exhibit B | Operational Performance Scorecard | |
+| Exhibit C | Monthly Claims Activity Report | |
+| Exhibit D | Quarterly Portfolio and Financial Supplement | |
+| Exhibit E | Annual Certificate of Compliance | |
+| Exhibit F | Quarterly Portfolio Loan Level Dataset | |
+| Exhibit G | Rescission Relief Principles | |
+| Glossary | | |
 
 The overall test: an authorized officer of the approved insurer must certify quarterly that **Available Assets ≥ Minimum Required Assets** (INDUSTRY_PMIERS_2.0_BASE Section 703).
 
-**The financial test.** Available Assets are defined as the most liquid assets of the insurer that are readily available to pay claims; future mortgage guaranty insurance premium revenue is **not** included (INDUSTRY_PMIERS_2.0_BASE Section 703). In the 2018 base text, eligible Available Assets are the sum of cash, bonds, common and preferred shares (publicly traded, discounted by 25%, subject to limits), receivables from investments, uncollected premiums, dividends from subsidiaries (under specified ratings conditions), liquid assets at exclusive affiliated reinsurers, lender-captive trust balances, and surrender value of certain Corporate Owned Life Insurance — less unearned premium reserves, debt obligations and pledged collateral, funds held under reinsurance treaties for the benefit of a reinsurer, and ineligible surplus notes (INDUSTRY_PMIERS_2.0_BASE Section 703). Bond eligibility and haircuts were materially refined by Guidance 2024-01 (see *How it has evolved* below).
+**The financial test.** Available Assets are defined as the most liquid assets of the insurer that are readily available to pay claims; future mortgage guaranty insurance premium revenue is **not** included (INDUSTRY_PMIERS_2.0_BASE Section 703). In the 2018 base text, eligible Available Assets are the sum of cash, bonds, common and preferred shares (publicly traded, discounted by 25%, subject to limits), receivables from investments, uncollected premiums, dividends from subsidiaries (under specified ratings conditions), liquid assets at exclusive affiliated reinsurers, lender-captive trust balances, and surrender value of certain Corporate Owned Life Insurance — less unearned premium reserves, debt obligations and pledged collateral, funds held under reinsurance treaties for the benefit of a reinsurer, and ineligible surplus notes (INDUSTRY_PMIERS_2.0_BASE Section 703). Bond eligibility and haircuts were materially refined by Guidance 2024-01, which also raised the discount on common and preferred shares from 25% to 50% and added new concentration limits and exclusions (INDUSTRY_PMIERS_GUIDANCE_2024-01 Section 703; see *How it has evolved* below).
 
 **Minimum Required Assets ("MRA")** are the greater of $400 million (a floor that applies even if the risk-based amount would be lower) or the **total risk-based required asset amount** ("RBRAA") calculated under Exhibit A (INDUSTRY_PMIERS_2.0_BASE Section 703). The RBRAA uses tables of factors keyed to:
 
@@ -107,7 +114,7 @@ The PMIERs framework has been a decade-long arc from rating-agency-based eligibi
 
 **September 27, 2018**: PMIERs 2.0 published — the current base text. Effective immediately for new applicants and on March 31, 2019 for existing approved insurers (INDUSTRY_PMIERS_2.0_BASE).
 
-**June 30, 2020 (Guidance 2020-01, later replaced by 2021-01)**: Introduces the 0.30x multiplier on the RBRAA factor for non-performing loans (i) backed by properties in FEMA Declared Major Disaster Areas eligible for individual assistance, with three-month application from the time the loan reaches two missed payments or longer if subject to a forbearance plan, and (ii) extended for COVID-19 hardship-related non-performing loans during a defined COVID-19 Crisis Period (INDUSTRY_PMIERS_GUIDANCE_2024-02 Appendix A).
+**June 30, 2020**: PMIERs guidance issued (subsequently codified in PMIERs Guidance 2021-01, dated June 30, 2021, and later superseded by Guidance 2024-02). Introduces the 0.30x multiplier on the RBRAA factor for non-performing loans (i) backed by properties in FEMA Declared Major Disaster Areas eligible for individual assistance, with three-month application from the time the loan reaches two missed payments or longer if subject to a forbearance plan, and (ii) extended for COVID-19 hardship-related non-performing loans during a defined COVID-19 Crisis Period (INDUSTRY_PMIERS_GUIDANCE_2024-02 Appendix A).
 
 **June 30, 2020 - December 31, 2021**: Section 705 (Limitations Triggered by an Available Assets Shortfall) is temporarily amended to require Freddie Mac's prior written approval before paying dividends or moving capital, with thresholds tied to Available Assets surplus (INDUSTRY_PMIERS_GUIDANCE_2024-02 Appendix A).
 

@@ -36,10 +36,11 @@ USMI's framing: "Deploying MI-CRT allows private MIs to hedge against adverse lo
 
 ### GSE CRT — the MIs take on Enterprise risk
 
-Each Enterprise has, since 2013, transferred portions of its single-family mortgage credit risk to the private sector through structured CRT programs. The principal vehicles are:
+Each Enterprise has, since 2013, transferred portions of its single-family mortgage credit risk to the private sector through structured CRT programs that combine capital-markets security issuances and insurance/reinsurance transactions (INDUSTRY_FHFA_ANNUAL_REPORT_2024). The 2024 vehicle activity disclosed by FHFA covers principally the multifamily book:
 
-- **Fannie Mae**: Connecticut Avenue Securities ("CAS") capital-markets transactions, and Credit Insurance Risk Transfer ("CIRT") reinsurance transactions with insurers and reinsurers. Multifamily Connecticut Avenue Securities ("MCAS") and Multifamily Credit Insurance Risk Transfer ("MCIRT") for the multifamily book (INDUSTRY_FHFA_ANNUAL_REPORT_2024).
-- **Freddie Mac**: Structured Agency Credit Risk ("STACR") capital-markets transactions, Agency Credit Insurance Structure ("ACIS") reinsurance transactions, and the K-deal multifamily securitization program. Multifamily Structured Credit Risk ("MSCR") and Multifamily Credit Insurance Pool ("MCIP") transactions for the multifamily book (INDUSTRY_FHFA_ANNUAL_REPORT_2024).
+- **Fannie Mae multifamily**: Multifamily Connecticut Avenue Securities ("MCAS") and Multifamily Credit Insurance Risk Transfer ("MCIRT") transactions, alongside the Delegated Underwriting and Servicing ("DUS") program. In 2024, Fannie Mae transferred risk on approximately $55 billion of multifamily production through DUS plus three CRT transactions (one MCAS, two MCIRT) covering ~$26 billion of acquisitions (INDUSTRY_FHFA_ANNUAL_REPORT_2024).
+- **Freddie Mac multifamily**: K-deal securitization program, Multifamily Structured Credit Risk ("MSCR") notes, and Multifamily Credit Insurance Pool ("MCIP") transactions. In 2024, Freddie Mac's K-deal program transferred risk on ~$28 billion of new multifamily acquisitions plus two companion MSCR/MCIP transactions covering ~$17 billion (INDUSTRY_FHFA_ANNUAL_REPORT_2024).
+- **Single-family programs**: Each Enterprise also runs single-family CRT through both capital-markets security issuances and reinsurance / insurance transactions; the FHFA Annual Report 2024 reports combined 2024 single-family CRT volume of approximately $365 billion of UPB and $11.9 billion of RIF, and cumulative single-family CRT since 2013 of approximately $7 trillion of UPB and $222 billion of RIF (INDUSTRY_FHFA_ANNUAL_REPORT_2024).
 
 The MIs participate in GSE CRT through their Bermuda reinsurance subsidiaries:
 
@@ -102,7 +103,7 @@ USMI's view of the value of MI-CRT to the housing finance system:
 
 **Enact**:
 - Intercompany QSR with **Enact Re** (Bermuda) — Enact Re reinsures EMICO's NIW (capitalized with a $500M contribution in 2023) (ACT_10-K_2025-12-31).
-- Third-party CRT program combines XOL, QSR, and ILNs; new QS for 2027 NIW signed September 23, 2025 (ceding ~34% of expected 2027 NIW) (ACT_10-K_2025-12-31).
+- Third-party CRT program combines XOL, QSR, and ILNs; new QS signed September 23, 2025 ceding approximately 34% of *a portion of* expected 2027 NIW (ACT_10-K_2025-12-31).
 - 2024 program: two QSR agreements ceding ~27% of 2025 and 2026 NIW; forward XOL transactions providing $225M and $260M of coverage on 2025 and 2026 books (ACT_TRANSCRIPT_2024-12-31).
 - Third-party reinsurance PMIERs credit at YE 2025: $1,932 million (vs. $1,885M at YE 2024) (ACT_10-K_2025-12-31).
 - Enact Re ratings: A- (stable) by both A.M. Best and S&P (ACT_10-K_2025-12-31).

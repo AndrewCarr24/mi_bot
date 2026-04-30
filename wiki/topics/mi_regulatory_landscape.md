@@ -65,7 +65,7 @@ Three reasons the regulatory landscape is operationally consequential.
 
 ## How it has evolved
 
-**1957**: Modern private mortgage insurance industry established (per INDUSTRY_USMI_RESILIENCY_2023-11, "[f]or over 65 years, the private MI industry has served lenders, the GSEs and, since 2008, taxpayers").
+**Mid-20th century**: Modern private mortgage insurance industry established. Per USMI's 2023 white paper, "[f]or over 65 years, the private MI industry has served lenders, the GSEs and, since 2008, taxpayers" (INDUSTRY_USMI_RESILIENCY_2023-11).
 
 **1998**: Homeowners Protection Act ("HOPA") establishes federal cancellation framework for borrower-paid MI (78% LTV automatic; 80% LTV on borrower request) (INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09).
 
@@ -85,9 +85,9 @@ Three reasons the regulatory landscape is operationally consequential.
 
 **September 27, 2018**: PMIERs 2.0 base text published (INDUSTRY_PMIERS_2.0_BASE).
 
-**June 30, 2020**: PMIERs amendment introduces the 0.30x multiplier for FEMA disaster + COVID-era forbearance non-performing loans (see [[topics/pmiers]] and [[topics/catastrophe_impact_on_mi]]).
-
 **March 1, 2020**: USMI members' common Master Policy becomes effective (INDUSTRY_USMI_RESILIENCY_2023-11).
+
+**June 30, 2020**: PMIERs amendment introduces the 0.30x multiplier for FEMA disaster + COVID-era forbearance non-performing loans (see [[topics/pmiers]] and [[topics/catastrophe_impact_on_mi]]).
 
 **February 2023**: FHA reduces annual MI premium by 30 basis points for most new borrowers — affecting PMI competitive economics (MTG_10-K_2025-12-31; RDN_10-K_2025-12-31).
 
