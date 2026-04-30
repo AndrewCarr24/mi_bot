@@ -84,7 +84,7 @@ NMI management's Q4 2025 industry estimate was approximately $310 billion, consi
 - [NMIH_10-K_2025-12-31] — NMIC NIW definition (NIW occurs when a lender activates mortgage insurance coverage), 2025 NIW $48.9B, $14.2B Q4 2025.
 - [NMIH_10-K_2024-12-31] — Cross-check for 2024 monthly-premium share of NIW (~98%).
 - [NMIH_TRANSCRIPT_2025-12-31] — NMI's Q4 2025 industry NIW estimate (~$310B), "near parity" market-share framing, 2026 outlook commentary, 950 NSAs reference under Rate GPS.
-- [ESNT_10-K_2025-12-31] — Essent 2025 / 2024 / 2023 NIW ($46.6B / $45.6B / $47.7B), single-premium share of primary IIF (9% in 2025 and 2024).
+- [ESNT_10-K_2025-12-31] — Essent 2025 / 2024 / 2023 NIW ($46.6B / $45.6B / $47.7B); monthly premium policies comprised 99% of NIW in both 2025 and 2024.
 - [ESNT_TRANSCRIPT_2025-12-31] — Management's "kind of the 15, 16" share self-description.
 - [ACGL_TRANSCRIPT_2025-12-31] — Q4 2025 USMI NIW commentary (highest of the year).
 - [MTG_10-K_2024-12-31] — Cross-check for the 60.7% MGIC persistency low at March 31, 2021.

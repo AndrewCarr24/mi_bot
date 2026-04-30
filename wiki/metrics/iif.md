@@ -80,7 +80,7 @@ IIF is reported as **direct primary** (before reinsurance) by default in MI 10-K
 - [RDN_TRANSCRIPT_2025-12-31] — ~50% of Radian IIF at note rate ≤ 5.5%.
 - [ACT_10-K_2025-12-31] — Enact IIF / RIF definitions; YE 2025 primary IIF $273.1B (vs. $268.8B YE 2024); the "10% persistency decline = $95M earned premium impact" sensitivity; weighted-average FICO 746 / LTV 93%; 9% single-premium share of primary IIF; 12% California / 3% Phoenix RIF concentration; legacy pre-2009 books 2% of IIF and RIF.
 - [ACT_TRANSCRIPT_2024-12-31] — ~70% of Enact IIF had mortgage rates below 6% as of YE 2024.
-- [ESNT_10-K_2025-12-31] — Essent YE 2025 IIF $248.4B (up from $243.6B); 9% single-premium share of primary IIF in 2025 and 2024.
+- [ESNT_10-K_2025-12-31] — Essent YE 2025 IIF $248.4B (up from $243.6B); monthly premium policies comprised 99% of NIW in both 2025 and 2024 (the single-premium share of primary IIF is not separately disclosed).
 - [ESNT_TRANSCRIPT_2025-12-31] — ~60% of Essent IIF at note rate ≤ 6%; weighted-average FICO 747.
 - [NMIH_10-K_2025-12-31] — NIW definition (NIW occurs when a lender activates coverage); 2025 NIW $48.9B and YE 2025 IIF $221.4B.
 - [NMIH_TRANSCRIPT_2025-12-31] — YE 2025 IIF $221.4B (+5.4% YoY); 2026 outlook commentary.

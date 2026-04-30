@@ -146,6 +146,11 @@ to a specific failure mode that recurred across wiki pages.
   2025" or "Q4 2025," make sure that's accurate at the moment of
   writing and that the page heading "## Current state (as of …)"
   uses the corresponding date.
+- **Sweep the Sources section when fixing the body.** A specific
+  claim that's wrong in the page body is usually also wrong in the
+  per-source contribution line at the bottom of the page. After
+  editing a fact in the body, search the Sources section for the
+  same claim. This is the single most common follow-up bug.
 
 ## File naming
 
