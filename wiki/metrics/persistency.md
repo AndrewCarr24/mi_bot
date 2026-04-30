@@ -51,7 +51,7 @@ When a borrower refinances, sells the home, or pays down the loan to the point w
 - MGIC: 85% at YE 2025; "elevated and stable throughout 2025" per management (MTG_TRANSCRIPT_2025-12-31).
 - Enact: 82% (2025) vs. 83% (2024) vs. 85% (2023) — declined 1 point in 2025 (ACT_10-K_2025-12-31).
 - NMI: 83.4% (Q4 2025) vs. 83.9% (Q3 2025) — declined 50 bps sequentially (NMIH_TRANSCRIPT_2025-12-31).
-- Radian (quarterly-annualized): 82% in Q4 2025, "a small decrease from the prior quarter due to higher refinance activity" (RDN_TRANSCRIPT_2025-12-31).
+- Radian (quarterly-annualized): 81.6% at YE 2025 (vs. 82.7% at YE 2024) per the 10-K table; described in the transcript as "remained strong at 82% in the fourth quarter, a small decrease from the prior quarter due to higher refinance activity" (RDN_10-K_2025-12-31; RDN_TRANSCRIPT_2025-12-31).
 - Arch (USMI): 81.8% in Q4 2025 (ACGL_TRANSCRIPT_2025-12-31).
 
 **Driver: rate-volatility-induced refinance pickup**. Per Enact: "Our primary persistency rate decreased to 82% during 2025 compared to 83% during 2024. Persistency remains slightly elevated due to high interest rates but decreased in 2025 due to rate volatility throughout the year" (ACT_10-K_2025-12-31). Per Radian: the Q4 2025 quarterly-annualized rate was "a small decrease from the prior quarter due to higher refinance activity" (RDN_TRANSCRIPT_2025-12-31).
@@ -83,7 +83,7 @@ These note-rate distributions imply that persistency on the 2020-2022 vintages w
 - [MTG_TRANSCRIPT_2025-12-31] — MGIC YE 2025 persistency at 85% / "elevated and stable throughout 2025"; refinance share of NIW (4% → 9.1% from 2024 to 2025).
 - [MTG_10-K_2024-12-31] — Historical range: 60.7% low at March 31, 2021; 86.3% high at March 31, 2023; HOPA framework discussion; adverse-selection dynamic in low-persistency periods.
 - [RDN_10-K_2025-12-31] — Radian's 12-month persistency at YE 2025 (83.6%) and YE 2024 (83.6%); discussion of persistency-rate framework.
-- [RDN_TRANSCRIPT_2025-12-31] — Q4 2025 quarterly-annualized persistency (82%, down from 86% in Q3); ~50% of Radian IIF at note rate ≤ 5.5%.
+- [RDN_TRANSCRIPT_2025-12-31] — Q4 2025 quarterly persistency rate "remained strong at 82% in the fourth quarter, a small decrease from the prior quarter due to higher refinance activity"; ~50% of Radian IIF at note rate ≤ 5.5%.
 - [ACT_10-K_2025-12-31] — Enact persistency definition (annualized cancellation framework); 2025 / 2024 / 2023 figures (82% / 83% / 85%); the rate-volatility framing for the 2025 decline; the "10% persistency decline = $95M earned premium" sensitivity; single-premium-vs-monthly-premium dynamics (line on lower persistency increasing single-premium profitability).
 - [ACT_TRANSCRIPT_2024-12-31] — Approximately 70% of Enact IIF had mortgage rates below 6% as of YE 2024.
 - [ESNT_10-K_2025-12-31] — Essent annual persistency rate (85.7% / 85.7% / 86.9% for 2025 / 2024 / 2023); persistency definition framing.

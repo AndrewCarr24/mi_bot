@@ -16,7 +16,7 @@ NIW reflects the **original** principal amount (not subsequent unpaid balance), 
 
 **Refinance vs. purchase**: When a borrower refinances a mortgage insured by the MI by paying it off in full with the proceeds of a new mortgage that is also insured by the same MI, the insurance on the existing mortgage is cancelled, and insurance on the new mortgage is considered to be NIW. As a result, "continuation of [MI] coverage from a refinanced loan to a new loan results in both a cancellation of insurance and NIW" (MTG_10-K_2025-12-31). When a lender and borrower modify a loan rather than replace it, MI continues without being cancelled and the modification is *not* recorded as NIW (MTG_10-K_2025-12-31).
 
-**Premium plan mix at origination**: At MGIC, monthly premium plans accounted for approximately 97% of 2025 NIW, single premium 3%, and annual premium less than 1% (MTG_10-K_2025-12-31). Essent reports 9% of primary IIF as single premium policies at year-end 2025, unchanged from 2024 (ESNT_10-K_2025-12-31), implying the vast majority of recent-vintage NIW is monthly. NMI reports approximately 98% of 2024 NIW was monthly-premium (NMIH_10-K_2024-12-31).
+**Premium plan mix at origination**: At MGIC, monthly premium plans accounted for approximately 97% of 2025 NIW, single premium 3%, and annual premium less than 1% (MTG_10-K_2025-12-31). Essent reports that monthly premium policies comprised 99% of NIW in both 2025 and 2024 (ESNT_10-K_2025-12-31). NMI reports approximately 98% of 2024 NIW was monthly-premium (NMIH_10-K_2024-12-31).
 
 **Channel exclusion**: NIW figures generally refer to *direct* primary mortgage insurance, before giving effect to reinsurance (MTG_10-K_2025-12-31). Each MI's NIW is computed gross; the amount ceded under quota share or excess-of-loss reinsurance is reported separately and reduces RIF for purposes of PMIERs (see [[topics/crt_reinsurance]]).
 
@@ -57,10 +57,10 @@ NMI management's Q4 2025 industry estimate was approximately $310 billion, consi
 - MGIC: 19.4% (vs. 18.6% in 2024) (MTG_10-K_2025-12-31).
 - Radian: ~18% (vs. 17% in 2024) (RDN_10-K_2025-12-31).
 - Enact: between 12.0% and 20.4% per quarter since 2012 (ACT_10-K_2025-12-31, citing *Inside Mortgage Finance*).
-- NMI: described by management as "very, very close to parity" (i.e., ~16.7%); the reported $48.9B / $310B implies ~15.8% (NMIH_TRANSCRIPT_2025-12-31).
+- NMI: described by analyst questioning as "very, very close to parity market share" (NMIH_TRANSCRIPT_2025-12-31 line 75); NMI's $48.9B 2025 NIW divided by management's ~$310B industry-NIW estimate implies a market share of approximately 15.8%.
 - Essent: management describes as "kind of the 15, 16" share (ESNT_TRANSCRIPT_2025-12-31).
 
-**Refinance share**: Refinance-related NIW was a small share of recent-vintage origination but began re-emerging in 2025: 9% of MGIC's 2025 NIW (vs. 4% in 2024 and 2% in 2023) (MTG_10-K_2025-12-31).
+**Refinance share**: Refinance-related NIW was a small share of recent-vintage origination but began re-emerging in 2025: 9.1% of MGIC's 2025 NIW (vs. 4.0% in 2024 and approximately 2% in 2023) (MTG_10-K_2025-12-31).
 
 **Credit quality of 2025 NIW**:
 - MGIC: average decision FICO 748 (vs. 747 in 2024); 51.7% of 2025 NIW had FICO ≥ 760 (MTG_10-K_2025-12-31).
@@ -78,7 +78,7 @@ NMI management's Q4 2025 industry estimate was approximately $310 billion, consi
 
 ## Sources
 
-- [MTG_10-K_2025-12-31] — MGIC's NIW definition (glossary), 2025 NIW ($60.2B), 2024 NIW ($55.7B), 2023 NIW ($46.1B), 19.4% / 18.6% market share for 2025 / 2024, refinance share (9% / 4% / 2%), monthly premium plan share of NIW (~97%), refinance-as-NIW mechanics, PMI industry NIW figures ($311B / $299B / $284B per *Inside Mortgage Finance*).
+- [MTG_10-K_2025-12-31] — MGIC's NIW definition (glossary), 2025 NIW ($60.2B), 2024 NIW ($55.7B), 2023 NIW ($46.1B), 19.4% / 18.6% market share for 2025 / 2024, refinance share (9.1% / 4.0% / ~2% per the precision table; rounded as 9% / 4% / 2% in the narrative), monthly premium plan share of NIW (~97%), refinance-as-NIW mechanics, PMI industry NIW figures ($311B / $299B / $284B per *Inside Mortgage Finance*).
 - [RDN_10-K_2025-12-31] — Radian's 2025 NIW ($55.2B vs. $52.0B in 2024), ~18% NIW share, RADAR Rates pricing platform.
 - [ACT_10-K_2025-12-31] — Enact's NIW definition, 2025 / 2024 / 2023 NIW figures ($51.5B / $51.0B / $53.1B), persistency-rate disclosure framing, 2025 weighted-average NIW FICO 753 and LTV 92%, 12.0%-20.4% per-quarter market share band since 2012.
 - [NMIH_10-K_2025-12-31] — NMIC NIW definition (NIW occurs when a lender activates mortgage insurance coverage), 2025 NIW $48.9B, $14.2B Q4 2025.

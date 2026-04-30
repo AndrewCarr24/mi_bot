@@ -84,8 +84,8 @@ The loss ratio trajectory across the six MIs over 2022-2025 reflects the unwindi
 
 **2022-2024 (reserve releases)**: As home prices surged and forbearance programs facilitated cures (rather than claims), the conservatively-established 2020-2021 reserves proved excessive and were released over multiple years. This produced deeply negative loss ratios at most MIs:
 - Radian: (7.3)% in 2022, (4.6)% in 2023 (RDN_10-K_2025-12-31).
-- Essent: 0.5% in 2022, 3.7% in 2023 (lower in 2023 vs. 2022 reflects the segment recast effect; pre-recast 2022 was reportedly more deeply negative) (ESNT_10-K_2025-12-31).
-- MGIC: full negative range through 2024 ((1.5)% in 2024) (MTG_10-K_2025-12-31).
+- Essent (Mortgage Insurance segment, restated): 3.7% in 2023 (ESNT_10-K_2025-12-31). The 2022 figure is not in the 2025 10-K.
+- MGIC: losses incurred net was a benefit in both 2023 and 2024 ($(20.9)M and $(14.9)M respectively) (MTG_10-K_2025-12-31 line 565).
 - Arch (mortgage segment): (4.4)% in 2024 (ACGL_10-K_2025-12-31).
 
 **2024 (transitional year)**: Most MIs still negative or near-zero — Radian (0.2)%, MGIC (1.5)%, Arch (4.4)%; but several beginning to print positive — NMI 5.6%, Enact 4%, Essent (MI segment) 8.8%.
