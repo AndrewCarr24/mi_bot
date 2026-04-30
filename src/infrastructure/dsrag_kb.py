@@ -49,10 +49,18 @@ def _ensure_imports_registered() -> None:
 
 def _configure_deepseek_as_openai() -> None:
     """dsRAG's AutoContext / auto-query LLMs route through its OpenAI client;
-    point that client at DeepSeek's OpenAI-compatible endpoint."""
-    api_key = os.environ.get("DEEPSEEK_API_KEY")
+    point that client at DeepSeek's OpenAI-compatible endpoint.
+
+    Pydantic Settings reads `.env` into the in-memory settings object but
+    does not re-export back to os.environ. The raw OpenAI client used by
+    smart_rrf_alpha and auto_query reads from os.environ directly, so we
+    prime os.environ from settings here to keep both paths consistent."""
+    from src.config import settings
+
+    api_key = os.environ.get("DEEPSEEK_API_KEY") or settings.DEEPSEEK_API_KEY
     if not api_key:
         return
+    os.environ.setdefault("DEEPSEEK_API_KEY", api_key)
     # Don't stomp a real OPENAI_API_KEY if the caller set one explicitly.
     os.environ.setdefault("OPENAI_API_KEY", api_key)
     os.environ.setdefault(
@@ -264,10 +272,15 @@ def smart_rrf_alpha(query: str) -> float:
     any error — that's the static value that won the FinanceBench
     sweep, so it's a sensible prior if the per-question call fails."""
     try:
+        from src.config import settings
+
         client = _get_smart_alpha_client()
+        # deepseek-v4-flash is a reasoning model — it spends tokens on
+        # hidden reasoning_content before emitting visible content. Cap
+        # at 256 so the visible answer (a single float) actually fits.
         resp = client.chat.completions.create(
-            model="deepseek-chat",
-            max_tokens=8,
+            model=settings.DEEPSEEK_MODEL_ID,
+            max_tokens=256,
             temperature=0.0,
             messages=[
                 {"role": "system", "content": _SMART_ALPHA_SYSTEM},
