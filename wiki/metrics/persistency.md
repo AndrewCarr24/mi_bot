@@ -69,7 +69,7 @@ These note-rate distributions imply that persistency on the 2020-2022 vintages w
 
 **2020-2021 (cyclical low)**: Mortgage rates fell to historic lows during the COVID-19 monetary policy response, fueling a refinance wave. MGIC's persistency reached its decade low of **60.7%** at March 31, 2021, with the industry experiencing rapid IIF turnover (MTG_10-K_2024-12-31).
 
-**2022-2023 (lock-in build-up)**: As the Federal Reserve raised rates sharply, refinance activity collapsed and persistency surged. By March 31, 2023, MGIC's persistency had reached **86.3%**, the cyclical high (MTG_10-K_2024-12-31). Year-end 2023 persistency was elevated across the industry (Essent 86.9%, Enact 85%) (ESNT_10-K_2025-12-31; ACT_10-K_2025-12-31).
+**2022-2023 (lock-in build-up)**: As the Federal Reserve raised rates sharply, refinance activity collapsed and persistency surged. MGIC's persistency reached its cyclical high of **86.3% at September 30, 2023** (MTG_10-K_2024-12-31). Year-end 2023 persistency was elevated across the industry (Essent 86.9%, Enact 85%) (ESNT_10-K_2025-12-31; ACT_10-K_2025-12-31).
 
 **2024 (peak / plateau)**: Persistency held in the 82-87% range across the six MIs. Year-end 2024 figures: Essent 85.7%, Enact 83%, NMI 84.6% (NMIH_10-K_2025-12-31), Arch USMI ~82-83% (ACGL_TRANSCRIPT_2024-12-31). Industry context: the elevated persistency environment was driven by high mortgage rates suppressing refinance volumes, with little change quarter-to-quarter.
 
@@ -81,7 +81,7 @@ These note-rate distributions imply that persistency on the 2020-2022 vintages w
 
 - [MTG_10-K_2025-12-31] — MGIC Annual Persistency definition (glossary); 2025 NIW share monthly premium (~97%) for context.
 - [MTG_TRANSCRIPT_2025-12-31] — MGIC YE 2025 persistency at 85% / "elevated and stable throughout 2025"; refinance share of NIW (4% → 9.1% from 2024 to 2025).
-- [MTG_10-K_2024-12-31] — Historical range: 60.7% low at March 31, 2021; 86.3% high at March 31, 2023; HOPA framework discussion; adverse-selection dynamic in low-persistency periods.
+- [MTG_10-K_2024-12-31] — Historical range since 2018: 60.7% low at March 31, 2021; 86.3% high at September 30, 2023; HOPA framework discussion; adverse-selection dynamic in low-persistency periods.
 - [RDN_10-K_2025-12-31] — Radian's 12-month persistency at YE 2025 (83.6%) and YE 2024 (83.6%); discussion of persistency-rate framework.
 - [RDN_TRANSCRIPT_2025-12-31] — Q4 2025 quarterly persistency rate "remained strong at 82% in the fourth quarter, a small decrease from the prior quarter due to higher refinance activity"; ~50% of Radian IIF at note rate ≤ 5.5%.
 - [ACT_10-K_2025-12-31] — Enact persistency definition (annualized cancellation framework); 2025 / 2024 / 2023 figures (82% / 83% / 85%); the rate-volatility framing for the 2025 decline; the "10% persistency decline = $95M earned premium" sensitivity; single-premium-vs-monthly-premium dynamics (line on lower persistency increasing single-premium profitability).

@@ -60,7 +60,7 @@ Note: Essent's 2024 / 2023 figures here are restated values from the 2025 10-K (
 Radian's longer-history table extends back: 2025 7.1%, 2024 (0.2)%, 2023 (4.6)%, 2022 (7.3)%, 2021 (4.4)% (RDN_10-K_2025-12-31 line 2660).
 
 **Decomposition of the 2025 loss ratio at selected MIs**:
-- **MGIC**: $48.9 million of losses incurred net in 2025 — the result of $204.1 million in losses on new delinquency notices and $155.2 million of favorable prior-year reserve development. 2024 had been a $14.9 million benefit (favorable prior-year development of approximately $170 million exceeded losses on new notices) (MTG_10-K_2025-12-31).
+- **MGIC**: $48.9 million of losses incurred net in 2025 — the result of $204.1 million in losses on new delinquency notices and $155.2 million of favorable prior-year reserve development. 2024 had been a $14.9 million benefit ($197.6 million of new-notice losses more than offset by $212.5 million of favorable prior-year reserve development) (MTG_10-K_2025-12-31).
 - **Radian**: Mortgage Insurance segment provision for losses of $66.8 million in 2025 — current-year defaults added $211.4 million; favorable prior-year development was $144.6 million (RDN_10-K_2025-12-31).
 - **Enact**: 2025 loss provision of approximately $110 million versus $39 million in 2024 — driven by a $200 million net reserve release in 2025 (vs. $252 million in 2024) on top of higher current-year defaults (ACT_10-K_2025-12-31).
 - **Essent**: Mortgage Insurance segment provision for losses and LAE of $145.4 million in 2025 — comprised of $224.3 million of current-year losses partially offset by $78.9 million of favorable prior-year development (ESNT_10-K_2025-12-31).
