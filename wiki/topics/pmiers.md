@@ -79,6 +79,25 @@ Three reasons PMIERs is the central regulatory artifact for U.S. private mortgag
 
 *NMI's "70% PMIERs sufficiency ratio" is defined as (Available Assets − Minimum Required Assets) ÷ Minimum Required Assets, equivalent to roughly 167% on the Available ÷ Required basis used by the other MIs (NMIH_10-K_2025-12-31).
 
+**Per-MI PMIERs status at year-end 2024** (for prior-year comparison):
+
+| MI | Available Assets | Minimum Required Assets | Cushion | Sufficiency Ratio |
+|---|---|---|---|---|
+| MGIC | $5.8B | ~$3.6B | $2.2B | ~161% |
+| Essent Guaranty | $3.6B | $2.0B | $1.6B | 178% |
+| Enact (EMICO) | $5.1B | $3.0B | $2.1B | 167% |
+| Radian Guaranty | $6.0B | ~$3.85B | $2.2B | ~156%† |
+| NMI Holdings (NMIC) | $3.1B | $1.8B | $1.3B | 70%‡ |
+| Arch (eligible MIs) | (group-level disclosure) | — | — | 186% |
+
+(MTG_10-K_2024-12-31; ESNT_10-K_2024-12-31; ACT_10-K_2024-12-31; RDN_10-K_2024-12-31; NMIH_10-K_2024-12-31; ACGL_10-K_2024-12-31).
+
+†Radian discloses Available Assets of $6.0B and a PMIERs Cushion of $2.2B *"or 56% over Minimum Required Assets"* (RDN_10-K_2024-12-31). That implies an MRA of approximately $3.85B and a sufficiency ratio of approximately 156% on the Available ÷ Required basis used by the other MIs.
+
+‡NMI's stated "70% PMIERs sufficiency ratio" at YE 2024 corresponds to approximately 170% on the Available ÷ Required basis (Available $3,108M ÷ Net Required $1,829M = 1.70) (NMIH_10-K_2024-12-31).
+
+**Cohort dispersion at YE 2024**: ratios ranged from ~156% (Radian, lowest, on the disclosure-anchored cushion% framing) to 186% (Arch, highest), a roughly 30-percentage-point spread. Other issuers: Essent 178%, NMI ~170%, Enact 167%, MGIC ~161%. By YE 2025 the cohort range compressed somewhat — MGIC strengthened (161% → 178%) on faster reinsurance growth, Essent eased (178% → 169%), and Enact eased (167% → 162%) partly reflecting the rollback of the COVID-era 0.30x multiplier under Guidance 2024-02.
+
 **Reinsurance credit** is a material driver of the cushion at every MI. MGIC reports that total reinsurance arrangements reduced PMIERs required assets by approximately $2.8 billion (~47%) at year-end 2025 (MTG_TRANSCRIPT_2025-12-31). Enact reports that third-party reinsurance provided $1,932 million of PMIERs credit at year-end 2025 (ACT_10-K_2025-12-31). Across the industry, the standing reinsurance program is "a deep, secure, and efficient source of PMIERs growth capital" (NMIH_TRANSCRIPT_2025-12-31).
 
 **Phase-in of Guidance 2024-01** (the August 2024 PMIERs Update on Available Assets):
@@ -152,6 +171,12 @@ The trajectory of PMIERs since 2015 has been one of steady codification (2015 �
 - [RDN_10-K_2025-12-31; RDN_TRANSCRIPT_2025-12-31] — Radian Guaranty YE 2025 PMIERs Cushion of $1.6 billion; "the GSEs frequently evaluate the PMIERs for interim changes."
 - [NMIH_10-K_2025-12-31; NMIH_TRANSCRIPT_2025-12-31] — NMI YE 2025 PMIERs status: $3.5B Available, $2.1B required, $1.4B excess; 70% sufficiency ratio under NMI's (excess ÷ required) definition.
 - [ACGL_10-K_2025-12-31] — Arch's continued PMIERs compliance.
+- [MTG_10-K_2024-12-31] — MGIC YE 2024 PMIERs status: $5.8B Available Assets, $2.2B excess over Minimum Required Assets (sufficiency ratio ~161%); pro-forma impact of Guidance 2024-01 quantified as ~1% / $50M reduction to Available Assets.
+- [ESNT_10-K_2024-12-31] — Essent Guaranty YE 2024 status: Available Assets $3.6B vs. Minimum Required Assets $2.0B → 178% sufficiency; full PMIERs compliance.
+- [ACT_10-K_2024-12-31] — Enact YE 2024 status: Available Assets $5.1B vs. Required Assets $3.0B → 167% sufficiency; ~$28M benefit from COVID-era 0.30x multiplier extension (discontinued March 31, 2025).
+- [RDN_10-K_2024-12-31] — Radian Guaranty YE 2024 status: Available Assets $6.0B and PMIERs Cushion of $2.2B *"or 56% over Minimum Required Assets"* → implied MRA ~$3.85B and sufficiency ratio ~156%.
+- [NMIH_10-K_2024-12-31] — NMI YE 2024 status: Available Assets $3,108M vs. Net Required Assets $1,829M → ~170% sufficiency on the Available÷Required basis (NMI's own framing: 70% on the (Available−Required)÷Required basis).
+- [ACGL_10-K_2024-12-31] — Arch YE 2024 status: PMIER sufficiency ratio of 186% across the eligible mortgage insurers (AMIC + UGRIC); pro-forma impact of Guidance 2024-01 quantified as a 17% reduction to Available Assets and a 154% pro-forma sufficiency ratio if fully phased in at YE 2024.
 
 ## Related
 
