@@ -23,9 +23,9 @@ from loguru import logger
 from src.config import settings
 
 
-# Wiki lives next to the dsRAG store. Resolve from this file so the path
-# is correct in dev (data.mi/wiki) and in deployed packages.
-_WIKI_ROOT = Path(__file__).resolve().parents[4] / "data" / "wiki"
+# Wiki lives at agent_fin/wiki/. Resolve from this file so the path
+# is correct in dev and in deployed packages.
+_WIKI_ROOT = Path(__file__).resolve().parents[4] / "wiki"
 
 
 # Per-thread set of (doc_id, chunk_index) tuples we've already returned
@@ -210,19 +210,18 @@ def wiki_read_page(slug: str) -> str:
     wording.
 
     Available slugs:
-      Metrics:    metrics/pmiers, metrics/niw, metrics/iif,
-                  metrics/persistency, metrics/loss_ratio,
-                  metrics/reinsurance_crt
-      Companies:  companies/mtg_mgic, companies/rdn_radian,
-                  companies/esnt_essent, companies/nmih_nmi,
-                  companies/acgl_arch, companies/act_enact
-      Topics:     topics/pmiers_aug_2024_update, topics/gse_relationship,
-                  topics/us_mortgage_market, topics/mi_regulatory_landscape,
-                  topics/catastrophe_impact_on_mi
-      Index:      index   (the catalog of all pages)
+      Metrics:    metrics/iif, metrics/loss_ratio, metrics/niw,
+                  metrics/persistency
+      Companies:  companies/acgl_arch, companies/act_enact,
+                  companies/esnt_essent, companies/mtg_mgic,
+                  companies/nmih_nmi, companies/rdn_radian
+      Topics:     topics/catastrophe_impact_on_mi, topics/crt_reinsurance,
+                  topics/gse_relationship, topics/mi_regulatory_landscape,
+                  topics/pmiers, topics/us_mortgage_market
+      Index:      index   (the catalog of all pages, generated from disk)
 
     Args:
-        slug: Page slug, e.g. "metrics/pmiers" or "companies/mtg_mgic".
+        slug: Page slug, e.g. "topics/pmiers" or "companies/mtg_mgic".
             Must match exactly. Pass "index" for the page catalog.
 
     Returns:
@@ -232,9 +231,31 @@ def wiki_read_page(slug: str) -> str:
     slug = (slug or "").strip().strip("/")
     if not slug:
         return json.dumps({"error": "slug is required"})
-    # Allow "index" as shorthand for the top-level catalog
-    rel = "index.md" if slug == "index" else f"{slug}.md"
-    page_path = (_WIKI_ROOT / rel).resolve()
+
+    # "index" is generated dynamically from the filesystem so the
+    # available-pages list can't drift from the on-disk reality.
+    if slug == "index":
+        if not _WIKI_ROOT.is_dir():
+            return json.dumps({"error": f"wiki root not found: {_WIKI_ROOT}"})
+        slugs_by_section: dict[str, list[str]] = {}
+        for md in sorted(_WIKI_ROOT.rglob("*.md")):
+            rel = md.relative_to(_WIKI_ROOT)
+            if rel.name == "AGENTS.md":
+                continue
+            section = rel.parts[0] if len(rel.parts) > 1 else "(root)"
+            slugs_by_section.setdefault(section, []).append(
+                str(rel.with_suffix(""))
+            )
+        lines = ["# Wiki page index", ""]
+        for section in sorted(slugs_by_section):
+            lines.append(f"## {section}")
+            for s in slugs_by_section[section]:
+                lines.append(f"- {s}")
+            lines.append("")
+        logger.info("wiki_read_page invoked: slug='index' (generated)")
+        return "\n".join(lines)
+
+    page_path = (_WIKI_ROOT / f"{slug}.md").resolve()
     # Containment check: refuse paths that escape the wiki dir.
     try:
         page_path.relative_to(_WIKI_ROOT.resolve())
