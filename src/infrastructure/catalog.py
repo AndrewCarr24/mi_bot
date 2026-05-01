@@ -1,10 +1,13 @@
-"""Catalog of available filings, derived from data/parsed/<TICKER>_<FORM>_<PERIOD>.md.
+"""Catalog of available filings, derived from the loaded dsRAG KB.
 
-This is the source of truth for what the agent can answer about — the dsRAG
-KB is built directly from these markdowns, and the doc_id assigned at
-ingestion time is the filename stem (TICKER_FORM_PERIOD). `format_for_prompt`
-renders the catalog as a compact block for the agent's system prompt so the
-agent can map (ticker, period) → doc_id without calling a tool.
+The catalog reads doc_ids directly from `kb.chunk_db.get_all_doc_ids()` so
+it can never drift from the KB contents. (Earlier this module scanned a
+hardcoded `data/parsed/` directory; that broke whenever the KB pointed
+at a different corpus, e.g. the MI corpus at `data.mi/dsrag_store`.)
+
+`format_for_prompt` renders the catalog as a compact block for the agent's
+system prompt so the agent can map (ticker, period) → doc_id without
+calling a tool.
 """
 
 from __future__ import annotations
@@ -12,20 +15,27 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from loguru import logger
+
 _REPO_ROOT = Path(__file__).resolve().parents[2]
+# Filesystem fallback: only consulted if chunk_db can't be loaded.
 PARSED_ROOT = _REPO_ROOT / "data" / "parsed"
 
+# doc_ids in chunk_db have no .md suffix. Same pattern otherwise.
+_DOC_ID_RE = re.compile(
+    r"^(?P<ticker>[A-Z]+)_(?P<form>10-K|10-Q|10-K-A|10-Q-A|8-K|8-K-A|TRANSCRIPT)_(?P<period>\d{4}-\d{2}-\d{2})$"
+)
+_INDUSTRY_DOC_ID_RE = re.compile(r"^INDUSTRY_(?P<slug>.+)$")
+
+# Filesystem-fallback patterns (with .md suffix).
 _PARSED_MD_RE = re.compile(
     r"^(?P<ticker>[A-Z]+)_(?P<form>10-K|10-Q|10-K-A|10-Q-A|8-K|8-K-A|TRANSCRIPT)_(?P<period>\d{4}-\d{2}-\d{2})\.md$"
 )
-
-# Industry / regulatory reference docs (PMIERs, USMI white papers, FHFA
-# reports). Filename stem is INDUSTRY_<slug>, no fiscal period.
 _INDUSTRY_MD_RE = re.compile(r"^INDUSTRY_(?P<slug>.+)\.md$")
 
-# Human-readable labels for industry docs, keyed on filename stem (without
-# extension). Maps to (filing_type, period_label). Anything not listed
-# here falls back to the slug as the type and an empty period label.
+# Human-readable labels for industry docs, keyed on doc_id (no extension).
+# Anything not listed here falls back to the slug as the type and an
+# empty period label.
 _INDUSTRY_LABELS: dict[str, tuple[str, str]] = {
     "INDUSTRY_PMIERS_2.0_BASE": ("PMIERs 2.0 base requirements", "Fannie Mae"),
     "INDUSTRY_PMIERS_GUIDANCE_2024-01": ("PMIERs Guidance 2024-01 (Aug 2024 update)", "Freddie Mac"),
@@ -62,21 +72,73 @@ def _period_label(filing_type: str, period_end: str) -> str:
         quarter = (month - 1) // 3 + 1
         return f"Q{quarter} {year}"
     if form == "TRANSCRIPT":
-        # Period is fiscal quarter end: 2024-09-30 → "Q3 2024 call"
         quarter = (month - 1) // 3 + 1
         return f"Q{quarter} {year} call"
     if form == "8-K":
-        # Period is the event date (release/news date), not a fiscal period.
         return f"{period_end} (8-K)"
     return period_end
 
 
-def list_filings() -> list[dict]:
-    """Scan PARSED_ROOT and return one dict per markdown filing.
+def _filing_dict_from_doc_id(doc_id: str) -> dict | None:
+    """Parse a doc_id (no extension) into the catalog dict shape."""
+    m = _DOC_ID_RE.match(doc_id)
+    if m:
+        ticker = m.group("ticker")
+        form = m.group("form").replace("-A", "/A")
+        period_end = m.group("period")
+        return {
+            "ticker": ticker,
+            "company": TICKER_TO_COMPANY.get(ticker, ticker),
+            "filing_type": form,
+            "period_end": period_end,
+            "period_label": _period_label(form, period_end),
+            "doc_id": doc_id,
+        }
+    im = _INDUSTRY_DOC_ID_RE.match(doc_id)
+    if im:
+        filing_type, period_label = _INDUSTRY_LABELS.get(
+            doc_id, (im.group("slug"), "")
+        )
+        return {
+            "ticker": "INDUSTRY",
+            "company": "Industry / Regulatory",
+            "filing_type": filing_type,
+            "period_end": "",
+            "period_label": period_label,
+            "doc_id": doc_id,
+        }
+    return None
 
-    Returns dicts with both machine-friendly (period_end, doc_id) and
-    human-friendly (period_label, company) forms.
+
+def list_filings() -> list[dict]:
+    """Return one dict per filing in the loaded KB's chunk_db.
+
+    Falls back to scanning PARSED_ROOT if the KB can't be loaded — useful
+    for tooling that runs before the KB is built (e.g. the build_kb
+    pipeline itself or eval scripts that introspect the corpus).
     """
+    try:
+        from src.infrastructure.dsrag_kb import get_kb
+
+        kb = get_kb()
+        doc_ids = sorted(kb.chunk_db.get_all_doc_ids())
+    except Exception as e:
+        logger.warning(
+            f"catalog: chunk_db unavailable ({e}); falling back to "
+            f"filesystem scan of {PARSED_ROOT}"
+        )
+        return _list_filings_from_disk()
+
+    out: list[dict] = []
+    for doc_id in doc_ids:
+        d = _filing_dict_from_doc_id(doc_id)
+        if d is not None:
+            out.append(d)
+    return out
+
+
+def _list_filings_from_disk() -> list[dict]:
+    """Filesystem fallback: scan PARSED_ROOT for *.md filings."""
     if not PARSED_ROOT.exists():
         return []
     out: list[dict] = []
@@ -84,7 +146,7 @@ def list_filings() -> list[dict]:
         m = _PARSED_MD_RE.match(md.name)
         if m:
             ticker = m.group("ticker")
-            form = m.group("form").replace("-A", "/A")  # restore amended suffix
+            form = m.group("form").replace("-A", "/A")
             period_end = m.group("period")
             out.append(
                 {
@@ -93,9 +155,7 @@ def list_filings() -> list[dict]:
                     "filing_type": form,
                     "period_end": period_end,
                     "period_label": _period_label(form, period_end),
-                    # doc_id matches the dsRAG KB's ingestion convention.
                     "doc_id": md.stem,
-                    "path": str(md),
                 }
             )
             continue
@@ -113,7 +173,6 @@ def list_filings() -> list[dict]:
                     "period_end": "",
                     "period_label": period_label,
                     "doc_id": stem,
-                    "path": str(md),
                 }
             )
     return out

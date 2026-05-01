@@ -27,7 +27,14 @@ from pydantic import BaseModel
 
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
-DSRAG_STORE_DIR = _REPO_ROOT / "data" / "dsrag_store"
+
+# DSRAG_STORE_DIR can be overridden via env var (e.g. to point at
+# data.mi/dsrag_store for the MI cohort vs. data/dsrag_store for the
+# FinanceBench KB) without editing source. Falls back to the historical
+# default when unset.
+import os as _os
+_DEFAULT_STORE = _REPO_ROOT / "data" / "dsrag_store"
+DSRAG_STORE_DIR = Path(_os.environ.get("DSRAG_STORE_DIR", str(_DEFAULT_STORE)))
 # Single multi-document KB. Filings are distinguished by their `doc_id`
 # metadata (TICKER_FORM_PERIOD, matching data/parsed/<stem>.md). The agent
 # passes `doc_id` as a metadata filter when scoping retrieval to one filing.
