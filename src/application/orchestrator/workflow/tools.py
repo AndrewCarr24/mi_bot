@@ -273,11 +273,17 @@ def wiki_read_page(slug: str) -> str:
 def get_tools() -> list:
     """Return the tools bound to the ReAct agent.
 
-    `dsrag_kb` and `wiki_read_page` are always present.
+    Only `dsrag_kb` is bound here. `wiki_read_page` is reserved for
+    deterministic graph-side preload via `wiki_preload_node` — the
+    router decides whether a question's primary topic matches a wiki
+    page and, if so, the graph reads that page before the agent runs.
+    The agent itself doesn't have wiki_read_page available, which
+    enforces the "wiki at most once per turn" constraint structurally.
+
     `memory_retrieval_tool` is only added when AgentCore Memory is
     configured (MEMORY_ID set).
     """
-    tools = [dsrag_kb, wiki_read_page]
+    tools = [dsrag_kb]
     if settings.MEMORY_ID:
         tools.append(memory_retrieval_tool)
     return tools

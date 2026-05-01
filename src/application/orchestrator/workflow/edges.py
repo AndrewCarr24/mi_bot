@@ -16,10 +16,15 @@ def route_by_intent(state: AgentState) -> Literal["cache_check", "simple_respons
     return "simple_response"
 
 
-def route_after_cache(state: AgentState) -> Literal["agent"]:
-    """Always route to agent after cache check.
-    On a hit the cached answer is injected as context for the agent to evaluate.
-    On a miss the agent proceeds with normal RAG."""
+def route_after_cache(state: AgentState) -> Literal["wiki_preload", "agent"]:
+    """Route after cache check.
+
+    If the router matched a wiki slug, run wiki_preload_node first (which
+    injects the page into the message list); otherwise skip straight to
+    the agent. This gives wiki-shaped questions a guaranteed wiki read
+    before the ReAct loop starts."""
+    if state.get("wiki_slug"):
+        return "wiki_preload"
     return "agent"
 
 

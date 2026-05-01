@@ -1,9 +1,12 @@
 """Chains for the router, the RAG agent, and the simple-response path."""
 
+from typing import Literal, Optional
+
 from langchain_core.messages import BaseMessage, SystemMessage, trim_messages
 from langchain_core.messages.utils import count_tokens_approximately
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables import Runnable
+from pydantic import BaseModel, Field
 
 from src.application.orchestrator.workflow.tools import get_tools
 from src.domain.prompts import (
@@ -13,6 +16,22 @@ from src.domain.prompts import (
 )
 from src.infrastructure.catalog import format_for_prompt as format_catalog
 from src.infrastructure.model import get_model, orchestrator_is_bedrock
+
+
+class RouterOutput(BaseModel):
+    """Structured router classification — intent + optional wiki slug."""
+
+    intent: Literal["rag_query", "simple", "off_topic"] = Field(
+        description="Intent category for the user's latest message."
+    )
+    wiki_slug: Optional[str] = Field(
+        default=None,
+        description=(
+            "Slug of the wiki page whose primary topic matches the question "
+            "(e.g. 'topics/pmiers', 'companies/mtg_mgic'), or null if no "
+            "single page is a primary-topic match."
+        ),
+    )
 
 # Token budget for history sent to the agent LLM. Bounded by DeepSeek v4
 # Flash's 128K context, with headroom for: the system prompt + filings
@@ -123,9 +142,22 @@ def get_finalize_chain(customer_name: str = "Guest") -> Runnable:
 
 
 def get_router_chain() -> Runnable:
-    model = get_model(temperature=0.0, router=True)
+    """Router classifier chain.
+
+    Returns a `RouterOutput` (intent + wiki_slug). Uses LangChain's
+    `with_structured_output` which routes through Bedrock Converse's
+    tool-use machinery — same model call as before, just with a
+    schema enforced on the response.
+
+    The router prompt contains JSON examples with curly braces, which
+    ChatPromptTemplate's tuple-form would parse as template variables.
+    We pass a SystemMessage directly to skip that templating.
+    """
+    model = get_model(temperature=0.0, router=True).with_structured_output(
+        RouterOutput
+    )
     prompt = ChatPromptTemplate.from_messages(
-        [("system", ROUTER_PROMPT), MessagesPlaceholder(variable_name="messages")]
+        [SystemMessage(content=ROUTER_PROMPT), MessagesPlaceholder(variable_name="messages")]
     )
     return prompt | model
 
