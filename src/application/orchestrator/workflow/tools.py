@@ -185,7 +185,7 @@ def dsrag_kb(
         {
             "score": round(float(r.get("score", 0.0) or 0.0), 3),
             "doc_id": r.get("doc_id", ""),
-            "content": (r.get("content") or r.get("text") or "")[:6000],
+            "content": r.get("content") or r.get("text") or "",
         }
         for r in results
     ]
