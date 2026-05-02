@@ -1,17 +1,20 @@
 """LangGraph nodes: router, cache check, agent (ReAct), simple response, memory post-hook."""
 
+import os
 import uuid
 
-from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
 from langchain_core.runnables import RunnableConfig
 from loguru import logger
 
 from src.application.orchestrator.workflow.chains import (
     RouterOutput,
+    _TOOL_RESULT_PREFIX,
     get_agent_chain,
     get_finalize_chain,
     get_router_chain,
     get_simple_response_chain,
+    summarize_history,
     trim_history,
     with_cache_on_last,
 )
@@ -19,6 +22,32 @@ from src.application.orchestrator.workflow.state import AgentState, IntentType
 from src.application.orchestrator.workflow.tools import wiki_read_page
 from src.config import settings
 from src.infrastructure.model import extract_text_content
+
+
+def _history_strategy() -> str:
+    """Read from env each call so tests / experiments can flip it
+    without restarting the process."""
+    return os.environ.get("HISTORY_STRATEGY", "trim").strip().lower()
+
+
+def _extract_question_text(messages: list[BaseMessage]) -> str:
+    """The user's original question is the first HumanMessage whose
+    content does NOT start with the tool-result prefix that finalize_node
+    uses when synthesizing tool results into HumanMessages."""
+    for m in messages:
+        if isinstance(m, HumanMessage):
+            content = m.content
+            if isinstance(content, str) and not content.startswith(_TOOL_RESULT_PREFIX):
+                return content
+    return ""
+
+
+def _condense_history(messages: list[BaseMessage], question_text: str) -> list[BaseMessage]:
+    """Apply the configured HISTORY_STRATEGY (trim or summarize) to
+    `messages`. Returns the condensed list."""
+    if _history_strategy() == "summarize":
+        return summarize_history(messages, question_text)
+    return trim_history(messages)
 
 
 async def router_node(state: AgentState, config: RunnableConfig) -> dict:
@@ -124,7 +153,8 @@ async def agent_node(state: AgentState, config: RunnableConfig) -> dict:
     configurable = config.get("configurable", {})
     customer_name = configurable.get("customer_name", "Guest")
 
-    messages = trim_history(messages)
+    question_text = _extract_question_text(messages)
+    messages = _condense_history(messages, question_text)
     chain = get_agent_chain(customer_name=customer_name)
     response = await chain.ainvoke(
         {"messages": with_cache_on_last(messages)}, config
@@ -141,26 +171,44 @@ async def agent_node(state: AgentState, config: RunnableConfig) -> dict:
 async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:
     """Force a text answer after the ReAct tool budget is exhausted.
 
-    Collapses the tool-call/tool-result message pairs into plain
-    HumanMessages so Bedrock doesn't require a toolConfig, then asks
-    the model (without tools) to synthesize a final answer.
+    Two history-condensation paths, selected by HISTORY_STRATEGY env var:
+
+    - "trim" (default): collapse tool-call/tool-result pairs into plain
+      HumanMessages (so Bedrock doesn't reject the no-tools call for
+      missing toolConfig), then trim if over budget.
+
+    - "summarize": skip the conversion. summarize_history will produce
+      a single SystemMessage that contains no toolUse/toolResult blocks,
+      which sidesteps Bedrock's validation cleanly. If the history is
+      under HISTORY_TOKEN_BUDGET, summarize_history is a no-op and we
+      fall back to the conversion path so finalize can still run.
     """
-    from langchain_core.messages import ToolMessage
-
     raw_messages = list(state["messages"])
-    condensed = []
-    for msg in raw_messages:
-        if isinstance(msg, AIMessage) and msg.tool_calls:
-            continue
-        if isinstance(msg, ToolMessage):
-            condensed.append(HumanMessage(
-                content=f"[Tool result for '{msg.name}']\n{msg.content}"
-            ))
-            continue
-        condensed.append(msg)
+    question_text = _extract_question_text(raw_messages)
 
-    condensed = trim_history(condensed)
-    logger.debug(f"finalize_node: condensed {len(raw_messages)} msgs → {len(condensed)}")
+    if _history_strategy() == "summarize":
+        from src.application.orchestrator.workflow.chains import HISTORY_TOKEN_BUDGET
+        from langchain_core.messages.utils import count_tokens_approximately
+
+        if count_tokens_approximately(raw_messages) >= HISTORY_TOKEN_BUDGET:
+            condensed = summarize_history(raw_messages, question_text)
+            logger.debug(
+                f"finalize_node[summarize]: condensed {len(raw_messages)} msgs → {len(condensed)}"
+            )
+        else:
+            # Under threshold: summarize is a no-op, but tool blocks
+            # still need to be collapsed for the no-tools chain.
+            condensed = _convert_tool_messages_to_human(raw_messages)
+            condensed = trim_history(condensed)
+            logger.debug(
+                f"finalize_node[summarize<threshold]: collapsed {len(raw_messages)} msgs → {len(condensed)}"
+            )
+    else:
+        condensed = _convert_tool_messages_to_human(raw_messages)
+        condensed = trim_history(condensed)
+        logger.debug(
+            f"finalize_node[trim]: condensed {len(raw_messages)} msgs → {len(condensed)}"
+        )
 
     configurable = config.get("configurable", {})
     customer_name = configurable.get("customer_name", "Guest")
@@ -169,6 +217,24 @@ async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:
     response = await chain.ainvoke({"messages": condensed}, config)
     logger.info("finalize_node: produced fallback answer")
     return {"messages": response}
+
+
+def _convert_tool_messages_to_human(messages: list[BaseMessage]) -> list[BaseMessage]:
+    """Collapse AIMessage(tool_calls) + ToolMessage pairs into plain
+    HumanMessages so the no-tools finalize chain doesn't trip Bedrock's
+    toolConfig validation. Used in the trim path; the summarize path
+    sidesteps this because summary text contains no tool blocks."""
+    out: list[BaseMessage] = []
+    for msg in messages:
+        if isinstance(msg, AIMessage) and msg.tool_calls:
+            continue
+        if isinstance(msg, ToolMessage):
+            out.append(HumanMessage(
+                content=f"[Tool result for '{msg.name}']\n{msg.content}"
+            ))
+            continue
+        out.append(msg)
+    return out
 
 
 async def simple_response_node(state: AgentState, config: RunnableConfig) -> dict:

@@ -1,16 +1,20 @@
 """Chains for the router, the RAG agent, and the simple-response path."""
 
+import json
 from typing import Literal, Optional
 
 from langchain_core.messages import (
+    AIMessage,
     BaseMessage,
     HumanMessage,
     SystemMessage,
+    ToolMessage,
     trim_messages,
 )
 from langchain_core.messages.utils import count_tokens_approximately
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables import Runnable
+from loguru import logger
 from pydantic import BaseModel, Field
 
 from src.application.orchestrator.workflow.tools import get_tools
@@ -20,7 +24,7 @@ from src.domain.prompts import (
     SIMPLE_RESPONSE_PROMPT,
 )
 from src.infrastructure.catalog import format_for_prompt as format_catalog
-from src.infrastructure.model import get_model, orchestrator_is_bedrock
+from src.infrastructure.model import extract_text_content, get_model, orchestrator_is_bedrock
 
 
 class RouterOutput(BaseModel):
@@ -153,6 +157,160 @@ def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
         allow_partial=False,
     )
     return kept_head + tail
+
+
+# ---------------------------------------------------------------------------
+# Alternative history strategy: summarization
+# ---------------------------------------------------------------------------
+#
+# When HISTORY_STRATEGY=summarize (env var), `summarize_history` replaces
+# `trim_history` in agent_node and finalize_node. Behavior:
+#
+#   - Below HISTORY_TOKEN_BUDGET: identity (no LLM call, no rewrite).
+#   - At/above HISTORY_TOKEN_BUDGET: summarize all messages between the
+#     SystemPrompt-prefix and the original user question (inclusive) and
+#     the latest message. The summary is a single SystemMessage that
+#     replaces every non-first-Human message. The first HumanMessage is
+#     preserved verbatim so the agent retains the user's question.
+#
+# Re-summarization: if summarize fires, the resulting history shrinks. If
+# subsequent rounds push past the budget again, summarize re-runs over
+# (the previous summary message + the new turns). No special handling
+# needed — the function is idempotent in that sense.
+#
+# Note on Bedrock: a successful summarization eliminates AIMessage
+# tool_calls and ToolMessages from the visible history, so the
+# toolConfig validation Bedrock applies to those blocks no longer
+# triggers. finalize_node can therefore call summarize_history directly
+# on the raw state messages without first converting tool results to
+# HumanMessages — the conversion is only needed in the trim path.
+
+_SUMMARIZE_SYSTEM_PROMPT = """\
+You are compressing a financial-research transcript into a structured \
+summary.
+
+The user's original question is shown below. Read the transcript that \
+follows (agent reasoning, tool calls, and tool results) and produce a \
+summary that distills it down to the information relevant to answering \
+that question.
+
+Use these structured headers:
+
+## Facts retrieved
+Per-entity / per-period facts that are directly relevant to the \
+question, with source citations like (TICKER_FORM_PERIOD). Preserve \
+all numerical figures and entity-specific values verbatim — do not \
+paraphrase numbers, dates, or doc_ids. One bullet per fact.
+
+## Tools called
+List the dsrag_kb invocations already issued (question and doc_id) so \
+the agent does not re-issue identical calls. One bullet per call.
+
+## Open questions
+Sub-questions or specific data points still missing that the agent \
+needs to fill in to answer the original question. One bullet each. \
+If no gaps remain, write "(none — sufficient to answer)".
+
+Be terse but complete on facts. The agent will rely on this summary \
+in lieu of the raw history; anything you omit is gone."""
+
+
+def _serialize_messages_for_summary(messages: list[BaseMessage]) -> str:
+    """Render a message list as a plain-text transcript for the summarizer.
+
+    Tool calls and tool results are flattened into a readable form. We
+    don't try to preserve LangChain message-type semantics — the
+    summarizer doesn't need them.
+    """
+    parts: list[str] = []
+    for msg in messages:
+        if isinstance(msg, SystemMessage):
+            text = extract_text_content(msg.content).strip()
+            parts.append(f"[SYSTEM]\n{text}")
+        elif isinstance(msg, HumanMessage):
+            text = extract_text_content(msg.content).strip()
+            parts.append(f"[USER]\n{text}")
+        elif isinstance(msg, AIMessage):
+            text = extract_text_content(msg.content).strip()
+            block = f"[AGENT]\n{text}" if text else "[AGENT]"
+            tool_calls = getattr(msg, "tool_calls", None) or []
+            if tool_calls:
+                tc_lines = [
+                    f"  → {tc.get('name', '?')}({json.dumps(tc.get('args', {}), default=str)})"
+                    for tc in tool_calls
+                ]
+                block += "\n" + "\n".join(tc_lines)
+            parts.append(block)
+        elif isinstance(msg, ToolMessage):
+            name = getattr(msg, "name", "tool")
+            text = extract_text_content(msg.content).strip()
+            parts.append(f"[TOOL RESULT — {name}]\n{text}")
+        else:
+            parts.append(str(msg))
+    return "\n\n".join(parts)
+
+
+def _llm_summarize(messages: list[BaseMessage], question_text: str) -> str:
+    """One LLM call: compress the messages into a structured summary that's
+    relevant to `question_text`. Uses the orchestrator model at T=0 for
+    determinism."""
+    transcript = _serialize_messages_for_summary(messages)
+    model = get_model(temperature=0.0)
+    prompt_messages = [
+        SystemMessage(content=_SUMMARIZE_SYSTEM_PROMPT),
+        HumanMessage(content=(
+            f"<question>\n{question_text}\n</question>\n\n"
+            f"<transcript>\n{transcript}\n</transcript>"
+        )),
+    ]
+    response = model.invoke(prompt_messages)
+    return extract_text_content(response.content).strip()
+
+
+def summarize_history(
+    messages: list[BaseMessage],
+    question_text: str,
+) -> list[BaseMessage]:
+    """If `messages` exceed HISTORY_TOKEN_BUDGET, replace everything after
+    the original user question with a question-aware structured summary.
+
+    Returns the message list unchanged if under budget. The first
+    HumanMessage (user's original question) is always preserved
+    verbatim. Any SystemMessage(s) that appear before the first
+    HumanMessage are also preserved.
+    """
+    if count_tokens_approximately(messages) < HISTORY_TOKEN_BUDGET:
+        return messages
+
+    first_human_idx = next(
+        (i for i, m in enumerate(messages) if isinstance(m, HumanMessage)),
+        None,
+    )
+    if first_human_idx is None:
+        # No user question to anchor on — fall through to the legacy
+        # trim. Should be unreachable in normal flow.
+        logger.warning("summarize_history: no HumanMessage found; falling back to trim_history")
+        return trim_history(messages)
+
+    head = messages[:first_human_idx + 1]   # SystemPrompt(s) + original question
+    rest = messages[first_human_idx + 1:]
+    if not rest:
+        return messages
+
+    logger.info(
+        f"summarize_history: compressing {len(rest)} messages "
+        f"(~{count_tokens_approximately(rest):,} tokens) to a single summary"
+    )
+    summary_text = _llm_summarize(rest, question_text)
+    summary_msg = SystemMessage(
+        content=f"<prior_research_summary>\n{summary_text}\n</prior_research_summary>"
+    )
+    out = head + [summary_msg]
+    logger.info(
+        f"summarize_history: produced summary "
+        f"(~{count_tokens_approximately([summary_msg]):,} tokens)"
+    )
+    return out
 
 
 def _escape_braces(text: str) -> str:
