@@ -114,7 +114,10 @@ def dsrag_kb(
     )
 
     try:
-        queries = get_search_queries(question, max_queries=6)
+        queries = get_search_queries(
+            question,
+            max_queries=int(os.environ.get("AUTO_QUERY_MAX", "6")),
+        )
     except Exception as e:
         logger.warning(f"dsrag_kb auto-query failed: {e}")
         queries = [question]
