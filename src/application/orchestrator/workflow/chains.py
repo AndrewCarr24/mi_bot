@@ -45,18 +45,50 @@ class RouterOutput(BaseModel):
 # 60K leaves ~70K headroom, comfortably accommodating a long session.
 HISTORY_TOKEN_BUDGET = 60_000
 
+# Quirk: finalize_node converts every ToolMessage in the trace into a
+# HumanMessage prefixed with "[Tool result for '<name>']\n..." (this is a
+# workaround for Bedrock Converse, which rejects tool-use blocks unless a
+# matching toolConfig is supplied — finalize calls the LLM without tools).
+# As a side effect, by the time trim_history runs inside finalize_node,
+# the message list contains the original user question PLUS many
+# synthesized "HumanMessages" that are really tool results in disguise.
+# A naive "anchor on the most-recent HumanMessage" rule would latch onto
+# the last tool result, and the original user question — being older —
+# could then be evicted by the trim. We avoid this by anchoring on the
+# most-recent ORIGINAL human message, recognized by the absence of the
+# synthesizer's `[Tool result for ` prefix.
+_TOOL_RESULT_PREFIX = "[Tool result for '"
+
+
+def _is_original_user_message(msg: BaseMessage) -> bool:
+    """True iff `msg` is a HumanMessage produced by the user (or upstream
+    runner), as opposed to one synthesized from a ToolMessage by
+    finalize_node. See the comment on _TOOL_RESULT_PREFIX above."""
+    if not isinstance(msg, HumanMessage):
+        return False
+    content = msg.content
+    if isinstance(content, str):
+        return not content.startswith(_TOOL_RESULT_PREFIX)
+    return True
+
 
 def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
     """Cap the message history at HISTORY_TOKEN_BUDGET while always
-    preserving the most-recent HumanMessage (the user's current question).
+    preserving the most-recent ORIGINAL HumanMessage (the user's current
+    question).
 
     Why anchor: LangChain's stock `trim_messages(strategy="last")` can
     evict the current question when tool-result tokens dominate (e.g.,
     a fan-out across many filings). When that happens the agent enters
     its next turn with no question to answer and falls back to its
     persona's opener — the "I'm ready to help! What question do you
-    have?" failure mode. Pinning the most-recent HumanMessage outside
-    the trim makes that impossible.
+    have?" failure mode. Pinning the most-recent original HumanMessage
+    outside the trim makes that impossible.
+
+    Why "original" matters: see the _TOOL_RESULT_PREFIX comment above.
+    finalize_node turns ToolMessages into HumanMessages, so without the
+    `_is_original_user_message` filter the anchor would latch onto the
+    last tool result and the question would still be evictable.
 
     `end_on=("human", "tool")` prevents stranding an AIMessage with
     `tool_calls` that lost its corresponding ToolMessage(s) — most
@@ -66,7 +98,7 @@ def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
     """
     last_human = next(
         (i for i in range(len(messages) - 1, -1, -1)
-         if isinstance(messages[i], HumanMessage)),
+         if _is_original_user_message(messages[i])),
         None,
     )
     if last_human is None:
