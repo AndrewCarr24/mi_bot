@@ -1,3 +1,4 @@
+import os
 from typing import Literal
 
 from langchain_core.messages import AIMessage
@@ -22,7 +23,13 @@ def route_after_cache(state: AgentState) -> Literal["wiki_preload", "agent"]:
     If the router matched a wiki slug, run wiki_preload_node first (which
     injects the page into the message list); otherwise skip straight to
     the agent. This gives wiki-shaped questions a guaranteed wiki read
-    before the ReAct loop starts."""
+    before the ReAct loop starts.
+
+    Env override `DISABLE_WIKI_PRELOAD=true` forces the agent path
+    regardless of slug — used for A/B testing the wiki contribution.
+    """
+    if os.environ.get("DISABLE_WIKI_PRELOAD", "").lower() == "true":
+        return "agent"
     if state.get("wiki_slug"):
         return "wiki_preload"
     return "agent"
