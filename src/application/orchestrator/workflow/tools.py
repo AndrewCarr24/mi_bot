@@ -116,7 +116,7 @@ def dsrag_kb(
     try:
         queries = get_search_queries(
             question,
-            max_queries=int(os.environ.get("AUTO_QUERY_MAX", "6")),
+            max_queries=int(os.environ.get("AUTO_QUERY_MAX", "3")),
         )
     except Exception as e:
         logger.warning(f"dsrag_kb auto-query failed: {e}")
@@ -134,7 +134,7 @@ def dsrag_kb(
 
     # Chunk dedup: when DEDUP_CHUNKS=true, exclude chunks already
     # returned in earlier calls in this thread.
-    dedup_on = os.environ.get("DEDUP_CHUNKS", "false").lower() == "true"
+    dedup_on = os.environ.get("DEDUP_CHUNKS", "true").lower() == "true"
     seen = _SEEN_CHUNKS_PER_THREAD.setdefault(thread_id, set()) if dedup_on else None
     kb._excluded_chunks = seen if dedup_on else None
 
@@ -148,7 +148,7 @@ def dsrag_kb(
     # 21/23). Smart mode trades 1 question of accuracy for fewer
     # iterations (1.52 calls/q vs 1.61) and slightly lower cost
     # ($0.081 vs $0.085). See eval/results/alpha_sweep_*.json.
-    alpha_raw = os.environ.get("RRF_ALPHA", "smart").strip()
+    alpha_raw = os.environ.get("RRF_ALPHA", "0.4").strip()
     if alpha_raw.lower() == "smart":
         alpha = smart_rrf_alpha(question)
         logger.info(f"dsrag_kb: smart α={alpha:.2f} for question {question[:60]!r}")
