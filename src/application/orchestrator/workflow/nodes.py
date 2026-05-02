@@ -42,12 +42,23 @@ def _extract_question_text(messages: list[BaseMessage]) -> str:
     return ""
 
 
-def _condense_history(messages: list[BaseMessage], question_text: str) -> list[BaseMessage]:
+def _condense_history(
+    messages: list[BaseMessage],
+    question_text: str,
+) -> tuple[list[BaseMessage], list[BaseMessage]]:
     """Apply the configured HISTORY_STRATEGY (trim or summarize) to
-    `messages`. Returns the condensed list."""
+    `messages`.
+
+    Returns (condensed_messages, state_updates):
+      - condensed_messages: feed this to the next LLM call.
+      - state_updates: list of RemoveMessage entries (and possibly a
+        new SystemMessage) the caller should pass through the messages
+        reducer so the state actually shrinks. Only summarize uses
+        state_updates; trim returns an empty list.
+    """
     if _history_strategy() == "summarize":
         return summarize_history(messages, question_text)
-    return trim_history(messages)
+    return trim_history(messages), []
 
 
 async def router_node(state: AgentState, config: RunnableConfig) -> dict:
@@ -154,18 +165,25 @@ async def agent_node(state: AgentState, config: RunnableConfig) -> dict:
     customer_name = configurable.get("customer_name", "Guest")
 
     question_text = _extract_question_text(messages)
-    messages = _condense_history(messages, question_text)
+    condensed_messages, state_updates = _condense_history(messages, question_text)
     chain = get_agent_chain(customer_name=customer_name)
     response = await chain.ainvoke(
-        {"messages": with_cache_on_last(messages)}, config
+        {"messages": with_cache_on_last(condensed_messages)}, config
     )
 
     has_tool_calls = bool(getattr(response, "tool_calls", None))
     new_count = tool_call_count + (len(response.tool_calls) if has_tool_calls else 0)
     logger.debug(
-        f"agent_node: has_tool_calls={has_tool_calls}, tool_call_count={new_count}"
+        f"agent_node: has_tool_calls={has_tool_calls}, tool_call_count={new_count}, "
+        f"state_updates={len(state_updates)}"
     )
-    return {"messages": response, "tool_call_count": new_count}
+    # state_updates (if any) carry RemoveMessage entries + the new
+    # summary; they must be returned through the reducer alongside the
+    # response so the state actually shrinks.
+    return {
+        "messages": [*state_updates, response],
+        "tool_call_count": new_count,
+    }
 
 
 async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:
@@ -185,15 +203,17 @@ async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:
     """
     raw_messages = list(state["messages"])
     question_text = _extract_question_text(raw_messages)
+    state_updates: list[BaseMessage] = []
 
     if _history_strategy() == "summarize":
         from src.application.orchestrator.workflow.chains import HISTORY_TOKEN_BUDGET
         from langchain_core.messages.utils import count_tokens_approximately
 
         if count_tokens_approximately(raw_messages) >= HISTORY_TOKEN_BUDGET:
-            condensed = summarize_history(raw_messages, question_text)
+            condensed, state_updates = summarize_history(raw_messages, question_text)
             logger.debug(
-                f"finalize_node[summarize]: condensed {len(raw_messages)} msgs → {len(condensed)}"
+                f"finalize_node[summarize]: condensed {len(raw_messages)} msgs → {len(condensed)}, "
+                f"state_updates={len(state_updates)}"
             )
         else:
             # Under threshold: summarize is a no-op, but tool blocks
@@ -216,7 +236,7 @@ async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:
     chain = get_finalize_chain(customer_name=customer_name)
     response = await chain.ainvoke({"messages": condensed}, config)
     logger.info("finalize_node: produced fallback answer")
-    return {"messages": response}
+    return {"messages": [*state_updates, response]}
 
 
 def _convert_tool_messages_to_human(messages: list[BaseMessage]) -> list[BaseMessage]:

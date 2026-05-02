@@ -7,6 +7,7 @@ from langchain_core.messages import (
     AIMessage,
     BaseMessage,
     HumanMessage,
+    RemoveMessage,
     SystemMessage,
     ToolMessage,
     trim_messages,
@@ -167,18 +168,21 @@ def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
 # `trim_history` in agent_node and finalize_node. Behavior:
 #
 #   - Below HISTORY_TOKEN_BUDGET: identity (no LLM call, no rewrite).
-#   - At/above HISTORY_TOKEN_BUDGET: summarize all messages between the
-#     SystemPrompt-prefix and the original user question (inclusive) and
-#     the latest message. The summary is a single SystemMessage that
-#     replaces every non-first-Human message. The first HumanMessage is
-#     preserved verbatim so the agent retains the user's question.
+#   - At/above HISTORY_TOKEN_BUDGET: summarize all messages after the
+#     first HumanMessage. Returns:
+#       (a) the condensed message list to feed the next LLM call:
+#           [head, summary_msg]
+#       (b) a list of state updates: RemoveMessage entries for every
+#           removable message in `rest`, followed by the summary
+#           message itself. The caller (agent_node / finalize_node)
+#           passes these back through the messages reducer so the
+#           summary actually persists in state and the original
+#           tool/AI messages are removed. Without this, the summary
+#           would be used for one LLM call and then discarded — the
+#           next agent_node turn would re-summarize the same content
+#           from scratch, compounding latency over a long ReAct loop.
 #
-# Re-summarization: if summarize fires, the resulting history shrinks. If
-# subsequent rounds push past the budget again, summarize re-runs over
-# (the previous summary message + the new turns). No special handling
-# needed — the function is idempotent in that sense.
-#
-# Note on Bedrock: a successful summarization eliminates AIMessage
+# Bedrock note: a successful summarization eliminates AIMessage
 # tool_calls and ToolMessages from the visible history, so the
 # toolConfig validation Bedrock applies to those blocks no longer
 # triggers. finalize_node can therefore call summarize_history directly
@@ -270,17 +274,34 @@ def _llm_summarize(messages: list[BaseMessage], question_text: str) -> str:
 def summarize_history(
     messages: list[BaseMessage],
     question_text: str,
-) -> list[BaseMessage]:
-    """If `messages` exceed HISTORY_TOKEN_BUDGET, replace everything after
-    the original user question with a question-aware structured summary.
+) -> tuple[list[BaseMessage], list[BaseMessage]]:
+    """Returns (condensed_messages, state_updates).
 
-    Returns the message list unchanged if under budget. The first
-    HumanMessage (user's original question) is always preserved
-    verbatim. Any SystemMessage(s) that appear before the first
-    HumanMessage are also preserved.
+    If `messages` is under HISTORY_TOKEN_BUDGET, both elements are
+    no-ops: condensed_messages == messages, state_updates == [].
+
+    If over budget, summarize all messages after the first
+    HumanMessage into one SystemMessage and return:
+
+      condensed_messages = [head, summary_msg]   ← for the next LLM
+                                                   call
+      state_updates      = [RemoveMessage(id=…) for each msg in rest
+                            that has an id,  + summary_msg]
+                                                 ← for the caller to
+                                                   return through the
+                                                   messages reducer so
+                                                   state actually
+                                                   shrinks
+
+    Without `state_updates` being applied, the summary lasts only one
+    LLM call — the next agent turn would see the full uncompressed
+    history again and have to re-summarize from scratch.
+
+    The first HumanMessage (user's original question) is always
+    preserved.
     """
     if count_tokens_approximately(messages) < HISTORY_TOKEN_BUDGET:
-        return messages
+        return messages, []
 
     first_human_idx = next(
         (i for i, m in enumerate(messages) if isinstance(m, HumanMessage)),
@@ -289,13 +310,15 @@ def summarize_history(
     if first_human_idx is None:
         # No user question to anchor on — fall through to the legacy
         # trim. Should be unreachable in normal flow.
-        logger.warning("summarize_history: no HumanMessage found; falling back to trim_history")
-        return trim_history(messages)
+        logger.warning(
+            "summarize_history: no HumanMessage found; falling back to trim_history"
+        )
+        return trim_history(messages), []
 
     head = messages[:first_human_idx + 1]   # SystemPrompt(s) + original question
     rest = messages[first_human_idx + 1:]
     if not rest:
-        return messages
+        return messages, []
 
     logger.info(
         f"summarize_history: compressing {len(rest)} messages "
@@ -305,12 +328,36 @@ def summarize_history(
     summary_msg = SystemMessage(
         content=f"<prior_research_summary>\n{summary_text}\n</prior_research_summary>"
     )
-    out = head + [summary_msg]
+
+    # Build the state-update list. Removing a message requires its id;
+    # if any rest-message lacks an id (rare — LangGraph auto-assigns,
+    # but our synthetic wiki_preload_node AIMessage is one we
+    # construct manually), it stays in state and the next summarize
+    # round will re-include it.
+    removals: list[BaseMessage] = []
+    skipped_no_id = 0
+    for m in rest:
+        msg_id = getattr(m, "id", None)
+        if msg_id:
+            removals.append(RemoveMessage(id=msg_id))
+        else:
+            skipped_no_id += 1
+    if skipped_no_id:
+        logger.warning(
+            f"summarize_history: {skipped_no_id}/{len(rest)} messages had "
+            f"no id and could not be removed from state — they will appear "
+            f"in the next summarization input."
+        )
+
+    state_updates = removals + [summary_msg]
+    condensed_messages = head + [summary_msg]
+
     logger.info(
         f"summarize_history: produced summary "
-        f"(~{count_tokens_approximately([summary_msg]):,} tokens)"
+        f"(~{count_tokens_approximately([summary_msg]):,} tokens) — "
+        f"will remove {len(removals)} messages from state"
     )
-    return out
+    return condensed_messages, state_updates
 
 
 def _escape_braces(text: str) -> str:
