@@ -35,6 +35,37 @@ _WIKI_ROOT = Path(__file__).resolve().parents[4] / "wiki"
 _SEEN_CHUNKS_PER_THREAD: dict[str, set] = {}
 
 
+# Per-doc top-K' quota for MULTI_DOC_FILTER=quota mode. Each scoped doc
+# contributes at most this many segments to the merged result. Tuned
+# vs. fan-out (~5/doc) and pure filter (~5 total): 3/doc keeps the
+# merged output small while preserving multi-issuer coverage.
+_QUOTA_PER_DOC_K = 3
+
+
+def _query_per_doc_quota(kb, queries: list[str], doc_ids: list[str]) -> list:
+    """Per-doc-quota retrieval. Run one single-doc kb.query per doc in
+    `doc_ids`, take the top _QUOTA_PER_DOC_K segments from each, then
+    merge and sort by score. Sequential because kb._rrf_alpha and
+    kb._excluded_chunks are shared mutable attrs on the singleton kb;
+    parallel execution would race. Per-doc filter scope is small so
+    the sequential cost is bounded.
+    """
+    merged: list = []
+    for d in doc_ids:
+        filt = {"field": "doc_id", "operator": "equals", "value": d}
+        try:
+            res = kb.query(queries, metadata_filter=filt)
+        except Exception as e:
+            logger.warning(f"dsrag_kb quota: per-doc query for {d!r} failed: {e}")
+            continue
+        merged.extend(res[:_QUOTA_PER_DOC_K])
+    merged.sort(key=lambda r: float(r.get("score", 0.0) or 0.0), reverse=True)
+    # Cap the merged list. For small subsets (2-3 docs) keep ~6 max;
+    # for full cohort (6 docs) allow up to 12.
+    cap = max(_QUOTA_PER_DOC_K, len(doc_ids) * 2)
+    return merged[:cap]
+
+
 @tool
 async def memory_retrieval_tool(
     query: str,
@@ -79,7 +110,7 @@ async def memory_retrieval_tool(
 @tool
 def dsrag_kb(
     question: str,
-    doc_id: str | None = None,
+    doc_id: str | list[str] | None = None,
     config: Annotated[RunnableConfig, InjectedToolArg] = None,
 ) -> str:
     """
@@ -91,18 +122,27 @@ def dsrag_kb(
     identified by dsRAG's Relevant Segment Extraction). Segments include
     an AutoContext header describing the source document and section.
 
-    Scoping: pass `doc_id` to restrict retrieval to a single filing
-    (recommended whenever the user's question names a specific ticker +
-    period). The KB holds multiple filings; without a filter, results
-    can come from any of them. Use the `doc_id` column in the system
-    prompt's filings_catalog to pick the right value (format:
-    TICKER_FORM_PERIOD, e.g. "ACT_10-Q_2024-09-30"). Pass doc_id=None to
-    search across all filings (appropriate for cross-filing comparisons).
+    Scoping options for `doc_id`:
+      - **string** (e.g. "ACT_10-Q_2024-09-30") — restrict retrieval to
+        that single filing. Recommended when the user's question names a
+        specific ticker + period.
+      - **list of strings** (e.g. ["MTG_10-K_2024-12-31",
+        "RDN_10-K_2024-12-31"]) — restrict retrieval to a known subset
+        of filings. Use this for paired or cohort comparisons instead of
+        making N parallel calls. The KB returns top-K segments scored
+        across the whole subset, so coverage of the smaller filings can
+        suffer when scores skew. Prefer the list form for 2-3 filings;
+        for full 6-issuer cohort sweeps, fan-out (one call per filing)
+        still gives more reliable per-issuer coverage.
+      - **None** — search across ALL filings. Appropriate when you don't
+        know which filings to scope to.
+
+    Use the `doc_id` column in the system prompt's filings_catalog to pick
+    values exactly (format: TICKER_FORM_PERIOD).
 
     Args:
         question: The user's question (verbatim; do not paraphrase).
-        doc_id: Optional filing identifier to restrict retrieval to.
-            Must match a `doc_id` in filings_catalog exactly.
+        doc_id: Single doc_id, list of doc_ids, or None.
 
     Returns:
         JSON list of {score, doc_id, content} segments, highest score first.
@@ -123,11 +163,16 @@ def dsrag_kb(
         queries = [question]
 
     kb = get_kb()
-    metadata_filter = (
-        {"field": "doc_id", "operator": "equals", "value": doc_id}
-        if doc_id
-        else None
-    )
+
+    # MULTI_DOC_FILTER mode: 'off' / 'filter' / 'quota'. Tolerates legacy
+    # 'true' = filter. Read fresh per call for A/B/C ergonomics.
+    _md_raw = os.environ.get("MULTI_DOC_FILTER", "off").strip().lower()
+    if _md_raw in ("true", "1"):
+        multi_doc_mode = "filter"
+    elif _md_raw in ("filter", "quota"):
+        multi_doc_mode = _md_raw
+    else:
+        multi_doc_mode = "off"
 
     # --- env-var-driven A/B knobs (set per call, reset after) -------------
     thread_id = ((config or {}).get("configurable") or {}).get("thread_id", "_default")
@@ -161,11 +206,21 @@ def dsrag_kb(
 
     logger.info(
         f"dsrag_kb invoked: question={question[:80]!r} doc_id={doc_id!r} "
-        f"expanded_to={queries} α={alpha:.2f} dedup={dedup_on}"
+        f"expanded_to={queries} α={alpha:.2f} dedup={dedup_on} mode={multi_doc_mode}"
     )
 
     try:
-        results = kb.query(queries, metadata_filter=metadata_filter)
+        if multi_doc_mode == "quota" and isinstance(doc_id, list) and doc_id:
+            results = _query_per_doc_quota(kb, queries, doc_id)
+        else:
+            if isinstance(doc_id, list) and doc_id:
+                # 'filter' mode (or 'off' fallback when agent passed a list anyway)
+                metadata_filter = {"field": "doc_id", "operator": "in", "value": doc_id}
+            elif isinstance(doc_id, str) and doc_id:
+                metadata_filter = {"field": "doc_id", "operator": "equals", "value": doc_id}
+            else:
+                metadata_filter = None
+            results = kb.query(queries, metadata_filter=metadata_filter)
     except Exception as e:
         logger.warning(f"dsrag_kb query failed: {e}")
         return json.dumps({"error": str(e)})

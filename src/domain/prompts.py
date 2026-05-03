@@ -1,6 +1,28 @@
 """Prompts for the RAG agent."""
 
 
+# Optional retrieval section appended to AGENT_SYSTEM_PROMPT when
+# Settings.MULTI_DOC_FILTER is true. Encourages the agent to use the
+# list-form `doc_id` instead of fan-out for paired/cohort comparisons.
+MULTI_DOC_FILTER_SECTION = """\
+
+PREFER MULTI-DOC OVER FAN-OUT (multi-doc filter is enabled):
+When you'd otherwise emit 2-6 parallel dsrag_kb calls scoped to known
+filings, instead emit ONE call with `doc_id` as a list of those filings.
+Examples:
+- "How do MGIC and Radian's FY2024 loss ratios differ?" → ONE call:
+  dsrag_kb(question="...", doc_id=["MTG_10-K_2024-12-31",
+  "RDN_10-K_2024-12-31"]).
+- "Across the six MIs, what was 2024 NIW?" → ONE call with
+  doc_id=[<all six 10-K doc_ids>] instead of six parallel calls.
+
+Caveat: top-K segments are scored across the whole subset, so very
+small / low-relevance filings can get buried. If after a multi-doc
+call you don't see segments from one of the filings you scoped to,
+follow up with a targeted single-doc dsrag_kb call to fill the gap.
+Single-doc questions still take a string `doc_id`."""
+
+
 AGENT_SYSTEM_PROMPT = """\
 <role>
 You are a financial research assistant helping {customer_name}. You answer
@@ -132,6 +154,7 @@ sequential round-trip. Parallel-call examples:
   with doc_id=AMD_10-K_2022-12-31, one with doc_id=BA_10-K_2022-12-31.
 - "How do MGIC and Radian's FY2024 loss ratios differ?" → two parallel
   calls (one per company's FY2024 10-K).
+{multi_doc_filter_section}
 
 Use a SINGLE call (not parallel) for these — auto-query inside
 `dsrag_kb` decomposes the question into multiple search terms

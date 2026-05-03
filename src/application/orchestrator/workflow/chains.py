@@ -1,6 +1,7 @@
 """Chains for the router, the RAG agent, and the simple-response path."""
 
 import json
+import os
 from typing import Literal, Optional
 
 from langchain_core.messages import (
@@ -21,6 +22,7 @@ from pydantic import BaseModel, Field
 from src.application.orchestrator.workflow.tools import get_tools
 from src.domain.prompts import (
     AGENT_SYSTEM_PROMPT,
+    MULTI_DOC_FILTER_SECTION,
     ROUTER_PROMPT,
     SIMPLE_RESPONSE_PROMPT,
 )
@@ -77,39 +79,123 @@ def _is_original_user_message(msg: BaseMessage) -> bool:
     return True
 
 
-def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
-    """Cap the message history at HISTORY_TOKEN_BUDGET while always
-    preserving the most-recent ORIGINAL HumanMessage (the user's current
-    question).
+def _turn_boundaries(messages: list[BaseMessage]) -> list[int]:
+    """Indices of original HumanMessages — i.e., the start of each turn.
+    A turn runs from index turn_starts[i] to turn_starts[i+1] (exclusive),
+    or to len(messages) for the last turn."""
+    return [i for i, m in enumerate(messages) if _is_original_user_message(m)]
 
-    Why anchor: LangChain's stock `trim_messages(strategy="last")` can
-    evict the current question when tool-result tokens dominate (e.g.,
-    a fan-out across many filings). When that happens the agent enters
-    its next turn with no question to answer and falls back to its
-    persona's opener — the "I'm ready to help! What question do you
-    have?" failure mode. Pinning the most-recent original HumanMessage
-    outside the trim makes that impossible.
 
-    Why "original" matters: see the _TOOL_RESULT_PREFIX comment above.
-    finalize_node turns ToolMessages into HumanMessages, so without the
-    `_is_original_user_message` filter the anchor would latch onto the
-    last tool result and the question would still be evictable.
+def _final_text_ai(
+    messages: list[BaseMessage], start: int, end: int
+) -> int | None:
+    """Index of the last AIMessage in messages[start:end] that has no
+    tool_calls and non-empty text content. None if the turn doesn't
+    have one (interrupted, errored, or still in flight)."""
+    for i in range(end - 1, start - 1, -1):
+        m = messages[i]
+        if (
+            isinstance(m, AIMessage)
+            and not m.tool_calls
+            and m.content
+            and (extract_text_content(m.content).strip() if m.content else "")
+        ):
+            return i
+    return None
 
-    `end_on=("human", "tool")` prevents stranding an AIMessage with
-    `tool_calls` that lost its corresponding ToolMessage(s) — most
-    providers reject that shape. (`start_on="human"` alone doesn't
-    save us: it slides forward to the first HumanMessage in the
-    *trimmed* list, which may not exist after trimming.)
+
+def _compact_completed_turns(messages: list[BaseMessage]) -> list[BaseMessage]:
+    """Replace each completed turn's body with just [Q, final_A].
+
+    A "completed turn" is any turn before the most recent original
+    HumanMessage — its body has been distilled into a final assistant
+    answer, and the intermediate AIMessage(tool_calls=...) "thinking"
+    messages and ToolMessage results are no longer load-bearing for
+    future turns. Compacting them away saves 10-30x tokens on
+    tool-heavy threads while preserving multi-turn coherence.
+
+    The active turn (from the last original HumanMessage onward) is
+    preserved verbatim — the ReAct loop needs to see its own in-flight
+    tool calls and results.
+
+    Turns without a final-A (interrupted / errored before producing a
+    text answer) are dropped. Half a turn — a question with no answer,
+    or tool blocks with no answer — would only confuse the model and
+    break tool_use/tool_result pairing on Bedrock.
     """
+    starts = _turn_boundaries(messages)
+    if not starts:
+        return list(messages)
+
+    out: list[BaseMessage] = []
+    # Anything before the first turn (rare/empty in practice) is
+    # passed through unchanged.
+    out.extend(messages[: starts[0]])
+
+    # Completed turns: starts[0] .. starts[-1] (exclusive of the last).
+    for i in range(len(starts) - 1):
+        turn_start = starts[i]
+        turn_end = starts[i + 1]
+        final_idx = _final_text_ai(messages, turn_start, turn_end)
+        if final_idx is None:
+            continue
+        out.append(messages[turn_start])  # the question
+        out.append(messages[final_idx])  # the final answer
+
+    # Active turn: preserve verbatim.
+    out.extend(messages[starts[-1] :])
+    return out
+
+
+def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
+    """Two-stage history condensation:
+
+    Stage 1 — Compact completed turns to [Q, final_A] pairs. Drops the
+    intermediate AIMessage(tool_calls=...) "thinking" messages and the
+    ToolMessage results that were folded into the final answer. The
+    active (in-flight) turn is preserved verbatim so the ReAct loop
+    can see its own tool results.
+
+    Stage 2 — If still over HISTORY_TOKEN_BUDGET, evict completed
+    (Q, A) pairs from the head, oldest-first. Pairs are evicted whole;
+    a Q without its A leaves a dangling reference, and an A without
+    its Q is incoherent.
+
+    Stage 3 — If even with no completed pairs the active turn alone
+    exceeds budget, trim within the active turn (drop oldest tool
+    blocks first, keeping the question).
+
+    Why this layered design exists:
+      - The single-pass trim_messages with start_on/end_on constraints
+        could return [] when no human-anchored window fit budget,
+        leaving the LLM with only the bare current question (no prior
+        turns to resolve follow-ups against). Compaction shrinks
+        completed turns 10-30x so this rarely matters; eviction handles
+        the residual case cleanly.
+      - The active turn is structurally pinned (never compacted, never
+        evicted as a whole) so the user's current question is always
+        visible to the LLM.
+
+    Why "original" HumanMessage matters: see the _TOOL_RESULT_PREFIX
+    comment above. finalize_node converts ToolMessages to HumanMessages
+    for its no-tools chain; without the `_is_original_user_message`
+    filter, turn boundaries would land on tool-result-disguised-as-Human
+    messages and compaction would mis-segment the conversation.
+    """
+    compacted = _compact_completed_turns(messages)
+
     last_human = next(
-        (i for i in range(len(messages) - 1, -1, -1)
-         if _is_original_user_message(messages[i])),
+        (
+            i
+            for i in range(len(compacted) - 1, -1, -1)
+            if _is_original_user_message(compacted[i])
+        ),
         None,
     )
     if last_human is None:
-        # No HumanMessage in the list — nothing to anchor.
+        # No original HumanMessage at all — nothing to anchor.
         return trim_messages(
-            messages,
+            compacted,
             max_tokens=HISTORY_TOKEN_BUDGET,
             strategy="last",
             token_counter=count_tokens_approximately,
@@ -118,13 +204,13 @@ def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
             allow_partial=False,
         )
 
-    head = messages[:last_human]
-    tail = messages[last_human:]
+    head = compacted[:last_human]
+    tail = compacted[last_human:]
     tail_tokens = count_tokens_approximately(tail)
 
+    # Stage 3: active turn alone exceeds budget. Drop all of head and
+    # trim within the active turn.
     if tail_tokens >= HISTORY_TOKEN_BUDGET:
-        # Active turn alone exceeds budget. Keep the question; trim
-        # within the turn so we drop oldest AI/Tool messages first.
         question = tail[0]
         rest = tail[1:]
         budget = max(0, HISTORY_TOKEN_BUDGET - count_tokens_approximately([question]))
@@ -144,20 +230,22 @@ def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
         )
         return [question] + kept_rest
 
-    # Active turn fits; trim only the older history.
-    budget = max(0, HISTORY_TOKEN_BUDGET - tail_tokens)
-    if budget == 0 or not head:
-        return tail
-    kept_head = trim_messages(
-        head,
-        max_tokens=budget,
-        strategy="last",
-        token_counter=count_tokens_approximately,
-        start_on="human",
-        end_on=("human", "tool"),
-        allow_partial=False,
-    )
-    return kept_head + tail
+    # Stage 2: active turn fits. After compaction, head is structured
+    # as [H, A, H, A, ...] (alternating Q/A pairs from completed turns).
+    # Evict oldest pairs whole until under budget.
+    budget = HISTORY_TOKEN_BUDGET - tail_tokens
+    while head and count_tokens_approximately(head) > budget:
+        # Drop the oldest pair: from head[0] (an H) up to and including
+        # the next H's predecessor. With the post-compaction shape, the
+        # next H lands at index 2; the safety net handles unexpected
+        # shapes (e.g. a stray turn that didn't compact cleanly).
+        next_h = next(
+            (i for i in range(1, len(head)) if _is_original_user_message(head[i])),
+            None,
+        )
+        head = head[next_h:] if next_h is not None else []
+
+    return head + tail
 
 
 # ---------------------------------------------------------------------------
@@ -412,11 +500,27 @@ def with_cache_on_last(messages: list[BaseMessage]) -> list[BaseMessage]:
     return list(messages[:-1]) + [new_last]
 
 
+def _multi_doc_mode() -> str:
+    """Read MULTI_DOC_FILTER fresh per call. Returns 'off' | 'filter' | 'quota'.
+    Tolerates legacy 'true'/'false' values (true → filter)."""
+    raw = os.environ.get("MULTI_DOC_FILTER", "off").strip().lower()
+    if raw in ("true", "1"):
+        return "filter"
+    if raw in ("filter", "quota"):
+        return raw
+    return "off"
+
+
 def _build_agent_system(customer_name: str) -> str:
+    # MULTI_DOC_FILTER mode read fresh per call so the same Python process
+    # can serve different arms of an A/B/C comparison without restart.
+    mode = _multi_doc_mode()
+    multi_doc_section = MULTI_DOC_FILTER_SECTION if mode in ("filter", "quota") else ""
     return (
         AGENT_SYSTEM_PROMPT
         .replace("{customer_name}", customer_name)
         .replace("{filings_catalog}", format_catalog())
+        .replace("{multi_doc_filter_section}", multi_doc_section)
     )
 
 

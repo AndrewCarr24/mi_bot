@@ -121,7 +121,7 @@ def _sanitize_actor_id(name: str) -> str:
 
 # Tool args we surface in the UI. Anything else (cache flags, internal
 # config) is omitted to keep the step display clean.
-_VISIBLE_TOOL_ARG_KEYS = {"question", "doc_id", "query", "memory_types"}
+_VISIBLE_TOOL_ARG_KEYS = {"question", "doc_id", "query", "memory_types", "slug"}
 
 
 def _sanitize_tool_args(raw: Any) -> dict:

@@ -29,7 +29,7 @@ from pricing import cost_usd  # noqa: E402
 from usage import UsageCollector  # noqa: E402
 
 from src.application.orchestrator.streaming import get_streaming_response  # noqa: E402
-from src.config import settings  # noqa: E402
+from src.config import Settings, settings  # noqa: E402
 from src.infrastructure.model import extract_text_content  # noqa: E402
 
 
@@ -171,6 +171,21 @@ async def main(csv_path: Path) -> None:
     n_correct = sum(r["correct"] for r in results)
     accuracy = n_correct / len(results)
 
+    # Sidecar JSON: every knob's value at the moment this run produced
+    # the CSV above. Lets a future reader answer "which config produced
+    # this result?" without git-archaeology against the CSV's timestamp.
+    config_snapshot = Settings.runtime_snapshot()
+    # Redact secrets so the sidecar is safe to commit / share.
+    for secret_field in ("DEEPSEEK_API_KEY",):
+        if config_snapshot.get(secret_field):
+            config_snapshot[secret_field] = "<redacted>"
+    sidecar = RESULTS_DIR / f"{csv_path.stem}_{ts}.config.json"
+    sidecar.write_text(json.dumps({
+        "input_csv": csv_path.name,
+        "agent_ts": ts,
+        "settings": config_snapshot,
+    }, indent=2))
+
     usage_summary = {
         model_id: {
             "input_tokens": u.input_tokens,
@@ -200,6 +215,7 @@ async def main(csv_path: Path) -> None:
         "n": len(results),
         "n_correct": n_correct,
         "results_file": str(out_csv.relative_to(EVAL_DIR)),
+        "config_file": str(sidecar.relative_to(EVAL_DIR)),
         "orchestrator_provider": settings.ORCHESTRATOR_PROVIDER,
         "orchestrator_model": (
             settings.DEEPSEEK_MODEL_ID
@@ -209,10 +225,12 @@ async def main(csv_path: Path) -> None:
         "usage": usage_summary,
         "total_cost_usd": total_cost,
         "run_seconds": round(run_seconds, 2),
+        "settings_snapshot": config_snapshot,
     })
 
     print(f"\nAccuracy: {accuracy:.1%} ({n_correct}/{len(results)})")
     print(f"Results:  {out_csv}")
+    print(f"Config:   {sidecar}")
     print(f"Log:      {LOG_FILE}")
     print(f"Cost:     ${total_cost:.4f}")
     print(f"Time:     {run_seconds:.1f}s")
