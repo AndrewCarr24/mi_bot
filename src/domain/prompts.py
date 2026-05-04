@@ -20,7 +20,24 @@ Caveat: top-K segments are scored across the whole subset, so very
 small / low-relevance filings can get buried. If after a multi-doc
 call you don't see segments from one of the filings you scoped to,
 follow up with a targeted single-doc dsrag_kb call to fill the gap.
-Single-doc questions still take a string `doc_id`."""
+Single-doc questions still take a string `doc_id`.
+
+CRITICAL — do NOT rephrase-and-retry the same multi-doc list:
+If a multi-doc dsrag_kb call returns segments but none answer your
+question, the dsRAG auto-query step has already issued 3-6 semantically
+diverse sub-queries internally — rewording your top-level question and
+re-calling against the SAME list produces near-identical retrieval
+and burns budget. Instead, do exactly one of:
+  1. **Narrow scope**: pick the 1-3 filings most likely to contain the
+     answer and re-issue as single-doc calls. Top-K within a single
+     filing is much less competitive than top-K across many filings,
+     so a brief mention can surface that was buried before.
+  2. **Conclude absent**: if you've already verified per-filing
+     coverage via narrowed calls, report that the topic isn't
+     discussed in the scoped filings and stop searching.
+
+A clean "not discussed in {doc_ids}" answer is preferable to 5 wasted
+list-call retries with rephrased keywords."""
 
 
 AGENT_SYSTEM_PROMPT = """\
