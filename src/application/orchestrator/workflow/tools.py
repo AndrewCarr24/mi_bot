@@ -107,45 +107,18 @@ async def memory_retrieval_tool(
         return json.dumps({"error": str(e)})
 
 
-@tool
-def dsrag_kb(
+def _dsrag_kb_impl(
     question: str,
-    doc_id: str | list[str] | None = None,
-    config: Annotated[RunnableConfig, InjectedToolArg] = None,
+    doc_id: str | list[str] | None,
+    config: RunnableConfig | None,
 ) -> str:
-    """
-    Semantic search over SEC filings via a dsRAG knowledge base. Pass the
-    user's question verbatim — the tool decomposes it into multiple
-    search queries internally (via dsRAG's auto-query helper, which is
-    domain-tuned for SEC filings) and runs them all against the KB.
-    Returns the most relevant multi-chunk *segments* (contiguous sections
-    identified by dsRAG's Relevant Segment Extraction). Segments include
-    an AutoContext header describing the source document and section.
+    """Shared retrieval body for both `dsrag_kb` tool variants.
 
-    Scoping options for `doc_id`:
-      - **string** (e.g. "ACT_10-Q_2024-09-30") — restrict retrieval to
-        that single filing. Recommended when the user's question names a
-        specific ticker + period.
-      - **list of strings** (e.g. ["MTG_10-K_2024-12-31",
-        "RDN_10-K_2024-12-31"]) — restrict retrieval to a known subset
-        of filings. Use this for paired or cohort comparisons instead of
-        making N parallel calls. The KB returns top-K segments scored
-        across the whole subset, so coverage of the smaller filings can
-        suffer when scores skew. Prefer the list form for 2-3 filings;
-        for full 6-issuer cohort sweeps, fan-out (one call per filing)
-        still gives more reliable per-issuer coverage.
-      - **None** — search across ALL filings. Appropriate when you don't
-        know which filings to scope to.
-
-    Use the `doc_id` column in the system prompt's filings_catalog to pick
-    values exactly (format: TICKER_FORM_PERIOD).
-
-    Args:
-        question: The user's question (verbatim; do not paraphrase).
-        doc_id: Single doc_id, list of doc_ids, or None.
-
-    Returns:
-        JSON list of {score, doc_id, content} segments, highest score first.
+    Two thin tool wrappers below expose this with different `doc_id`
+    signatures (str-only vs str|list) so we can vary what the agent
+    sees in its tool schema based on `MULTI_DOC_FILTER`. The body
+    itself accepts either shape uniformly — the schema is what the
+    agent's prompt is gated on, not the impl.
     """
     from src.infrastructure.dsrag_kb import (
         get_kb,
@@ -250,6 +223,101 @@ def dsrag_kb(
     return json.dumps(payload, indent=2, default=str)
 
 
+# ── Tool variants — same name "dsrag_kb", different `doc_id` schemas ──
+#
+# The signature on these wrappers is what the LLM actually sees in its
+# tool schema (via langchain's `bind_tools`). Keeping a strict variant
+# (str only) preserves the pre-multi-doc-prototype behavior in OFF
+# mode: the agent CANNOT emit `doc_id=[...]` because the JSON schema
+# rejects it before the tool body runs. Without the strict variant,
+# the agent could opt into list-form regardless of MULTI_DOC_FILTER,
+# making OFF effectively equivalent to FILTER for any question where
+# the agent decided to consolidate calls — corrupting the control
+# condition.
+
+@tool("dsrag_kb")
+def _dsrag_kb_strict(
+    question: str,
+    doc_id: str | None = None,
+    config: Annotated[RunnableConfig, InjectedToolArg] = None,
+) -> str:
+    """
+    Semantic search over SEC filings via a dsRAG knowledge base. Pass the
+    user's question verbatim — the tool decomposes it into multiple
+    search queries internally (via dsRAG's auto-query helper, which is
+    domain-tuned for SEC filings) and runs them all against the KB.
+    Returns the most relevant multi-chunk *segments* (contiguous sections
+    identified by dsRAG's Relevant Segment Extraction). Segments include
+    an AutoContext header describing the source document and section.
+
+    Scoping: pass `doc_id` to restrict retrieval to a single filing
+    (recommended whenever the user's question names a specific ticker +
+    period). The KB holds multiple filings; without a filter, results
+    can come from any of them. Use the `doc_id` column in the system
+    prompt's filings_catalog to pick the right value (format:
+    TICKER_FORM_PERIOD, e.g. "ACT_10-Q_2024-09-30"). Pass doc_id=None to
+    search across all filings (appropriate for cross-filing comparisons).
+
+    Args:
+        question: The user's question (verbatim; do not paraphrase).
+        doc_id: Optional filing identifier to restrict retrieval to.
+            Must match a `doc_id` in filings_catalog exactly.
+
+    Returns:
+        JSON list of {score, doc_id, content} segments, highest score first.
+    """
+    return _dsrag_kb_impl(question, doc_id, config)
+
+
+@tool("dsrag_kb")
+def _dsrag_kb_list(
+    question: str,
+    doc_id: str | list[str] | None = None,
+    config: Annotated[RunnableConfig, InjectedToolArg] = None,
+) -> str:
+    """
+    Semantic search over SEC filings via a dsRAG knowledge base. Pass the
+    user's question verbatim — the tool decomposes it into multiple
+    search queries internally (via dsRAG's auto-query helper, which is
+    domain-tuned for SEC filings) and runs them all against the KB.
+    Returns the most relevant multi-chunk *segments* (contiguous sections
+    identified by dsRAG's Relevant Segment Extraction). Segments include
+    an AutoContext header describing the source document and section.
+
+    Scoping options for `doc_id`:
+      - **string** (e.g. "ACT_10-Q_2024-09-30") — restrict retrieval to
+        that single filing. Recommended when the user's question names a
+        specific ticker + period.
+      - **list of strings** (e.g. ["MTG_10-K_2024-12-31",
+        "RDN_10-K_2024-12-31"]) — restrict retrieval to a known subset
+        of filings. Use this for paired or cohort comparisons instead of
+        making N parallel calls. The KB returns top-K segments scored
+        across the whole subset, so coverage of the smaller filings can
+        suffer when scores skew. Prefer the list form for 2-3 filings;
+        for full 6-issuer cohort sweeps, fan-out (one call per filing)
+        still gives more reliable per-issuer coverage.
+      - **None** — search across ALL filings. Appropriate when you don't
+        know which filings to scope to.
+
+    Use the `doc_id` column in the system prompt's filings_catalog to pick
+    values exactly (format: TICKER_FORM_PERIOD).
+
+    Args:
+        question: The user's question (verbatim; do not paraphrase).
+        doc_id: Single doc_id, list of doc_ids, or None.
+
+    Returns:
+        JSON list of {score, doc_id, content} segments, highest score first.
+    """
+    return _dsrag_kb_impl(question, doc_id, config)
+
+
+# Backward-compat alias so existing imports (e.g. pipelines/build_wiki.py)
+# keep working. Defaults to the permissive variant since callers using it
+# directly (rather than via get_tools) usually want the broader signature.
+dsrag_kb = _dsrag_kb_list
+
+
 @tool
 def wiki_read_page(slug: str) -> str:
     """
@@ -331,17 +399,35 @@ def wiki_read_page(slug: str) -> str:
 def get_tools() -> list:
     """Return the tools bound to the ReAct agent.
 
-    Only `dsrag_kb` is bound here. `wiki_read_page` is reserved for
-    deterministic graph-side preload via `wiki_preload_node` — the
-    router decides whether a question's primary topic matches a wiki
-    page and, if so, the graph reads that page before the agent runs.
-    The agent itself doesn't have wiki_read_page available, which
-    enforces the "wiki at most once per turn" constraint structurally.
+    `dsrag_kb` is bound here in one of two schema variants:
+      - OFF mode: `_dsrag_kb_strict` (signature: `doc_id: str | None`).
+        The agent's tool schema doesn't include the list option, so
+        list-form is structurally impossible and the agent fan-outs
+        with single-doc calls — matching the pre-multi-doc-prototype
+        control behavior.
+      - filter / quota: `_dsrag_kb_list` (signature: `doc_id: str |
+        list[str] | None`). The agent can consolidate multi-doc calls.
+
+    Read fresh per call so an A/B/C eval can flip MULTI_DOC_FILTER
+    between runs without restarting the process; the next call to
+    `get_agent_chain` rebinds with the appropriate schema.
+
+    `wiki_read_page` is reserved for deterministic graph-side preload
+    via `wiki_preload_node` — the router decides whether a question's
+    primary topic matches a wiki page and, if so, the graph reads that
+    page before the agent runs. The agent itself doesn't have
+    wiki_read_page available, which enforces the "wiki at most once
+    per turn" constraint structurally.
 
     `memory_retrieval_tool` is only added when AgentCore Memory is
     configured (MEMORY_ID set).
     """
-    tools = [dsrag_kb]
+    _md_raw = os.environ.get("MULTI_DOC_FILTER", "off").strip().lower()
+    if _md_raw in ("filter", "quota", "true", "1"):
+        primary = _dsrag_kb_list
+    else:
+        primary = _dsrag_kb_strict
+    tools = [primary]
     if settings.MEMORY_ID:
         tools.append(memory_retrieval_tool)
     return tools
