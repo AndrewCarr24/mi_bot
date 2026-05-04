@@ -216,15 +216,25 @@ def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
         budget = max(0, HISTORY_TOKEN_BUDGET - count_tokens_approximately([question]))
         if budget == 0 or not rest:
             return [question]
+        # Pick start_on based on what's actually in `rest`:
+        #   - If any AIMessage is present (normal mid-ReAct state), use
+        #     start_on="ai" to never orphan a ToolMessage from its parent
+        #     AIMessage(tool_calls). Providers reject that shape.
+        #   - If `rest` is all Humans (the post-conversion state inside
+        #     finalize_node, where _convert_tool_messages_to_human has
+        #     already stripped every AIMessage(tool_calls) and replaced
+        #     each ToolMessage with a synthesized HumanMessage carrying
+        #     "[Tool result for ...]"), use start_on="human". Otherwise
+        #     trim_messages returns [] and finalize loses every tool
+        #     result the agent retrieved before the cap fired.
+        has_ai = any(isinstance(m, AIMessage) for m in rest)
+        start_on = "ai" if has_ai else "human"
         kept_rest = trim_messages(
             rest,
             max_tokens=budget,
             strategy="last",
             token_counter=count_tokens_approximately,
-            # Must start on an AIMessage(tool_calls=...) — never on a
-            # bare ToolMessage, which would orphan its parent. Providers
-            # reject "Tool not preceded by tool_calls".
-            start_on="ai",
+            start_on=start_on,
             end_on=("human", "tool"),
             allow_partial=False,
         )
