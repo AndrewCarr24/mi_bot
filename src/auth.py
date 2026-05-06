@@ -42,6 +42,17 @@ def _client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
+def _safe_next(value: str) -> str:
+    """Allow only relative paths in the `next` redirect target.
+    Anything with a scheme or netloc is rejected and falls back to '/'.
+    """
+    from urllib.parse import urlparse
+    parsed = urlparse(value)
+    if parsed.scheme or parsed.netloc:
+        return "/"
+    return value or "/"
+
+
 def _b64encode(b: bytes) -> str:
     return base64.urlsafe_b64encode(b).rstrip(b"=").decode("ascii")
 
@@ -169,7 +180,7 @@ def register_auth_routes(app: FastAPI) -> None:
 
     @app.get("/login", response_class=HTMLResponse)
     async def login_form(request: Request):
-        next_url = request.query_params.get("next", "/")
+        next_url = _safe_next(request.query_params.get("next", "/"))
         return _templates.TemplateResponse(
             request, "login.html", {"next": next_url, "error": None}
         )
@@ -178,8 +189,9 @@ def register_auth_routes(app: FastAPI) -> None:
     async def login_submit(
         request: Request,
         password: str = Form(...),
-        next: str = Form("/"),
+        next_url: str = Form("/", alias="next"),
     ):
+        next_url = _safe_next(next_url)
         ip = _client_ip(request)
         if not _rate_limiter.check_and_record(ip):
             logger.warning(f"login rate limit hit for ip={ip}")
@@ -191,20 +203,23 @@ def register_auth_routes(app: FastAPI) -> None:
         expected = os.environ.get("AGENT_PASSWORD", "")
         secret = os.environ.get("COOKIE_SECRET", "")
         if not expected or not secret:
+            logger.error("login_submit: AGENT_PASSWORD or COOKIE_SECRET not set; returning 503")
             return PlainTextResponse("auth not configured", status_code=503)
 
         if not hmac.compare_digest(password, expected):
+            logger.warning("login failed for ip=%s", ip)
             return _templates.TemplateResponse(
                 request,
                 "login.html",
-                {"next": next, "error": "Incorrect password."},
+                {"next": next_url, "error": "Incorrect password."},
                 status_code=200,
             )
 
         # Success: sign cookie + redirect.
+        logger.info("login succeeded for ip=%s", ip)
         payload = {"exp": int(time.time()) + 30 * 86400, "v": 1}
         cookie_value = sign_cookie(payload, secret=secret)
-        response = RedirectResponse(next, status_code=302)
+        response = RedirectResponse(next_url, status_code=302)
         response.set_cookie(
             key="agent_session",
             value=cookie_value,

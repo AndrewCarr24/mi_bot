@@ -22,7 +22,11 @@ def test_verify_rejects_tampered_signature():
 
     cookie = sign_cookie({"exp": int(time.time()) + 100, "v": 1}, secret="s")
     body, sig = cookie.split(".")
-    tampered = f"{body}.{sig[:-1]}A"
+    # Flip a char in the middle of the signature, well away from base64
+    # trailing-bit ambiguity. Pick a replacement different from current char.
+    mid = len(sig) // 2
+    replacement = "A" if sig[mid] != "A" else "B"
+    tampered = f"{body}.{sig[:mid]}{replacement}{sig[mid+1:]}"
     assert verify_cookie(tampered, secret="s") is None
 
 
@@ -248,6 +252,24 @@ def test_login_post_respects_next_param(client):
     )
     assert r.status_code == 302
     assert r.headers["location"] == "/chat"
+
+
+def test_login_post_rejects_absolute_next(client):
+    r = client.post(
+        "/login",
+        data={"password": "test-password-123", "next": "https://evil.com/"},
+        follow_redirects=False,
+    )
+    assert r.status_code == 302
+    assert r.headers["location"] == "/"
+
+
+def test_login_get_rejects_absolute_next(client):
+    # The GET form should also sanitize: rendered hidden field should not
+    # contain the malicious absolute URL.
+    r = client.get("/login?next=https%3A%2F%2Fevil.com%2F")
+    assert r.status_code == 200
+    assert "evil.com" not in r.text
 
 
 def test_login_post_rate_limits_after_5_attempts(client):
