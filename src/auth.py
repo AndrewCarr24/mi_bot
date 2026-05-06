@@ -11,7 +11,8 @@ import hmac
 import hashlib
 import json
 import time
-from typing import Optional
+from collections import defaultdict
+from typing import Dict, List, Optional
 
 
 def _b64encode(b: bytes) -> str:
@@ -48,3 +49,33 @@ def verify_cookie(value: str, secret: str) -> Optional[dict]:
         return payload
     except (ValueError, json.JSONDecodeError, UnicodeDecodeError):
         return None
+
+
+class LoginRateLimiter:
+    """Per-IP token-bucket-ish rate limiter. In-memory; single-instance only.
+
+    Usage: call `check_and_record(ip)`; returns True if the request is
+    within the limit (and records the attempt) or False if blocked.
+    """
+
+    def __init__(self, max_attempts: int = 5, window_sec: float = 60.0):
+        self.max_attempts = max_attempts
+        self.window_sec = window_sec
+        self._attempts: Dict[str, List[float]] = defaultdict(list)
+
+    def check_and_record(self, ip: str) -> bool:
+        now = time.monotonic()
+        cutoff = now - self.window_sec
+        self._attempts[ip] = [t for t in self._attempts[ip] if t > cutoff]
+        if len(self._attempts[ip]) >= self.max_attempts:
+            return False
+        self._attempts[ip].append(now)
+        return True
+
+    def reset(self) -> None:
+        self._attempts.clear()
+
+
+# Module-level instance used by the login route. Tests should call `.reset()`
+# in conftest's `auth_app` fixture so state doesn't leak across tests.
+_rate_limiter = LoginRateLimiter()

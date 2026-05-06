@@ -56,3 +56,57 @@ def test_verify_rejects_malformed():
     assert verify_cookie("not.a.cookie", secret="s") is None
     assert verify_cookie("", secret="s") is None
     assert verify_cookie("nodot", secret="s") is None
+
+
+# ---------------------------------------------------------------- rate limit --
+
+def test_rate_limiter_allows_first_5(monkeypatch):
+    from src.auth import LoginRateLimiter
+
+    rl = LoginRateLimiter(max_attempts=5, window_sec=60)
+    for _ in range(5):
+        assert rl.check_and_record("1.2.3.4") is True
+
+
+def test_rate_limiter_blocks_6th():
+    from src.auth import LoginRateLimiter
+
+    rl = LoginRateLimiter(max_attempts=5, window_sec=60)
+    for _ in range(5):
+        rl.check_and_record("1.2.3.4")
+    assert rl.check_and_record("1.2.3.4") is False
+
+
+def test_rate_limiter_separates_ips():
+    from src.auth import LoginRateLimiter
+
+    rl = LoginRateLimiter(max_attempts=5, window_sec=60)
+    for _ in range(5):
+        rl.check_and_record("1.2.3.4")
+    # Different IP starts fresh.
+    assert rl.check_and_record("5.6.7.8") is True
+
+
+def test_rate_limiter_window_expires(monkeypatch):
+    from src.auth import LoginRateLimiter
+
+    fake_time = [1000.0]
+    monkeypatch.setattr("src.auth.time.monotonic", lambda: fake_time[0])
+
+    rl = LoginRateLimiter(max_attempts=5, window_sec=60)
+    for _ in range(5):
+        rl.check_and_record("1.2.3.4")
+    assert rl.check_and_record("1.2.3.4") is False
+
+    fake_time[0] += 61  # past the window
+    assert rl.check_and_record("1.2.3.4") is True
+
+
+def test_rate_limiter_reset():
+    from src.auth import LoginRateLimiter
+
+    rl = LoginRateLimiter(max_attempts=5, window_sec=60)
+    for _ in range(5):
+        rl.check_and_record("1.2.3.4")
+    rl.reset()
+    assert rl.check_and_record("1.2.3.4") is True
