@@ -10,6 +10,7 @@ import base64
 import hmac
 import hashlib
 import json
+import logging
 import os
 import time
 from collections import defaultdict
@@ -18,8 +19,11 @@ from urllib.parse import quote
 
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-from starlette.responses import PlainTextResponse, RedirectResponse, Response
+from starlette.responses import PlainTextResponse, RedirectResponse
 from starlette.types import ASGIApp
+
+
+logger = logging.getLogger(__name__)
 
 
 def _b64encode(b: bytes) -> str:
@@ -121,6 +125,11 @@ class AuthMiddleware(BaseHTTPMiddleware):
         password = os.environ.get("AGENT_PASSWORD", "")
         secret = os.environ.get("COOKIE_SECRET", "")
         if not password or not secret:
+            logger.error(
+                "AuthMiddleware: AGENT_PASSWORD or COOKIE_SECRET not set; "
+                "returning 503 for path=%s",
+                path,
+            )
             return PlainTextResponse(
                 "auth not configured", status_code=503
             )

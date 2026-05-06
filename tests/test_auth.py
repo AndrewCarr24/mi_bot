@@ -125,11 +125,27 @@ def test_login_get_bypasses_auth(client):
     assert r.status_code == 200  # login form rendered
 
 
+def test_static_bypasses_auth(client):
+    # The /static/* prefix is allow-listed. There's no actual static route
+    # mounted in the test app, so we expect 404 — the key is that we get
+    # 404 (router miss) and not 302 (middleware redirect).
+    r = client.get("/static/app.js", follow_redirects=False)
+    assert r.status_code != 302
+
+
 def test_protected_path_redirects_when_no_cookie(client):
     r = client.get("/protected", follow_redirects=False)
     assert r.status_code == 302
     assert "/login" in r.headers["location"]
     assert "next=%2Fprotected" in r.headers["location"]
+
+
+def test_protected_path_next_includes_query_string(client):
+    # Query-string portion of the original URL must be preserved (URL-encoded)
+    # in the `next` redirect param so login can bounce back accurately.
+    r = client.get("/protected?q=foo", follow_redirects=False)
+    assert r.status_code == 302
+    assert "next=%2Fprotected%3Fq%3Dfoo" in r.headers["location"]
 
 
 def test_protected_path_passes_through_with_valid_cookie(client):
