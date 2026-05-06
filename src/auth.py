@@ -17,13 +17,29 @@ from collections import defaultdict
 from typing import Optional
 from urllib.parse import quote
 
+from pathlib import Path
+
+from fastapi import FastAPI, Form, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.requests import Request
 from starlette.responses import PlainTextResponse, RedirectResponse
 from starlette.types import ASGIApp
 
 
 logger = logging.getLogger(__name__)
+
+# Jinja2 templates directory; resolved relative to the agent_fin/ root.
+_TEMPLATES_DIR = Path(__file__).resolve().parents[1] / "templates"
+_templates = Jinja2Templates(directory=str(_TEMPLATES_DIR))
+
+
+def _client_ip(request: Request) -> str:
+    """Best-effort client IP. App Runner sets X-Forwarded-For."""
+    xff = request.headers.get("x-forwarded-for", "")
+    if xff:
+        return xff.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
 
 
 def _b64encode(b: bytes) -> str:
@@ -148,6 +164,59 @@ class AuthMiddleware(BaseHTTPMiddleware):
         )
 
 
-def register_auth_routes(app) -> None:
-    """Register /login (GET+POST) and /logout. Implemented in Task 7."""
-    pass  # placeholder; Task 7 fills this in
+def register_auth_routes(app: FastAPI) -> None:
+    """Wire /login (GET+POST) and /logout onto the app."""
+
+    @app.get("/login", response_class=HTMLResponse)
+    async def login_form(request: Request):
+        next_url = request.query_params.get("next", "/")
+        return _templates.TemplateResponse(
+            request, "login.html", {"next": next_url, "error": None}
+        )
+
+    @app.post("/login")
+    async def login_submit(
+        request: Request,
+        password: str = Form(...),
+        next: str = Form("/"),
+    ):
+        ip = _client_ip(request)
+        if not _rate_limiter.check_and_record(ip):
+            logger.warning(f"login rate limit hit for ip={ip}")
+            return PlainTextResponse(
+                "Too many attempts. Try again in a minute.",
+                status_code=429,
+            )
+
+        expected = os.environ.get("AGENT_PASSWORD", "")
+        secret = os.environ.get("COOKIE_SECRET", "")
+        if not expected or not secret:
+            return PlainTextResponse("auth not configured", status_code=503)
+
+        if not hmac.compare_digest(password, expected):
+            return _templates.TemplateResponse(
+                request,
+                "login.html",
+                {"next": next, "error": "Incorrect password."},
+                status_code=200,
+            )
+
+        # Success: sign cookie + redirect.
+        payload = {"exp": int(time.time()) + 30 * 86400, "v": 1}
+        cookie_value = sign_cookie(payload, secret=secret)
+        response = RedirectResponse(next, status_code=302)
+        response.set_cookie(
+            key="agent_session",
+            value=cookie_value,
+            max_age=30 * 86400,
+            httponly=True,
+            secure=True,
+            samesite="lax",
+        )
+        return response
+
+    @app.get("/logout")
+    async def logout():
+        response = RedirectResponse("/login", status_code=302)
+        response.delete_cookie("agent_session")
+        return response

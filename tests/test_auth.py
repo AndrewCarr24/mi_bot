@@ -214,3 +214,75 @@ def test_503_when_COOKIE_SECRET_unset(monkeypatch):
     c = TestClient(app)
     r = c.get("/x")
     assert r.status_code == 503
+
+
+# ---------------------------------------------------------------- login routes --
+
+def test_login_post_correct_password_sets_cookie_and_redirects(client):
+    r = client.post(
+        "/login",
+        data={"password": "test-password-123", "next": "/"},
+        follow_redirects=False,
+    )
+    assert r.status_code == 302
+    assert r.headers["location"] == "/"
+    assert "agent_session" in r.cookies
+
+
+def test_login_post_wrong_password_no_cookie(client):
+    r = client.post(
+        "/login",
+        data={"password": "wrong", "next": "/"},
+        follow_redirects=False,
+    )
+    assert r.status_code == 200  # re-renders form
+    assert "agent_session" not in r.cookies
+    assert "incorrect" in r.text.lower() or "wrong" in r.text.lower()
+
+
+def test_login_post_respects_next_param(client):
+    r = client.post(
+        "/login",
+        data={"password": "test-password-123", "next": "/chat"},
+        follow_redirects=False,
+    )
+    assert r.status_code == 302
+    assert r.headers["location"] == "/chat"
+
+
+def test_login_post_rate_limits_after_5_attempts(client):
+    for _ in range(5):
+        client.post("/login", data={"password": "wrong", "next": "/"})
+    r = client.post(
+        "/login", data={"password": "wrong", "next": "/"},
+        follow_redirects=False,
+    )
+    assert r.status_code == 429
+
+
+def test_login_get_renders_form(client):
+    r = client.get("/login")
+    assert r.status_code == 200
+    assert "password" in r.text.lower()
+
+
+def test_login_get_passes_next_to_form(client):
+    r = client.get("/login?next=%2Fchat")
+    assert r.status_code == 200
+    assert "/chat" in r.text
+
+
+def test_logout_clears_cookie(client):
+    # Set the cookie first via login.
+    client.post(
+        "/login", data={"password": "test-password-123", "next": "/"},
+        follow_redirects=False,
+    )
+    # Then logout.
+    r = client.get("/logout", follow_redirects=False)
+    assert r.status_code == 302
+    assert "/login" in r.headers["location"]
+    # Cookie should be cleared (Set-Cookie with Max-Age=0 or expired).
+    set_cookie = r.headers.get("set-cookie", "")
+    assert "agent_session=" in set_cookie
+    assert ("max-age=0" in set_cookie.lower()) or ("expires=" in set_cookie.lower())
