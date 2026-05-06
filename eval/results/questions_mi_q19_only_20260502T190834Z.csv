@@ -1,0 +1,14 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","I'll need to pull the FY 2024 capital return figures for each of the six MI companies. Let me start with parallel queries to their FY 2024 10-Ks.Let me now get the specific dollar amounts for common dividends at Essent, and verify a few figures.Here is the FY 2024 capital returned to common shareholders (share repurchases + common dividends, including specials) across the six MI cohort issuers, compiled from each company's FY 2024 10-K:
+
+| Company (Ticker) | Share Repurchases | Common Dividends (incl. specials) | Total Capital Returned |
+|---|---|---|---|
+| **Arch Capital (ACGL)** | $24M | $1,866M (incl. $1.9B special dividend) | **$1,890M** |
+| **Enact Holdings (ACT)** | $244M | $112M | **$356M** |
+| **Essent (ESNT)** | $102.7M | $118.0M | **$220.7M** |
+| **MGIC (MTG)** | $566.6M | $130.5M | **$697.1M** |
+| **NMI Holdings (NMIH)** | $97.7M | $0 (no dividends paid) | **$97.7M** |
+| **Radian (RDN)** | $224M | $153M | **$377M** |
+| **Aggregate Total** | **$1,259M** | **$2,379.5M** | **≈ $3.64B** |
+
+The aggregate capital returned to common shareholders across the six MI companies in FY 2024 was **approximately $3.64 billion**. Arch Capital alone accounted for just over half of that total, driven by its $1.9 billion special dividend. Excluding Arch's special dividend, the aggregate would be roughly $1.74 billion.",False,Agent reports $3.64B vs. expected $3.67B; Arch figure is $1.89B not $1.92B as expected.,0.016057,0.000987,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 6971}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7683}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7687}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7381}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7431}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6759}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6852}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7298}]",58062,82.13

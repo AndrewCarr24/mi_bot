@@ -1,0 +1,18 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","Based on the FY2024 10-K filings for each of the six MI cohort issuers, the aggregate capital returned to common shareholders (share repurchases plus common dividends, including specials) for full-year 2024 was approximately **$3.66 billion**. Here is the breakdown:
+
+| Company | Share Repurchases | Common Dividends (incl. specials) | Total |
+|---|---|---|---|
+| **ACGL** (Arch Capital) | $23.5M¹ | $1,881M² (special $1.9B) | **$1,904.5M** |
+| **MTG** (MGIC) | $569.5M³ | $130.5M | **$700.0M** |
+| **RDN** (Radian) | $224M | $153M⁴ | **$377.0M** |
+| **ACT** (Enact) | $244M | $112M | **$356.0M** |
+| **ESNT** (Essent) | $111.5M⁵ | $118.0M | **$229.5M** |
+| **NMIH** (NMI Holdings) | $97.7M | $0 | **$97.7M** |
+| **Aggregate** | **~$1,270M** | **~$2,395M** | **~$3,665M** |
+
+¹ Per Note 21 — share repurchase program; excludes de minimis treasury activity for share-based compensation.  
+² Common share dividends line in equity statement ($1,881M) reflects the $1.9B special dividend paid in December 2024.  
+³ Cash-flow-statement repurchases ($569.5M); the difference from Note 13's $566.6M is commission/timing.  
+⁴ Includes dividend equivalents on RSUs per MD&A.  
+⁵ Parent-company cash-flow treasury-stock line includes open-market repurchases plus shares withheld for employee tax settlements.",True,Aggregate $3.66B matches expected $3.67B within rounding tolerance; per-issuer breakdowns align.,0.012389,0.000976,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 6757}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8270}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8467}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7944}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7701}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7914}]",47053,77.04

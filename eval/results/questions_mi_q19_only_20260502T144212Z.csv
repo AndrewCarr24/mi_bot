@@ -1,0 +1,16 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","I'll look up the FY2024 share repurchases and dividends (including specials) for each of the six MI companies. Let me search their FY2024 10-Ks in parallel.Let me get the specific cash flow details I'm missing for Essent and NMIH.Here is the FY2024 aggregate capital returned to common shareholders across the six MI cohort issuers, based on their 10-K filings.
+
+| Company (Ticker) | Share Repurchases ($M) | Common Dividends incl. Specials ($M) | Total Returned ($M) |
+|---|---|---|---|
+| **Arch Capital (ACGL)** | $24 | $1,866 (incl. $1.9B special) | $1,890 |
+| **Enact Holdings (ACT)** | $244 | $112 | $356 |
+| **Essent Group (ESNT)** | $112 | $118 | $230 |
+| **MGIC (MTG)** | $570 | $131 | $700 |
+| **NMI Holdings (NMIH)** | $98 | $0 (no dividends paid) | $98 |
+| **Radian Group (RDN)** | $224 | $153 | $377 |
+| **Aggregate** | **$1,271** | **$2,380** | **$3,650** |
+
+**Total FY2024 aggregate capital returned to common shareholders across the six MI cohort issuers was approximately $3.65 billion.**
+
+Arch Capital's $1.9B special dividend drove the bulk of the total. Excluding Arch's special dividend, the other five issuers returned a combined ~$1.76 billion. MGIC was the largest returner among the pure-play MI companies at $700M, followed by Radian ($377M), Enact ($356M), Essent ($230M), and NMIH ($98M, which was all buybacks as NMIH does not pay dividends).",True,Agent answer of $3.65B matches expected $3.67B within 1% tolerance; per-issuer breakdowns align closely.,0.01688,0.000985,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 6845}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6229}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7518}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7351}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7895}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7321}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5771}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7052}]",55982,93.35

@@ -1,0 +1,94 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"What was MGIC Investment Corporation's PMIERs Available Assets and excess over Minimum Required Assets at December 31, 2024?","Available Assets totaled approximately $5.8 billion, exceeding Minimum Required Assets by approximately $2.2 billion (sufficiency ratio of approximately 1.6x).","At **December 31, 2024**, MGIC Investment Corporation reported the following under the PMIERs:
+
+- **Available Assets**: **$5.8 billion**
+- **Excess over Minimum Required Assets**: **$2.2 billion**
+
+The PMIERs financial requirements mandate that a mortgage insurer's Available Assets (the most liquid assets) equal or exceed its Minimum Required Assets (based on the insurer's book of risk in force). MGIC's $2.2 billion cushion meant it was in full compliance and eligible to insure loans purchased by the GSEs (MTG, FY2024 10-K).
+
+For context, the filing also notes that if the August 2024 PMIERs update to the calculation of Available Assets had been fully effective at that date (rather than phased in through September 30, 2026), Available Assets would have decreased by approximately $50 million (roughly 1%), reducing the excess to about $2.1 billion.",True,"All core figures match—$5.8B Available Assets, $2.2B excess, 1.6x sufficiency ratio confirmed.",0.002303,0.000585,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 4690}]",4690,17.86
+"How did Radian Group's primary mortgage insurance in force change from December 31, 2023 to December 31, 2024?","Primary insurance in force grew from approximately $270.0 billion at year-end 2023 to approximately $275.1 billion at year-end 2024, an increase of about $5.1 billion (~1.9%). 2024 NIW of $52.0 billion drove the growth, partially offset by cancellations.","Radian Group's **primary insurance in force (IIF) increased from $270.0 billion at December 31, 2023 to $275.1 billion at December 31, 2024**, a rise of approximately **$5.1 billion** (or about 1.9%).
+
+In exact figures from the 10-K table (in millions):
+
+| Metric | Dec 31, 2023 | Dec 31, 2024 | Change |
+|---|---|---|---|
+| Primary IIF | $269,979 | $275,126 | +$5,147 |
+
+*Source: Radian Group 10-K for FY 2024, ""IIF and RIF"" table in MD&A.*",True,"All key figures match—$270.0B to $275.1B increase of $5.1B (~1.9%), with accurate supporting detail.",0.005422,0.000588,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 5151}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4914}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5443}]",15508,29.99
+"What was Essent Group's new insurance written (NIW) for the year ended December 31, 2024?","Approximately $45.6 billion, compared to $47.7 billion in FY2023 and $63.1 billion in FY2022.","Essent Group's new insurance written (NIW) for the year ended December 31, 2024 was **$45.6 billion** (precisely $45,561,332,000, per the detailed table on page 61 of the 10-K). This compares with $47.7 billion in 2023 and $63.1 billion in 2022 (ESNT, FY 2024 10-K).",True,All figures match expected answer exactly with proper year-over-year comparisons provided.,0.002532,0.000395,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 6409}]",6409,12.29
+"What was NMI Holdings' annualized persistency rate at December 31, 2024, and how did it compare to year-end 2023?","85% at December 31, 2024, compared to 86% at December 31, 2023. NMI noted persistency remains historically high due to slower mortgage refinancing activity given the prevailing interest-rate environment.","**NMI Holdings' annualized persistency rate was 85% at December 31, 2024**, down slightly from **86% at December 31, 2023**, according to the NMIH 2024 10-K (NMIH, FY 2024).
+
+The 1-percentage-point decline reflects a modest uptick in portfolio run-off (4.5% quarterly run-off in Q4 2024 vs. 3.4% in Q4 2023), though persistency remained historically elevated due to the ongoing low pace of mortgage refinancing activity in the prevailing interest-rate environment.",True,Both rates match expected answer with accurate comparison and context provided.,0.002347,0.00043,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 4030}]",4030,13.1
+"In its FY2024 10-K, did MGIC report favorable or unfavorable prior-year loss reserve development on previously received delinquency notices? Approximately what was the dollar amount?",Favorable. Re-estimation of loss reserves on previously received delinquency notices resulted in approximately $212.5 million of favorable development in FY2024 (versus $208.5 million favorable in FY2023). Driven primarily by lower expected claim rates as home price appreciation enabled some borrowers to cure delinquencies through property sale.,"In its FY2024 10-K, MGIC reported **favorable** prior-year loss reserve development (i.e., a redundancy) on previously received delinquency notices of approximately **$212.5 million**. This is explicitly noted in the MD&A as ""favorable development"" and appears in Table 8.1 as $(212,476)$ thousand under ""Prior years"" losses incurred. The favorable development was primarily driven by a decrease in the expected claim rate on previously received delinquencies, aided by home price appreciation that allowed some borrowers to cure through property sales. (MTG, FY2024 10-K)",True,Favorable direction and $212.5 million amount match expected answer precisely.,0.002345,0.000489,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 5432}]",5432,11.59
+"What were NMI Holdings' three largest states by primary risk in force concentration at December 31, 2024?","California (10.1%), Texas (8.6%), and Florida (7.3%).","As of December 31, 2024, NMI Holdings' three largest states by primary risk-in-force (RIF) concentration were:
+
+1. **California** — 10.1%
+2. **Texas** — 8.6%
+3. **Florida** — 7.3%
+
+*(Source: NMIH 10-K for FY 2024, Geographic Dispersion table — ""Top 10 primary RIF by state"")*",True,All three states and percentages match expected answer exactly.,0.005373,0.000349,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 4460}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4459}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5310}]",14229,26.03
+"What was Arch Capital Group's mortgage insurance subsidiaries' PMIERs Sufficiency Ratio at December 31, 2024, and how did it change from year-end 2023?","186% at December 31, 2024, down from 213% at December 31, 2023 — a decline of about 27 percentage points.","Based on my search of Arch Capital's 2024 10-K, 2023 10-K, Q4 2024 earnings release (8-K filed February 10, 2025), and the Q4 2024 earnings call transcript, **Arch Capital does not disclose a specific PMIERs Sufficiency Ratio percentage** in its SEC filings.
+
+The 2024 10-K (ACGL, FY 2024) states only that:
+
+> *""Our eligible mortgage insurers each satisfied the PMIERs' financial requirements as of December 31, 2024.""*
+
+And the 2023 10-K (ACGL, FY 2023) similarly states:
+
+> *""Our eligible mortgage insurers each satisfied the PMIERs' financial requirements as of December 31, 2023.""*
+
+**Unlike peers** such as MGIC, Radian, Enact, and NMI Holdings — which routinely disclose their PMIERs sufficiency ratio as an explicit percentage (e.g., ""available assets were XX% of minimum required assets"") — Arch Capital's public filings do not include that specific metric. The company only provides a pass/fail confirmation of compliance rather than the actual ratio.
+
+If you need this figure, it may be available in Arch's investor presentations or financial supplements posted on the company's website (referenced in their 8-K as the ""Financial Supplement dated December 31, 2024""), but those materials are not included in the current knowledge base.",False,Expected answer provides specific ratios (186% and 213%) that agent claims are not disclosed in SEC filings.,0.027483,0.000689,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 4995}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5732}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6673}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5136}, {""tool"": ""wiki_read_page"", ""tokens_est"": 50}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7529}, {""tool"": ""wiki_read_page"", ""tokens_est"": 46}, {""tool"": ""wiki_read_page"", ""tokens_est"": 50}, {""tool"": ""wiki_read_page"", ""tokens_est"": 46}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5243}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5257}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7162}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5919}]",53838,95.14
+Did Arch Capital Group repurchase common shares in fiscal year 2024? Approximately how much?,Yes. During 2024 Arch repurchased approximately $24 million of common shares under its Board-authorized share repurchase program. (Down sharply from $586 million in 2022; no repurchases in 2023.),"Yes, Arch Capital Group repurchased common shares in fiscal year 2024. Per the **Share Repurchase Program** table in its 2024 10-K (Note 21 – Shareholders' Equity):
+
+| Metric | FY 2024 Value |
+|---|---|
+| **Aggregate cost of shares repurchased** | **$23.5 million** (≈ $24 million per the overview section) |
+| **Shares repurchased** | **0.3 million** (300,000 shares) |
+| **Average price per share** | **$89.65** |
+
+The 10-K notes that at December 31, 2024, $996.8 million remained available under the board-authorized share repurchase program. Repurchases are described as being made on an ""opportunistic basis"" depending on market conditions and other factors.",True,Agent confirms $24M repurchases in 2024 with accurate supporting details from 10-K filing.,0.002544,0.000545,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 5141}]",5141,14.47
+"Did Enact Holdings pay a special dividend during 2024, and what was its regular quarterly common-stock dividend rate at year-end 2024?",No special dividend in 2024 (Enact had paid special dividends of $0.71/share in Q4 2023 and $1.12/share in Q4 2022). The regular quarterly dividend rose from $0.16 per share to $0.185 per share starting in Q2 2024 and was paid at $0.185/share each quarter through year-end.,"**Enact Holdings did not pay a special dividend in 2024.** The company paid special cash dividends of $1.12/share in Q4 2022 and $0.71/share in Q4 2023, but the 10-K makes no mention of a special dividend during 2024. (ACT, FY 2024 10-K)
+
+**The regular quarterly common-stock dividend rate at year-end 2024 was $0.185 per share.** The quarterly dividend was $0.16/share through Q1 2024 and was increased to $0.185/share starting with the Q2 2024 payment (paid in June, September, and December 2024). The Q4 2024 dividend of $0.185/share was announced alongside the full-year 2024 results. (ACT, FY 2024 10-K; ACT, Q4 2024 8-K dated Feb 4, 2025)",True,"Both key facts match—no special dividend in 2024, and $0.185/share quarterly rate at year-end.",0.003412,0.00063,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 5697}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4352}]",10049,20.46
+"In its FY2024 10-K, what does Arch Capital identify as the expected impact of the August 2024 GSE updates to PMIERs on its mortgage insurance subsidiaries' available assets and Sufficiency Ratio?","The August 2024 PMIERs updates introduce new deductions to available assets for investment risk, becoming effective March 31, 2025 and phasing in through September 30, 2026. If fully implemented as of December 31, 2024 (without phase-in), the changes would have reduced Arch's available assets by approximately 17% and lowered the pro-forma PMIERs Sufficiency Ratio to approximately 154% (versus the reported 186%).","Let me also check the wiki page on the PMIERs August 2024 update for additional context.Based on Arch Capital's FY2024 10-K (filed for the year ended December 31, 2024), the filing does **not** provide a specific quantitative estimate of the expected impact on available assets or the PMIERs Sufficiency Ratio from the August 2024 GSE updates. It discusses the change only qualitatively. Here is precisely what it says:
+
+**What the update does:**
+> *""In August 2024, the GSEs updated PMIERs to incorporate new deductions to the definition of available assets for investment risk.""*
+
+**Effective date and phase-in:**
+> *""This update will become effective March 31, 2025, but the impact will be phased in through September 30, 2026.""*
+
+**Current compliance status (baseline):**
+> *""Our eligible mortgage insurers each satisfied the PMIERs' financial requirements as of December 31, 2024.""*
+
+**Factors that could affect the eventual impact:**
+> *""Further, the amount of assets required to satisfy the revised financial requirements of the PMIERs may be affected by many factors, including macro-economic conditions, the size and composition of our mortgage insurance portfolio, and the amount of risk ceded to reinsurers that may be deducted in our calculation of 'minimum required assets.'""*
+
+And separately:
+
+> *""If, absent other changes, Arch MI U.S.'s mix of business changes to include more loans with higher loan-to-value ratios or lower credit scores, it will have a higher minimum required asset amount under the PMIERs and, accordingly, be required to hold more capital in order to maintain GSE eligibility.""*
+
+**Summary:** The 10-K identifies the August 2024 PMIERs update as introducing new deductions to the definition of available assets (targeting investment risk), with a phased implementation from March 31, 2025 through September 30, 2026. It confirms that as of December 31, 2024, Arch's mortgage insurance subsidiaries (AMIC and UGRIC) were in compliance. However, the filing does **not** disclose a specific dollar amount or percentage by which available assets are expected to decrease or by which the Sufficiency Ratio is expected to be affected. The eventual impact is described as dependent on multiple forward-looking factors — macroeconomic conditions, portfolio composition, and reinsurance structures — none of which are quantified in the filing.",False,"Agent states the 10-K provides no quantitative estimates, but the expected answer specifies ~17% reduction in available assets and ~154% pro-forma Sufficiency Ratio, which contradicts the agent's conclusion.",0.012068,0.00111,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 5151}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6068}, {""tool"": ""wiki_read_page"", ""tokens_est"": 52}, {""tool"": ""wiki_read_page"", ""tokens_est"": 46}, {""tool"": ""wiki_read_page"", ""tokens_est"": 49}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7496}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6569}]",25431,65.26
+"What was MGIC's new insurance written (NIW) in Q3 2024, and how did it compare to Q2 2024?","Q3 2024 NIW was $17.2 billion, up from $13.5 billion in Q2 2024 — a sequential increase of approximately $3.7 billion (~27%).","**MGIC's NIW:**  
+- **Q3 2024:** $17.2 billion (MTG, Q3 2024 10-Q)  
+- **Q2 2024:** $13.5 billion (MTG, Q2 2024 10-Q)  
+
+**Comparison:** NIW increased by **$3.7 billion (≈27%)** quarter over quarter, from $13.5B in Q2 2024 to $17.2B in Q3 2024. MGIC attributed the year-over-year increase in its Q3 filing to a higher expected market position.",True,"All figures match exactly—Q3 NIW $17.2B, Q2 NIW $13.5B, increase $3.7B (~27%).",0.004086,0.000549,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 4745}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4981}]",9726,22.09
+"What was Essent Group's primary insurance in force at March 31, 2025, and how did it change from December 31, 2024?","Approximately $244.7 billion at March 31, 2025, up from approximately $243.6 billion at December 31, 2024 — an increase of about $1.1 billion (~0.4%).","I now have the figures from the earnings transcripts. Here's the answer:
+
+**As of March 31, 2025**, Essent Group's U.S. mortgage insurance in force (primary IIF) was **$245 billion** (ESNT, Q1 2025 earnings call).
+
+**As of December 31, 2024**, it was **$244 billion** (ESNT, Q4 2024 earnings call).
+
+**Change:** Insurance in force increased by **$1 billion**, or roughly **+0.4%** over the quarter. This modest growth reflects the continued impact of elevated mortgage interest rates suppressing origination volumes and refinancing activity, while high persistency (86% as of March 31, 2025) helped keep the in-force book stable.",False,Agent figures ($245B and $244B) don't match expected values ($244.7B and $243.6B); rounding differences too large.,0.028767,0.000573,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 4677}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5030}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4312}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4760}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4727}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5320}, {""tool"": ""wiki_read_page"", ""tokens_est"": 50}, {""tool"": ""wiki_read_page"", ""tokens_est"": 46}, {""tool"": ""wiki_read_page"", ""tokens_est"": 50}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4305}, {""tool"": ""dsrag_kb"", ""tokens_est"": 3252}, {""tool"": ""dsrag_kb"", ""tokens_est"": 19}, {""tool"": ""dsrag_kb"", ""tokens_est"": 19}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4715}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4291}]",45573,103.4
+"What were Radian Guaranty's PMIERs Available Assets and PMIERs Excess Available Assets at March 31, 2025?","PMIERs Available Assets totaled approximately $6.0 billion at March 31, 2025, with PMIERs Excess Available Assets of approximately $2.1 billion.","As of **March 31, 2025**, Radian Guaranty reported:
+
+- **PMIERs Available Assets:** **$6.0 billion**
+- **PMIERs Excess Available Assets (Cushion):** **$2.1 billion** (53% above Minimum Required Assets)
+
+For comparison, at December 31, 2024, Available Assets were also $6.0 billion, and the Cushion was $2.2 billion (56%).
+
+*Source: RDN 10-Q for Q1 2025 (period ended March 31, 2025), Management's Discussion and Analysis — Mortgage Insurance section.*",True,Both figures match expected answer exactly ($6.0B and $2.1B).,0.002332,0.000461,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 4235}]",4235,13.96

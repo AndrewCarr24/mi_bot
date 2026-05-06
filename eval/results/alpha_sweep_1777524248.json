@@ -1,0 +1,58 @@
+[
+  {
+    "label": "1_no-dedup_alpha-bm25-favored",
+    "config": {
+      "label": "1_no-dedup_alpha-bm25-favored",
+      "dedup": "false",
+      "alpha": "0.6"
+    },
+    "accuracy": 0.8696,
+    "n_correct": 20,
+    "cost_usd": 0.100861,
+    "run_seconds": 507.05,
+    "avg_calls": 2.130434782608696,
+    "wall_seconds": 508.8769030570984
+  },
+  {
+    "label": "2_no-dedup_alpha-semantic-favored",
+    "config": {
+      "label": "2_no-dedup_alpha-semantic-favored",
+      "dedup": "false",
+      "alpha": "0.4"
+    },
+    "accuracy": 0.8696,
+    "n_correct": 20,
+    "cost_usd": 0.092438,
+    "run_seconds": 468.03,
+    "avg_calls": 1.826086956521739,
+    "wall_seconds": 469.81298089027405
+  },
+  {
+    "label": "3_no-dedup_alpha-smart",
+    "config": {
+      "label": "3_no-dedup_alpha-smart",
+      "dedup": "false",
+      "alpha": "smart"
+    },
+    "accuracy": 0.8261,
+    "n_correct": 19,
+    "cost_usd": 0.099106,
+    "run_seconds": 636.92,
+    "avg_calls": 1.9565217391304348,
+    "wall_seconds": 638.7484021186829
+  },
+  {
+    "label": "7_dedup_alpha-smart",
+    "config": {
+      "label": "7_dedup_alpha-smart",
+      "dedup": "true",
+      "alpha": "smart"
+    },
+    "accuracy": 0.8696,
+    "n_correct": 20,
+    "cost_usd": 0.11199,
+    "run_seconds": 645.74,
+    "avg_calls": 2.0434782608695654,
+    "wall_seconds": 648.3714916706085
+  }
+]

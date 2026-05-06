@@ -1,0 +1,100 @@
+[
+  {
+    "label": "1_no-dedup_alpha-bm25-favored",
+    "config": {
+      "label": "1_no-dedup_alpha-bm25-favored",
+      "dedup": "false",
+      "alpha": "0.6"
+    },
+    "accuracy": 0.9231,
+    "n_correct": 12,
+    "cost_usd": 0.06183,
+    "run_seconds": 310.3,
+    "avg_calls": 2.6153846153846154,
+    "wall_seconds": 312.54664301872253
+  },
+  {
+    "label": "2_no-dedup_alpha-semantic-favored",
+    "config": {
+      "label": "2_no-dedup_alpha-semantic-favored",
+      "dedup": "false",
+      "alpha": "0.4"
+    },
+    "accuracy": 0.9231,
+    "n_correct": 12,
+    "cost_usd": 0.087775,
+    "run_seconds": 369.61,
+    "avg_calls": 2.8461538461538463,
+    "wall_seconds": 372.32511591911316
+  },
+  {
+    "label": "3_no-dedup_alpha-smart",
+    "config": {
+      "label": "3_no-dedup_alpha-smart",
+      "dedup": "false",
+      "alpha": "smart"
+    },
+    "accuracy": 1.0,
+    "n_correct": 13,
+    "cost_usd": 0.071838,
+    "run_seconds": 393.93,
+    "avg_calls": 2.4615384615384617,
+    "wall_seconds": 396.63840222358704
+  },
+  {
+    "label": "4_dedup_alpha-balanced",
+    "config": {
+      "label": "4_dedup_alpha-balanced",
+      "dedup": "true",
+      "alpha": "0.5"
+    },
+    "accuracy": 0.7692,
+    "n_correct": 10,
+    "cost_usd": 0.133992,
+    "run_seconds": 531.16,
+    "avg_calls": 4.153846153846154,
+    "wall_seconds": 533.9100649356842
+  },
+  {
+    "label": "5_dedup_alpha-bm25-favored",
+    "config": {
+      "label": "5_dedup_alpha-bm25-favored",
+      "dedup": "true",
+      "alpha": "0.6"
+    },
+    "accuracy": 0.8462,
+    "n_correct": 11,
+    "cost_usd": 0.118919,
+    "run_seconds": 496.9,
+    "avg_calls": 3.3846153846153846,
+    "wall_seconds": 499.66668701171875
+  },
+  {
+    "label": "6_dedup_alpha-semantic-favored",
+    "config": {
+      "label": "6_dedup_alpha-semantic-favored",
+      "dedup": "true",
+      "alpha": "0.4"
+    },
+    "accuracy": 0.7692,
+    "n_correct": 10,
+    "cost_usd": 0.108408,
+    "run_seconds": 460.35,
+    "avg_calls": 3.923076923076923,
+    "wall_seconds": 463.10181879997253
+  },
+  {
+    "label": "7_dedup_alpha-smart",
+    "config": {
+      "label": "7_dedup_alpha-smart",
+      "dedup": "true",
+      "alpha": "smart"
+    },
+    "accuracy": 0.9231,
+    "n_correct": 12,
+    "cost_usd": 0.084884,
+    "run_seconds": 482.06,
+    "avg_calls": 2.8461538461538463,
+    "wall_seconds": 484.771066904068
+  }
+]

@@ -1,0 +1,21 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"After the August 2024 PMIERs update revising Available Asset credit factors, which MI cohort issuer disclosed the largest pro-forma reduction to its YE 2024 PMIERs sufficiency ratio if the update were fully effective immediately, and how does it compare to the other five issuers' disclosures?","Arch Capital (ACGL) disclosed by far the largest pro-forma impact: its PMIERs sufficiency would drop from a reported 186% to a pro-forma 154% (a 32-percentage-point decline), with Available Assets falling 17% if fully effective at YE 2024. MGIC quantified a roughly 1% / $50M decrease in Available Assets (sufficiency essentially unchanged). Radian, Essent, NMI, and Enact each stated they do not expect the update to have a material impact on their PMIERs position.","## Arch disclosed the largest pro-forma reduction by a wide margin
+
+**Arch Capital (ACGL, YE 2024 10-K)** was the only issuer to report a double-digit percentage hit: if Guidance 2024-01 were fully effective immediately at December 31, 2024, Available Assets would have fallen **17%**, dropping the PMIERs Sufficiency Ratio from the reported **186% to a pro-forma 154%**.
+
+**MGIC (MTG, YE 2024 10-K)** was the only other issuer to quantify a specific pro-forma impact: a **~1% (~$50 million) decrease** to its $5.8 billion Available Assets, with the PMIERs excess going from $2.2 billion to $2.1 billion (sufficiency ratio from ~161% to ~160%).
+
+**The other four issuers did not disclose a quantified pro-forma impact** in their YE 2024 10-Ks. Each described the update as not material and did not publish a pro-forma sufficiency ratio or dollar reduction:
+
+| Issuer | Reported Ratio (YE 2024) | Pro-forma Disclosure | Available Asset Reduction |
+|---|---|---|---|
+| **Arch Capital** | 186% | **154%** | **−17%** |
+| **MGIC** | ~161% | ~$2.1B excess (from $2.2B) | **−1% / −$50M** |
+| **Essent** | 178% | Not quantified; ""no impact...will remain in full compliance"" | Not disclosed |
+| **Enact** | 167% | ""do not expect the impact...to be material"" | Not disclosed |
+| **Radian** | ~156% | ""not expected to have a material impact"" | Not disclosed |
+| **NMI** | ~170%* | ""do not expect...a material impact"" | Not disclosed |
+
+*NMI's own framing is a 70% excess-over-required metric; ~170% on the available÷required basis used by the other issuers.
+
+**Bottom line:** Arch's disclosed pro-forma reduction (17% of Available Assets, 32 pp off its sufficiency ratio) was an order of magnitude larger than MGIC's disclosed reduction (~1%), and the other four issuers did not quantify any material impact at all.",True,"Arch disclosed 32-pp sufficiency decline (186%→154%, 17% Available Assets drop); MGIC ~1% ($50M); others stated no material impact.",0.01088,0.001105,"[{""tool"": ""wiki_read_page"", ""tokens_est"": 7115}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7336}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5701}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8893}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7842}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7020}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6136}]",50043,46.19
