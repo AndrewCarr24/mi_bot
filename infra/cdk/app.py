@@ -6,6 +6,7 @@ import os
 import aws_cdk as cdk
 
 from ecr_stack import AgentFinEcrStack
+from runner_stack import AgentFinRunnerStack
 
 
 app = cdk.App()
@@ -16,5 +17,9 @@ env = cdk.Environment(
 )
 
 ecr_stack = AgentFinEcrStack(app, "AgentFinEcrStack", env=env)
+runner_stack = AgentFinRunnerStack(
+    app, "AgentFinRunnerStack", repo=ecr_stack.repo, env=env
+)
+runner_stack.add_dependency(ecr_stack)
 
 app.synth()
