@@ -12,7 +12,7 @@ import hashlib
 import json
 import time
 from collections import defaultdict
-from typing import Dict, List, Optional
+from typing import Optional
 
 
 def _b64encode(b: bytes) -> str:
@@ -52,7 +52,7 @@ def verify_cookie(value: str, secret: str) -> Optional[dict]:
 
 
 class LoginRateLimiter:
-    """Per-IP token-bucket-ish rate limiter. In-memory; single-instance only.
+    """Per-IP sliding-window rate limiter. In-memory; single-instance only.
 
     Usage: call `check_and_record(ip)`; returns True if the request is
     within the limit (and records the attempt) or False if blocked.
@@ -61,15 +61,23 @@ class LoginRateLimiter:
     def __init__(self, max_attempts: int = 5, window_sec: float = 60.0):
         self.max_attempts = max_attempts
         self.window_sec = window_sec
-        self._attempts: Dict[str, List[float]] = defaultdict(list)
+        self._attempts: dict[str, list[float]] = defaultdict(list)
 
     def check_and_record(self, ip: str) -> bool:
+        # Check and record execute atomically — callers must not split them
+        # with `await` between the two operations.
         now = time.monotonic()
         cutoff = now - self.window_sec
-        self._attempts[ip] = [t for t in self._attempts[ip] if t > cutoff]
-        if len(self._attempts[ip]) >= self.max_attempts:
+        recent = [t for t in self._attempts[ip] if t > cutoff]
+        if not recent:
+            # Drop the dict entry entirely so silent IPs don't accumulate.
+            del self._attempts[ip]
+            recent = []
+        if len(recent) >= self.max_attempts:
+            self._attempts[ip] = recent
             return False
-        self._attempts[ip].append(now)
+        recent.append(now)
+        self._attempts[ip] = recent
         return True
 
     def reset(self) -> None:

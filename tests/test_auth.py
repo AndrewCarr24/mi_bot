@@ -60,7 +60,7 @@ def test_verify_rejects_malformed():
 
 # ---------------------------------------------------------------- rate limit --
 
-def test_rate_limiter_allows_first_5(monkeypatch):
+def test_rate_limiter_allows_first_5():
     from src.auth import LoginRateLimiter
 
     rl = LoginRateLimiter(max_attempts=5, window_sec=60)
