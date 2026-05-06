@@ -4,9 +4,6 @@ The `auth_app` fixture builds a minimal FastAPI app with our
 AuthMiddleware + login routes mounted on top of two dummy endpoints
 (/protected, /health). This keeps auth tests fast — they don't load
 the dsRAG KB or the orchestrator graph that `api.py` lifespan brings up.
-
-The `smoke_app` fixture instead returns the real `api.app` with the
-KB load mocked out, for the end-to-end browser-flow smoke test.
 """
 
 from __future__ import annotations

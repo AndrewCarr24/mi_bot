@@ -46,6 +46,9 @@ reranker = [
     "flashrank>=0.2.10",
 ]
 
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
 [dependency-groups]
 dev = [
     "pytest>=8.0.0",
