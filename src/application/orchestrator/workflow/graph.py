@@ -5,13 +5,11 @@ from langgraph.prebuilt import ToolNode
 from loguru import logger
 
 from src.application.orchestrator.workflow.edges import (
-    route_after_cache,
     route_by_intent,
     should_continue,
 )
 from src.application.orchestrator.workflow.nodes import (
     agent_node,
-    cache_check_node,
     finalize_node,
     memory_post_hook,
     router_node,
@@ -29,11 +27,10 @@ def create_graph(force_recreate: bool = False):
     """
     Build the agent graph.
 
-        START -> router_node -> [intent?]
-                                  ├── rag_query  -> cache_check_node -> [wiki_slug?]
-                                  │                                       ├── set    -> wiki_preload_node -> agent_node <-> tool_node
-                                  │                                       └── unset  -> agent_node          <-> tool_node
-                                  └── simple/off -> simple_response_node
+        START -> router_node -> [intent? + wiki_slug?]
+                                  ├── rag_query + slug   -> wiki_preload_node -> agent_node <-> tool_node
+                                  ├── rag_query (no slug) -> agent_node                     <-> tool_node
+                                  └── simple/off          -> simple_response_node
                                                            │
                                                   memory_post_hook -> END
     """
@@ -45,7 +42,6 @@ def create_graph(force_recreate: bool = False):
 
     builder = StateGraph(AgentState)
     builder.add_node("router_node", router_node)
-    builder.add_node("cache_check_node", cache_check_node)
     builder.add_node("wiki_preload_node", wiki_preload_node)
     builder.add_node("agent_node", agent_node)
     builder.add_node("simple_response_node", simple_response_node)
@@ -57,12 +53,11 @@ def create_graph(force_recreate: bool = False):
     builder.add_conditional_edges(
         "router_node",
         route_by_intent,
-        {"cache_check": "cache_check_node", "simple_response": "simple_response_node"},
-    )
-    builder.add_conditional_edges(
-        "cache_check_node",
-        route_after_cache,
-        {"wiki_preload": "wiki_preload_node", "agent": "agent_node"},
+        {
+            "wiki_preload": "wiki_preload_node",
+            "agent": "agent_node",
+            "simple_response": "simple_response_node",
+        },
     )
     builder.add_edge("wiki_preload_node", "agent_node")
     builder.add_conditional_edges(

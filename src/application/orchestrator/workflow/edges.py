@@ -9,25 +9,18 @@ from src.application.orchestrator.workflow.state import AgentState
 MAX_TOOL_CALLS_PER_TURN = int(os.environ.get("MAX_TOOL_CALLS_PER_TURN", "12"))
 
 
-def route_by_intent(state: AgentState) -> Literal["cache_check", "simple_response"]:
-    """Route router output: rag_query -> cache_check, otherwise -> simple_response."""
-    intent = state.get("intent", "rag_query")
-    if intent == "rag_query":
-        return "cache_check"
-    return "simple_response"
+def route_by_intent(state: AgentState) -> Literal["wiki_preload", "agent", "simple_response"]:
+    """Dispatch from router_node:
+    - non-rag intents -> simple_response
+    - rag_query with a wiki_slug -> wiki_preload (injects the page before the ReAct loop)
+    - rag_query without a slug -> agent
 
-
-def route_after_cache(state: AgentState) -> Literal["wiki_preload", "agent"]:
-    """Route after cache check.
-
-    If the router matched a wiki slug, run wiki_preload_node first (which
-    injects the page into the message list); otherwise skip straight to
-    the agent. This gives wiki-shaped questions a guaranteed wiki read
-    before the ReAct loop starts.
-
-    Env override `DISABLE_WIKI_PRELOAD=true` forces the agent path
+    Env override `DISABLE_WIKI_PRELOAD=true` forces rag_query straight to agent
     regardless of slug — used for A/B testing the wiki contribution.
     """
+    intent = state.get("intent", "rag_query")
+    if intent != "rag_query":
+        return "simple_response"
     if os.environ.get("DISABLE_WIKI_PRELOAD", "").lower() == "true":
         return "agent"
     if state.get("wiki_slug"):

@@ -18,4 +18,3 @@ class AgentState(TypedDict):
     # to any wiki page. Set by the router; consumed by wiki_preload_node.
     wiki_slug: Optional[str]
     tool_call_count: int
-    cache_hit: bool

@@ -19,7 +19,7 @@ from loguru import logger
 from src.application.orchestrator.workflow.graph import create_graph
 from src.infrastructure.model import extract_text_content
 
-_RESPONSE_NODES = {"agent_node", "simple_response_node", "finalize_node", "cache_check_node"}
+_RESPONSE_NODES = {"agent_node", "simple_response_node", "finalize_node"}
 
 
 async def get_streaming_response(

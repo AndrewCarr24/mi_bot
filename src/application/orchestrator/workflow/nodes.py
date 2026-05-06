@@ -149,13 +149,6 @@ async def wiki_preload_node(state: AgentState, config: RunnableConfig) -> dict:
     return {"messages": [ai_msg, tool_msg]}
 
 
-async def cache_check_node(state: AgentState, config: RunnableConfig) -> dict:
-    """No-op placeholder. The old embedding-based answer cache lived in
-    the retired `rag_app` package; we kept the node in the graph so the
-    topology stays stable while the facts-DB tool path matures."""
-    return {"cache_hit": False}
-
-
 async def agent_node(state: AgentState, config: RunnableConfig) -> dict:
     """Run the ReAct agent for rag_query intents."""
     messages = list(state["messages"])
