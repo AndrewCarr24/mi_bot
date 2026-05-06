@@ -110,3 +110,91 @@ def test_rate_limiter_reset():
         rl.check_and_record("1.2.3.4")
     rl.reset()
     assert rl.check_and_record("1.2.3.4") is True
+
+
+# ---------------------------------------------------------------- middleware --
+
+def test_health_bypasses_auth(client):
+    r = client.get("/health")
+    assert r.status_code == 200
+    assert r.json() == {"status": "ok"}
+
+
+def test_login_get_bypasses_auth(client):
+    r = client.get("/login", follow_redirects=False)
+    assert r.status_code == 200  # login form rendered
+
+
+def test_protected_path_redirects_when_no_cookie(client):
+    r = client.get("/protected", follow_redirects=False)
+    assert r.status_code == 302
+    assert "/login" in r.headers["location"]
+    assert "next=%2Fprotected" in r.headers["location"]
+
+
+def test_protected_path_passes_through_with_valid_cookie(client):
+    from src.auth import sign_cookie
+    cookie = sign_cookie({"exp": int(time.time()) + 100, "v": 1}, secret="a" * 64)
+    r = client.get("/protected", cookies={"agent_session": cookie})
+    assert r.status_code == 200
+    assert r.json() == {"ok": True}
+
+
+def test_protected_path_redirects_when_invalid_cookie(client):
+    r = client.get(
+        "/protected",
+        cookies={"agent_session": "garbage"},
+        follow_redirects=False,
+    )
+    assert r.status_code == 302
+    assert "/login" in r.headers["location"]
+
+
+def test_protected_path_redirects_when_expired_cookie(client):
+    from src.auth import sign_cookie
+    cookie = sign_cookie({"exp": int(time.time()) - 1, "v": 1}, secret="a" * 64)
+    r = client.get(
+        "/protected",
+        cookies={"agent_session": cookie},
+        follow_redirects=False,
+    )
+    assert r.status_code == 302
+
+
+def test_503_when_AGENT_PASSWORD_unset(monkeypatch):
+    monkeypatch.setenv("AGENT_PASSWORD", "")
+    monkeypatch.setenv("COOKIE_SECRET", "a" * 64)
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+    from src.auth import AuthMiddleware
+
+    app = FastAPI()
+    app.add_middleware(AuthMiddleware)
+
+    @app.get("/x")
+    def _x():
+        return {"ok": True}
+
+    c = TestClient(app)
+    r = c.get("/x")
+    assert r.status_code == 503
+    assert "auth not configured" in r.text.lower()
+
+
+def test_503_when_COOKIE_SECRET_unset(monkeypatch):
+    monkeypatch.setenv("AGENT_PASSWORD", "x")
+    monkeypatch.setenv("COOKIE_SECRET", "")
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+    from src.auth import AuthMiddleware
+
+    app = FastAPI()
+    app.add_middleware(AuthMiddleware)
+
+    @app.get("/x")
+    def _x():
+        return {"ok": True}
+
+    c = TestClient(app)
+    r = c.get("/x")
+    assert r.status_code == 503

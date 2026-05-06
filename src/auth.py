@@ -10,9 +10,16 @@ import base64
 import hmac
 import hashlib
 import json
+import os
 import time
 from collections import defaultdict
 from typing import Optional
+from urllib.parse import quote
+
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import Request
+from starlette.responses import PlainTextResponse, RedirectResponse, Response
+from starlette.types import ASGIApp
 
 
 def _b64encode(b: bytes) -> str:
@@ -87,3 +94,51 @@ class LoginRateLimiter:
 # Module-level instance used by the login route. Tests should call `.reset()`
 # in conftest's `auth_app` fixture so state doesn't leak across tests.
 _rate_limiter = LoginRateLimiter()
+
+
+ALLOWLIST_EXACT = ("/health", "/login", "/logout")
+ALLOWLIST_PREFIXES = ("/static/",)
+
+
+def _is_allowlisted(path: str) -> bool:
+    if path in ALLOWLIST_EXACT:
+        return True
+    return any(path.startswith(p) for p in ALLOWLIST_PREFIXES)
+
+
+class AuthMiddleware(BaseHTTPMiddleware):
+    """Cookie-gated middleware. Fail-closed if env not configured."""
+
+    def __init__(self, app: ASGIApp):
+        super().__init__(app)
+
+    async def dispatch(self, request: Request, call_next):
+        path = request.url.path
+
+        if _is_allowlisted(path):
+            return await call_next(request)
+
+        password = os.environ.get("AGENT_PASSWORD", "")
+        secret = os.environ.get("COOKIE_SECRET", "")
+        if not password or not secret:
+            return PlainTextResponse(
+                "auth not configured", status_code=503
+            )
+
+        cookie = request.cookies.get("agent_session")
+        if cookie and verify_cookie(cookie, secret=secret) is not None:
+            return await call_next(request)
+
+        # Redirect to /login with the original path preserved.
+        next_url = request.url.path
+        if request.url.query:
+            next_url = f"{next_url}?{request.url.query}"
+        return RedirectResponse(
+            f"/login?next={quote(next_url, safe='')}",
+            status_code=302,
+        )
+
+
+def register_auth_routes(app) -> None:
+    """Register /login (GET+POST) and /logout. Implemented in Task 7."""
+    pass  # placeholder; Task 7 fills this in
