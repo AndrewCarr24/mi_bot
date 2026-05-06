@@ -308,3 +308,61 @@ def test_logout_clears_cookie(client):
     set_cookie = r.headers.get("set-cookie", "")
     assert "agent_session=" in set_cookie
     assert ("max-age=0" in set_cookie.lower()) or ("expires=" in set_cookie.lower())
+
+
+# ---------------------------------------------------------------- websocket --
+
+def test_websocket_rejected_without_cookie(test_env):
+    """Unauthenticated WS upgrades must be closed by the middleware (1008)."""
+    from fastapi.testclient import TestClient
+    from starlette.websockets import WebSocket, WebSocketDisconnect
+    from src.auth import AuthMiddleware
+
+    # Use a plain ASGI inner app (not FastAPI) to isolate the middleware logic
+    # from FastAPI's WebSocket routing / dependency injection machinery.
+    async def _accept_all(scope, receive, send):
+        if scope["type"] == "websocket":
+            ws = WebSocket(scope, receive, send)
+            await ws.accept()
+            await ws.send_text("hi")
+            await ws.close()
+
+    class _App:
+        def __init__(self):
+            self._mw = AuthMiddleware(_accept_all)
+
+        async def __call__(self, scope, receive, send):
+            await self._mw(scope, receive, send)
+
+    client = TestClient(_App())
+    with pytest.raises(WebSocketDisconnect):
+        with client.websocket_connect("/ws"):
+            pass
+
+
+def test_websocket_allowed_with_valid_cookie(test_env):
+    """Authenticated WS upgrades must reach the inner app."""
+    from fastapi.testclient import TestClient
+    from starlette.websockets import WebSocket
+    from src.auth import AuthMiddleware, sign_cookie
+
+    async def _accept_all(scope, receive, send):
+        if scope["type"] == "websocket":
+            ws = WebSocket(scope, receive, send)
+            await ws.accept()
+            await ws.send_text("hi")
+            await ws.close()
+
+    class _App:
+        def __init__(self):
+            self._mw = AuthMiddleware(_accept_all)
+
+        async def __call__(self, scope, receive, send):
+            await self._mw(scope, receive, send)
+
+    cookie = sign_cookie({"exp": int(time.time()) + 100, "v": 1}, secret="a" * 64)
+    client = TestClient(_App())
+    client.cookies.set("agent_session", cookie)
+    with client.websocket_connect("/ws") as ws:
+        msg = ws.receive_text()
+        assert msg == "hi"

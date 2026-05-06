@@ -35,10 +35,11 @@ _templates = Jinja2Templates(directory=str(_TEMPLATES_DIR))
 
 
 def _client_ip(request: Request) -> str:
-    """Best-effort client IP. App Runner sets X-Forwarded-For."""
+    """Best-effort client IP. App Runner appends the real client IP rightmost in X-Forwarded-For."""
     xff = request.headers.get("x-forwarded-for", "")
     if xff:
-        return xff.split(",")[0].strip()
+        # Rightmost IP — the one the trusted proxy (App Runner) appended.
+        return xff.split(",")[-1].strip()
     return request.client.host if request.client else "unknown"
 
 
@@ -137,13 +138,82 @@ def _is_allowlisted(path: str) -> bool:
     return any(path.startswith(p) for p in ALLOWLIST_PREFIXES)
 
 
+def _cookie_from_scope(scope, name: str) -> str | None:
+    """Pull a cookie value out of an ASGI scope's headers."""
+    headers = scope.get("headers", [])
+    for header_name, header_value in headers:
+        if header_name == b"cookie":
+            from http.cookies import SimpleCookie
+            jar = SimpleCookie()
+            try:
+                jar.load(header_value.decode("latin-1"))
+            except Exception:
+                return None
+            cookie = jar.get(name)
+            if cookie:
+                return cookie.value
+            return None
+    return None
+
+
 class AuthMiddleware(BaseHTTPMiddleware):
-    """Cookie-gated middleware. Fail-closed if env not configured."""
+    """Cookie-gated middleware. Fail-closed if env not configured.
+
+    Handles both HTTP (via `dispatch`) and WebSocket (via `__call__` override)
+    scopes. WebSocket support is required because Chainlit's /chat UI runs
+    over WebSocket — Starlette's BaseHTTPMiddleware would otherwise pass WS
+    upgrades straight through to the inner app.
+    """
 
     def __init__(self, app: ASGIApp):
         super().__init__(app)
 
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "websocket":
+            # HTTP and lifespan: hand off to BaseHTTPMiddleware (uses dispatch).
+            await super().__call__(scope, receive, send)
+            return
+
+        # WebSocket scope: enforce auth at the upgrade.
+        path = scope.get("path", "")
+        if _is_allowlisted(path):
+            await self.app(scope, receive, send)
+            return
+
+        password = os.environ.get("AGENT_PASSWORD", "")
+        secret = os.environ.get("COOKIE_SECRET", "")
+        if not password or not secret:
+            logger.error(
+                "AuthMiddleware (WS): AGENT_PASSWORD or COOKIE_SECRET not set; "
+                "rejecting WebSocket on path=%s",
+                path,
+            )
+            await self._ws_reject(receive, send)
+            return
+
+        cookie_value = _cookie_from_scope(scope, "agent_session")
+        if cookie_value and verify_cookie(cookie_value, secret=secret) is not None:
+            await self.app(scope, receive, send)
+            return
+
+        logger.warning("AuthMiddleware (WS): unauthenticated WebSocket on path=%s", path)
+        await self._ws_reject(receive, send)
+
+    async def _ws_reject(self, receive, send):
+        """Close the WebSocket before accept. Sends a 1008 close frame.
+
+        Per ASGI spec for unaccepted WebSockets, we send `websocket.close`
+        directly without a prior `websocket.accept`. Browsers/clients see
+        an immediate connection rejection.
+        """
+        # Drain the connect event before sending close — some servers expect it.
+        msg = await receive()
+        if msg.get("type") != "websocket.connect":
+            return
+        await send({"type": "websocket.close", "code": 1008})
+
     async def dispatch(self, request: Request, call_next):
+        # Existing HTTP dispatch — unchanged.
         path = request.url.path
 
         if _is_allowlisted(path):
@@ -233,5 +303,10 @@ def register_auth_routes(app: FastAPI) -> None:
     @app.get("/logout")
     async def logout():
         response = RedirectResponse("/login", status_code=302)
-        response.delete_cookie("agent_session")
+        response.delete_cookie(
+            "agent_session",
+            httponly=True,
+            secure=True,
+            samesite="lax",
+        )
         return response
