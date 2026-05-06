@@ -76,6 +76,24 @@ class Settings(BaseSettings):
         description="DeepSeek OpenAI-compatible API base URL.",
     )
 
+    # === Deployment auth ===
+
+    AGENT_PASSWORD: str = Field(
+        default="",
+        description=(
+            "Shared password for the deployment gate. Required at runtime; "
+            "AuthMiddleware fails closed (503) if unset."
+        ),
+    )
+
+    COOKIE_SECRET: str = Field(
+        default="",
+        description=(
+            "HMAC secret for signed session cookies. Generate with "
+            "`openssl rand -hex 32`. Rotating invalidates all live sessions."
+        ),
+    )
+
     MEMORY_ID: str = Field(
         default="",
         description=(
