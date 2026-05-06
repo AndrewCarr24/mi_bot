@@ -34,6 +34,7 @@ from pydantic import BaseModel, Field
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.application.orchestrator.streaming import get_streaming_response  # noqa: E402
+from src.auth import AuthMiddleware, register_auth_routes  # noqa: E402
 from src.infrastructure.dsrag_kb import get_kb  # noqa: E402
 
 
@@ -49,6 +50,11 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="agent_fin", version="0.1.0", lifespan=lifespan)
+
+# Auth gate — registered before the Chainlit mount so /chat/* (including
+# the WebSocket upgrade) passes through AuthMiddleware first.
+app.add_middleware(AuthMiddleware)
+register_auth_routes(app)
 
 # Chainlit chat UI mounted at /chat. The handlers live in chat.py; the
 # Chainlit session id maps onto our LangGraph conversation_id so each
