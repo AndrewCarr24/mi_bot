@@ -64,3 +64,6 @@ data.mi/*.tar.gz
 # Chainlit runtime upload / conversation data store. Auto-created per
 # session; not source of truth.
 .files/
+
+# Superpowers brainstorming session artifacts (mockups, state).
+.superpowers/
