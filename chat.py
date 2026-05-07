@@ -26,6 +26,7 @@ from pathlib import Path
 
 import chainlit as cl
 import chainlit.data as cl_data
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 
 
 # Chainlit may exec this file from a different cwd than api.py — ensure
@@ -34,6 +35,49 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.application.orchestrator.streaming import get_streaming_events  # noqa: E402
 from src.data_layer import get_data_layer  # noqa: E402
+
+
+def _get_data_layer_instance():
+    """Indirection so tests can monkey-patch the data layer used by
+    `_fetch_thread_messages` without touching the @cl.data_layer
+    registration. Production callers go through chainlit.data._data_layer."""
+    return cl_data._data_layer  # the layer registered by @cl_data.data_layer
+
+
+async def _fetch_thread_messages(thread_id: str) -> list[BaseMessage]:
+    """Read prior steps for the given thread and convert them into
+    LangChain messages, ordered chronologically. Returns [] if the
+    thread doesn't exist or has no messages.
+    """
+    layer = _get_data_layer_instance()
+    if layer is None:
+        return []
+    try:
+        thread = await layer.get_thread(thread_id)
+    except Exception:
+        return []
+    if not thread:
+        return []
+
+    steps = sorted(
+        thread.get("steps", []) or [],
+        key=lambda s: s.get("createdAt") or "",
+    )
+
+    out: list[BaseMessage] = []
+    for step in steps:
+        step_type = step.get("type", "")
+        text = step.get("output") or step.get("input") or ""
+        if not text:
+            continue
+        if step_type == "user_message":
+            out.append(HumanMessage(content=text))
+        elif step_type == "assistant_message":
+            out.append(AIMessage(content=text))
+        # Other step types (tool calls, etc.) are intermediate Chainlit
+        # bookkeeping — skip them. The agent reconstructs tool context
+        # from scratch each turn via wiki_preload + dsrag_kb.
+    return out
 
 
 @cl.data_layer
@@ -123,11 +167,17 @@ async def on_message(message: cl.Message):
     answer tokens flow, so the branching decision is made up-front.
     """
     session_id = cl.context.session.id
+    thread_id = getattr(cl.context.session, "thread_id", None) or session_id
+
+    # Replay prior messages on this thread from the data layer so the
+    # stateless agent has full context.
+    prior = await _fetch_thread_messages(thread_id)
+    full_messages = prior + [HumanMessage(content=message.content)]
 
     events = get_streaming_events(
-        messages=message.content,
+        messages=full_messages,
         customer_name="User",
-        conversation_id=session_id,
+        conversation_id=thread_id,
     )
 
     # Read events until we see the intent event (always first under
