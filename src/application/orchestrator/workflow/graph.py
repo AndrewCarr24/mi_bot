@@ -18,7 +18,6 @@ from src.application.orchestrator.workflow.nodes import (
 )
 from src.application.orchestrator.workflow.state import AgentState
 from src.application.orchestrator.workflow.tools import get_tools
-from src.config import settings
 
 _graph_instance = None
 
@@ -74,20 +73,13 @@ def create_graph(force_recreate: bool = False):
     builder.add_edge("simple_response_node", "memory_post_hook")
     builder.add_edge("memory_post_hook", END)
 
-    if settings.MEMORY_ID:
-        from src.infrastructure.memory import ShortTermMemory
-        checkpointer = ShortTermMemory().get_memory()
-        _graph_instance = builder.compile(checkpointer=checkpointer)
-    else:
-        # Fall back to LangGraph's in-process MemorySaver so multi-turn
-        # conversations within a single container remember prior turns.
-        # State is lost when the container is replaced (deploy, AWS infra
-        # churn). For cross-restart persistence, set MEMORY_ID to use
-        # AgentCoreMemorySaver instead.
-        from langgraph.checkpoint.memory import MemorySaver
-        logger.info("MEMORY_ID unset — using in-process MemorySaver checkpointer")
-        _graph_instance = builder.compile(checkpointer=MemorySaver())
-    logger.info("RAG agent graph compiled")
+    # Per the sessions design (2026-05-06): the graph runs stateless.
+    # Thread context is replayed on every turn from the Chainlit data
+    # layer (chat.py:_fetch_thread_messages), so a checkpointer would
+    # only duplicate that state. AgentCoreMemorySaver / MemorySaver
+    # both removed.
+    _graph_instance = builder.compile()
+    logger.info("RAG agent graph compiled (stateless — no checkpointer)")
     return _graph_instance
 
 
