@@ -5,17 +5,27 @@ Mounted into the FastAPI app at /chat by api.py via
 LangGraph `conversation_id`, so each browser session retains its own
 multi-turn history via the in-process MemorySaver checkpointer.
 
-While the agent is working, intermediate reasoning + tool-call summaries
-are surfaced into a collapsible cl.Step ("Working..."). The final answer
-streams into the main message. Tool *results* (raw chunks) are not shown.
+For rag_query intents we surface intermediate reasoning + tool-call
+summaries into a collapsible cl.Step that's rendered above the answer
+(via Chainlit's `async with` + thread-local step stack). For simple /
+off_topic intents the agent never invokes a tool, so we skip the step
+entirely — keeps chatty replies clean.
+
+The intent is determined upfront by listening for the `intent` event
+emitted by `streaming.get_streaming_events` after `router_node` finishes
+classifying. That event always lands first in the stream (router runs
+before any downstream node), so the step decision is made before any
+answer tokens flow.
 """
 
 from __future__ import annotations
 
 import sys
+from http.cookies import SimpleCookie
 from pathlib import Path
 
 import chainlit as cl
+import chainlit.data as cl_data
 
 
 # Chainlit may exec this file from a different cwd than api.py — ensure
@@ -23,6 +33,40 @@ import chainlit as cl
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.application.orchestrator.streaming import get_streaming_events  # noqa: E402
+from src.data_layer import get_data_layer  # noqa: E402
+
+
+@cl.data_layer
+def _data_layer():
+    """Tell Chainlit which BaseDataLayer to use for thread persistence.
+    Backend chosen by DATA_LAYER_BACKEND env (sqlite locally, dynamodb in prod).
+    """
+    return get_data_layer()
+
+
+@cl.header_auth_callback
+def header_auth_callback(headers: dict) -> cl.User | None:
+    """Map the agent_browser_id cookie to a cl.User identifier.
+
+    Chainlit fires this on every HTTP and WebSocket request. The user_id
+    we return is what Chainlit uses to scope threads in the data layer.
+    Per Decision 1 in the spec, identity = the agent_browser_id cookie
+    value (a UUID4 set by BrowserIdMiddleware on first visit).
+    """
+    cookie_str = headers.get("cookie") or headers.get("Cookie") or ""
+    jar = SimpleCookie()
+    try:
+        jar.load(cookie_str)
+    except Exception:
+        return None
+    bid = jar.get("agent_browser_id")
+    if bid is None:
+        # BrowserIdMiddleware should have set this on first request, but
+        # if we somehow get here without it (e.g., a request that bypassed
+        # middleware), fall back to anonymous — Chainlit will treat as a
+        # fresh browser for this connection only, no persistence.
+        return None
+    return cl.User(identifier=bid.value)
 
 
 @cl.on_chat_start
@@ -45,6 +89,9 @@ def _format_tool_call(tool: str, args: dict) -> str:
         if doc_id:
             return f"🔍 Searching {doc_id} for: {question!r}"
         return f"🔍 Searching all filings for: {question!r}"
+    if tool == "wiki_read_page":
+        slug = (args.get("slug") or "").strip()
+        return f"📖 Reading wiki page: {slug}"
     if tool == "memory_retrieval_tool":
         query = (args.get("query") or "").strip()
         return f"🧠 Recalling memory: {query!r}"
@@ -53,64 +100,92 @@ def _format_tool_call(tool: str, args: dict) -> str:
     return f"🔧 {tool}({arg_str})"
 
 
+# Step name shown when a tool of a given kind fires. Set on the FIRST
+# tool_call event of a turn — subsequent tool calls don't rename the step.
+_STEP_NAME_BY_TOOL = {
+    "dsrag_kb": "MI Knowledge Base Tool",
+    "wiki_read_page": "Wiki Tool",
+    "memory_retrieval_tool": "Memory Tool",
+}
+
+
 @cl.on_message
 async def on_message(message: cl.Message):
-    """Stream the agent's response using Chainlit's recommended Step pattern.
+    """Stream the agent's response.
 
-    The step appears as a labeled box (with a Lucide search icon) that
-    accumulates tool-call summaries and any reasoning text while the
-    agent works. The answer message is created lazily on the first
-    answer token so we never show an empty bubble. When the step's
-    `async with` block exits, Chainlit folds the step down to a
-    clickable summary the user can re-expand.
+    Two paths:
+      - rag_query → wrap in `async with cl.Step(...)` so the step
+        renders above the answer; rename the step on the first tool_call
+        to reflect the actual tool used (KB vs wiki vs memory).
+      - simple / off_topic → no step at all, just stream the answer.
+
+    The intent event is read off the front of the stream before any
+    answer tokens flow, so the branching decision is made up-front.
     """
     session_id = cl.context.session.id
+
+    events = get_streaming_events(
+        messages=message.content,
+        customer_name="User",
+        conversation_id=session_id,
+    )
+
+    # Read events until we see the intent event (always first under
+    # normal operation — router_node ends before any downstream node
+    # starts streaming). Buffer anything that comes before it just in
+    # case, though we don't expect that to happen.
+    intent = "rag_query"  # safe default if router somehow doesn't emit
+    buffered: list[dict] = []
+    async for event in events:
+        if event.get("kind") == "intent":
+            intent = event.get("intent", "rag_query")
+            break
+        buffered.append(event)
+
+    if intent == "rag_query":
+        await _handle_rag_query(events, buffered)
+    else:
+        await _handle_simple(events, buffered)
+
+
+async def _handle_rag_query(events, buffered: list[dict]):
+    """Stream a rag_query response with a Working step rendered above the answer.
+
+    `events` is a partially-consumed async generator (the intent event
+    was already read by the caller). `buffered` holds any pre-intent
+    events we accidentally received before intent landed.
+    """
     answer: cl.Message | None = None
 
     # Track unique doc_ids the agent retrieved from, in first-seen order,
-    # so we can list them under the answer as plain text (no clickable
-    # side-panel — earlier attempts hit Chainlit auto-open quirks).
+    # so we can list them under the answer as plain text.
     source_doc_ids: list[str] = []
     seen_doc_ids: set[str] = set()
 
+    # Has any tool fired this turn? Drives the step rename.
+    tool_used = False
+
     async with cl.Step(
-        name="MI Knowledge Base Tool",
+        name="Working...",
         default_open=True,
         show_input=False,
         icon="search",
     ) as step:
         try:
-            async for event in get_streaming_events(
-                messages=message.content,
-                customer_name="User",
-                conversation_id=session_id,
-            ):
+            # Drain anything we buffered before the intent event, then
+            # continue with the rest of the stream.
+            for event in buffered:
+                answer = await _process_event(event, step, answer, source_doc_ids, seen_doc_ids)
+            async for event in events:
                 kind = event.get("kind")
-
-                if kind == "answer_token":
-                    if answer is None:
-                        answer = cl.Message(content="")
-                        await answer.send()
-                    await answer.stream_token(event["text"])
-
-                elif kind == "rewind_to_thinking":
-                    rewound = event["text"]
-                    if answer and answer.content.endswith(rewound):
-                        answer.content = answer.content[: -len(rewound)]
-                        await answer.update()
-                    step.output = (step.output or "") + rewound + "\n\n"
-                    await step.update()
-
-                elif kind == "tool_call":
-                    summary = _format_tool_call(event["tool"], event.get("args", {}))
-                    step.output = (step.output or "") + summary + "\n\n"
-                    await step.update()
-
-                elif kind == "tool_result_segment":
-                    doc_id = event.get("doc_id", "")
-                    if doc_id and doc_id not in seen_doc_ids:
-                        seen_doc_ids.add(doc_id)
-                        source_doc_ids.append(doc_id)
+                if kind == "tool_call" and not tool_used:
+                    # First tool of the turn — rename from "Working..."
+                    # to the tool-specific label.
+                    step.name = _STEP_NAME_BY_TOOL.get(
+                        event["tool"], event["tool"]
+                    )
+                    tool_used = True
+                answer = await _process_event(event, step, answer, source_doc_ids, seen_doc_ids)
 
         except Exception as e:
             if answer is None:
@@ -119,10 +194,87 @@ async def on_message(message: cl.Message):
             await answer.stream_token(f"\n\n[error: {type(e).__name__}: {e}]")
 
     # Append the unique doc_ids the agent searched from as a plain-text
-    # source line under the answer. No clickable element — keeps the UI
-    # simple and avoids Chainlit's auto-opening side panel.
+    # source line under the answer.
     if answer is not None and source_doc_ids:
         answer.content = (answer.content or "") + "\n\nSource: " + ", ".join(source_doc_ids)
 
     if answer is not None:
         await answer.update()
+
+
+async def _handle_simple(events, buffered: list[dict]):
+    """Stream a simple / off_topic response with no step.
+
+    The agent's response goes straight into a `cl.Message`, no working
+    box, no tool summaries, no source list (simple replies don't pull
+    from the KB).
+    """
+    answer: cl.Message | None = None
+    try:
+        for event in buffered:
+            answer = await _process_simple_event(event, answer)
+        async for event in events:
+            answer = await _process_simple_event(event, answer)
+    except Exception as e:
+        if answer is None:
+            answer = cl.Message(content="")
+            await answer.send()
+        await answer.stream_token(f"\n\n[error: {type(e).__name__}: {e}]")
+
+    if answer is not None:
+        await answer.update()
+
+
+async def _process_event(
+    event: dict,
+    step: cl.Step,
+    answer: cl.Message | None,
+    source_doc_ids: list[str],
+    seen_doc_ids: set[str],
+) -> cl.Message | None:
+    """Process one streaming event in the rag_query path. Returns the
+    (possibly newly-created) answer message so the caller can keep its
+    reference."""
+    kind = event.get("kind")
+
+    if kind == "answer_token":
+        if answer is None:
+            answer = cl.Message(content="")
+            await answer.send()
+        await answer.stream_token(event["text"])
+
+    elif kind == "rewind_to_thinking":
+        rewound = event["text"]
+        if answer and answer.content.endswith(rewound):
+            answer.content = answer.content[: -len(rewound)]
+            await answer.update()
+        step.output = (step.output or "") + rewound + "\n\n"
+        await step.update()
+
+    elif kind == "tool_call":
+        summary = _format_tool_call(event["tool"], event.get("args", {}))
+        step.output = (step.output or "") + summary + "\n\n"
+        await step.update()
+
+    elif kind == "tool_result_segment":
+        doc_id = event.get("doc_id", "")
+        if doc_id and doc_id not in seen_doc_ids:
+            seen_doc_ids.add(doc_id)
+            source_doc_ids.append(doc_id)
+
+    # intent events are consumed in on_message before we get here; no-op
+    # if one slips through.
+
+    return answer
+
+
+async def _process_simple_event(event: dict, answer: cl.Message | None) -> cl.Message | None:
+    """Process one streaming event in the simple-intent path. Only
+    answer_tokens matter — simple replies don't have tool calls or
+    rewinds."""
+    if event.get("kind") == "answer_token":
+        if answer is None:
+            answer = cl.Message(content="")
+            await answer.send()
+        await answer.stream_token(event["text"])
+    return answer

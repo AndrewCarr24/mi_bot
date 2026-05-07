@@ -13,6 +13,9 @@ from fastapi.testclient import TestClient
 def smoke_client(monkeypatch):
     monkeypatch.setenv("AGENT_PASSWORD", "smoke-pw")
     monkeypatch.setenv("COOKIE_SECRET", "b" * 64)
+    # @cl.header_auth_callback causes Chainlit to enable auth, which requires
+    # CHAINLIT_AUTH_SECRET. Set a dummy value for tests.
+    monkeypatch.setenv("CHAINLIT_AUTH_SECRET", "c" * 64)
 
     # Mock KB loader so lifespan doesn't try to open the pickle.
     def _stub_get_kb():
