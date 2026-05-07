@@ -123,6 +123,20 @@ def header_auth_callback(headers: dict) -> cl.User | None:
     return cl.User(identifier=bid.value)
 
 
+@cl.on_chat_resume
+async def on_chat_resume(thread):
+    """Fired when a user re-opens a previous thread from the left pane.
+
+    Empty body is sufficient — registering the hook tells Chainlit's
+    frontend that thread continuation is supported, which enables the
+    message composer in thread-view URLs (without it Chainlit shows
+    the thread as read-only history). Our existing on_message handler
+    handles agent context replay on every turn via
+    _fetch_thread_messages, so no special resume logic is needed here.
+    """
+    return None
+
+
 @cl.on_chat_start
 async def on_chat_start():
     await cl.Message(

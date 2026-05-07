@@ -169,6 +169,8 @@ CREATE TABLE IF NOT EXISTS steps (
     "type" TEXT,
     "threadId" TEXT,
     "parentId" TEXT,
+    "command" TEXT,
+    "modes" TEXT,
     "streaming" INTEGER,
     "waitForAnswer" INTEGER,
     "isError" INTEGER,
@@ -181,6 +183,8 @@ CREATE TABLE IF NOT EXISTS steps (
     "end" TEXT,
     "generation" TEXT,
     "showInput" TEXT,
+    "defaultOpen" INTEGER,
+    "autoCollapse" INTEGER,
     "language" TEXT,
     FOREIGN KEY ("threadId") REFERENCES threads("id")
 );
