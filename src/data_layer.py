@@ -38,8 +38,19 @@ def _build_sqlite_layer() -> BaseDataLayer:
 
 
 def _build_dynamodb_layer() -> BaseDataLayer:
-    """DynamoDB-backed data layer for production. Implemented in Task 9."""
-    raise NotImplementedError("DynamoDB backend added in Task 9.")
+    """DynamoDB-backed data layer. Used in production (App Runner).
+
+    Reads:
+      - DYNAMODB_THREADS_TABLE — table name (default "agent-fin-threads",
+        usually overridden by CDK at deploy time).
+      - AWS_REGION — region for the boto3 session.
+
+    Auth comes from the App Runner instance role (see CDK runner_stack.py).
+    """
+    from chainlit.data.dynamodb import DynamoDBDataLayer
+
+    table_name = os.environ.get("DYNAMODB_THREADS_TABLE", "agent-fin-threads")
+    return DynamoDBDataLayer(table_name=table_name)
 
 
 def get_data_layer() -> BaseDataLayer:
