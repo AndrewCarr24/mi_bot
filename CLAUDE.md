@@ -32,8 +32,24 @@ LangSmith dataset: `mi_28q_v1`. Tag experiments with `--tag <descriptive>` (e.g.
 
 ## Things that will trip you up
 
-- **`run_eval.py` silently corrupts results** if `data/` points at the wrong KB. Run `switch_kb.sh` first.
+- **The `data/` symlink must always point at `data.mi/`.** Never run `./scripts/switch_kb.sh financebench` — the FinanceBench corpus is a frozen regression-eval snapshot capped at Sept 2024 and the live app must never serve it. Verify with `ls -la data` before starting uvicorn; if it shows `data.financebench`, run `./scripts/switch_kb.sh mi` first.
+- **`run_eval.py` silently corrupts results** if `data/` points at the wrong KB. Same root cause as above; same fix.
 - **`scripts/transcripts/` is gitignored** — URL JSONs are ad-hoc per fetch; scrapers depend on fragile site HTML. Don't expect reproducibility.
 - **Eval result CSVs in `eval/results/` ARE tracked** by convention (`.gitignore` ~line 28). Separate code/dataset commits from accumulated results commits.
 - **Pre-change KB snapshots** (`data.mi/dsrag_store.pre-*.tar.gz`) are gitignored. Create one before risky reindexes; delete once the change settles.
 - **Don't propose AWS redeploys** until several local improvements are batched.
+
+## Workflow conventions
+
+Use Superpowers skills proactively at workflow inflection points:
+
+- **Scoping a new direction**: superpowers:brainstorming
+- **Turning a direction into a plan**: superpowers:writing-plans
+- **Executing a plan**: superpowers:executing-plans (with superpowers:test-driven-development for production paths)
+- **Parallel independent tasks**: superpowers:dispatching-parallel-agents, superpowers:using-git-worktrees
+- **Triaging a bug**: superpowers:systematic-debugging
+- **Before claiming done**: superpowers:verification-before-completion
+- **Reviewing changes**: superpowers:requesting-code-review
+- **Wrapping up a branch**: superpowers:finishing-a-development-branch
+
+Default to invoking these proactively rather than waiting for me to ask.

@@ -54,7 +54,7 @@ async def _fetch_thread_messages(thread_id: str) -> list[BaseMessage]:
     if layer is None:
         logger.warning(
             "_fetch_thread_messages: no data layer registered; "
-            "skipping replay for thread_id=%s",
+            "skipping replay for thread_id={}",
             thread_id,
         )
         return []
@@ -62,7 +62,7 @@ async def _fetch_thread_messages(thread_id: str) -> list[BaseMessage]:
         thread = await layer.get_thread(thread_id)
     except Exception as e:
         logger.warning(
-            "_fetch_thread_messages: get_thread failed for thread_id=%s: %s",
+            "_fetch_thread_messages: get_thread failed for thread_id={}: {!r}",
             thread_id, e,
         )
         return []

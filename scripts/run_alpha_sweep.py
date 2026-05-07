@@ -1,13 +1,13 @@
 """2x4 sweep over (dedup ∈ {off, on}) × (alpha ∈ {0.5, 0.6, 0.4, smart}).
 
-Skips the (dedup=off, alpha=0.5) cell since that's the prior 21/23 baseline.
-7 runs total on the 23-question FB eval set. ~70 min wall-clock, ~$1 cost.
+Skips the (dedup=off, alpha=0.5) cell. 7 runs total on the
+13-question MI eval set. ~45 min wall-clock, ~$0.60 cost.
 
 All cells share the same retrieval frame: hybrid (BM25+vector), no
 reranker, top_k=200. Variations are entirely in chunk-dedup behavior
 and RRF weighting.
 
-Pre-reqs: data symlink → data.financebench, eval/questions_financebench.csv.
+Pre-reqs: data symlink → data.mi, eval/questions_mi.csv.
 """
 from __future__ import annotations
 
@@ -26,9 +26,6 @@ CONFIGS: list[dict] = [
     {"label": "1_no-dedup_alpha-bm25-favored",  "dedup": "false", "alpha": "0.6"},
     {"label": "2_no-dedup_alpha-semantic-favored", "dedup": "false", "alpha": "0.4"},
     {"label": "3_no-dedup_alpha-smart",         "dedup": "false", "alpha": "smart"},
-    {"label": "4_dedup_alpha-balanced",         "dedup": "true",  "alpha": "0.5"},
-    {"label": "5_dedup_alpha-bm25-favored",     "dedup": "true",  "alpha": "0.6"},
-    {"label": "6_dedup_alpha-semantic-favored", "dedup": "true",  "alpha": "0.4"},
     {"label": "7_dedup_alpha-smart",            "dedup": "true",  "alpha": "smart"},
 ]
 
@@ -62,7 +59,7 @@ def main() -> None:
         print(f"    DEDUP_CHUNKS={cfg['dedup']}  RRF_ALPHA={cfg['alpha']}")
         t0 = time.time()
         rc = subprocess.call(
-            [str(venv_py), "-u", "eval/run_eval.py"],
+            [str(venv_py), "-u", "eval/run_eval.py", "eval/questions_financebench.csv"],
             env=env, cwd=str(REPO),
         )
         wall = time.time() - t0
@@ -83,7 +80,7 @@ def main() -> None:
             "avg_calls": avg_calls,
             "wall_seconds": wall,
         })
-        print(f"    → {latest['n_correct']}/23 ({latest['accuracy']:.0%}), "
+        print(f"    → {latest['n_correct']}/{latest['n']} ({latest['accuracy']:.0%}), "
               f"{latest['run_seconds']:.0f}s, ${latest['total_cost_usd']:.4f}, "
               f"avg {avg_calls:.2f} tool calls/q")
 
@@ -94,8 +91,6 @@ def main() -> None:
     header = f"{'config':<38}  {'acc':>5}  {'time':>5}  {'cost':>8}  {'avg calls/q':>11}"
     print(header)
     print("-" * len(header))
-    # Insert the prior baseline for context
-    print(f"{'(0_baseline_no-dedup_alpha=0.5)':<38}  91.3%  625s  $0.1222  2.39")
     for r in results:
         print(f"{r['label']:<38}  "
               f"{r['accuracy']:>5.1%}  "

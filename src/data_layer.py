@@ -58,7 +58,10 @@ def get_data_layer() -> BaseDataLayer:
     """Return the data layer matching the current DATA_LAYER_BACKEND env."""
     backend = os.environ.get("DATA_LAYER_BACKEND", "sqlite").lower()
     if backend == "dynamodb":
-        logger.info("Data layer: DynamoDB (table=%s)", os.environ.get("DYNAMODB_THREADS_TABLE", "agent-fin-threads"))
+        table = os.environ.get("DYNAMODB_THREADS_TABLE", "agent-fin-threads")
+        logger.info("Data layer: DynamoDB (table={})", table)
         return _build_dynamodb_layer()
-    logger.info("Data layer: SQLite (path=.chainlit/threads.db)")
+    db_dir_env = os.environ.get("DATA_LAYER_SQLITE_DIR")
+    db_dir = Path(db_dir_env) if db_dir_env else _DEFAULT_SQLITE_DIR
+    logger.info("Data layer: SQLite (path={}/threads.db)", db_dir)
     return _build_sqlite_layer()
