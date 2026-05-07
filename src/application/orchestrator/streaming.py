@@ -13,7 +13,7 @@ import json
 import re
 from typing import Any, AsyncGenerator
 
-from langchain_core.messages import AIMessage, AIMessageChunk, HumanMessage
+from langchain_core.messages import AIMessage, AIMessageChunk, BaseMessage, HumanMessage
 from loguru import logger
 
 from src.application.orchestrator.workflow.graph import create_graph
@@ -144,7 +144,7 @@ def _sanitize_tool_args(raw: Any) -> dict:
 
 
 async def get_streaming_events(
-    messages: str,
+    messages: str | list[BaseMessage],
     customer_name: str = "Guest",
     conversation_id: str | None = None,
     callbacks: list | None = None,
@@ -152,6 +152,13 @@ async def get_streaming_events(
     """Stream tagged events for the Chainlit UI.
 
     Yields dicts with one of these `kind` values:
+      - "intent"                {kind, intent,           emitted once per turn, on
+                                  wiki_slug}              router_node's on_chain_end —
+                                                          BEFORE any answer_token /
+                                                          tool_call. Lets the UI decide
+                                                          up-front whether to show a
+                                                          Working step (rag_query only)
+                                                          before the answer streams.
       - "answer_token"          {kind, text}             live token for the final answer
       - "rewind_to_thinking"    {kind, text}             retroactively re-classify text
                                                           as reasoning (rare — only when
@@ -187,8 +194,12 @@ async def get_streaming_events(
     if callbacks:
         config["callbacks"] = callbacks
 
+    if isinstance(messages, str):
+        msg_list: list[BaseMessage] = [HumanMessage(content=messages)]
+    else:
+        msg_list = list(messages)
     input_data = {
-        "messages": [HumanMessage(content=messages)],
+        "messages": msg_list,
         "customer_name": customer_name,
         "tool_call_count": 0,
     }
@@ -210,6 +221,18 @@ async def get_streaming_events(
             event_type = event.get("event")
             name = event.get("name", "")
             data = event.get("data", {})
+
+            if event_type == "on_chain_end" and name == "router_node":
+                # Router has classified intent; surface it to the UI before
+                # any downstream node starts streaming. The UI uses this to
+                # decide whether to render a "Working" step at all.
+                output = data.get("output")
+                if isinstance(output, dict):
+                    yield {
+                        "kind": "intent",
+                        "intent": output.get("intent", "rag_query"),
+                        "wiki_slug": output.get("wiki_slug"),
+                    }
 
             if event_type == "on_chain_start" and name in _RESPONSE_NODES:
                 in_response_node = True

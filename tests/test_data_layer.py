@@ -64,3 +64,82 @@ def test_dispatch_to_dynamodb_branch_via_mock(monkeypatch):
         dl, "_build_dynamodb_layer", lambda: sentinel
     )
     assert dl.get_data_layer() is sentinel
+
+
+# ---------------------------------------------------------------- streaming --
+
+def test_get_streaming_events_accepts_string():
+    """Backwards-compat: passing a string works as before."""
+    import inspect
+    from src.application.orchestrator.streaming import get_streaming_events
+
+    sig = inspect.signature(get_streaming_events)
+    messages_param = sig.parameters["messages"]
+    annotation = str(messages_param.annotation)
+    assert "str" in annotation
+    assert "list" in annotation or "List" in annotation
+
+
+def test_get_streaming_events_wraps_string_into_one_human_message(monkeypatch):
+    """When messages is a str, the agent input should be a single
+    HumanMessage. We don't run the full agent — just patch
+    `create_graph` and capture the input_data passed in."""
+    import asyncio
+    from langchain_core.messages import HumanMessage
+    from src.application.orchestrator import streaming
+
+    captured = {}
+
+    class _FakeGraph:
+        async def astream_events(self, *, input, config, version):
+            captured["input"] = input
+            captured["config"] = config
+            return  # async generator that yields nothing
+            yield  # unreachable
+
+    monkeypatch.setattr(streaming, "create_graph", lambda: _FakeGraph())
+
+    async def run():
+        async for _ in streaming.get_streaming_events(
+            messages="hello world", customer_name="T", conversation_id="t1",
+        ):
+            pass
+
+    asyncio.run(run())
+    msgs = captured["input"]["messages"]
+    assert len(msgs) == 1
+    assert isinstance(msgs[0], HumanMessage)
+    assert msgs[0].content == "hello world"
+
+
+def test_get_streaming_events_passes_list_through(monkeypatch):
+    """When messages is a list, the input_data['messages'] should be that
+    list verbatim — no wrapping."""
+    import asyncio
+    from langchain_core.messages import AIMessage, HumanMessage
+    from src.application.orchestrator import streaming
+
+    captured = {}
+
+    class _FakeGraph:
+        async def astream_events(self, *, input, config, version):
+            captured["input"] = input
+            return
+            yield
+
+    monkeypatch.setattr(streaming, "create_graph", lambda: _FakeGraph())
+
+    history = [
+        HumanMessage(content="prior question"),
+        AIMessage(content="prior answer"),
+        HumanMessage(content="follow-up"),
+    ]
+
+    async def run():
+        async for _ in streaming.get_streaming_events(
+            messages=history, customer_name="T", conversation_id="t1",
+        ):
+            pass
+
+    asyncio.run(run())
+    assert captured["input"]["messages"] == history
