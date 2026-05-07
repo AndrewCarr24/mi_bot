@@ -1,0 +1,37 @@
+/* Hide Chainlit's intermediate "Login to access the app" screen during
+ * the brief header-auth handshake. After our /login POST sets the
+ * agent_session cookie and we land at /chat, Chainlit's frontend hits
+ * GET /chat/user (401, no JWT yet), then POST /chat/auth/header (200,
+ * issues JWT via @cl.header_auth_callback), then GET /chat/user (200).
+ * That sequence takes ~200-1500ms and during it the URL is /chat/login
+ * with Chainlit's own login screen rendered. We hide it via opacity so
+ * the flash isn't visually distracting; the chat UI fades in once the
+ * auth completes and the URL transitions to /chat.
+ *
+ * Toggling is done by custom.js based on location.pathname. */
+html.cl-suppress-login-flash > body {
+  opacity: 0;
+}
+
+/* Tiny centered spinner shown during the suppressed flash so the user
+ * sees something (instead of a fully blank screen) while the JWT is
+ * acquired. */
+html.cl-suppress-login-flash::after {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  animation: cl-flash-spin 0.8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes cl-flash-spin {
+  to { transform: rotate(360deg); }
+}
