@@ -35,3 +35,12 @@ html.cl-suppress-login-flash::after {
 @keyframes cl-flash-spin {
   to { transform: rotate(360deg); }
 }
+
+/* Hide Chainlit's user-avatar button. With shared-password auth there's
+ * no real per-user identity to display — the avatar shows the first
+ * char of the browser_id UUID, which is meaningless to users. The
+ * button also opens a logout/settings menu we route through our own
+ * /logout instead. */
+#user-nav-button {
+  display: none !important;
+}
