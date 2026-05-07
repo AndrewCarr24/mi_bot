@@ -13,6 +13,7 @@ import json
 import logging
 import os
 import time
+import uuid
 from collections import defaultdict
 from typing import Optional
 from urllib.parse import quote
@@ -243,6 +244,37 @@ class AuthMiddleware(BaseHTTPMiddleware):
             f"/login?next={quote(next_url, safe='')}",
             status_code=302,
         )
+
+
+class BrowserIdMiddleware(BaseHTTPMiddleware):
+    """Set a long-lived `agent_browser_id` cookie on first visit.
+
+    The cookie is independent of `agent_session` (auth) — it's the
+    browser's identity, used as the Chainlit `cl.User.identifier` so
+    the data layer scopes thread persistence per browser. Logging out
+    clears the auth cookie but leaves this one alone, so the user's
+    session list survives logout/login cycles.
+    """
+
+    async def dispatch(self, request: Request, call_next):
+        existing = request.cookies.get("agent_browser_id")
+        new_cookie = existing is None
+        browser_id = existing or str(uuid.uuid4())
+        request.state.browser_id = browser_id
+
+        response = await call_next(request)
+
+        if new_cookie:
+            response.set_cookie(
+                key="agent_browser_id",
+                value=browser_id,
+                max_age=365 * 86400,  # 1 year — matches DynamoDB TTL
+                httponly=True,
+                secure=True,
+                samesite="lax",
+                path="/",
+            )
+        return response
 
 
 def register_auth_routes(app: FastAPI) -> None:
