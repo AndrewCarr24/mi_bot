@@ -102,6 +102,25 @@ class Settings(BaseSettings):
         ),
     )
 
+    # === Sessions (Chainlit chat history) ===
+
+    DATA_LAYER_BACKEND: Literal["sqlite", "dynamodb"] = Field(
+        default="sqlite",
+        description=(
+            "Chainlit data layer backend. 'sqlite' for local dev "
+            "(persists threads to agent_fin/.chainlit/threads.db); "
+            "'dynamodb' for App Runner (CDK-provisioned table)."
+        ),
+    )
+
+    DYNAMODB_THREADS_TABLE: str = Field(
+        default="agent-fin-threads",
+        description=(
+            "DynamoDB table name for Chainlit thread storage. Only "
+            "consulted when DATA_LAYER_BACKEND='dynamodb'."
+        ),
+    )
+
     # ── History condensation ───────────────────────────────────────────
     HISTORY_STRATEGY: Literal["trim", "summarize"] = Field(
         default="trim",
