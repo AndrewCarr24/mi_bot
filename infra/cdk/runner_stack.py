@@ -6,8 +6,10 @@ import os
 
 from aws_cdk import (
     CfnOutput,
+    RemovalPolicy,
     Stack,
     aws_apprunner as apprunner,
+    aws_dynamodb as dynamodb,
     aws_ecr as ecr,
     aws_iam as iam,
 )
@@ -83,6 +85,24 @@ class AgentFinRunnerStack(Stack):
             )
         )
 
+        # ---- DynamoDB table for Chainlit thread + message storage.
+        threads_table = dynamodb.Table(
+            self,
+            "AgentFinThreadsTable",
+            table_name="agent-fin-threads",
+            partition_key=dynamodb.Attribute(
+                name="PK", type=dynamodb.AttributeType.STRING
+            ),
+            sort_key=dynamodb.Attribute(
+                name="SK", type=dynamodb.AttributeType.STRING
+            ),
+            billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
+            time_to_live_attribute="expires_at",
+            removal_policy=RemovalPolicy.RETAIN,
+            point_in_time_recovery=True,
+        )
+        threads_table.grant_read_write_data(instance_role)
+
         # ---- Build env-var list for App Runner.
         runtime_env = []
         for name in REQUIRED_ENV_VARS:
@@ -97,6 +117,19 @@ class AgentFinRunnerStack(Stack):
                 runtime_env.append(
                     apprunner.CfnService.KeyValuePairProperty(name=name, value=value)
                 )
+
+        # Production-only sessions config — set explicitly here, not from
+        # the local .env. Local dev uses the Settings field defaults.
+        runtime_env.append(
+            apprunner.CfnService.KeyValuePairProperty(
+                name="DATA_LAYER_BACKEND", value="dynamodb"
+            )
+        )
+        runtime_env.append(
+            apprunner.CfnService.KeyValuePairProperty(
+                name="DYNAMODB_THREADS_TABLE", value=threads_table.table_name
+            )
+        )
 
         # ---- App Runner service.
         # Using L1 CfnService for full control over image-deployment knobs.
@@ -152,4 +185,10 @@ class AgentFinRunnerStack(Stack):
             "ServiceArn",
             value=service.attr_service_arn,
             description="ARN used by deploy.sh for `apprunner start-deployment`.",
+        )
+        CfnOutput(
+            self,
+            "ThreadsTableName",
+            value=threads_table.table_name,
+            description="DynamoDB table holding Chainlit thread + message history.",
         )
