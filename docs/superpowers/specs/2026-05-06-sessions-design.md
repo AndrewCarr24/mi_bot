@@ -343,6 +343,7 @@ Run before merging:
 - **DynamoDB schema is determined by Chainlit's `DynamoDBDataLayer` impl.** We don't control table layout details (PK/SK formats); Chainlit does. If Chainlit changes the schema, existing data may not be readable. Mitigated by `point_in_time_recovery` for rollback.
 - **Per-browser identity is recoverable only via the cookie.** If a user clears cookies, their session list is unreachable. Documented; not a bug, an expected consequence of Decision 1.
 - **WebSocket cookie behavior** — the `agent_browser_id` cookie is sent on the WS upgrade just like the auth cookie. Verified the same way as in the deployment+auth project (manual checklist). If Chainlit's WS handshake somehow strips the cookie, `header_auth_callback` would return `None` and the session would be anonymous — would require investigation.
+- **DynamoDB TTL is configured but does not fire today.** The CDK table has `time_to_live_attribute="expires_at"`, but Chainlit's stock `DynamoDBDataLayer` never writes that attribute on items — items therefore live indefinitely. To enforce the 1-year cookie/data alignment per Decision 5, we'd need to wrap the data layer to inject `expires_at = int(time.time()) + 365*86400` on `create_step`/`update_thread`, or use a DynamoDB Streams + Lambda stamper. Tracked as a follow-up; not blocking deploy at low traffic since DynamoDB pay-per-request storage cost is essentially free.
 
 ## Implementation handoff
 

@@ -16,7 +16,7 @@ from aws_cdk import (
 from constructs import Construct
 
 
-REQUIRED_ENV_VARS = ("AGENT_PASSWORD", "COOKIE_SECRET", "DEEPSEEK_API_KEY", "AWS_REGION")
+REQUIRED_ENV_VARS = ("AGENT_PASSWORD", "COOKIE_SECRET", "DEEPSEEK_API_KEY", "AWS_REGION", "CHAINLIT_AUTH_SECRET")
 OPTIONAL_ENV_VARS = ("LANGSMITH_API_KEY", "LANGSMITH_PROJECT", "LANGSMITH_TRACING")
 
 
@@ -100,6 +100,16 @@ class AgentFinRunnerStack(Stack):
             time_to_live_attribute="expires_at",
             removal_policy=RemovalPolicy.RETAIN,
             point_in_time_recovery=True,
+        )
+        threads_table.add_global_secondary_index(
+            index_name="UserThread",
+            partition_key=dynamodb.Attribute(
+                name="UserThreadPK", type=dynamodb.AttributeType.STRING
+            ),
+            sort_key=dynamodb.Attribute(
+                name="UserThreadSK", type=dynamodb.AttributeType.STRING
+            ),
+            projection_type=dynamodb.ProjectionType.ALL,
         )
         threads_table.grant_read_write_data(instance_role)
 

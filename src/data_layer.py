@@ -16,6 +16,7 @@ import os
 from pathlib import Path
 
 from chainlit.data.base import BaseDataLayer
+from loguru import logger
 
 
 _DEFAULT_SQLITE_DIR = Path(__file__).resolve().parents[1] / ".chainlit"
@@ -57,5 +58,7 @@ def get_data_layer() -> BaseDataLayer:
     """Return the data layer matching the current DATA_LAYER_BACKEND env."""
     backend = os.environ.get("DATA_LAYER_BACKEND", "sqlite").lower()
     if backend == "dynamodb":
+        logger.info("Data layer: DynamoDB (table=%s)", os.environ.get("DYNAMODB_THREADS_TABLE", "agent-fin-threads"))
         return _build_dynamodb_layer()
+    logger.info("Data layer: SQLite (path=.chainlit/threads.db)")
     return _build_sqlite_layer()

@@ -65,5 +65,9 @@ data.mi/*.tar.gz
 # session; not source of truth.
 .files/
 
+# Chainlit local data layer (SQLite — sessions feature, local dev only).
+.chainlit/*.db
+.chainlit/*.db-journal
+
 # Superpowers brainstorming session artifacts (mockups, state).
 .superpowers/

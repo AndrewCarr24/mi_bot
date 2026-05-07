@@ -27,6 +27,7 @@ from pathlib import Path
 import chainlit as cl
 import chainlit.data as cl_data
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
+from loguru import logger
 
 
 # Chainlit may exec this file from a different cwd than api.py — ensure
@@ -51,10 +52,19 @@ async def _fetch_thread_messages(thread_id: str) -> list[BaseMessage]:
     """
     layer = _get_data_layer_instance()
     if layer is None:
+        logger.warning(
+            "_fetch_thread_messages: no data layer registered; "
+            "skipping replay for thread_id=%s",
+            thread_id,
+        )
         return []
     try:
         thread = await layer.get_thread(thread_id)
-    except Exception:
+    except Exception as e:
+        logger.warning(
+            "_fetch_thread_messages: get_thread failed for thread_id=%s: %s",
+            thread_id, e,
+        )
         return []
     if not thread:
         return []
