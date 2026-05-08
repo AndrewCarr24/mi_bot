@@ -1,0 +1,111 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"At year-end 2024, what was the dispersion in PMIERs sufficiency ratios across the six MI cohort issuers — which had the highest, which had the lowest, and what was the spread?","PMIERs sufficiency ratios at YE 2024 ranged from approximately 156% (Radian Guaranty, lowest, with a $2.2B/56% cushion over MRA) to 186% (Arch's combined eligible mortgage insurers AMIC and UGRIC, highest), a spread of about 30 percentage points. Other issuers: Essent 178%, NMI ~170%, Enact 167%, MGIC ~161%.","At year-end 2024, PMIERs sufficiency ratios (Available Assets ÷ Minimum Required Assets) across the six issuers were:
+
+| Issuer | Sufficiency Ratio |
+|---|---|
+| **Arch** (eligible MIs) | **186%** — highest |
+| Essent Guaranty | 178% |
+| NMI Holdings (NMIC) | ~170%* |
+| Enact (EMICO) | 167% |
+| MGIC | ~161% |
+| **Radian Guaranty** | **~156%** — lowest |
+
+*NMI reports on an (excess ÷ required) basis as 70%, which equates to ~170% on the Available ÷ Required basis used by peers.
+
+**The spread from highest (Arch, 186%) to lowest (Radian, ~156%) was approximately 30 percentage points.**",True,"All key figures match—highest 186% (Arch), lowest 156% (Radian), spread 30 points, intermediate values align.",0.003557,0.000681,"[{""tool"": ""wiki_read_page"", ""tokens_est"": 7115}]",7115,9.69
+"How has investment portfolio pre-tax yield evolved from FY2022 through FY2024 across the six MI cohort issuers (MGIC, Radian, Essent, NMI, Enact, Arch)?","Each issuer reports the metric slightly differently, but the directional trend is consistent — portfolio yields rose materially from FY2022 through FY2024 as rising rates lifted reinvestment yields. By issuer (FY2022 / FY2023 / FY2024): MGIC pre-tax yield 3.0% / 3.7% / 4.0%; Radian Average investment yield 3.1% / 3.6% / 3.7%; Essent pre-tax investment income yield 2.6% / 3.5% / 3.7%; NMI Holdings pre-tax book yield not explicitly stated for FY2022 (2022 10-K not in corpus) / 2.6% / 3.0%; Enact pre-tax yield 3.1% / 3.6% / 4.0%; Arch Capital pre-tax investment income yield 1.99% / 3.53% / 4.25%.","Let me get the specific pre-tax yield figures for each company since some were mentioned only in the 10-K 2023 filings.Good, I have FY2022 and FY2023 data for most. Let me get the FY2024 yields and fill in missing pieces.Based on the retrieved 10-K data, I can report pre-tax investment portfolio yields for three of the six issuers across the full FY2022–FY2024 period. Data for MGIC and Radian only cover FY2022–FY2023, and no yield data was found for Essent, NMI, or Arch in the retrieved filings.
+
+| Issuer | FY2022 | FY2023 | FY2024 |
+|--------|--------|--------|--------|
+| **Enact (ACT)** | **3.1%** | **3.6%** | **4.0%** |
+| **MGIC (MTG)** | **3.0%** | **3.7%** | Not retrieved |
+| **Radian (RDN)** | **3.1%** | **3.6%** | Not retrieved |
+| **Essent (ESNT)** | Not found | Not found | Not found |
+| **NMI (NMIH)** | Not found | Not found | Not found |
+| **Arch (ACGL)** | Not found | Not found | Not found |
+
+**Key observations:**
+- **Enact**: Pre-tax yield on average investment portfolio assets (ex-cash) rose from 3.1% (FY2022) to 3.6% (FY2023) to 4.0% (FY2024), as shown in its FY2024 10-K table.
+- **MGIC**: Embedded pre-tax yield (yield-to-worst) improved from 3.0% (FY2022) to 3.7% (FY2023), per its FY2023 10-K. FY2024 data was not available in the retrieved filings.
+- **Radian**: Average investment yield for Mortgage Insurance subsidiaries (net investment income divided by average investments at amortized cost) was 3.1% (FY2022) and 3.6% (FY2023), per its FY2023 10-K. FY2024 data was not retrieved.
+- **Essent, NMI, and Arch**: The retrieved portions of their 10-Ks did not disclose a comparable pre-tax investment yield figure. Their investment discussions covered portfolio composition, duration, and risk management but omitted a stated annual yield metric for these years.
+
+The general upward trend across the three issuers with available data reflects the lagged benefit of rising interest rates as lower-yielding securities matured and were reinvested at higher market yields.",False,"Agent found only partial data (3 of 6 issuers, incomplete years) vs. expected complete dataset across all six issuers FY2022–FY2024.",0.03889,0.0013,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 8256}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8341}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7125}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8330}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7333}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7145}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7365}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6698}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7406}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7982}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7815}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7598}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7924}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7075}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7108}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7301}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7394}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5914}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6328}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6740}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8144}]",155322,140.94
+"If I want to spot which MI cohort issuer would be hit hardest by a new entrant disrupting pricing, what disclosures should I look at across the cohort, and what did the cohort actually say about pricing discipline in 2024?","Disclosures to examine: net premium yields/trends in 10-K segment reporting and MD&A; NIW growth and market-share trajectory; customer concentration risk in 10-K Risk Factors (top-customer share of NIW); explicit risk-factor language about new entrants or pricing pressure; management commentary on pricing discipline in earnings call transcripts. In 2024, MGIC and Essent emphasized walking away from underpriced business and willingness to cede share to defend returns. Enact's 10-K explicitly acknowledged it 'may reduce certain of our rates to balance both profitability and market share,' implying more pricing flexibility/exposure, and Enact has elevated single-customer concentration (~20% of NIW). Radian had strong reported NIW growth (~24% YoY in Q4 2024) without prominently flagging pricing discipline. NMI Holdings noted lenders generally don't push back on pricing and runs the lowest premium yield in the cohort. Arch Capital's US MI segment characterized returns as still favorable. Multiple defensible candidates for 'most exposed' exist (NMIH on yield, Enact on customer concentration, Essent on top-10 concentration growth, or Radian on growth-without-discipline) depending on which framing is emphasized.","## Key Disclosures to Assess Vulnerability to a Pricing Disruptor
+
+### 1. Premium Yield & Pricing Power Indicators
+- **In-force portfolio premium yield** (basis points) — especially the rate of decline YoY. A rapidly compressing yield signals less pricing headroom.
+- **NIW premium rate** vs. in-force portfolio yield — the gap shows how much new business is being written below the book average.
+- **Net premium yield** (after reinsurance) — companies using heavy cession may mask underlying price compression.
+- **Single premium plan mix** — high single-premium concentration means more capital is deployed upfront, making mispricing more costly.
+
+### 2. Business Mix & Customer Concentration
+- **Top customer concentration** — the more concentrated, the more leverage a lender has to demand the new entrant's price.
+- **Forward commitment exposure** — locked-in rates from commitments reduce flexibility to react.
+- **Refinance vs. purchase mix and credit box** (FICO < 680, >95% LTV, >45% DTI) — thinner credit boxes tend to be better-protected from commoditized pricing pressure.
+
+### 3. Capital & Return Positioning
+- **NIW market share trends** — a company that has been gaining share recently may have already been pricing aggressively, leaving less room to defend.
+- **ROE / returns on unit economics** — Essent's Mark Casale referenced ~12–15% target returns; companies already at the low end have less cushion.
+- **PMIERs sufficiency ratio** — less excess capital = less ability to weather a margin squeeze.
+- **Excess capital / holding company liquidity** — companies with more dry powder can choose to defend share or pivot.
+
+### 4. Reinsurance Structure
+- **Quota share cession %** — heavy cession can be a buffer; but if a disruptor forces prices below the ceded cost structure, the buffer flips.
+- **Reinsurance counterparty commitments** — locked-in quota shares may prevent rapid price response.
+
+### 5. Franchise & Strategic Flexibility
+- **Diversification beyond MI** — Arch (via insurance/reinsurance) and Radian (title + real estate services) have the most non-MI earnings. MGIC and NMI are pure-plays. Pure-plays have fewer levers.
+- **Parent company structure** — Arch is part of a large P&C group and, per Essent's Casale, can ""move in and out of the market"" — greater strategic optionality.
+
+---
+
+## What the Cohort Actually Said About Pricing Discipline in 2024
+
+**Every company consistently described 2024 pricing as stable, rational, and disciplined.** The chorus was remarkably uniform:
+
+### NMI Holdings (NMIH)
+- **Q1 2024:** Adam Pollitzer described industry pricing as at a ""point of balance and stability"" after having ""laddered higher"" through H2 2022–early 2023. He said pricing was ""stable, rational"" and cited ""broad discipline across the sector.""
+- **Q3 2024:** Asked about one competitor taking significant share, Pollitzer reiterated: ""Industry pricing is generally stable and, we would say, rational. We're really encouraged by the discipline that we see across the market.""
+- **Q4 2024:** Confirmed ""the MI pricing environment remains balanced and constructive"" and cited the ""continued opportunity and discipline across the private MI industry.""
+
+### Radian (RDN)
+- **Q3 2024 (Derek Brummer):** ""The pricing environment continues to be rational and disciplined. You do see some movements here and there around the edges...but overall, I would say the price environment continues to be stable, an environment that we like.""
+
+### Enact (ACT)
+- **Q3 2024 (Rohit Gupta):** ""MI pricing continues to be competitive, but also expected pricing returns continue to remain attractive within our risk-adjusted return appetite."" He described the environment as ""constructive.""
+
+### Essent (ESNT)
+- **Q4 2023 call (Mark Casale, looking into 2024):** Argued that pricing power had structurally migrated to the MI industry via black-box pricing engines. Said the industry prices for normalized 12–15% returns and ""everyone has a pretty good beat on"" competitors' moves, creating self-discipline. He noted it ""would be a short-lived gain"" to cut price — competitors would instantly match.
+
+### MGIC (MTG)
+- **Full-year 2024 (Tim Mattke, Q4 2024 call):** ""A disciplined approach to the market"" was a recurring theme. The 10-K stated: ""Premium rates have declined over the past several years. With the smaller origination market, higher persistency, and continued high credit quality...we expect our in-force portfolio premium yield to remain relatively flat during 2024.""
+- On the Q3 2024 call, MGIC described the pricing backdrop as stable, noting they were able to ""find the value where we wanted it.""
+
+### Arch Capital (ACGL)
+- **2024 10-K:** ""Our U.S. market share was stable as industry pricing discipline held."" Arch credited pricing discipline for its third consecutive year of >$1B underwriting income from the mortgage segment.
+
+---
+
+## Which Issuer Would Be Hit Hardest?
+
+Based on the disclosures above:
+
+**Most vulnerable: MGIC (MTG)** — A pure-play MI with the largest market share (typically ~20%+). As the market leader, it has the most NIW to defend and is most exposed if lenders start allocating share to a lower-price entrant. Its risk factor in the 2025 8-K explicitly acknowledges this: *""Recently reported increases in credit quality...and relative financial results...may encourage new entrants...which could further increase competition.""* It also noted a potential new entrant intends to begin writing in 2026.
+
+**Next most exposed: NMIH / ACT** — Both are pure-plays with meaningful NIW to protect. NMIH has been vocal about ""point of balance"" pricing, suggesting any disruption would be unwelcome.
+
+**Best protected: ACGL / RDN** — ACGL is part of a diversified P&C group that can allocate capital strategically across business lines. RDN has title and real estate services diversifying earnings. Both have more levers to pull in a price war, including pulling back on volume without destabilizing the enterprise.",False,"The agent's answer is well-structured and identifies correct disclosure categories and themes, but it diverges significantly from the expected answer on specifics. The expected answer names MGIC and Essent as emphasizing pricing discipline and walking away from underpriced business; identifies Enact as more flexible on pricing with elevated customer concentration (~20% NIW); flags NMI as running the lowest yield; and notes Radian had strong NIW growth without prominent pricing discipline messaging. The agent concludes MGIC is most vulnerable, contradicting the expected answer's multi-candidate framing (NMIH on yield, Enact on concentration, Essent on top-10 concentration growth, Radian on growth-without-discipline). The agent also mischaracterizes Essent's 2024 stance and omits key quantitative details (e.g., Radian's ~24% YoY Q4 2024 NIW growth, Enact's explicit rate-reduction language, NMI's lowest-yield positioning).",0.01803,0.003101,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 8482}, {""tool"": ""dsrag_kb"", ""tokens_est"": 9141}, {""tool"": ""dsrag_kb"", ""tokens_est"": 11060}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8272}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7859}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4783}]",49597,68.67
+"What board or named-executive changes did the six MI cohort issuers report in 2024 — additions, departures, or restructurings? Just the ones disclosed via 8-K Item 5.02.","The only Item 5.02 disclosure in the cohort's 2024 8-Ks is MGIC's (MTG) appointment of Michael Thompson to its Board of Directors, disclosed in the 8-K filed January 31, 2024. None of the other five cohort issuers (Radian, Essent, NMI, Enact, Arch Capital) reported board additions, departures, or restructurings via Item 5.02 in 2024. The other 8-Ks the cohort filed in 2024 are primarily earnings releases (Item 2.02) and dividend declarations.","Based on the KB content retrieved, the only board or named-executive changes disclosed via 8-K Item 5.02 among the six MI cohort issuers in 2024 were from **Radian (RDN)**.
+
+**RDN – Radian Group Inc.**
+
+- **8-K filed 2024-05-01 (Q1 2024 earnings press release):** The earnings release itself (Exhibit 99.1) contains no Item 5.02 disclosures about director or executive changes. However, in the same 8-K filing, the board authorized an increase to the share repurchase program and extended the term — this is capital management, not Item 5.02.
+
+- **8-K filed 2024-07-31 (Q2 2024 earnings press release):** Again, this is an earnings release, not an Item 5.02 filing.
+
+- **8-K filed 2024-11-06 (Q3 2024 earnings press release):** Same — earnings results, not Item 5.02.
+
+None of the other filings for **ACGL, ACT, ESNT, MTG, or NMIH** that were queried returned any Item 5.02 content either.
+
+**Summary:** The KB contains **no Item 5.02 disclosures** for board or named-executive changes (additions, departures, or restructurings) from any of the six MI cohort issuers in calendar year 2024. If such changes occurred, they were either reported via a separate 8-K that is not in the KB, disclosed in a proxy statement or other filing outside the 8-K catalog provided, or did not happen.",False,Expected answer identifies MGIC (MTG) appointment of Michael Thompson via Item 5.02 on 1/31/2024; agent answer claims no Item 5.02 disclosures found.,0.016775,0.000951,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 6906}, {""tool"": ""dsrag_kb"", ""tokens_est"": 511}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6915}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7650}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5396}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6853}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4160}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7064}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4851}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8101}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8856}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7072}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7931}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8755}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8277}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8273}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7973}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8788}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7556}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7311}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7697}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7342}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7001}, {""tool"": ""dsrag_kb"", ""tokens_est"": 9768}]",171007,118.84
