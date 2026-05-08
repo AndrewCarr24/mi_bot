@@ -68,6 +68,20 @@ DATASET_DESCRIPTION = (
     "expected_doc_ids, and optional key_facts."
 )
 
+# Per-dataset descriptions for the upload subcommand. Falls back to a
+# generic description for any name not listed.
+_DATASET_DESCRIPTIONS = {
+    "mi_28q_v1": DATASET_DESCRIPTION,
+    "mi_analyst_q156_v1": (
+        "MI analyst question library — 156 questions across 8 topics "
+        "(quarterly results, capital/PMIERs, credit/delinquency, "
+        "regulatory/GSE, reinsurance, competitive dynamics, macro/housing, "
+        "forward-looking). Generated from analyst-research subagents per "
+        "docs/superpowers/specs/2026-05-07-mi-analyst-question-research-design.md. "
+        "Expected answers authored against the KB via Bedrock Haiku synthesis."
+    ),
+}
+
 
 # ── Reference data: questions + retrieval-correctness expectations ──────────
 #
@@ -92,18 +106,25 @@ def _read_csv_rows(csv_path: Path) -> list[dict]:
         return list(csv.DictReader(f))
 
 
-def _build_examples(csv_path: Path) -> list[dict]:
-    """Build LangSmith example dicts from the 28q CSV."""
+def _build_examples(csv_path: Path, dataset_name: str) -> list[dict]:
+    """Build LangSmith example dicts from a CSV.
+
+    The STRESS_EXPECTED_DOC_IDS overlay is keyed by row position and is
+    only meaningful for the 28q dataset where row 24-28 are the stress
+    questions. For other datasets we skip the overlay (retrieval
+    correctness evaluator returns score=None when expected_doc_ids is
+    absent — handled gracefully)."""
+    apply_stress_overlay = dataset_name == "mi_28q_v1"
     examples = []
     rows = _read_csv_rows(csv_path)
     for i, row in enumerate(rows, 1):
         outputs: dict = {"expected_answer": row["expected_answer"]}
-        if i in STRESS_EXPECTED_DOC_IDS:
+        if apply_stress_overlay and i in STRESS_EXPECTED_DOC_IDS:
             outputs["expected_doc_ids"] = STRESS_EXPECTED_DOC_IDS[i]
         examples.append({
             "inputs": {"question": row["question"]},
             "outputs": outputs,
-            "metadata": {"qnum": i, "is_stress": i >= 24},
+            "metadata": {"qnum": i, "is_stress": apply_stress_overlay and i >= 24},
         })
     return examples
 
@@ -112,15 +133,16 @@ def cmd_upload(args) -> None:
     """Create or refresh the LangSmith dataset."""
     client = Client()
     csv_path = _HERE.parent / args.csv
-    examples = _build_examples(csv_path)
+    dataset_name = args.dataset
+    examples = _build_examples(csv_path, dataset_name)
 
     # Check if dataset already exists
-    existing = list(client.list_datasets(dataset_name=DATASET_NAME))
+    existing = list(client.list_datasets(dataset_name=dataset_name))
     if existing:
         ds = existing[0]
         if not args.force:
             print(
-                f"Dataset {DATASET_NAME!r} already exists (id={ds.id}). "
+                f"Dataset {dataset_name!r} already exists (id={ds.id}). "
                 f"Use --force to replace its examples."
             )
             return
@@ -128,19 +150,23 @@ def cmd_upload(args) -> None:
         existing_examples = list(client.list_examples(dataset_id=ds.id))
         for ex in existing_examples:
             client.delete_example(ex.id)
-        print(f"Deleted {len(existing_examples)} existing examples from {DATASET_NAME!r}")
+        print(f"Deleted {len(existing_examples)} existing examples from {dataset_name!r}")
     else:
         ds = client.create_dataset(
-            dataset_name=DATASET_NAME,
-            description=DATASET_DESCRIPTION,
+            dataset_name=dataset_name,
+            description=_DATASET_DESCRIPTIONS.get(
+                dataset_name,
+                f"MI eval dataset uploaded from {args.csv}",
+            ),
         )
-        print(f"Created dataset {DATASET_NAME!r} (id={ds.id})")
+        print(f"Created dataset {dataset_name!r} (id={ds.id})")
 
     client.create_examples(dataset_id=ds.id, examples=examples)
-    print(f"Uploaded {len(examples)} examples to {DATASET_NAME!r}")
+    print(f"Uploaded {len(examples)} examples to {dataset_name!r}")
     n_stress = sum(1 for e in examples if e["metadata"]["is_stress"])
-    print(f"  {n_stress} stress questions (with expected_doc_ids)")
-    print(f"  {len(examples) - n_stress} original questions")
+    if n_stress:
+        print(f"  {n_stress} stress questions (with expected_doc_ids)")
+        print(f"  {len(examples) - n_stress} original questions")
 
 
 # ── Predictor ───────────────────────────────────────────────────────────────
@@ -259,10 +285,11 @@ def retrieval_correctness_evaluator(outputs: dict, reference_outputs: dict, **_)
 
 async def cmd_run(args) -> None:
     client = Client()
+    dataset_name = args.dataset
     # Verify dataset exists
-    existing = list(client.list_datasets(dataset_name=DATASET_NAME))
+    existing = list(client.list_datasets(dataset_name=dataset_name))
     if not existing:
-        print(f"Dataset {DATASET_NAME!r} not found. Run `upload` first.")
+        print(f"Dataset {dataset_name!r} not found. Run `upload` first.")
         sys.exit(1)
     ds = existing[0]
 
@@ -272,7 +299,7 @@ async def cmd_run(args) -> None:
         print(f"MULTI_DOC_FILTER = {args.mode}")
 
     # Optional filtering: only the stress questions (Q24-Q28)
-    data: Any = DATASET_NAME
+    data: Any = dataset_name
     if args.stress_only:
         # Pull just stress examples
         all_examples = list(client.list_examples(dataset_id=ds.id))
@@ -323,16 +350,20 @@ def main() -> None:
     p_up = sub.add_parser("upload", help="Upload/refresh dataset")
     p_up.add_argument("--csv", default="questions_mi_28q.csv",
                       help="CSV file relative to eval/")
+    p_up.add_argument("--dataset", default=DATASET_NAME,
+                      help=f"LangSmith dataset name (default: {DATASET_NAME})")
     p_up.add_argument("--force", action="store_true",
                       help="Replace existing dataset's examples")
     p_up.set_defaults(func=cmd_upload)
 
     p_run = sub.add_parser("run", help="Run an experiment")
     p_run.add_argument("--tag", required=True, help="experiment_prefix")
+    p_run.add_argument("--dataset", default=DATASET_NAME,
+                       help=f"LangSmith dataset name (default: {DATASET_NAME})")
     p_run.add_argument("--mode", choices=["off", "filter", "quota"],
                        help="MULTI_DOC_FILTER mode")
     p_run.add_argument("--stress-only", action="store_true",
-                       help="Filter to Q24-Q28 only")
+                       help="Filter to Q24-Q28 only (only meaningful for mi_28q_v1)")
     p_run.add_argument("--concurrency", default="2",
                        help="Max parallel predictor calls")
     p_run.set_defaults(func=cmd_run)
