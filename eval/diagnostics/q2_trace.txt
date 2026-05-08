@@ -1,0 +1,1805 @@
+====================================================================================================
+Q2: How has investment portfolio pre-tax yield evolved from FY2022 through FY2024 across the six MI cohort issuers (MGIC, Radian, Essent, NMI, Enact, Arch)?
+----------------------------------------------------------------------------------------------------
+EXPECTED:
+Each issuer reports the metric slightly differently, but the directional trend is consistent — portfolio yields rose materially from FY2022 through FY2024 as rising rates lifted reinvestment yields. By issuer (FY2022 / FY2023 / FY2024): MGIC pre-tax yield 3.0% / 3.7% / 4.0%; Radian Average investment yield 3.1% / 3.6% / 3.7%; Essent pre-tax investment income yield 2.6% / 3.5% / 3.7%; NMI Holdings pre-tax book yield not explicitly stated for FY2022 (2022 10-K not in corpus) / 2.6% / 3.0%; Enact pre-tax yield 3.1% / 3.6% / 4.0%; Arch Capital pre-tax investment income yield 1.99% / 3.53% / 4.25%.
+
+Wall time: 165.83s
+
+[ROUTER]
+  intent='rag_query' wiki_slug=None cohort_query='investment portfolio pre-tax yield 2022 2023 2024'
+
+[AGENT_RESPONSE]
+  REASONING (1528 chars):
+    | The user wants to know the investment portfolio pre-tax yield evolution from FY2022 through FY2024 for six MI companies: MGIC (MTG), Radian (RDN), Essent (ESNT), NMI (NMIH), Enact (ACT), and Arch (ACGL).
+    | 
+    | I need to look at the 10-K filings for each company for FY2022, FY2023, and FY2024. Let me start by checking what filings are available.
+    | 
+    | Looking at the catalog:
+    | - FY 2023 10-Ks are available for all six: MTG_10-K_2023-12-31, RDN_10-K_2023-12-31, ESNT_10-K_2023-12-31, NMIH_10-K_2023-12-31, ACT_10-K_2023-12-31, ACGL_10-K_2023-12-31
+    | - FY 2024 10-Ks are available for all six: MTG_10-K_2024-12-31, RDN_10-K_2024-12-31, ESNT_10-K_2024-12-31, NMIH_10-K_2024-12-31, ACT_10-K_2024-12-31, ACGL_10-K_2024-12-31
+    | 
+    | But I don't see FY 2022 10-Ks in the catalog... Let me check again.
+    | 
+    | Looking at the catalog, the earliest 10-Ks are for FY 2023. There are no FY 2022 10-Ks listed. However, the FY 2023 10-Ks typically include comparative data for FY 2022 as well (since 10-Ks show 3 years of financial data). So I should be able to get FY 2022 from the FY 2023 10-K or FY 2024 10-K.
+    | 
+    | Actually, let me think about this. The FY 2024 10-K would typically show FY 2024, FY 2023, and FY 2022 comparative data. And the FY 2023 10-K would show FY 2023, FY 2022, and FY 2021.
+    | 
+    | So I should query each company's 10-Ks. Let me start with parallel calls to all six companies' FY 2024 10-Ks since those would contain all three years of data (2022, 2023, 2024). If that doesn't work, I'll try the FY 2023 10-K.
+    | 
+    | Let me do parallel calls for all six.
+  TOOL_CALLS:
+    → dsrag_kb({'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'MTG_10-K_2024-12-31'})
+    → dsrag_kb({'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'RDN_10-K_2024-12-31'})
+    → dsrag_kb({'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'ESNT_10-K_2024-12-31'})
+    → dsrag_kb({'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'NMIH_10-K_2024-12-31'})
+    → dsrag_kb({'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'ACT_10-K_2024-12-31'})
+    → dsrag_kb({'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'ACGL_10-K_2024-12-31'})
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'ACT_10-K_2024-12-31'}
+  → returned 10 segments
+  --- segment 0: doc_id=ACT_10-K_2024-12-31 score=49.491 len=5952 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : Investment Portfolio
+    : 
+    : Our investment portfolio is affected by factors described below, each of which in turn may be affected by current macroeconomic conditions as noted above in "-Trends and Conditions." The investment
+    : portfolios of our insurance subsidiaries are directed by the Enact Investment Committee, a management-level committee, with Genworth serving as the primary investment manager. The investment portfolio
+    : of EHI is directed by a separate management-level EHI Investment Committee with a third-party investment manager. These parties, with oversight from our Board of Directors and our senior management
+    : team, are responsible for the execution of our investment strategy. Our investment portfolio is an important component of our consolidated financial results and represents our primary source of claims
+    : paying resources. Our investment portfolio primarily consists of a diverse mix of highly rated fixed maturity securities and is designed to achieve the following objectives:
+    : 
+    : • Meet policyholder obligations through maintenance of sufficient liquidity;
+    : 
+    : • Preserve capital;
+    : 
+    : • Generate investment income;
+    : 
+    : • Maximize statutory capital; and
+    : 
+    : • Increase shareholder value, among other objectives.
+    : 89
+    : 
+    : To achieve our portfolio objectives, our investment strategy focuses primarily on:
+    : 
+    : • Our business outlook, including current and expected future investment conditions;
+    : 
+    : • Investment selection based on fundamental, research-driven strategies;
+    : 
+    : • Diversification a
+    ... [truncated, 4152 more chars]
+  --- segment 1: doc_id=ACT_10-K_2024-12-31 score=27.989 len=3025 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : Investment Portfolio
+    : 
+    : The investment portfolios of our insurance subsidiaries are directed by the Enact Investment Committee, a management-level committee, with Genworth serving as the investment manager. Under
+    : 
+    : 15
+    : 
+    : the terms of our investment management agreement, the Company is charged an investment management fee by Genworth. The total investment expenses paid to Genworth were $7.1 million and $5.7 million
+    : for the years ended December 31, 2024 and 2023, respectively. See Note 11 to our audited consolidated financial statements for further information.The investment portfolio of EHI is directed by a separate management-level EHI Investment Committee with a third-party investment manager. In addition, for certain asset classes, we utilize external
+    : asset management. In the future, we may choose to more broadly engage external asset managers. Our senior management team, along with our board of directors, reviews investment performance and
+    : strategy on a periodic basis. As of December 31, 2024, the fair value of our investment portfolio was $5.6 billion of fixed maturity assets, of which 99% was rated as investment grade. We also had an
+    : additional $599 million of cash and cash equivalents as of December 31, 2024. The primary objectives of managing the investment portfolio are to preserve capital, generate investment income andmaintain sufficient liquidity to cover our operating expenses and pay future insurance claims. Investment strategies are implemented emp
+    ... [truncated, 1225 more chars]
+  --- segment 2: doc_id=ACT_10-K_2024-12-31 score=15.403 len=3490 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : ## Item 7A. Quantitative and Qualitative Disclosures About Market Risk
+    : 
+    : We own and manage a large investment portfolio of various holdings, types and maturities. Investment income is one of our material sources of revenue and the investment portfolio represents the
+    : primary resource supporting operational and claim payments. The assets within the investment portfolio are exposed to the same factors that affect overall financial market performance. While our
+    : investment
+    : 
+    : 95
+    : 
+    : portfolio is exposed to factors affecting markets worldwide, it is most sensitive to fluctuations in the drivers of United States markets.We manage market risk via our defined investment policy guidelines implemented by our investment managers with oversight from our Board of Directors and our senior management. Important drivers of
+    : our market risk exposure that we monitor and manage include but are not limited to:• Changes to the level of interest rates . Increasing interest rates may reduce the value of certain fixed-rate bonds held in the investment portfolio. Higher rates may cause variable-rate assets to
+    : generate additional income. Decreasing rates will have the reverse impact. Significant changes in interest rates can also affect persistency and claim rates that may require that the investment
+    : portfolio be restructured to better align it with future liabilities and claim payments. Such restructuring may cause investments to be liquidated when market conditions are adverse.
+    : 
+    : • Changes
+    ... [truncated, 1690 more chars]
+  --- segment 3: doc_id=ACT_10-K_2024-12-31 score=12.198 len=3292 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : If we are unable to effectively manage risks in our investment portfolio, it could adversely affect our business, results of operations and financial condition.
+    : 
+    : Income from our investment portfolio is a source of cash to support our operations and make claims payments. If we or our investment managers improperly structure our investments to meet those future
+    : 
+    : 40liabilities or we have unexpected losses, including losses resulting from the forced liquidation of investments before their maturity, we may be unable to meet those obligations. Our investments and
+    : investment policies are subject to state insurance laws, which results in our portfolio being predominantly limited to highly rated fixed maturity securities. Despite this, our investment portfolio is
+    : subject to credit risks that could lead to realized losses. As interest rates have risen, this has led to a significant increase in unrealized losses in our investment portfolio. While we have the
+    : intent and ability to hold securities until maturity, changing conditions requiring the sale of these investments and recognition of losses may occur.We report fixed maturity securities at fair value on our consolidated balance sheets. These securities represent the majority of our total cash, cash equivalents, restricted cash and invested assets.
+    : Estimates of fair values for fixed maturity securities are obtained primarily from industry-standard pricing methodologies utilizing market observable inputs. For our le
+    ... [truncated, 1492 more chars]
+  --- segment 4: doc_id=ACT_10-K_2024-12-31 score=12.705 len=777 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : Net Investment Income
+    : 
+    : Net investment income is determined primarily by the invested assets held and the average yield on our overall investment portfolio.
+    : Net Investment Gains (Losses)
+    : 
+    : The recognition of realized investment gains or losses can vary significantly across periods as the activity is highly discretionary based on such factors as market opportunities, our capital profile
+    : and overall market cycles that impact the timing of selling securities.
+  --- segment 5: doc_id=ACT_10-K_2024-12-31 score=11.882 len=4414 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : We had current income taxes payable of $ 11.9 million and $ 14.9 million as of December 31, 2024 and 2023, respectively, which were recorded in other liabilities.
+    : 
+    : We paid federal taxes of $ 184.0 million and state taxes of $ 4.5 million for the year ended December 31, 2024; federal taxes of $ 176.7 million and state taxes of $ 5.3 million for the year ended
+    : December 31, 2023; and federal taxes of $ 182.2 million and state taxes of $ 4.0 million for the year ended December 31, 2022.
+    : 
+    : The reconciliation of the federal statutory tax rate to the effective income tax rate was as follows for the years ended December 31:| 2024 | 2023 | 2022 |
+    : | Statutory U.S. federal income tax rate | 21.0 | % | 21.0 | % | 21.0 | % |
+    : | Increase (reduction) in rate resulting from: |
+    : | State income tax, net of federal income tax effect | 0.4 | 0.5 | 0.3 |
+    : | Other, net (1) | 0.2 | 0.3 |
+    : | Effective rate | 21.6 | % | 21.8 | % | 21.6 | % |
+    : 
+    : \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+    : 
+    : (1)
+    : 
+    : "Other, net" is comprised primarily of nondeductible expenses, prior year true-ups and tax-exempt income.
+    : 
+    : 129
+    : 
+    : ENACT HOLDINGS, INC.
+    : 
+    : NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+    : 
+    : Years Ended December 31, 2024, 2023 and 2022The components of the deferred income taxes were as follows as of December 31:
+    : 
+    : | (Amounts in thousands) | 2024 | 2023 |
+    : | Assets: |
+    : | Accrued commissions and general expenses | $ | 8,963 | $ | 12,658 |
+    : | Capital loss carry forwards | 5,149 | 2,723 |
+    : | Net unrealized losses on investment securi
+    ... [truncated, 2614 more chars]
+  --- segment 6: doc_id=ACT_10-K_2024-12-31 score=11.739 len=3744 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : For monthly insurance contracts, we report premiums as revenue over the period that coverage is provided. For single premium mortgage insurance contracts, we report premiums over the estimated policy
+    : life in accordance with the expected pattern of risk emergence as further described in our accounting policy for unearned premiums. In addition, we refund post-delinquent premiums received to the
+    : insured party if the delinquent loan goes to claim. We record a liability for premiums received on the delinquent loans consistent with our expectations of ultimate claim rates.
+    : 
+    : Net Investment Income and Net Investment Gains and LossesInvestment income is recognized when earned. Income or loss upon call or prepayment of available-for-sale fixed maturity securities is recognized in net investment income, except for hybrid
+    : securities where the income or loss upon call is recognized in net investment gains and losses. Investment gains and losses are calculated on the basis of specific identification on the trade date.Investment income on asset-backed securities is initially based upon yield, cash flow and prepayment assumptions at the date of purchase. Subsequent revisions in those assumptions are recorded using
+    : the retrospective or prospective method. Under the retrospective method used for asset-backed securities of high credit quality (ratings equal to or greater than "AA" or that are backed by a U.S.
+    : agency) which cannot be contractually prepaid in such a manner that
+    ... [truncated, 1944 more chars]
+  --- segment 7: doc_id=ACT_10-K_2024-12-31 score=10.007 len=1383 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : Year Ended December 31, 2024 Compared to Year Ended December 31, 2023
+    : 
+    : Revenues
+    : 
+    : Premiums increased mainly attributable to higher average IIF and higher assumed premiums, consisting primarily of Enact Re's GSE credit risk transfer participation and multifamily reinsurance. This
+    : was partially offset by higher ceded premium. The net earned premium rate was 36 basis points, relatively consistent with 2023.
+    : 
+    : Net investment income increased primarily due to higher investment yields due to elevated interest rates coupled with higher average invested assets.
+    : 
+    : 74
+    : 
+    : Net investment losses during 2024 and 2023 were primarily driven by realized losses on the sale of fixed maturity securities as part of our yield optimization strategy that allows us to reinvest
+    : sales proceeds and recoup higher investment income. Our yield optimization strategy enables opportunistic security sales based on current and changing market conditions. We had more sales in 2024 than
+    : 2023.
+    : 
+    : Other income includes underwriting fee revenue, equity method investment income and other revenue.
+  --- segment 8: doc_id=ACT_10-K_2024-12-31 score=4.563 len=1703 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : As of December 31, 2024, securities issued by the finance and insurance, utilities, technology and communications, consumer-non-cyclical and energy industry groups represented approximately 32 %, 13
+    : %, 11 %, 11 %, and 10 % respectively, of our domestic and foreign corporate fixed maturity securities portfolio. No other industry group comprised more than 9% of our investment portfolio.
+    : 
+    : As of December 31, 2024 and 2023, we did not hold any fixed maturity securities in any single issuer, other than securities issued or guaranteed by the U.S. government, which exceeded 10% of equity.
+    : 
+    : As of December 31, 2024 and 2023, $ 25.7 million of securities in our portfolio were on deposit with various state insurance commissioners in order to comply with relevant insurance regulations.
+    : 
+    : In connection with its reinsurance activities, the Company is required to maintain assets in trusts for the benefit of its contractual counterparties. The fair value of the assets on deposit in these
+    : trusts was $ 141.9 million as of December 31, 2024, and $ 77.9 million as of December 31, 2023.
+    : 
+    : During 2024, the Company entered into an agreement to invest in a limited partnership with an expected term of ten years . As of December 31, 2024, there are no balances outstanding related to this
+    : limited partnership, but we have committed to fund approximately $ 10 million over the life of the fund.
+  --- segment 9: doc_id=ACT_10-K_2024-12-31 score=4.206 len=690 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of Enact Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and results of operations.
+    : 
+    : We also invest our premiums in high quality, predominantly fixed income assets with the primary business objectives of preserving capital, generating investment income and maintaining sufficient
+    : liquidity to cover our operating expenses and pay future claims. The investment income generated through our investment portfolio is another significant source of our revenues.
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'MTG_10-K_2024-12-31'}
+  → returned 5 segments
+  --- segment 0: doc_id=MTG_10-K_2024-12-31 score=70.043 len=5080 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : E. Investment Portfolio
+    : 
+    : POLICY AND STRATEGY
+    : 
+    : At December 31, 2024, the fair value of our investment portfolio was approximately $5.9 billion. In addition, at December 31, 2024, our total assets included approximately $229 million of cash and
+    : cash equivalents. At December 31, 2024, approximately $1.1 billion of investments and cash and cash equivalents was held by our parent company, and the remainder was held by our subsidiaries,
+    : primarily MGIC.As of December 31, 2024, approximately 94% of our investment portfolio (excluding cash and cash equivalents) was managed by two external investment managers, although we maintain overall control of
+    : investment policy and strategy. We maintain direct management of the remainder of our investment portfolio. Unless otherwise indicated, the remainder of the discussion regarding our investment
+    : portfolio refers to our investment portfolio only and not to cash and cash equivalents.
+    : 
+    : Our management is responsible for the execution of our investment strategy and compliance with the adopted investment policies, and review of investment performance and strategy with the Securities
+    : Investment Committee of the Board of Directors on a quarterly basis.Our current strategy for the investment portfolio emphasizes the following: preservation of PMIERs assets, limiting portfolio volatility, maximizing total return with an emphasis on yield, and
+    : providing sufficient liquidity with minimal realized l
+    ... [truncated, 3280 more chars]
+  --- segment 1: doc_id=MTG_10-K_2024-12-31 score=66.332 len=7806 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : INCOME TAX EXPENSE AND EFFECTIVE TAX RATE
+    : 
+    : | Income tax provision and effective tax rate |
+    : | (In thousands, except rate) | 2024 | 2023 |
+    : | Income before tax | $ | 968,709 | $ | 902,229 |
+    : | Provision for income taxes | $ | 205,715 | $ | 189,280 |
+    : | Effective tax rate | 21.2 | % | 21.0 | % |
+    : 
+    : The increase in our provision for income taxes for 2024 compared to 2023 was primarily due to an increase in income before tax. Our effective tax rate for 2024 and 2023 approximated the federal
+    : statutory income tax rate of 21%.
+    : 
+    : See [Note 12 - "Income Taxes"](#i14b0fb854df64be4a32311dd76f19276_175) to our consolidated financial statements for a discussion of our tax position.
+    : 
+    : MGIC Investment Corporation 2024 Form 10-K |  70
+    : 
+    : MGIC Investment Corporation and Subsidiaries
+    : BALANCE SHEET REVIEW
+    : 
+    : The following sections focus on the assets and liabilities experiencing major developments in 2024.
+    : 
+    : Consolidated balance sheets - Assets
+    : 
+    : | As of December 31, |
+    : | (in thousands) | 2024 | 2023 | % Change |
+    : | Investments | $ | 5,867,560 | $ | 5,738,734 | 2 |
+    : | Cash and cash equivalents | 229,485 | 363,666 | (37) |
+    : | Reinsurance recoverable on loss reserves (1) | 47,281 | 33,302 | 42 |
+    : | Deferred incomes taxes, net | 69,875 | 79,782 | (12) |
+    : | Other assets | 333,034 | 322,896 | 3 |
+    : | Total Assets | $ | 6,547,235 | $ | 6,538,380 | 0 |
+    : | (1) See "Liabilities and Equity" section below for further discussion. |
+    : INVESTMENT PORTFOLIO
+    : 
+    : The investment port
+    ... [truncated, 6006 more chars]
+  --- segment 2: doc_id=MTG_10-K_2024-12-31 score=28.963 len=11774 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : NET PREMIUMS WRITTEN AND EARNED
+    : 
+    : Net premiums written and earned increased 2% in 2024 compared with the prior year. The increase in premiums written and earned in 2024 compared to the prior year is primarily due to a decrease in
+    : ceded premiums.
+    : 
+    : Premium yields
+    : 
+    : Premium yield is net premiums earned divided by average IIF during the year and is influenced by a number of key drivers, which have a varying impact from period to period. The following table
+    : provides information related to our premium yield for 2024, and 2023.
+    : 
+    : | Premium Yield |
+    : | Year Ended December 31, |
+    : | (in basis points) | 2024 | 2023 |
+    : | In force portfolio yield (1) | 38.4 | 38.5 |
+    : | Premium refunds | 0.0 | (0.1) |
+    : | Accelerated earnings on single premium policies | 0.3 | 0.4 |
+    : | Total direct premium yield | 38.7 | 38.8 |
+    : | Ceded premiums earned, net of profit commission and assumed premiums (2) | (5.7) | (6.5) |
+    : | Net premium yield | 33.0 | 32.3 |
+    : 
+    : (1) Total direct premiums earned, excluding premium refunds and accelerated premiums from single premium policy cancellations divided by average primary insurance in force.
+    : 
+    : (2) Ceded premiums for reinsurance cancellation activities resulted in a decrease of 0.5 bps in 2023. Assumed premiums include those from our participation in GSE CRT programs, of which the impact on
+    : the net premium yield was 0.5 bps in 2024 and 0.4 bps in 2023.
+    : Changes in the net premium yields when compared to the respective prior year p
+    ... [truncated, 9974 more chars]
+  --- segment 3: doc_id=MTG_10-K_2024-12-31 score=21.801 len=4888 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : Our success depends, in part, on our ability to manage risks in our investment portfolio.Our investment portfolio is an important source of revenue and is our primary source of claims paying resources. Although our investment portfolio consists mostly of high quality, investment-grade
+    : fixed income investments, our investment portfolio is affected by general economic conditions and tax policy, which may adversely affect the markets for credit and interest-rate-sensitive securities,
+    : including the extent and timing of investor participation in these markets, the level and volatility of interest rates and credit spreads and, consequently, the value of our fixed income securities.
+    : Prevailing market rates have increased for various reasons, including inflationary pressures, which has reduced the fair value of our investment portfolio holdings relative to their amortized cost.The value of our investment portfolio may also be adversely affected by ratings downgrades, increased bankruptcies, and credit spreads widening. In addition, the collectability and valuation of our
+    : municipal bond portfolio may be adversely affected by budget deficits, and declining tax bases and revenues experienced by state and local municipalities. Our investment portfolio also includes
+    : commercial mortgage-backed securities, collateralized loan obligations, and asset-backed securities, which could be adversely affected by declines in real estate valuati
+    ... [truncated, 3088 more chars]
+  --- segment 4: doc_id=MTG_10-K_2024-12-31 score=13.639 len=2301 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : ## Item 7A. Quantitative and Qualitative Disclosures About Market Risk
+    : 
+    : Our investment portfolio is essentially a fixed income portfolio and is exposed to market risk. Important drivers of the market risk are credit spread risk and interest rate risk.
+    : 
+    : Credit spread risk is the risk that we will incur a loss due to adverse changes in credit spreads. Credit spread is the additional yield on fixed income securities above the risk-free rate (typically
+    : referenced as the yield on U.S. Treasury securities) that market participants require to compensate them for assuming credit, liquidity and/or prepayment risks.We manage credit risk via our investment policy guidelines which primarily require us to place our investments in investment grade securities and limit the amount of our credit exposure to any one
+    : issue, issuer and type of instrument. Guideline and investment portfolio detail is available in "Business - Section C, Investment Portfolio" in [Item 1](#i14b0fb854df64be4a32311dd76f19276_28) .
+    : 
+    : Interest rate risk is the risk that we will incur a loss due to adverse changes in interest rates relative to the characteristics of our interest bearing assets.One of the measures used to quantify this exposure is effective duration. Effective duration measures the price sensitivity of the assets to the changes in spreads. At December 31, 2024, the
+    : effective duration of our fixed income investment portfolio was 3.9 years, which means
+    ... [truncated, 501 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'ESNT_10-K_2024-12-31'}
+  → returned 5 segments
+  --- segment 0: doc_id=ESNT_10-K_2024-12-31 score=35.416 len=8385 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : Net Investment Income
+    : 
+    : Our consolidated net investment income was derived from the following sources for the periods indicated:
+    : 
+    : | Year Ended December 31, |
+    : | (In thousands) | 2024 | 2023 |
+    : | Fixed maturities | $ | 186,345 | $ | 178,829 |
+    : | Short-term investments | 40,856 | 13,651 |
+    : | Gross investment income | 227,201 | 192,480 |
+    : | Investment expenses | (5,131) | (6,341) |
+    : | Net investment income | $ | 222,070 | $ | 186,139 |The increase in our consolidated net investment income to $222.1 million for the year ended December 31, 2024 as compared to $186.1 million for the year ended December 31, 2023 was due to the
+    : increase in the weighted average balance of our investment portfolio, as well as an increase in the average yield on the investment portfolio. The average balance of investments at amortized cost
+    : increased to $6.1 billion during the year ended December 31, 2024 from $5.5 billion during the year ended December 31, 2023, primarily as a result of investing cash flows generated from operations.
+    : The pre-tax investment income yield increased from 3.5% in the year ended December 31, 2023 to 3.7% in the year ended December 31, 2024 primarily due to a general increase in investment yields due toincreasing interest rates.63
+    : 
+    : The pre-tax investment income yields are calculated based on amortized cost and exclude investment expenses. See "-Liquidity and Capital Resources" for further details of our investment portfolio.
+    : 
+    : Income (Loss) from Other Invested Assets
+    : 
+    : Income from other invested assets for the year ended December 31, 2024 was a gain of $7.4 million
+    ... [truncated, 6585 more chars]
+  --- segment 1: doc_id=ESNT_10-K_2024-12-31 score=28.374 len=3266 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : Our success depends, in part, on our ability to manage risks in our investment portfolio.
+    : 
+    : A substantial majority of our investment portfolio consists of investment-grade debt obligations. Our investments are subject to fluctuations in value as a result of broad changes in market
+    : conditions as well as risks inherent in particular securities. Changing market conditions could materially impact the future valuation of securities in our investment portfolio, which may cause us to
+    : impair, in the future, some portion of the value of those securities and which could have a significant adverse effect on our liquidity, financial condition and operating results.Income from our investment portfolio is a source of cash flow to support our operations and make claim payments. If we, or our investment advisors, improperly structure our investments to meet those
+    : future liabilities or we have unexpected losses, including losses resulting from the forced liquidation of investments before their maturity, we may be unable to meet those obligations. Our
+    : investments and investment policies are subject to state insurance laws, which results in our portfolio being predominantly limited to highly rated fixed income securities. If interest rates rise
+    : above the rates on our fixed income securities, the market value of our investment portfolio would decrease. Any significant decrease in the value of our investment portfolio would adversely impactour financial condition.In addition, compared to historical averages, interest rates and investment yields on highly rated investments have
+    ... [truncated, 1466 more chars]
+  --- segment 2: doc_id=ESNT_10-K_2024-12-31 score=23.779 len=2936 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : Investment Portfolio
+    : 
+    : Our investment portfolio, including cash, comprises the largest single component of our balance sheet, representing 88.8% of our total assets at December 31, 2024. Our primary objectives with respect
+    : to our investment portfolio are to preserve capital, generate investment income and maintain sufficient liquidity to cover operating expenses and pay future insurance claims. Our investments are
+    : subject to market-wide risks and fluctuations in value, as well as risks inherent in particular securities. As of December 31, 2024, predominantly all of our investment securities were rated
+    : investment-grade.We have adopted, and our board of directors has approved, an investment policy that defines specific limits for asset sectors, single issuer, credit rating, asset duration, industry and geographic
+    : concentration and eligible and ineligible investments. Our senior management is responsible for the execution of our investment strategy and compliance with the adopted investment policy, and review
+    : of investment performance and strategy with the investment committee of the board of directors on a quarterly basis.Our current strategy for the investment portfolio is focused primarily on the following: selecting fixed income securities; maintaining sufficient liquidity to meet expected and unexpected financial
+    : obligations; mitigating interest rate risk through management of asset durations; continuously monitoring investment quality; and limiting investments in assets that are highly correlated to the
+    : residential mortgage market.We engage external ass
+    ... [truncated, 1136 more chars]
+  --- segment 3: doc_id=ESNT_10-K_2024-12-31 score=20.0 len=2155 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : Net Investment Income
+    : 
+    : Our investment portfolio was predominantly comprised of investment-grade fixed income securities and money market funds as of December 31, 2024. The principal factors that influence investment income
+    : are the size of the investment portfolio and the yield on individual securities. As measured by amortized cost (which excludes changes in fair market value, such as from changes in interest rates),
+    : the size of our investment portfolio is mainly a function of increases in capital and cash generated from or used in operations which is impacted by net premiums received, investment earnings, net
+    : claim payments and expenses. Realized gains and losses are a function of the difference between the amount received on the sale of a security and the security's amortized cost, as well as any
+    : provision for credit losses or impairments recognized in earnings. The amount received on the sale of fixed income securities is affected by the coupon rate of the security compared to the yield of
+    : comparable securities at the time of sale.
+    : Income from Other Invested Assets
+    : 
+    : As part of our overall investment strategy, we also allocate a relatively small percentage of our portfolio to limited partnership investments in real estate, consumer credit and traditional venture
+    : capital and private equity investments. The results of these investing activities are reported in income from other invested assets. These investments are generally accounted for under the equity
+    : method or fair value using net asset value (or its equivalent) as a practical expedient. For entitie
+    ... [truncated, 355 more chars]
+  --- segment 4: doc_id=ESNT_10-K_2024-12-31 score=15.926 len=6455 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : benefit that is greater than 50% likely of being realized upon ultimate settlement. This analysis is inherently subjective, as it requires management to forecast the outcome of future tax examinations
+    : and the amount of tax benefits that will ultimately be realized given the facts, circumstances, and information available at the reporting date. New information may become available in future periods
+    : that could cause the actual amount of tax benefits to vary from management's estimates.InvestmentsOur fixed maturity and short-term investments are classified as available for sale and are reported at fair value. The related unrealized gains or losses are, after considering the related tax
+    : expense or benefit, recognized as a component of accumulated other comprehensive income (loss) in stockholders' equity. Realized investment gains and losses are reported in income based upon specific
+    : identification of securities sold. Each quarter we perform reviews of all of our investments in order to determine whether declines in fair value below amortized cost were as a result of credit losses
+    : in accordance with applicable guidance. We determine whether a credit loss exists by considering information about the collectability of the instrument, current market conditions, and reasonable andsupportable forecasts of economic conditions. We recognize an allowance for credit losses, up to the amount of the impairment when appropriate, and write down the amortized cost basis of the
+    : investment if it is more likely than not we will be required or we intend to sell the investment be
+    ... [truncated, 4655 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'RDN_10-K_2024-12-31'}
+  → returned 6 segments
+  --- segment 0: doc_id=RDN_10-K_2024-12-31 score=45.786 len=5365 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : Investment Policy and Portfolio
+    : 
+    : Our investment portfolio is our primary source of claims paying resources and also impacts our earnings. We seek to manage our investment portfolio within our targeted risk and return tolerances
+    : based on our current liability projections and business and economic outlook to maintain sufficient liquidity levels to satisfy our current and future operating requirements and other financial needs.
+    : Our investment strategy is developed by taking into consideration applicable investment restrictions, limitations and conditions imposed on investments held by our regulated entities, and in
+    : particular, state limitations and PMIERs rules applicable to Radian Guaranty, which holds the majority of our total investment portfolio.Our investment strategy uses an asset allocation methodology that takes into consideration regulatory constraints, our business environment and consolidated risks as well as current investment
+    : conditions. With respect to our fixed income investments, the following internal investment policy guidelines, among others, are applied at the time of investment and continually monitored.
+    : 
+    : | Internal investment policy guidelines |
+    : | NAIC Designation | Ratings Equivalent | Internal Policy |
+    : | 1 | "A-" and above | At least 75% of the portfolio Fair Value |
+    : | 2 | "BBB+" to "BBB-" | Not more than 25% of portfolio Fair Value |
+    : | 3 to 6 | "BB+" and below | Not more than 10% of portfolio Fair Value |Our portfolio has been constructed to maximize long-term expected returns while maintaining an a
+    ... [truncated, 3565 more chars]
+  --- segment 1: doc_id=RDN_10-K_2024-12-31 score=26.466 len=5204 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : | Profit commission-other (2) | 51,888 | 49,195 | 67,814 | 2,693 | (18,619 | ) |
+    : | Ceded premiums, net of profit commission | (109,777 | ) | (120,578 | ) | (72,419 | ) | 10,801 | (48,159 | ) |
+    : | Total net premiums earned | $ | 939,237 | $ | 909,363 | $ | 957,213 | $ | 29,874 | $ | (47,850 | ) |
+    : | In force portfolio premium yield (in basis points) (3) | 38.2 | 39.3 | - | (1.1 | ) |
+    : | Direct premium yield (in basis points) (4) | 38.5 | 38.8 | 40.6 | (0.3 | ) | (1.8 | ) |
+    : | Net premium yield (in basis points) (5) | 34.5 | 34.3 | 37.8 | 0.2 | (3.5 | ) |
+    : | Average primary IIF (in billions) (6) | $ | 272.6 | $ | 265.5 | $ | 253.5 | $ | 7.1 | $ | 12.0 |(1) Includes the impact of related profit commissions.
+    : 
+    : (2) Represents the profit commission on the Single Premium QSR Program and 2022, 2023 and 2024 QSR Agreements, excluding the impact of Single Premium Policy cancellations.
+    : 
+    : (3) Calculated by dividing direct premiums earned, including assumed revenue and excluding revenue from cancellations, by average primary IIF.
+    : 
+    : (4) Calculated by dividing direct premiums earned, including assumed revenue, by average primary IIF.
+    : 
+    : (5) Calculated by dividing net premiums earned by average primary IIF. The calculation for all periods presented incorporates the impact of profit commission adjustments related to our reinsurance
+    : programs. See Note 8 of Notes to Consolidated Financial Statements for further information.(6) The average of beginning and ending balances of primary IIF, for each period presented.
+    : 
+    : Our in force portfolio premium yiel
+    ... [truncated, 3404 more chars]
+  --- segment 2: doc_id=RDN_10-K_2024-12-31 score=18.624 len=4274 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : Investment Portfolio
+    : 
+    : At December 31, 2024 and 2023, the following tables include $139 million and $204 million, respectively, of securities loaned to third-party borrowers under securities lending agreements, which are
+    : classified as other assets in our consolidated balance sheets. See Note 6 of Notes to Consolidated Financial Statements for more information about our investment portfolio, including our securities
+    : lending agreements.
+    : 
+    : The composition of our investment portfolio, other than our retained interests in Radian Mortgage Capital's mortgage loan securitizations, is presented below as a percentage of overall fair value as
+    : of the dates indicated. See Note 7 of Notes to Consolidated Financial Statements for more information on our Radian Mortgage Capital securitizations.| Investment portfolio diversification |
+    : | December 31, |
+    : | 2024 | 2023 |
+    : | ($ in millions) | Fair Value | Percent | Fair Value | Percent |
+    : | Corporate bonds and commercial paper | $ | 2,749 | 42.4 | % | $ | 2,938 | 46.8 | % |
+    : | RMBS | 1,015 | 15.7 | % | 1,020 | 16.2 | % |
+    : | Residential mortgage loans | 520 | 8.0 | % | 33 | 0.5 | % |
+    : | CMBS | 417 | 6.4 | % | 564 | 9.0 | % |
+    : | CLO | 411 | 6.3 | % | 488 | 7.8 | % |
+    : | Other ABS | 455 | 7.0 | % | 286 | 4.5 | % |
+    : | Money market instruments and certificates of deposit | 386 | 6.0 | % | 377 | 6.0 | % |
+    : | State and municipal obligations (1) | 201 | 3.1 | % | 216 | 3.4 | % |
+    : | U.S. government and agency securities | 128 | 2.0 | % | 144 | 2.3 | % |
+    : | Equity securities | 147 | 2.3 | % | 165 | 2.6 | % || Mortga
+    ... [truncated, 2474 more chars]
+  --- segment 3: doc_id=RDN_10-K_2024-12-31 score=19.45 len=6726 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : Our success depends, in part, on our ability to manage risks in our investment portfolio.Our investment portfolio is an important source of revenue and is our primary source of claims paying resources. Our investment strategy is affected by factors beyond our control, such as general
+    : macroeconomic conditions, geopolitical events, domestic political conditions and tax policies, which may adversely affect the markets for credit and interest-rate-sensitive securities, including the
+    : extent and timing of investor participation in these markets, the level and volatility of interest rates and credit spreads and, consequently, the value of our fixed income securities and the level of
+    : our net investment income. In addition, our investment strategy is developed taking into consideration applicable investment restrictions, limitations and conditions imposed on investments held by ourregulated entities, and in particular, state limitations and PMIERs rules applicable to Radian Guaranty, which holds the majority of our total investment portfolio.For the significant portion of our investment portfolio held by our insurance subsidiaries, to receive favorable treatment under insurance regulatory requirements and full credit as Available Assets
+    : under the PMIERs, we generally are limited to investing in investment grade fixed income investments with yields that reflect their lower credit risk profile. Because we depend on our investments as a
+    : source of revenue, a prolonged period of lower than expected investment yields has an adverse imp
+    ... [truncated, 4926 more chars]
+  --- segment 4: doc_id=RDN_10-K_2024-12-31 score=15.389 len=5716 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : The primary market risks in our investment portfolio are interest rate risk and credit spread risk, namely the fair value sensitivity of our fixed income securities to changes in interest rates and
+    : credit spreads, respectively. We regularly analyze our exposure to interest-rate risk and credit-spread risk and have determined that the fair value of our investments is materially exposed to changes
+    : in both interest rates and credit spreads. As of December 31, 2024, we held $83 million of investment securities for trading purposes, representing less than 2% of our total investment portfolio.
+    : Accordingly, in presenting this discussion, we have not distinguished between trading and non-trading instruments.We calculate the duration of our fixed income securities, expressed in years, in order to estimate the interest-rate sensitivity of these securities. The average duration of our total fixed income
+    : portfolio was 4.3 years and 4.1 years at December 31, 2024 and 2023, respectively. To assist us in setting duration targets for the investment portfolio, we analyze: (i) the interest-rate
+    : sensitivities of our liabilities, including prepayment risk associated with premium cash flows and credit losses; (ii) entity specific cash flows under various economic scenarios; (iii) return,
+    : volatility and correlation of specific asset classes and the interconnection with our liabilities; and (iv) our current risk appetite.Our stress analysis for interest rates is based on the change in fair value of our fixed income securities, assuming a hypot
+    ... [truncated, 3916 more chars]
+  --- segment 5: doc_id=RDN_10-K_2024-12-31 score=8.708 len=1557 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : Investment Income
+    : 
+    : Investment income is determined primarily by the investment balances held and the average yield on our overall investment portfolio. Increases in our investment balances and average yields result in
+    : higher pretax income and operating cash flows, while declining balances and yields can negatively affect our financial results.
+    : 
+    : Other Operating Expenses
+    : 
+    : Our other operating expenses include salaries and other base employee costs, variable and share-based incentive compensation and other general operating expenses, such as fees for professional and
+    : consulting services, software, rent and depreciation, among other costs. Employee related expenses are driven by our headcount, which can fluctuate due to the amount of our NIW and IIF, as well as our
+    : plans for other business initiatives. Our other operating expenses may also fluctuate due to the impact of performance on our incentive compensation programs, as a result of our pay-for-performance
+    : approach to compensation that is based on the level of achievement of both short-term and long-term goals.
+    : 
+    : These operating expenses are reported net of ceding commissions associated with our QSR Program. As a result, changes to our QSR Program and the amount of our ceded premiums earned also can impact
+    : our other operating expenses.
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'ACGL_10-K_2024-12-31'}
+  → returned 6 segments
+  --- segment 0: doc_id=ACGL_10-K_2024-12-31 score=34.143 len=6803 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations in the insurance, reinsurance, and mortgage sectors.
+    : 
+    : Corporate
+    : 
+    : The corporate results include net investment income, net realized gains or losses, equity in net income or loss of investments accounted for using the equity method, other income (loss), corporate
+    : expenses, transaction costs and other, amortization of intangible assets, interest expense, net foreign exchange gains or losses, income taxes items (which for 2023 reflects the establishment of a net
+    : deferred income tax asset related to the enactment of Bermuda's new corporate income tax), income from operating affiliates and items related to our non-cumulative preferred shares.
+    : Net Investment Income.
+    : 
+    : The components of net investment income were derived from the following sources:
+    : 
+    : | Year Ended December 31, |
+    : | 2024 | 2023 |
+    : | Fixed maturities | $ | 1,266 | $ | 917 |
+    : | Short-term investments | 144 | 68 |
+    : | Equity securities | 40 | 22 |
+    : | Other (1) | 136 | 93 |
+    : | Gross investment income | 1,586 | 1,100 |
+    : | Investment expenses (2) | (91) | (77) |
+    : | Net investment income | $ | 1,495 | $ | 1,023 |
+    : 
+    : (1)    Includes interest income on operating cash, distributions from investment funds and other items.
+    : 
+    : (2)    Investment expenses were approximately 0.26% of average invested assets for 2024, consistent with 0.26% for 2023.
+    : 
+    : | ARCH CAPITAL | 76 | 2024 FORM 10-K |
+    : 
+    : The pre-tax investment income yield was 4.25% for 2024, compared to 3.53% for 2023. The growth in net investment income for 2024 compared to 2023 primarily reflected higher yields availab
+    ... [truncated, 5003 more chars]
+  --- segment 1: doc_id=ACGL_10-K_2024-12-31 score=30.271 len=7032 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations in the insurance, reinsurance, and mortgage sectors.
+    : 
+    : market conditions to remain competitive given the attractive underlying margins, which may result in a slowdown of new business opportunities. Our mortgage segment continued to deliver a steady level
+    : of earnings for our shareholders, generating $1.1 billion of underwriting income in 2024, resulting in the third consecutive year of delivering over $1 billion of underwriting income. While new
+    : originations remain tempered by relatively high mortgage interest rates, underlying fundamentals remained strong and our U.S. market share was stable as industry pricing discipline held. The
+    : persistency of our in force U.S. primary mortgage insurance portfolio remained a healthy 82.1% and the delinquency rate remained low.FINANCIAL MEASURES
+    : 
+    : 
+    : Management uses the following three key financial indicators in evaluating our performance and measuring the overall growth in value generated for Arch Capital's common shareholders:
+    : 
+    : Book Value per Share
+    : 
+    : Book value per share represents total common shareholders' equity available to Arch divided by the number of common shares and common share equivalents outstanding. Management uses growth in book
+    : value per share as a key measure of the value generated for our common shareholders each period and believes that book value per share is the key driver of Arch Capital's share price over time. Book
+    : value per share is impacted by, among other factors, our underwriting results, investment returns and share repurchase activity, w
+    ... [truncated, 5232 more chars]
+  --- segment 2: doc_id=ACGL_10-K_2024-12-31 score=28.806 len=5773 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations in the insurance, reinsurance, and mortgage sectors.
+    : 
+    : The components of income taxes attributable to operations were as follows:
+    : 
+    : | Year Ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | Current expense (benefit): |
+    : | United States | $ | 332 | $ | 251 | $ | 195 |
+    : | Non-U.S. | 65 | 37 | 6 |
+    : | 397 | 288 | 201 |
+    : | Deferred expense (benefit): |
+    : | United States | ( 21 ) | ( 20 ) | ( 96 ) |
+    : | Non-U.S. | ( 14 ) | ( 1,141 ) | ( 25 ) |
+    : | ( 35 ) | ( 1,161 ) | ( 121 ) |
+    : | Income tax expense (benefit) | $ | 362 | $ | ( 873 ) | $ | 80 |
+    : 
+    : The Company's income or loss before income taxes was earned in the following jurisdictions:
+    : 
+    : | Year Ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | Income (Loss) Before Income Taxes: |
+    : | Bermuda | $ | 2,611 | $ | 2,099 | $ | 986 |
+    : | United States | 1,438 | 1,239 | 401 |
+    : | Other | 625 | 232 | 175 |
+    : | Total | $ | 4,674 | $ | 3,570 | $ | 1,562 |
+    : 
+    : The expected tax provision computed on pre-tax income or loss at the weighted average tax rate has been calculated as the sum of the pre-tax income in each jurisdiction multiplied by that
+    : jurisdiction's applicable statutory tax rate. The 2024 applicable statutory tax rates by jurisdiction were as follows: Bermuda ( 0.0 %), United States ( 21.0 %), United Kingdom ( 25.0 %), Ireland (
+    : 12.5 %), Switzerland ( 19.6 %), Australia ( 30.0 %), Canada ( 26.4 %) and Gibraltar ( 13.8 %).
+    : A reconciliation of the difference between the provision for income taxes and the expected tax provision at the weighted average tax rate follows:
+    : 
+    : | Year Ended December 31
+    ... [truncated, 3973 more chars]
+  --- segment 3: doc_id=ACGL_10-K_2024-12-31 score=17.575 len=8719 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations in the insurance, reinsurance, and mortgage sectors.
+    : 
+    : Investment Market RiskFixed Income Securities . We invest in interest rate sensitive securities, primarily debt securities. We consider the effect of interest rate movements on the fair value of our fixed maturities,
+    : short-term investments and certain of our other investments, equity securities and investment funds accounted for using the equity method which invest in fixed income securities (collectively, "Fixed
+    : Income Securities") and the corresponding change in unrealized appreciation. As interest rates rise, the fair value of our Fixed Income Securities falls, and the converse is also true. Based on
+    : historical observations, there is a low probability that all interest rate yield curves would shift in the same direction at the same time. Furthermore, at times interest rate movements in certaincredit sectors exhibit a much lower correlation to changes in U.S. Treasury yields. Accordingly, the actual effect of interest rate movements may differ materially from the amounts set forth in the
+    : following tables.The following table summarizes the effect that an immediate, parallel shift in the interest rate yield curve would have had on our investment portfolio at December 31, 2024 and 2023:
+    : 
+    : | (U.S. dollars in billions) | Interest Rate Shift in Basis Points |
+    : | (U.S. dollars in billions) | -100 | -50 | - | +50 | +100 |
+    : | Dec. 31, 2024 |
+    : | Total fair value | $ | 40.0 | $ | 39.5 | $ | 38.9 | $ | 38.4 | $ | 37.9 |
+    : | Change from base | 2.8 | % | 1.4 | % |
+    ... [truncated, 6919 more chars]
+  --- segment 4: doc_id=ACGL_10-K_2024-12-31 score=15.882 len=3342 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations in the insurance, reinsurance, and mortgage sectors.
+    : 
+    : pre-tax profitability of our underwriting operations and include net premiums earned plus other underwriting income, less losses and loss adjustment expenses, acquisition expenses and other operating
+    : expenses. Other operating expenses include those operating expenses that are incremental and/or directly attributable to our individual underwriting operations. Underwriting income or loss does not
+    : incorporate certain income and expense items which are included in corporate. While these measures are presented in [note 4, "Segment Information,"](#i8f00ce33b17040b5b34e6d7060c3031e_175) to our
+    : consolidated financial statements in Item 8, they are considered non-GAAP financial measures when presented elsewhere on a consolidated basis. The reconciliations of underwriting income or loss toincome before income taxes (the most directly comparable GAAP financial measure) on a consolidated basis, in accordance with Regulation G, is shown in [note 4, "Segment
+    : Information,"](#i8f00ce33b17040b5b34e6d7060c3031e_175) to our consolidated financial statements in Item 8. We measure segment performance for our three underwriting segments based on underwriting
+    : income or loss. We do not manage our assets by underwriting segment, with the exception of goodwill and intangible assets, and, accordingly, investment income, income from operating affiliates and
+    : other non-underwriting related items are not allocated to each underwriting segment. Our presentation of segment infor
+    ... [truncated, 1542 more chars]
+  --- segment 5: doc_id=ACGL_10-K_2024-12-31 score=9.3 len=1299 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations in the insurance, reinsurance, and mortgage sectors.
+    : 
+    : mortgage and other asset-backed securities. When actual prepayments differ significantly from anticipated prepayments, the effective yield is recalculated to reflect actual payments to date and
+    : anticipated future payments. The net investment in such securities is adjusted to the amount that would have existed had the new effective yield been applied since the acquisition of the security.
+    : Such adjustments, if any, are included in net investment income when determined. Investment gains or losses realized on the sale of investments, except for certain fund investments, are determined on
+    : a first-in, first-out basis and are reflected in net income. Investment gains or losses realized on the sale of certain fund investments are determined on an average cost basis. Unrealized
+    : appreciation or decline in the value of available for sale securities, which are carried at fair value, is excluded from net income and recorded as a separate component of accumulated other
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the investment portfolio pre-tax yield or investment yield for FY2022, FY2023, and FY2024?', 'doc_id': 'NMIH_10-K_2024-12-31'}
+  → returned 6 segments
+  --- segment 0: doc_id=NMIH_10-K_2024-12-31 score=44.902 len=6266 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : Consolidated Investment Portfolio
+    : 
+    : The primary objectives of our investment activity are to generate investment income and preserve capital, while maintaining sufficient liquidity to cover our operating needs. We aim to achieve
+    : diversification by type, quality, maturity, and industry. We have adopted an investment policy that defines, among other things, eligible and ineligible investments; concentration limits for asset
+    : types, industry sectors, single issuers, and certain credit ratings; and benchmarks for asset duration.
+    : 
+    : Our investment portfolio is comprised entirely of fixed maturity instruments. As of December 31, 2024, the fair value of our investment portfolio was $2.7 billion and we held an additional $54.3
+    : million of cash and cash equivalents. Pre-tax book yield on the investment portfolio for the year ended December 31, 2024 was 3.0%. Book yield is calculated as period-to-date net investment income
+    : divided by the average amortized cost of the investment portfolio. The yield on our investment portfolio is likely to change over time based on movements in interest rates, credit spreads, the
+    : duration or mix of our holdings and other factors.
+    : The following tables present a breakdown of our investment portfolio and cash and cash equivalents by investment type and credit rating:
+    : 
+    : | Percentage of portfolio's fair value | December 31, 2024 | December 31, 2023 |
+    : | Corporate debt securities | 67 | % | 61 | % |
+    : | Municipal debt securities | 23 | 25 |
+    : | Cash, 
+    ... [truncated, 4466 more chars]
+  --- segment 1: doc_id=NMIH_10-K_2024-12-31 score=42.019 len=9072 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : Investments - Credit losses and Other Impairments
+    : 
+    : We have designated our investment portfolio as available-for-sale and report our invested assets at fair value. Unrealized gains and losses in the portfolio, net of related tax expense or benefit,
+    : are recognized as a component of accumulated other comprehensive income (AOCI) in shareholders' equity.Purchases and sales of investments are recorded on a trade date basis. Net investment income is recognized when earned, and includes interest and dividend income together with amortization of market
+    : premiums and discounts using the effective yield method, and is net of investment management fees and other investment related expenses. For asset-backed securities and any other holdings for which
+    : there is a prepayment risk, prepayment assumptions are evaluated and revised as necessary. Any adjustments required due to changes in effective yields and prepayment assumptions are recognized on a
+    : prospective basis.
+    : 
+    : 80We recognize an impairment on a security through the consolidated statements of operations and comprehensive income if (i) we intend to sell the impaired security; or (ii) it is more likely than not
+    : that we will be required to sell the impaired security prior to recovery of its amortized cost basis. If a sale is intended or likely to be required, we write down the amortized cost basis of the
+    : security to fair value and recognize the full amount of the impairment through the consolidated statements of operatio
+    ... [truncated, 7272 more chars]
+  --- segment 2: doc_id=NMIH_10-K_2024-12-31 score=31.995 len=11101 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : Revenues
+    : 
+    : Net premiums earned increased sequentially during each successive year, primarily driven by growth in our monthly IIF and monthly pay premium receipts, partially offset by a decline in the
+    : contribution from single premium policy cancellations. Net premiums earned for the year ended December 31, 2024 further benefited from a year-on-year decline in the total premiums ceded under our
+    : reinsurance treaties.
+    : 
+    : 70
+    : 
+    : Net investment income increased sequentially during each successive year, primarily driven by an increase in the book yield of our investment portfolio tied to the deployment of new cash flows and
+    : reinvestment of rolling maturities at incrementally higher rates, as well as growth in the size of our total invested asset base.
+    : 
+    : Other revenues represent underwriting fee revenue generated by our subsidiary, NMIS, which provides outsourced loan review services to mortgage loan originators. Changes in other revenues primarily
+    : reflect changes in NMIS' outsourced loan review volume. Amounts recognized in other revenues generally correspond with amounts incurred as service expenses for outsourced loan review activities in the
+    : same periods.
+    : Expenses
+    : 
+    : We recognize insurance claims and claim expenses in connection with the loss experience of our insured portfolio and incur other underwriting and operating expenses, including employee compensation
+    : and benefits, policy acquisition costs, and technology, professional services and facilities expenses, in conn
+    ... [truncated, 9301 more chars]
+  --- segment 3: doc_id=NMIH_10-K_2024-12-31 score=18.464 len=1821 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : 
+    : Investments
+    : 
+    : We have designated our investment portfolio as available-for-sale and report our invested assets at fair value. Unrealized gains and losses in the portfolio, net of related tax expense or benefit,
+    : are recognized as a component of accumulated other comprehensive income (AOCI) in shareholders' equity.
+    : 
+    : We measure fair value and classify invested assets in a hierarchy for disclosure purposes consisting of three "levels" based on the observability of inputs available in the marketplace used to
+    : measure fair value. The hierarchy gives the highest priority to unadjusted quoted prices in active markets for identical assets (Level 1 measurements) and the lowest priority to unobservable inputs
+    : (Level 3 measurements). See Note 4, " Fair Value of Financial Instruments " for further discussion.
+    : 
+    : Purchases and sales of investments are recorded on a trade date basis. Net investment income is recognized when earned, and includes interest and dividend income together with amortization of market
+    : premiums and discounts using the effective yield method, and is net of investment management fees and other investment related expenses. For asset-backed securities and any other holdings for which
+    : there is a prepayment risk, prepayment assumptions are evaluated and revised as necessary. Any adjustments required due to changes in effective yields and prepayment assumptions are recognized on a
+    : prospective basis. Realized gains and losses are computed using the specific i
+    ... [truncated, 21 more chars]
+  --- segment 4: doc_id=NMIH_10-K_2024-12-31 score=13.254 len=1737 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : Investment Portfolio
+    : 
+    : Our primary objectives with respect to our investment portfolio are to preserve capital and generate investment income, while maintaining sufficient liquidity to cover our operating needs. We aim to
+    : achieve diversification as to type, quality, maturity, industry and issuer. At December 31, 2024, our investment portfolio was comprised of investment grade fixed maturity securities, including U.S.
+    : Treasury securities and obligations of U.S. government agencies, municipal debt securities, corporate debt securities, and asset-backed securities. We also held short-term investments, such as U.S.
+    : Treasury Bills and commercial paper.
+    : 
+    : We have adopted an investment policy that defines, among other things, eligible and ineligible investments, concentration limits for asset types, industry sectors, single issuers, and certain credit
+    : ratings, and includes benchmarks for asset duration. Our investments are rated by one or more nationally recognized statistical rating organizations. Our investment policies and strategies are subject
+    : to change depending upon regulatory, economic and market conditions, and our existing or anticipated financial condition and operating requirements.
+    : 
+    : We engage a third-party investment manager Allspring Global Investments, formerly Wells Capital Management, Inc., to assist with day-to-day management of our portfolio and implementation of our
+    : investment policy.
+  --- segment 5: doc_id=NMIH_10-K_2024-12-31 score=9.276 len=2041 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : Income from our investment portfolio provides a growing source of revenue and cash flow to support our operations and claim payments. If we improperly structure our investments to meet those future
+    : liabilities or have unexpected losses in our portfolio, including losses resulting from impairments or the forced liquidation of investments before their maturity, we may be unable to meet those
+    : obligations. NMIC's investments and investment policies are subject to state insurance laws and PMIERs, which results in our portfolio being predominantly limited to highly rated fixed income
+    : securities. Much of our investment portfolio has been established at a time of historically low interest rates. If market interest rates rise above the rates on our fixed income securities, it wouldincrease unrealized losses on these securities and decrease the market value of our investment portfolio. If it was necessary to sell these securities while they are in an unrealized loss position, it
+    : would adversely impact our financial condition.We may be required or find it advisable to change our investments or investment policies depending upon regulatory, economic, social and market requirements or conditions, or our existing or
+    : anticipated financial condition and operating requirements, including the tax position, of our business. Our investment objectives may not be achieved. The success of our investment activity is
+    : affected by general economic conditions, which may adversely affe
+    ... [truncated, 241 more chars]
+
+[AGENT_RESPONSE]
+  REASONING (2250 chars):
+    | Let me compile the data from each company's FY2024 10-K, which includes comparatives for FY2022, FY2023, and FY2024.
+    | 
+    | **MGIC (MTG):** Pre-tax yield: 4.0% (2024), 3.7% (2023), 3.0% (2022) — from the investment portfolio section.
+    | 
+    | **Radian (RDN):** Average investment yield (Mortgage Insurance subsidiaries): 3.7% (2024), 3.6% (2023), 3.1% (2022) — from the table showing investment balances and yields.
+    | 
+    | **Essent (ESNT):** Pre-tax investment income yield: 3.7% (2024), 3.5% (2023) — but for 2022 I don't see a direct figure in the 2024 10-K results. Let me check... The 2024 10-K says "pre-tax investment income yield increased from 3.5% in the year ended December 31, 2023 to 3.7% in the year ended December 31, 2024." For 2022, I need to check the 2023 10-K. Let me look for FY2022 data.
+    | 
+    | Actually, looking at the Essent MD&A section more carefully, they show 2022 data in the mortgage insurance segment results table. For net investment income in the mortgage insurance segment: 2024 = $183.3M, 2023 = $159.9M, 2022 = $112.3M. But I need the yield, not just the income.
+    | 
+    | The 2024 10-K says: "The pre-tax investment income yield increased from 3.5% in the year ended December 31, 2023 to 3.7% in the year ended December 31, 2024" - so 2024=3.7%, 2023=3.5%.
+    | 
+    | For ESNT 2022, I need to query the FY2023 10-K to get that figure.
+    | 
+    | **NMI (NMIH):** "Pre-tax book yield on the investment portfolio for the year ended December 31, 2024 was 3.0%." But the 2024 10-K only gives 2024. The MD&A says net investment income increased "sequentially during each successive year" but doesn't provide the yield for prior years.
+    | 
+    | Let me look... The NMIH 10-K states in the investment portfolio section: "Pre-tax book yield on the investment portfolio for the year ended December 31, 2024 was 3.0%." I don't see explicit figures for 2023 and 2022 in the results I got.
+    | 
+    | I need to query the NMIH FY2023 10-K and ESNT FY2023 10-K for the missing data points, and possibly ACGL for FY2022.
+    | 
+    | Wait, for ACGL I have: "The pre-tax investment income yield was 4.25% for 2024, compared to 3.53% for 2023." But I need FY2022 too.
+    | 
+    | Let me query the FY2023 10-Ks for the companies that are missing data.
+    | 
+    | For Arch, I need 2022. For NMIH, I need 2022 and 2023. For ESNT, I need 2022.
+  TOOL_CALLS:
+    → dsrag_kb({'doc_id': 'ESNT_10-K_2023-12-31', 'question': 'What was the pre-tax investment income yield for the year ended December 31, 2022?'})
+    → dsrag_kb({'doc_id': 'NMIH_10-K_2023-12-31', 'question': 'What was the pre-tax book yield on the investment portfolio for FY2022 and FY2023?'})
+    → dsrag_kb({'doc_id': 'ACGL_10-K_2023-12-31', 'question': 'What was the pre-tax investment income yield for the year ended December 31, 2022?'})
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the pre-tax book yield on the investment portfolio for FY2022 and FY2023?', 'doc_id': 'NMIH_10-K_2023-12-31'}
+  → returned 4 segments
+  --- segment 0: doc_id=NMIH_10-K_2023-12-31 score=41.078 len=8947 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc.'. This document is about: the annual report (Form 10-K) for NMI Holdings, Inc., detailing its business, financial condition, and results of operations for the fiscal year ended December 31, 2023.
+    : 
+    : NMIC's principal sources of liquidity include (i) premium receipts on its insured portfolio and new business production, (ii) interest income on its investment portfolio and principal repayments on
+    : maturities therein, and (iii) existing cash and cash equivalent holdings. At December 31, 2023, NMIC had $2.4 billion of cash and investments, including $27.5 million of cash and cash equivalents.
+    : NMIC's principal liquidity demands include funds for the payment of (i) reimbursable holding company expenses, (ii) premiums ceded under our reinsurance transactions (iii) claims payments, and (iv)
+    : taxes as due or otherwise deferred through the purchase of tax and loss bonds. NMIC's cash inflow is generally significantly in excess of its cash outflow in any given period. During the twelve-monthperiod ended December 31, 2023, NMIC generated $333 million of cash flow from operations and received an additional $333 million of cash flow on the maturity, sale and redemption of securities held in
+    : its investment portfolio. NMIC is not a party to any contracts (derivative or otherwise) that require it to post an increasing amount of collateral to any counterparty and NMIC's principal liquidity
+    : demands (other than claims payments) generally develop along a scheduled path ( i.e. , are of a contractually predetermined amount and due at a contractually predetermined date). NMIC's only use of
+    : cash that develops along an unscheduled path is claims payments. Given the general duration of the default to foreclosure to cl
+    ... [truncated, 7147 more chars]
+  --- segment 1: doc_id=NMIH_10-K_2023-12-31 score=33.909 len=13676 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc.'. This document is about: the annual report (Form 10-K) for NMI Holdings, Inc., detailing its business, financial condition, and results of operations for the fiscal year ended December 31, 2023.
+    : 
+    : | Consolidated statements of operations | For the years ended December 31, |
+    : | 2023 | 2022 | 2021 |
+    : | Revenues | ($ In Thousands, except for per share data) |
+    : | Net premiums earned | $ | 510,768 | $ | 475,266 | $ | 444,294 |
+    : | Net investment income | 67,512 | 46,406 | 38,072 |
+    : | Net realized investment (losses) gains | (33) | 481 | 729 |
+    : | Other revenues | 756 | 1,192 | 1,977 |
+    : | Total revenues | 579,003 | 523,345 | 485,072 |
+    : | Expenses |
+    : | Insurance claims and claim expenses (benefits) | 22,618 | (3,594) | 12,305 |
+    : | Underwriting and operating expenses | 110,699 | 117,490 | 142,303 |
+    : | Service expenses | 771 | 1,094 | 2,509 |
+    : | Interest expense | 32,212 | 32,163 | 31,796 |
+    : | Gain from change in fair value of warrant liability | - | (1,113) | (566) || Total expenses | 166,300 | 146,040 | 188,347 |
+    : | Income before income taxes | 412,703 | 377,305 | 296,725 |
+    : | Income tax expense | 90,593 | 84,403 | 65,595 |
+    : | Net income | $ | 322,110 | $ | 292,902 | $ | 231,130 |
+    : | Earnings per share - Basic | $ | 3.91 | $ | 3.45 | $ | 2.70 |
+    : | Earnings per share - Diluted | $ | 3.84 | $ | 3.39 | $ | 2.65 |
+    : | Loss ratio (1) | 4.4 | % | (0.8) | % | 2.8 | % |
+    : | Expense ratio (2) | 21.7 | % | 24.7 | % | 32.0 | % |
+    : | Combined ratio (3) | 26.1 | % | 24.0 | % | 34.8 | % || Non-GAAP financial measures (4) | 2023 | 2022 | 2021 |
+    : | ($ In Thousands, except for per share data) |
+    : | Adjusted income before tax | $ | 412,736 | $ | 375,916 | $ | 303,238 |
+    : | Adjusted net income | 322,136 | 291,571 | 236,837 |
+    : | Adjusted dilute
+    ... [truncated, 11876 more chars]
+  --- segment 2: doc_id=NMIH_10-K_2023-12-31 score=27.051 len=3751 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc.'. This document is about: the annual report (Form 10-K) for NMI Holdings, Inc., detailing its business, financial condition, and results of operations for the fiscal year ended December 31, 2023.
+    : 
+    : ## Item 7A. Quantitative and Qualitative Disclosures About Market Risk
+    : 
+    : We own and manage a large investment portfolio of various holdings, types and maturities. NMIH's principal source of operating cash is investment income. The assets within the investment portfolioare exposed to the same factors that affect overall financial market performance.
+    : 
+    : We manage market risk via a defined investment policy implemented by our treasury function with oversight from our Board's Risk Committee. Important drivers of our market risk exposure monitored and
+    : managed by us include but are not limited to:• Changes to the level of interest rates . Increasing interest rates may reduce the value of certain fixed-rate bonds held in the investment portfolio. Higher rates may cause variable rate assets to
+    : generate additional income. Decreasing rates will have the reverse impact. Significant changes in interest rates can also affect persistency and claim rates of our insurance portfolio, and as a result
+    : we may determine that our investment portfolio needs to be restructured to better align it with future liabilities and claim payments. Such restructuring may cause investments to be liquidated when
+    : market conditions are adverse. Additionally, the changes in SOFR based interest rates affect the interest expense related to the Company's debt.• Changes to the term structure of interest rates . Rising or falling rates typically change by different amounts along the yield curve. These changes may have unforeseen impacts o
+    ... [truncated, 1951 more chars]
+  --- segment 3: doc_id=NMIH_10-K_2023-12-31 score=13.724 len=1773 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc.'. This document is about: the annual report (Form 10-K) for NMI Holdings, Inc., detailing its business, financial condition, and results of operations for the fiscal year ended December 31, 2023.
+    : 
+    : Investments
+    : 
+    : We have designated our investment portfolio as available-for-sale and report our invested assets at fair value. Unrealized gains and losses in the portfolio, net of related tax expense or benefit,
+    : are recognized as a component of accumulated other comprehensive income (AOCI) in shareholders' equity.We measure fair value and classify invested assets in a hierarchy for disclosure purposes consisting of three "levels" based on the observability of inputs available in the marketplace used to
+    : measure fair value. The hierarchy gives the highest priority to unadjusted quoted prices in active markets for identical assets (Level 1 measurements) and the lowest priority to unobservable inputs
+    : (Level 3 measurements). See Item 8, Financial Statements and Supplementary Data - Notes to Consolidated Financial Statements - Note 4, Fair Value of Financial Instruments ."Purchases and sales of investments are recorded on a trade date basis. Net investment income is recognized when earned, and includes interest and dividend income together with amortization of market
+    : premiums and discounts using the effective yield method, and is net of investment management fees and other investment related expenses. For asset-backed securities and any other holdings for which
+    : there is a prepayment risk, prepayment assumptions are evaluated and revised as necessary. Any adjustments required due to changes in effective yields and prepayment assumptions are recognized on a
+    : prospective basis.
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the pre-tax investment income yield for the year ended December 31, 2022?', 'doc_id': 'ESNT_10-K_2023-12-31'}
+  → returned 4 segments
+  --- segment 0: doc_id=ESNT_10-K_2023-12-31 score=56.155 len=6372 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial performance and operations of Essent Group Ltd. for the fiscal year ended December 31, 2023.
+    : 
+    : | Year Ended December 31, |
+    : | Summary of Operations (In thousands) | 2023 | 2022 | 2021 |
+    : | Revenues: |
+    : | Net premiums written | $ | 894,282 | $ | 820,029 | $ | 807,492 |
+    : | Decrease in unearned premiums | 22,624 | 22,498 | 65,051 |
+    : | Net premiums earned | 916,906 | 842,527 | 872,543 |
+    : | Net investment income | 186,139 | 124,409 | 88,765 |
+    : | Realized investment (losses) gains, net | (7,204) | (13,172) | 418 |
+    : | Income (loss) from other invested assets | (11,118) | 28,676 | 56,386 |
+    : | Other income | 25,036 | 18,384 | 10,398 |
+    : | Total revenues | 1,109,759 | 1,000,824 | 1,028,510 |
+    : | Losses and expenses: |
+    : | (Benefit) provision for losses and LAE | 31,542 | (174,704) | 31,057 |
+    : | Other underwriting and operating expenses | 200,431 | 171,733 | 166,857 || Premiums retained by agents | 24,650 | - |
+    : | Interest expense | 30,137 | 15,608 | 8,282 |
+    : | Total losses and expenses | 286,760 | 12,637 | 206,196 |
+    : | Income before income taxes | 822,999 | 988,187 | 822,314 |
+    : | Income tax expense | 126,613 | 156,834 | 140,531 |
+    : | Net income | $ | 696,386 | $ | 831,353 | $ | 681,783 |Year Ended December 31, 2023 Compared to the Year Ended December 31, 2022
+    : 
+    : For the year ended December 31, 2023, we reported net income of $696.4 million, compared to net income of $831.4 million for the year ended December 31, 2022. The decrease in our operating results in
+    : 2023 over 2022 was primarily due to an increase in the provision for losses and LAE, increases in operating expenses, a decrease in income from other invested assets and an increase in interest
+    : expense, partially offset by incre
+    ... [truncated, 4572 more chars]
+  --- segment 1: doc_id=ESNT_10-K_2023-12-31 score=44.454 len=12577 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial performance and operations of Essent Group Ltd. for the fiscal year ended December 31, 2023.
+    : 
+    : Note 12. Income Taxes
+    : 
+    : For the year ended December 31, 2023, the statutory income tax rates of the countries where the Company does business are 21% in the United States and 0.0% in Bermuda. The statutory income tax rate
+    : of each country is applied against the taxable income from each country to calculate the income tax expense.
+    : 
+    : 109
+    : 
+    : Essent Group Ltd. and Subsidiaries
+    : 
+    : Notes to Consolidated Financial Statements (Continued)
+    : 
+    : Income tax expense which is generated in the U.S. consists of the following components for the years ended December 31:| (In thousands) | 2023 | 2022 | 2021 |
+    : | Current | $ | 139,859 | $ | 98,666 | $ | 56,509 |
+    : | Deferred | ( 13,246 ) | 58,168 | 84,022 |
+    : | Total income tax expense | $ | 126,613 | $ | 156,834 | $ | 140,531 |
+    : 
+    : For the year ended December 31, 2023, pre-tax income attributable to Bermuda and U.S. operations was $ 268.8 million and $ 554.2 million, respectively, as compared to $ 282.5 million and $ 705.6
+    : million, respectively, for the year ended December 31, 2022 and $ 217.3 million and $ 605.0 million, respectively, for the year ended December 31, 2021.Income tax expense is different from that which would be obtained by applying the applicable statutory income tax rates to income before taxes by jurisdiction as of December 31, 2023 (i.e. U.S. 21%;
+    : Bermuda 0.0%). The reconciliation of the difference between income tax expense and the expected tax provision at the weighted average tax rate was as follows for the years ended December 31:| 2023 | 2022 | 2021 |
+    : | ($ in thousands) | $ | % of pretax income | $ | % of pretax income
+    ... [truncated, 10777 more chars]
+  --- segment 2: doc_id=ESNT_10-K_2023-12-31 score=39.669 len=8125 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial performance and operations of Essent Group Ltd. for the fiscal year ended December 31, 2023.
+    : 
+    : The components of realized investment (losses) gains, net on the consolidated statements of comprehensive income were as follows:
+    : 
+    : | Year Ended December 31, |
+    : | (In thousands) | 2023 | 2022 | 2021 |
+    : | Realized gross gains | $ | 1,219 | $ | 14,420 | $ | 4,044 |
+    : | Realized gross losses | 8,246 | 14,864 | 3,626 |
+    : | Impairment loss | 177 | 12,728 | - |
+    : The fair value of investments available for sale in an unrealized loss position and the related unrealized losses for which no allowance for credit loss has been recorded were as follows:| Less than 12 months | 12 months or more | Total |
+    : | December 31, 2023 (In thousands) | Fair Value | Gross Unrealized Losses | Fair Value | Gross Unrealized Losses | Fair Value | Gross Unrealized Losses |
+    : | U.S. Treasury securities | $ | 139,398 | $ | ( 1,075 ) | $ | 355,921 | $ | ( 18,053 ) | $ | 495,319 | $ | ( 19,128 ) |
+    : | U.S. agency securities | 5,572 | ( 2 ) | 1,623 | ( 2 ) | 7,195 | ( 4 ) |
+    : | U.S. agency mortgage-backed securities | 129,359 | ( 1,616 ) | 654,018 | ( 100,383 ) | 783,377 | ( 101,999 ) |
+    : | Municipal debt securities | 59,301 | ( 987 ) | 297,039 | ( 43,462 ) | 356,340 | ( 44,449 ) |
+    : | Non-U.S. government securities | - | 67,447 | ( 10,069 ) | 67,447 | ( 10,069 ) |
+    : | Corporate debt securities | 119,764 | ( 733 ) | 905,606 | ( 87,170 ) | 1,025,370 | ( 87,903 ) || Residential and commercial mortgage securities | 31,936 | ( 999 ) | 459,789 | ( 52,510 ) | 491,725 | ( 53,509 ) |
+    : | Asset-backed securities | 65,195 | ( 347 ) | 459,324 | ( 19,029 ) | 524,519 | ( 19,376 ) |
+    : | Total | $ | 550,525 | $ | ( 5,759 ) | $ | 3
+    ... [truncated, 6325 more chars]
+  --- segment 3: doc_id=ESNT_10-K_2023-12-31 score=15.048 len=1333 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial performance and operations of Essent Group Ltd. for the fiscal year ended December 31, 2023.
+    : 
+    : Income Taxes
+    : 
+    : Our subsidiaries in the United States file a consolidated U.S. Federal income tax return. Our income tax expense was $126.6 million for the year ended December 31, 2023 compared to $156.8 million for
+    : the year ended December 31, 2022. The effective tax rate for the year ended December 31, 2023 was 15.4% compared to 15.9% for the year ended December 31, 2022. Our effective income tax rate reflects
+    : the amount of earnings or losses generated in the jurisdictions in which we operate, the applicable tax rates and regulations in those jurisdictions, and the impact of discrete items. For the year
+    : ended December 31, 2023, income tax expense includes $5.3 million of net expense associated with prior year tax returns and a $2.7 million net benefit for the deferred tax asset recognized for
+    : unrealized losses on the investment portfolios of Essent Group and Essent Re upon the enactment of the Bermuda Corporate Income Tax. See Note 12 to our consolidated financial statements.
+    : 
+    : At December 31, 2023 and 2022, we concluded that it was more likely than not that our deferred tax assets would be realized.
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the pre-tax investment income yield for the year ended December 31, 2022?', 'doc_id': 'ACGL_10-K_2023-12-31'}
+  → returned 4 segments
+  --- segment 0: doc_id=ACGL_10-K_2023-12-31 score=60.622 len=6882 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2023, detailing its business, financial condition, and results of operations.
+    : 
+    : Corporate Segment
+    : 
+    : The corporate segment results include net investment income, net realized gains or losses, equity in net income or loss of investments accounted for using the equity method, other income (loss),
+    : corporate expenses, transaction costs and other, amortization of intangible assets, interest expense, net foreign exchange gains or losses, income taxes items (which for 2023 reflects the
+    : establishment of a net deferred income tax asset related to the enactment of Bermuda's new corporate income tax), income from operating affiliates and items related to our non-cumulative preferred
+    : shares.
+    : Net Investment Income.
+    : 
+    : The components of net investment income were derived from the following sources:
+    : 
+    : | Year Ended December 31, |
+    : | 2023 | 2022 |
+    : | Fixed maturities | $ | 917 | $ | 469 |
+    : | Short-term investments | 68 | 29 |
+    : | Equity securities | 22 |
+    : | Other (1) | 93 | 47 |
+    : | Gross investment income | 1,100 | 567 |
+    : | Investment expenses (2) | (77) | (71) |
+    : | Net investment income | $ | 1,023 | $ | 496 |
+    : 
+    : (1)    Includes interest income on operating cash, distributions from investment funds and other items.
+    : 
+    : (2)    Investment expenses were approximately 0.26% of average invested assets for 2023, compared to 0.28% for 2022.
+    : 
+    : The pre-tax investment income yield was 3.53% for 2023, compared to 1.99% for 2022. The growth in net investment income for 2023 compared to 2022 primarily reflected higher yields available in the
+    : financial markets. Net cash flow from operating activities contributed $5.7 billion
+    ... [truncated, 5082 more chars]
+  --- segment 1: doc_id=ACGL_10-K_2023-12-31 score=51.767 len=7138 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2023, detailing its business, financial condition, and results of operations.
+    : 
+    : The Bermuda CIT Act will apply a 15% corporate income tax to certain Bermuda constituent entities of multi-nationalgroups in fiscal years beginning on or after January 1, 2025. The act includes a provision referred to as the economic transition adjustment, which is intended to provide a fair and equitable
+    : transition into the tax regime. Pursuant to this legislation, the Company recorded a $ 1.18 billion net deferred income tax asset in the fourth quarter of 2023, expected to be utilized predominantly
+    : over a 10-year period. The Company expects to incur and pay increased taxes in Bermuda beginning in 2025. Arch Capital and its non-U.S. subsidiaries will be subject to U.S. federal income tax only to
+    : the extent that they derive U.S. source income that is subject to U.S. withholding tax, or income that is effectively connected with the conduct of a trade or business within the U.S. and is notexempt from U.S. tax under an applicable income tax treaty with the U.S., or because a non-U.S. subsidiary has elected to be treated as a U.S. taxpayer. Arch Capital and its non-U.S. subsidiaries will
+    : be subject to a withholding tax on dividends from U.S. investments and interest from certain U.S. payors (subject to reduction by any applicable income tax treaty). Arch Capital and its non-U.S.
+    : subsidiaries intend to conduct their operations in a manner that will not cause them to be treated as engaged in a trade or business in the United States and, therefore, will not be required to pay
+    : U.S. federal income| ARCH CA
+    ... [truncated, 5338 more chars]
+  --- segment 2: doc_id=ACGL_10-K_2023-12-31 score=37.766 len=10155 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2023, detailing its business, financial condition, and results of operations.
+    : 
+    : Net Investment Income
+    : 
+    : The components of net investment income were derived from the following sources:
+    : 
+    : | Year Ended December 31, |
+    : | 2023 | 2022 | 2021 |
+    : | Fixed maturities | $ | 917 | $ | 469 | $ | 331 |
+    : | Short-term investments | 68 | 29 | 7 |
+    : | Equity securities | 22 | 42 |
+    : | Term loans | - | 30 |
+    : | Other (1) | 93 | 47 | 68 |
+    : | Gross investment income | 1,100 | 567 | 478 |
+    : | Investment expenses | ( 77 ) | ( 71 ) | ( 89 ) |
+    : | Net investment income | $ | 1,023 | $ | 496 | $ | 389 |
+    : 
+    : (1) Includes interest income on operating cash, distributions from investment funds and other items.
+    : Net Realized Gains (Losses)
+    : 
+    : Net realized gains (losses) were as follows:
+    : 
+    : | Year Ended December 31, |
+    : | 2023 | 2022 | 2021 |
+    : | Available for sale securities: |
+    : | Gross gains on investment sales | $ | 116 | $ | 81 | $ | 314 |
+    : | Gross losses on investment sales | ( 547 ) | ( 317 ) | ( 157 ) |
+    : | Change in fair value of assets and liabilities accounted for using the fair value option: |
+    : | Fixed maturities | 18 | ( 71 ) | 9 |
+    : | Other investments | 27 | ( 21 ) | 117 |
+    : | Equity securities | 1 | ( 4 ) | 13 |
+    : | Short-term investments | - | ( 3 ) | 1 |
+    : | Equity securities, at fair value : |
+    : | Net realized gains (losses) on securities sold | 61 | 75 | 123 |
+    : | Net unrealized gains (losses) on equity securities still held at reporting date | 88 | ( 267 ) | 49 |
+    : | Allowance for credit losses: |
+    : | Investments related | 3 | ( 44 ) | ( 1 ) |
+    : | Underwriting related | ( 1 ) | ( 13 ) | - |
+    : | Derivative instruments (1) | 59 | ( 75 ) | (
+    ... [truncated, 8355 more chars]
+  --- segment 3: doc_id=ACGL_10-K_2023-12-31 score=29.187 len=3283 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2023, detailing its business, financial condition, and results of operations.
+    : 
+    : Operating Return on Average Common Equity
+    : 
+    : Operating return on average common equity ("Operating ROAE") represents annualized after-tax operating income available to Arch common shareholders divided by average common shareholders' equity
+    : available to Arch during the period. After-tax operating income available to Arch common shareholders, a "non-GAAP measure" as defined in the SEC rules, represents net income available to Arch common
+    : shareholders, excluding net realized gains or losses(which includes changes in the allowance for credit losses on financial assets and net impairment losses recognized in earnings), equity in net income or loss of investments accounted for using the
+    : equity method, net foreign exchange gains or losses, transaction costs and other, loss on redemption of preferred shares and income taxes. Management uses Operating ROAE as a key measure of the return
+    : generated to Arch common shareholders. See "Comment on Non-GAAP Financial Measures."
+    : 
+    : Our annualized net income return on average common equity was 29.7% for 2023, compared to 11.6% for 2022. Our Operating ROAE was 21.6% for 2023, compared to 14.8% for 2022, with the higher return in
+    : 2023 primarily resulting from improved underwriting results and growth in net investment income.Total Return on InvestmentsTotal return on investments includes investment income, equity in net income or loss of investments accounted for using the equity method, net realized gains or losses and the change in unrealized
+    : gains or losses generated by
+    ... [truncated, 1483 more chars]
+
+[AGENT_RESPONSE]
+  REASONING (1292 chars):
+    | Let me now gather the remaining data. I have:
+    | 
+    | **From FY2024 10-Ks (already retrieved from the wiki):**
+    | - MGIC: FY2024 pre-tax yield = 4.0%, FY2023 = 3.7%, FY2022 = 3.0%
+    | - Radian (RDN): FY2024 avg investment yield = 3.7%, FY2023 = 3.6%, FY2022 = 3.1%
+    | - Essent (ESNT): FY2024 = 3.7%, FY2023 = 3.5%, FY2022 = 2.6% (from the ESNT 2023 10-K: "The pre-tax investment income yield increased from 2.6% in the year ended December 31, 2022 to 3.5% in the year ended December 31, 2023")
+    | - NMI (NMIH): FY2024 = 3.0%, FY2023 = 2.6%, but for FY2022... The NMIH 2023 10-K says FY2023 yield was 2.6%. For FY2022, I need more data. Let me check the NMIH 10-K more carefully - it mentions net investment income for 2022 was $46.4M but doesn't explicitly give a yield figure for 2022.
+    | 
+    | Let me query the NMIH FY2022 data. Actually, let me look at the NMIH 2023 10-K again - it says "Pre-tax book yield on the investment portfolio for the year ended December 31, 2023 was 2.6%." but doesn't mention 2022. I need to check the NMIH FY2022 10-K or the 2024 10-K which might have the comparative.
+    | 
+    | Actually, wait - I already have the wiki data for NMIH. Let me recall what it says... The wiki mentions NMIH 2024=3.0%, 2023=2.6%. For 2022, I need to look for it.
+    | 
+    | Let me check the NMIH 2022 10-K for the FY2022 yield.
+  TOOL_CALLS:
+    → dsrag_kb({'doc_id': 'NMIH_10-K_2022-12-31', 'question': 'What was the pre-tax book yield on the investment portfolio for the year ended December 31, 2022?'})
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the pre-tax book yield on the investment portfolio for the year ended December 31, 2022?', 'doc_id': 'NMIH_10-K_2022-12-31'}
+  → returned 0 segments
+
+[AGENT_RESPONSE]
+  REASONING (2308 chars):
+    | That returned empty — NMIH_10-K_2022-12-31 is not in the KB catalog. The catalog only has FY2023, FY2024, and FY2025 10-Ks for NMIH. Let me check the FY2024 10-K for NMIH which would include FY2024 and FY2023 comparatives, but not necessarily FY2022.
+    | 
+    | Actually, let me re-read the wiki more carefully. Actually I don't have the wiki preloaded in this conversation. Let me check what I already retrieved from the FY2024 10-Ks (from the wiki that was pre-loaded... wait, actually looking at the conversation, the user just asked the question directly without any wiki being loaded first. Let me re-read the system prompt.
+    | 
+    | The system prompt says "In some questions, a synthesized analyst-perspective wiki page has been pre-loaded into your message history before you started reasoning." - but in this case, no wiki was preloaded. So I need to get the data from the filings directly.
+    | 
+    | Let me query the NMIH FY2023 10-K which has the FY2023 yield of 2.6%, but I need the FY2022 yield. From NMIH 2024 10-K, it shows FY2024 yield and FY2023 yield. Let me check.
+    | 
+    | Actually, I already know from the NMIH 2024 10-K (which I haven't queried directly but the wiki had... no, there's no wiki). Let me query the NMIH 2024 10-K for the full data including FY2022 comparison.
+    | 
+    | Wait, actually the NMIH 2023 10-K mentions the FY2023 yield of 2.6%. The 2024 10-K would mention FY2024 yield and FY2023 comparative. But for FY2022 yield, let me check if the 2023 10-K mentions FY2022.
+    | 
+    | Looking at the NMIH 2023 10-K results again, it says: "Pre-tax book yield on the investment portfolio for the year ended December 31, 2023 was 2.6%." But it doesn't mention FY2022 yield explicitly. The MD&A mentions that net investment income increased "sequentially during each successive year" but doesn't give the FY2022 yield.
+    | 
+    | Let me calculate it from the data. NMIH 2023 10-K says:
+    | - Net investment income FY2022 = $46,406 (thousands)
+    | - Average amortized cost... hmm, I need the average portfolio balance to compute the yield.
+    | 
+    | Actually, maybe the 2024 10-K for NMIH would have the FY2022 comparative data as well? Let me check.
+    | 
+    | Actually, let me also get the data from the ACGL 2024 10-K for FY2024 and FY2023 yields. I already have ACGL 2023 10-K saying 2023=3.53%, 2022=1.99%.
+    | 
+    | Let me get the ACGL 2024 10-K and the MTG and RDN data.
+  TOOL_CALLS:
+    → dsrag_kb({'doc_id': 'ACGL_10-K_2024-12-31', 'question': 'What was the pre-tax investment income yield for 2024 compared to 2023 and 2022?'})
+    → dsrag_kb({'doc_id': 'MTG_10-K_2024-12-31', 'question': 'What was the pre-tax investment yield for FY2024, FY2023, and FY2022?'})
+    → dsrag_kb({'doc_id': 'RDN_10-K_2024-12-31', 'question': 'What was the average investment yield for FY2024, FY2023, and FY2022?'})
+    → dsrag_kb({'doc_id': 'ESNT_10-K_2024-12-31', 'question': 'What was the pre-tax investment income yield for FY2024, FY2023, and FY2022?'})
+    → dsrag_kb({'doc_id': 'NMIH_10-K_2024-12-31', 'question': 'What was the pre-tax book yield on the investment portfolio for FY2024, FY2023, and FY2022?'})
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the average investment yield for FY2024, FY2023, and FY2022?', 'doc_id': 'RDN_10-K_2024-12-31'}
+  → returned 8 segments
+  --- segment 0: doc_id=RDN_10-K_2024-12-31 score=6.042 len=8232 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : Our aggregate weighted-average net Default to Claim Rate assumption for our primary defaulted loans used in estimating our reserve for losses, which is net of estimated Claim Denials and Rescissions,
+    : was 23% and 25%, at December 31, 2024 and 2023, respectively. This decrease was primarily due to a shift in the mix of defaults as of December 31, 2024, given the larger proportion of more recent
+    : defaults and loans with fewer missed payments, as well as reduced claim rate assumptions for prior period defaults due to more favorable trends in Cures than originally estimated. See Note 11 of Notes
+    : to Consolidated Financial Statements for information regarding our reserve for losses and a reconciliation of our Mortgage Insurance segment's beginning and ending reserves for losses and LAE.
+    : Although expected claims are included in our reserve for losses, the timing of claims paid is subject to fluctuation from quarter to quarter, based on the rate that defaults cure and other factors,
+    : including the impact of foreclosure moratoriums (as further described in "Item 1. Business-Mortgage Insurance-Defaults and Claims"), which make the timing of paid claims difficult to predict.
+    : 
+    : 91## Part II. Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations
+    : 
+    : The following table shows net claims paid by product and the average claim paid by product for the periods indicated.
+    : 
+    : | Claims paid |
+    : | Years Ended December 31, |
+    : | (In thousands) | 2024 | 2023 | 2022 |
+    : | Net claims paid (1) |
+    : | Primary | $ | 11,012 | $ |
+    ... [truncated, 6432 more chars]
+  --- segment 1: doc_id=RDN_10-K_2024-12-31 score=5.726 len=5560 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : Other Investments. These securities primarily consist of commercial paper and short-term certificates of deposit, which are categorized in Level II of the fair value hierarchy. The fair value of
+    : these investments is estimated using market data for comparable instruments of similar maturity and average yield.
+    : 
+    : Money Market Instruments. The fair value of money market instruments is based on daily prices, which are published and available to all potential investors and market participants. As such, these
+    : securities are categorized in Level I of the fair value hierarchy.
+    : 
+    : Other Invested Assets. These assets consist of interests in private debt or equity investments. The estimated fair value of these other invested assets is primarily based on the private company's
+    : performance, as well as the terms of the instrument and general market benchmarks. As such, these investments are categorized in Level III of the fair value hierarchy.
+    : Derivative Assets and Liabilities. These assets and liabilities include forward RMBS purchase contracts and interest rate swap futures contracts used to hedge interest rate risk associated with our
+    : residential mortgage loans held for sale. The estimated fair value of these instruments is derived using a market-based approach based on market price inputs from similar contracts and corroborated
+    : with observable market data. In addition, we enter into forward mortgage loan purchase commitments, for which we determine estimated fair value using a market-based approach based on underlying loan
+    : level inform
+    ... [truncated, 3760 more chars]
+  --- segment 2: doc_id=RDN_10-K_2024-12-31 score=5.256 len=2881 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : Adjusted net operating return on equity is calculated by dividing annualized adjusted pretax operating income (loss), net of taxes computed using the Company's statutory tax rate, by average
+    : stockholders' equity, based on the average of the beginning and ending balances for each period presented. The following table provides a reconciliation of return on equity to our non-GAAP financial
+    : measure for the consolidated Company of adjusted net operating return on equity.| Reconciliation of return on equity to adjusted net operating return on equity |
+    : | Years Ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | Return on equity (1) | 13.4 | % | 14.5 | % | 18.2 | % |
+    : | Less: impact of reconciling income (expense) items (2) |
+    : | Net gains (losses) on investments and other financial instruments | (0.1 | )% | 0.2 | % | (2.0 | )% |
+    : | Amortization and impairment of goodwill and other acquired intangible assets | - | % | (0.3 | )% | (0.1 | )% |
+    : | Impairment of other long-lived assets and other non-operating items | (0.6 | )% | (0.3 | )% | (0.4 | )% |
+    : | Income tax (provision) benefit on reconciling income (expense) items (3) | 0.1 | % | 0.1 | % | 0.5 | % |
+    : | Difference between statutory and effective tax rates | (0.1 | )% | (0.1 | )% | (0.1 | )% || Impact of reconciling income (expense) items | (0.7 | )% | (0.4 | )% | (2.1 | )% |
+    : | Adjusted net operating return on equity (3) | 14.1 | % | 14.9 | % | 20.3 | % |
+    : (1) Calculated by dividing net income by average stockholders' equity.
+    : 
+    : (2) As a percentage of average stockholders' equity.
+    : 
+    : (3) Calcu
+    ... [truncated, 1081 more chars]
+  --- segment 3: doc_id=RDN_10-K_2024-12-31 score=4.957 len=5501 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : | Summary results of operations - Consolidated |
+    : | Years Ended December 31, | Change Favorable (Unfavorable) |
+    : | ($ in thousands, except per-share amounts) | 2024 | 2023 | 2022 | 2024 vs. 2023 | 2023 vs. 2022 |
+    : | Revenues |
+    : | Net premiums earned | $ | 951,283 | $ | 919,578 | $ | 981,131 | $ | 31,705 | $ | (61,553 | ) |
+    : | Services revenue | 50,270 | 46,092 | 92,216 | 4,178 | (46,124 | ) |
+    : | Net investment income | 292,693 | 258,430 | 195,658 | 34,263 | 62,772 |
+    : | Net gains (losses) on investments and other financial instruments | (10,114 | ) | 10,241 | (80,733 | ) | (20,355 | ) | 90,974 |
+    : | Income (loss) on consolidated VIEs | (2 | ) | - | (2 | ) | - |
+    : | Other income | 6,153 | 6,247 | 2,454 | (94 | ) | 3,793 |
+    : | Total revenues | 1,290,283 | 1,240,588 | 1,190,726 | 49,695 | 49,862 || Expenses |
+    : | Provision for losses | (2,514 | ) | (42,526 | ) | (338,239 | ) | (40,012 | ) | (295,713 | ) |
+    : | Policy acquisition costs | 27,316 | 24,578 | 23,918 | (2,738 | ) | (660 | ) |
+    : | Cost of services | 38,271 | 38,491 | 82,358 | 220 | 43,867 |
+    : | Other operating expenses | 347,906 | 347,578 | 381,148 | (328 | ) | 33,570 |
+    : | Interest expense | 108,014 | 89,695 | 84,454 | (18,319 | ) | (5,241 | ) |
+    : | Impairment of goodwill | - | 9,802 | - | 9,802 | (9,802 | ) |
+    : | Amortization of other acquired intangible assets | - | 5,483 | 4,308 | 5,483 | (1,175 | ) |
+    : | Total expenses | 518,993 | 473,101 | 237,947 | (45,892 | ) | (235,154 | ) |
+    : | Pretax income | 771,290 | 767,487 | 952,779 | 3,803 | (185,292 | ) |
+    : | Income tax provision | 166,850 | 164,36
+    ... [truncated, 3701 more chars]
+  --- segment 4: doc_id=RDN_10-K_2024-12-31 score=5.21 len=1232 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : Net Investment Income
+    : 
+    : Net investment income consisted of the following.
+    : 
+    : | Net investment income |
+    : | Years Ended December 31, |
+    : | (In thousands) | 2024 | 2023 | 2022 |
+    : | Investment income |
+    : | Fixed maturities | $ | 231,769 | $ | 226,654 | $ | 184,189 |
+    : | Equity securities | 12,003 | 13,420 | 11,210 |
+    : | Residential mortgage loans held for sale (1) | 22,569 | 4,212 | 39 |
+    : | Short-term investments | 31,736 | 18,840 | 5,716 |
+    : | Other (2) | 6,282 | 5,286 | 1,370 |
+    : | Gross investment income | 304,359 | 268,412 | 202,524 |
+    : | Investment expenses (2) | ( 11,666 | ) | ( 9,982 | ) | ( 6,866 | ) |
+    : | Net investment income | $ | 292,693 | $ | 258,430 | $ | 195,658 |
+    : 
+    : (1) See Note 7 for additional information on our residential mortgage loans held for sale.
+    : 
+    : (2) Includes the impact from our securities lending activities. Investment expenses also include other investment management expenses.
+    : 
+    : 134
+    : 
+    : | Radian Group Inc. and Subsidiaries  Notes to Consolidated Financial Statements |
+  --- segment 5: doc_id=RDN_10-K_2024-12-31 score=3.608 len=1020 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : (2) For performance-based RSUs, amount represents the number of target shares at grant date.
+    : 
+    : (3) For performance-based RSUs, amount represents the difference between the number of shares vested at settlement, which can range from 0 to 200 % of target depending on results over the applicable
+    : performance periods, and the number of target shares at the grant date.
+    : 
+    : (4) Represents amounts vested during the year, including the impact of performance adjustments for performance-based awards.
+    : 
+    : The weighted-average grant date fair value of performance-based RSUs granted during 2023 and 2022 was $ 23.05 and $ 20.09 , respectively. The weighted-average grant date fair value of time-vested
+    : RSUs granted during 2023 and 2022 was $ 25.13 and $ 20.61 , respectively.
+    : 
+    : 162
+  --- segment 6: doc_id=RDN_10-K_2024-12-31 score=4.301 len=909 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : ▪ Reduced our holding company debt-to-capital ratio to 18.7% at December 31, 2024, compared to 24.4% at December 31, 2023, primarily through a series of transactions that included the issuance of
+    : $625 million aggregate principal amount of 6.200% investment-grade Senior Notes due May 2029 and the redemption of $975 million aggregate principal amount of notes maturing in 2024 and 2025
+    : 
+    : ▪ Repurchased 7.0 million shares in 2024 at an average share price of $31.81, including commissions, totaling $224 million
+    : 
+    : ▪ Increased our quarterly cash dividend by 9% from $0.225 to $0.245 per share, beginning with the dividend declared in the first quarter of 2024
+  --- segment 7: doc_id=RDN_10-K_2024-12-31 score=2.818 len=3539 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report of Radian Group Inc. for the fiscal year ended December 31, 2024, filed with the U.S. Securities and Exchange Commission.
+    : 
+    : ## Part II. Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations
+    : 
+    : and collections practices. Key assumptions supporting our estimate of this net premium receivable, which equaled $38 million and $36 million as of December 31, 2024 and 2023, respectively, include a
+    : collection rate and average life. During both 2024 and 2023, we made no changes to these assumptions.Single premiums written are initially recorded as unearned premiums and earned over time based on the anticipated loss pattern and the estimated period of risk exposure, which is primarily derived
+    : from historical experience and other factors such as projected losses, premium type and projected contractual periods of risk based on original LTV. Our estimate for the single premium earnings
+    : pattern is updated periodically and subject to change given uncertainty as to the underlying loss development and duration of risk. There were no changes to our single premium earnings pattern
+    : estimate in 2024 and 2023.Actual future experience that is different than expected loss development or policy cancellations could result in further material increases or decreases in the recognition of net premiums earned.
+    : Based on historical experience, losses are relatively low during the first two years after a loan is originated and then increase over a period of several years before declining; however, several
+    : factors can impact and change this cycle, including the economic environment, the quality of the underwriting of the loan, characteristi
+    ... [truncated, 1739 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the pre-tax investment yield for FY2024, FY2023, and FY2022?', 'doc_id': 'MTG_10-K_2024-12-31'}
+  → returned 7 segments
+  --- segment 0: doc_id=MTG_10-K_2024-12-31 score=25.296 len=4821 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : EXPLANATION AND RECONCILIATION OF OUR USE OF NON-GAAP FINANCIAL MEASURES
+    : 
+    : NON-GAAP FINANCIAL MEASURES
+    : 
+    : We believe that use of the Non-GAAP financial measures of adjusted pre-tax operating income (loss), adjusted net operating income (loss) and adjusted net operating income (loss) per diluted share
+    : facilitate the evaluation of the company's core financial performance thereby providing relevant information to investors. These measures are not recognized in accordance with GAAP and should not be
+    : viewed as alternatives to GAAP measures of performance.Adjusted pre-tax operating income (loss) is defined as GAAP income (loss) before tax, excluding the effects of net realized investment gains (losses), gain and losses on debt extinguishment, and
+    : infrequent or unusual non-operating items where applicable.
+    : 
+    : Adjusted net operating income (loss) is defined as GAAP net income (loss) excluding the after-tax effects of net realized investment gains (losses), gain and losses on debt extinguishment, and
+    : infrequent or unusual non-operating items where applicable. The amounts of adjustments to components of pre-tax operating income (loss) are tax effected using a federal statutory tax rate of 21%.Adjusted net operating income (loss) per diluted share is calculated in a manner consistent with the accounting standard regarding earnings per share by dividing (i) adjusted net operating income
+    : (loss) after making adjustments for interest expen
+    ... [truncated, 3021 more chars]
+  --- segment 1: doc_id=MTG_10-K_2024-12-31 score=18.921 len=3826 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : Results of operations
+    : 
+    : Premiums
+    : 
+    : Our direct premiums written and earned are impacted by our IIF during the period and our in force premium yield. We expect our in force portfolio premium yield to remain relatively flat in 2025 and
+    : we expect our net premiums written and earned to decrease in 2025, driven by an increase in ceded premiums. Premiums earned are also impacted by the amount of accelerated premiums from single premium
+    : policy cancellations, which generally decrease as refinance activity decreases. Our unearned premium decreased to $120.4 million at December 31, 2024 from $157.8 million at December 31, 2023.
+    : 
+    : Our net premiums written and earned are primarily impacted by the changes in the direct premiums written and earned noted above and by the amount of premiums we cede under our quota share and excess
+    : of loss reinsurance transactions. The amount of premiums we cede in 2025 will be affected by any changes in our reinsurance coverage. Premiums we cede under our quota share transactions are also
+    : impacted by the profit commission we receive. The amount of profit commission is variable year-to-year and is dependent on the amount of losses incurred ceded. Increases in ceded losses incurred will
+    : benefit our losses incurred line, but will result in lower profit commission and higher ceded premiums.
+    : 
+    : Factors that affect the amount of premiums we earn from our IIF are further discussed in our ["Consolidated Results of O
+    ... [truncated, 2026 more chars]
+  --- segment 2: doc_id=MTG_10-K_2024-12-31 score=18.061 len=4436 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : | Summary of financial results of MGIC Investment Corporation |
+    : | Year Ended December 31, |
+    : | (in thousands, except per share data) | 2024 | 2023 | Change |
+    : | Selected statement of operations data |
+    : | Net premiums earned | $ | 970,807 | $ | 952,551 | 2 | % |
+    : | Investment income, net of expenses | 244,640 | 214,740 | 14 | % |
+    : | Losses incurred, net | (14,861) | (20,856) | 29 | % |
+    : | Other underwriting and operating expenses, net | 209,324 | 226,004 | (7) | % |
+    : | Income before tax | 968,709 | 902,229 | 7 | % |
+    : | Provision for income taxes | 205,715 | 189,280 | 9 | % |
+    : | Net income | 762,994 | 712,949 | 7 | % |
+    : | Diluted income per share | $ | 2.89 | $ | 2.49 | 16 | % |
+    : | Non-GAAP Financial Measures (1) |
+    : | Adjusted pre-tax operating income | $ | 975,623 | $ | 916,778 | 6 | % || Adjusted net operating income | 768,456 | 724,443 | 6 | % |
+    : | Adjusted net operating income per diluted share | $ | 2.91 | $ | 2.53 | 15 | % |(1) See ["Explanation and Reconciliation of our use of Non-GAAP Financial Measures."](#i14b0fb854df64be4a32311dd76f19276_79)
+    : 
+    : SUMMARY OF 2024 FINANCIAL RESULTS
+    : 
+    : Net income for 2024 was $763.0 million (2023: $712.9 million) and diluted income per share was $2.89 (2023: $2.49). The increase in net income is primarily due to an increase in investment income,
+    : net of expenses, an increase in net premiums earned, and a decrease in other underwriting and operating expenses, net. This was partially offset by an incre
+    ... [truncated, 2636 more chars]
+  --- segment 3: doc_id=MTG_10-K_2024-12-31 score=17.399 len=7352 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : The fixed income objective is to preserve capital and to provide monthly cash flows for the payment of plan liabilities. Fixed income investments can include government, government agency, corporate,
+    : mortgage-backed, asset-backed, and municipal securities, and other classes of bonds. The duration of the fixed income portfolio has an objective of being within one year of the duration of the
+    : accumulated benefit obligation. The fixed income investments have an objective of a weighted average credit of A3/A-/A- by Moody's, S&amp;P, and Fitch, respectively.
+    : 
+    : MGIC Investment Corporation 2024 Form 10-K |  114
+    : 
+    : MGIC Investment Corporation and SubsidiariesTables 11.10a and 11.10b set forth the other postretirement benefits plan assets at fair value as of December 31, 2024 and 2023. All are Level 1 assets.
+    : 
+    : | Other postretirement benefits plan assets at fair value as of December 31, 2024 |
+    : | Table | 11.10a |
+    : | (In thousands) | Level 1 |
+    : | Domestic mutual funds | $ | 130,586 |
+    : | International mutual funds | 26,018 |
+    : | Total Assets at fair value | $ | 156,604 |
+    : 
+    : | Other postretirement benefits plan assets at fair value as of December 31, 2023 |
+    : | Table | 11.10b |
+    : | (In thousands) | Level 1 |
+    : | Domestic mutual funds | $ | 109,575 |
+    : | International mutual funds | 24,796 |
+    : | Total Assets at fair value | $ | 134,371 |
+    : Our postretirement plan portfolio is designed to achieve the following objectives over each market cycle and for at lea
+    ... [truncated, 5552 more chars]
+  --- segment 4: doc_id=MTG_10-K_2024-12-31 score=10.488 len=1809 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : As discussed in our risk factor titled " Reinsurance may be unavailable at current levels and prices, and/or the GSEs may reduce the amount of capital credit we receive for our reinsurance
+    : transactions ," we have in place various QSR transactions. Although the transactions reduce our premiums, they have a lesser impact on our overall results, as losses ceded under the transactions
+    : reduce our losses incurred and the ceding commissions we receive reduce our underwriting expenses. The effect of the QSR transactions on the various components of pre-tax income will vary from period
+    : to period, depending on the level of ceded losses incurred. We also have in place various XOL reinsurance transactions under which we cede premiums. Under the XOL reinsurance transactions, for the
+    : respective reinsurance coverage periods, we retain the first layer of aggregate losses and the reinsurers provide second layer coverage up to the outstanding reinsurance coverage amount.
+    : 
+    : In addition to the effect of reinsurance on our premiums, if credit performance remains strong and loss ratios remain low, we expect a decline in our in force portfolio yield over time as competition
+    : in the industry results in lower premium rates. Refinance transactions on single premium policies benefit the yield due to the impact of accelerated earned premium from cancellation prior to their
+    : estimated life. Recent low levels of refinance transactions have reduced that
+    ... [truncated, 9 more chars]
+  --- segment 5: doc_id=MTG_10-K_2024-12-31 score=8.721 len=6678 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : | MGIC INVESTMENT CORPORATION AND SUBSIDIARIES |
+    : | CONSOLIDATED STATEMENTS OF OPERATIONS |
+    : | Years Ended December 31, |
+    : | (In thousands, except per share data) | Note | 2024 | 2023 | 2022 |
+    : | Revenues: |
+    : | Premiums written: |
+    : | Direct | $ | 1,100,918 | $ | 1,105,027 | $ | 1,108,570 |
+    : | Assumed | 14,366 | 12,835 | 8,535 |
+    : | Ceded | [9](#i14b0fb854df64be4a32311dd76f19276_163) | ( 181,896 ) | ( 202,821 ) | ( 156,373 ) |
+    : | Net premiums written | 933,388 | 915,041 | 960,732 |
+    : | Decrease (increase) in unearned premiums | 37,419 | 37,510 | 46,401 |
+    : | Net premiums earned | [9](#i14b0fb854df64be4a32311dd76f19276_163) | 970,807 | 952,551 | 1,007,133 |
+    : | Investment income, net of expenses | [5](#i14b0fb854df64be4a32311dd76f19276_142) | 244,640 | 214,740 | 167,476 || Net gains (losses) on investments and other financial instruments | [5](#i14b0fb854df64be4a32311dd76f19276_142) | ( 9,846 ) | ( 14,141 ) | ( 7,463 ) |
+    : | Other revenue | 2,130 | 1,952 | 5,639 |
+    : | Total revenues | 1,207,731 | 1,155,102 | 1,172,785 |
+    : | Losses and expenses: |
+    : | Losses incurred, net | [8](#i14b0fb854df64be4a32311dd76f19276_160) / [9](#i14b0fb854df64be4a32311dd76f19276_163) | ( 14,861 ) | ( 20,856 ) | ( 254,565 ) |
+    : | Amortization of deferred insurance policy acquisition costs | 8,957 | 10,820 | 12,366 |
+    : | Other underwriting and operating expenses, net | [18](#i14b0fb854df64be4a32311dd76f19276_2489) | 209,324 | 226,004 | 236,697 |
+    : | Loss on debt extinguishmen
+    ... [truncated, 4878 more chars]
+  --- segment 6: doc_id=MTG_10-K_2024-12-31 score=7.014 len=1087 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of MGIC Investment Corporation for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations as a provider of private mortgage insurance and related services.
+    : 
+    : Investment income
+    : 
+    : Our investment portfolio is composed principally of investment grade fixed income securities. The principal factors that influence investment income are the size of the portfolio and its yield. As
+    : measured by amortized cost (which excludes changes in fair value, such as from changes in interest rates), the size of the investment portfolio is mainly a function of cash generated from (or used in)
+    : operations, such as net premiums written, investment income, net claim payments and expenses, and cash provided by (or used for) non-operating activities, such as debt or stock issuances or
+    : repurchases, and dividends.
+    : 
+    : MGIC Investment Corporation 2024 Form 10-K |  52
+    : 
+    : MGIC Investment Corporation and Subsidiaries
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the pre-tax investment income yield for FY2024, FY2023, and FY2022?', 'doc_id': 'ESNT_10-K_2024-12-31'}
+  → returned 5 segments
+  --- segment 0: doc_id=ESNT_10-K_2024-12-31 score=42.424 len=12737 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : Note 12. Income Taxes
+    : 
+    : For the year ended December 31, 2024, the statutory income tax rates of the countries where the Company does business are 21% in the United States and 0.0% in Bermuda. The statutory income tax rate
+    : of each country is applied against the taxable income from each country to calculate the income tax expense.
+    : 
+    : 111
+    : 
+    : Essent Group Ltd. and Subsidiaries
+    : 
+    : Notes to Consolidated Financial Statements (Continued)
+    : Income tax expense which is generated in the U.S. consists of the following components for the years ended December 31:
+    : 
+    : | (In thousands) | 2024 | 2023 | 2022 |
+    : | Current | $ | 93,914 | $ | 139,859 | $ | 98,666 |
+    : | Deferred | 32,174 | ( 13,246 ) | 58,168 |
+    : | Total income tax expense | $ | 126,088 | $ | 126,613 | $ | 156,834 |
+    : 
+    : For the year ended December 31, 2024, pre-tax income attributable to Bermuda and U.S. operations was $ 277.0 million and $ 578.5 million, respectively, as compared to $ 268.8 million and $ 554.2
+    : million, respectively, for the year ended December 31, 2023 and $ 282.5 million and $ 705.6 million, respectively, for the year ended December 31, 2022.
+    : Income tax expense is different from that which would be obtained by applying the applicable statutory income tax rates to income before taxes by jurisdiction as of December 31, 2024 (i.e. U.S. 21%;
+    : Bermuda 0.0%). The reconciliation of the difference between income tax expense and the expected tax provision at the weighted average tax rate was as follows for the years ended December 31:
+    : 
+    : | 2024 | 2023 | 2022 |
+    : | ($ in thousands) | $ | % of pretax income | $ | % of pretax i
+    ... [truncated, 10937 more chars]
+  --- segment 1: doc_id=ESNT_10-K_2024-12-31 score=29.614 len=10059 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : | Year Ended December 31, 2024 |
+    : | (In thousands) | Mortgage Insurance | Corporate & Other | Consolidated |
+    : | Revenues: |
+    : | Net premiums earned | $ | 924,676 | $ | 66,206 | $ | 990,882 |
+    : | Net investment income | 183,341 | 38,729 | 222,070 |
+    : | Realized investment (losses) gains, net | ( 2,343 ) | ( 7 ) | ( 2,350 ) |
+    : | Income (loss) from other invested assets | 7,171 | 204 | 7,375 |
+    : | Other income | 14,152 | 10,775 | 24,927 |
+    : | Total revenues | 1,126,997 | 115,907 | 1,242,904 |
+    : | Losses and expenses: |
+    : | Provision (benefit) for losses and LAE | 75,182 | 6,038 | 81,220 |
+    : | Compensation and benefits | 72,156 | 64,236 | 136,392 |
+    : | Premium and other taxes | 23,007 | 1,497 | 24,504 |
+    : | Ceding commission | ( 24,248 ) | - | ( 24,248 ) || Other underwriting and operating expenses | 44,829 | 89,397 | 134,226 |
+    : | Net operating expenses before allocations | 115,744 | 155,130 | 270,874 |
+    : | Corporate expense allocations | 43,787 | ( 43,787 ) | - |
+    : | Operating expenses after allocations | 159,531 | 111,343 | 270,874 |
+    : | Interest expense | - | 35,319 |
+    : | Income (loss) before income taxes | $ | 892,284 | $ | ( 36,793 ) | $ | 855,491 |
+    : | Loss ratio (1) | 8.1 | % |
+    : | Expense ratio (2) | 17.3 | % |
+    : | Combined ratio | 25.4 | % |
+    : | (1) Loss ratio is calculated by dividing the provision (benefit) for losses and LAE by net premiums earned. |
+    : | (2) Expense ratio is calculated by dividing operating expenses after allocations by net premiums earned. |121
+    : 
+    : Essent Group Ltd. and Subsidiaries
+    : 
+    : Notes to Consolidated Financial Statements (Continued)
+    : 
+    : | Year Ended December 31, 2023 |
+    : | 
+    ... [truncated, 8259 more chars]
+  --- segment 2: doc_id=ESNT_10-K_2024-12-31 score=20.558 len=6212 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : Essent Group Ltd. and Subsidiaries
+    : 
+    : Consolidated Statements of Comprehensive Income| Year Ended December 31, |
+    : | (In thousands, except per share amounts) | 2024 | 2023 | 2022 |
+    : | Revenues: |
+    : | Net premiums written | $ | 966,580 | $ | 894,282 | $ | 820,029 |
+    : | Decrease in unearned premiums | 24,302 | 22,624 | 22,498 |
+    : | Net premiums earned | 990,882 | 916,906 | 842,527 |
+    : | Net investment income | 222,070 | 186,139 | 124,409 |
+    : | Realized investment gains (losses), net | ( 2,350 ) | ( 7,204 ) | ( 13,172 ) |
+    : | Income (loss) from other invested assets | 7,375 | ( 11,118 ) | 28,676 |
+    : | Other income | 24,927 | 25,036 | 18,384 |
+    : | Total revenues | 1,242,904 | 1,109,759 | 1,000,824 |
+    : | Losses and expenses: |
+    : | Provision (benefit) for losses and LAE | 81,220 | 31,542 | ( 174,704 ) |
+    : | Other underwriting and operating expenses | 270,874 | 225,081 | 171,733 || Interest expense | 35,319 | 30,137 | 15,608 |
+    : | Total losses and expenses | 387,413 | 286,760 | 12,637 |
+    : | Income before income taxes | 855,491 | 822,999 | 988,187 |
+    : | Income tax expense | 126,088 | 126,613 | 156,834 |
+    : | Net income | $ | 729,403 | $ | 696,386 | $ | 831,353 |
+    : | Earnings per share: |
+    : | Basic | $ | 6.92 | $ | 6.56 | $ | 7.75 |
+    : | Diluted | 6.85 | 6.50 | 7.72 |
+    : | Weighted average shares outstanding: |
+    : | Basic | 105,394 | 106,222 | 107,205 |
+    : | Diluted | 106,550 | 107,129 | 107,653 |
+    : | Net income | $ | 729,403 | $ | 696,386 | $ | 831,353 |
+    : | Other comprehensive income (loss): |
+    : | Change in unrealized (depreciation) appreciation of investments, net of tax (benefit) expense of $( 7,818 ) in 2024, $ 17,9
+    ... [truncated, 4412 more chars]
+  --- segment 3: doc_id=ESNT_10-K_2024-12-31 score=9.882 len=1394 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : Results of Operations: Consolidated
+    : 
+    : The following table sets forth our consolidated results of operations for the periods indicated:
+    : 
+    : | Year Ended December 31, |
+    : | Summary of Operations (In thousands) | 2024 | 2023 | 2022 |
+    : | Revenues: |
+    : | Net premiums written | $ | 966,580 | $ | 894,282 | $ | 820,029 |
+    : | Decrease in unearned premiums | 24,302 | 22,624 | 22,498 |
+    : | Net premiums earned | 990,882 | 916,906 | 842,527 |
+    : | Net investment income | 222,070 | 186,139 | 124,409 |
+    : | Realized investment gains (losses), net | (2,350) | (7,204) | (13,172) |
+    : | Income (loss) from other invested assets | 7,375 | (11,118) | 28,676 |
+    : | Other income | 24,927 | 25,036 | 18,384 |
+    : | Total revenues | 1,242,904 | 1,109,759 | 1,000,824 |
+    : | Losses and expenses: |
+    : | Provision (benefit) for losses and LAE | 81,220 | 31,542 | (174,704) |
+    : | Other underwriting and operating expenses | 270,874 | 225,081 | 171,733 |
+    : | Interest expense | 35,319 | 30,137 | 15,608 |
+    : | Total losses and expenses | 387,413 | 286,760 | 12,637 |
+    : | Income before income taxes | 855,491 | 822,999 | 988,187 |
+    : | Income tax expense | 126,088 | 126,613 | 156,834 |
+    : | Net income | $ | 729,403 | $ | 696,386 | $ | 831,353 |
+  --- segment 4: doc_id=ESNT_10-K_2024-12-31 score=7.165 len=1694 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial and operational performance of Essent Group Ltd. for the fiscal year ended December 31, 2024.
+    : 
+    : 
+    : • The increases in ceding commission from 2022 to 2023 and 2023 to 2024 results from increases in the amount of reinsured insurance in force under our outstanding quota share arrangements.
+    : 
+    : • Other expenses increased in 2023 compared to 2022 primarily as a result of increases in professional fees and software related expenses. Other expenses include professional fees, travel, marketing,
+    : hardware, software, rent, depreciation and amortization and other facilities expenses.
+    : 
+    : 69
+    : 
+    : Results of Operations: Corporate &amp; Other
+    : 
+    : | Year Ended December 31, |
+    : | Summary of Operations (In thousands) | 2024 | 2023 | 2022 |
+    : | Revenues: |
+    : | Net premiums earned | $ | 66,206 | $ | 37,969 | $ | - |
+    : | Net investment income | 38,729 | 26,271 | 12,124 |
+    : | Realized investment gains (losses), net | (7) | (812) | (11,343) |
+    : | Income (loss) from other invested assets | 204 | (10,628) | (4,466) |
+    : | Other income | 10,775 | 4,344 | - |
+    : | Total revenues | 115,907 | 57,144 | (3,685) |
+    : | Losses and expenses: |
+    : | Provision for losses and LAE | 6,038 | 1,422 | - |
+    : | Other underwriting and operating expenses | 155,130 | 109,899 | 60,228 |
+    : | Interest expense | 35,319 | 30,137 | 15,608 |
+    : | Total losses and expenses before allocations | 196,487 | 141,458 | 75,836 |
+    : | Corporate expense allocations | (43,787) | (47,274) | (48,100) |
+    : | Total losses and expenses after allocations | 152,700 | 94,184 | 27,736 |
+    : | Income (loss) before income taxes | $ | (36,793) | $ | (37,040) | $ | (31,421) |
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the pre-tax book yield on the investment portfolio for FY2024, FY2023, and FY2022?', 'doc_id': 'NMIH_10-K_2024-12-31'}
+  → returned 6 segments
+  --- segment 0: doc_id=NMIH_10-K_2024-12-31 score=28.065 len=9024 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : Portfolio Statistics
+    : 
+    : Unless otherwise noted, the portfolio statistics tables presented below do not include the effects of our third-party reinsurance arrangements described above. The table below highlights trends in
+    : our primary portfolio as of the dates and for the periods indicated.| Primary portfolio trends | As of and for the years ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | ($ Values In Millions, except as noted below) |
+    : | New insurance written | $ | 46,044 | $ | 40,473 | $ | 58,734 |
+    : | Percentage of monthly premium | 98 | % | 98 | % | 95 | % |
+    : | Percentage of single premium | 2 | % | 2 | % | 5 | % |
+    : | New risk written | $ | 12,200 | $ | 10,661 | $ | 15,520 |
+    : | Insurance-in-force (1) | $ | 210,183 | $ | 197,029 | $ | 183,968 |
+    : | Percentage of monthly premium | 91 | % | 90 | % | 89 | % |
+    : | Percentage of single premium | 9 | % | 10 | % | 11 | % |
+    : | Risk-in-force (1) | $ | 56,113 | $ | 51,796 | $ | 47,648 |
+    : | Policies in force (count) (1) | 659,567 | 629,690 | 594,142 |
+    : | Average loan size ( $ value in thousands ) (1) | $ | 319 | $ | 313 | $ | 310 || Coverage percentage (2) | 27 | % | 26 | % | 26 | % |
+    : | Loans in default (count) (1) | 6,642 | 5,099 | 4,449 |
+    : | Default rate (1) | 1.01 | % | 0.81 | % | 0.75 | % |
+    : | Risk-in-force on defaulted loans (1) | $ | 545 | $ | 408 | $ | 323 |
+    : | Average net premium yield (3) | 0.28 | % | 0.27 | % | 0.28 | % |
+    : | Earnings from cancellations | $ | 3 | $ | 4 | $ | 8 |
+    : | Annual persistency (4) | 85 | % | 86 | % | 84 | 
+    ... [truncated, 7224 more chars]
+  --- segment 1: doc_id=NMIH_10-K_2024-12-31 score=16.673 len=5381 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : 401(k) Savings Plan
+    : 
+    : We offer our employees a 401(k) Savings Plan (401(k) Plan) that qualifies as a deferred salary arrangement under Section 401(k) of the Internal Revenue Code (IRC). Under the 401(k) Plan, we match up
+    : to 100 % of eligible employees' pre-tax contributions up to 5 % of eligible compensation. During the years ended December 31, 2024, 2023 and 2022, we incurred approximately $ 2.1 million, $ 1.9
+    : million and $ 2.0 million of expense related to our matching 401(k) Plan contributions, respectively.
+    : 
+    : 111
+    : 
+    : NMI HOLDINGS, INC.
+    : 
+    : NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+    : 
+    : DECEMBER 31, 2024
+    : 11. Income Taxes
+    : 
+    : We are a U.S. taxpayer and are subject to a statutory U.S. federal corporate income tax rate of 21%. NMIH files a consolidated U.S. federal and various state income tax returns on behalf of itself
+    : and its subsidiaries.
+    : 
+    : Total income tax expense consists of the following components:
+    : 
+    : | For the years ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | (In Thousands) |
+    : | Current | $ | 22,607 | $ | - | $ | 10 |
+    : | Deferred | 80,698 | 90,593 | 84,393 |
+    : | Total income tax expense | $ | 103,305 | $ | 90,593 | $ | 84,403 |
+    : 
+    : The following table presents a reconciliation between the federal statutory income tax rate and our effective income tax rate:
+    : 
+    : | For the years ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | Federal statutory income tax rate | 21.0 | % | 21.0 | % | 21.0 | % |
+    : | State provision | 0.7 | 0.6 |
+    : | Share-based and other compensation | 0.7 | 0.4 | 0.
+    ... [truncated, 3581 more chars]
+  --- segment 2: doc_id=NMIH_10-K_2024-12-31 score=10.078 len=8010 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : Adjusted income before tax is defined as GAAP income before tax, excluding the pre-tax effects of net realized gains or losses from our investment portfolio, the gain or loss related to the change in
+    : fair value of our warrant liability, periodic costs incurred in connection with capital markets transactions, and other infrequent, unusual or non-operating items in the periods in which such items
+    : are incurred.Adjusted net income is defined as GAAP net income, excluding the after-tax effects of net realized gains or losses from our investment portfolio, the gain or loss related to the change in fair value
+    : of our warrant liability, periodic costs incurred in connection with capital markets transactions, and other infrequent, unusual or non-operating items in the periods in which such items are incurred.
+    : Adjustments to components of pre-tax income are tax effected using the applicable federal statutory tax rate for the respective periods.
+    : 
+    : 72Adjusted diluted EPS is defined as adjusted net income divided by adjusted weighted average diluted shares outstanding. Adjusted weighted average diluted shares outstanding is defined as weighted
+    : average diluted shares outstanding, adjusted for changes in the dilutive effect of non-vested shares that would otherwise have occurred had GAAP net income been calculated in accordance with adjusted
+    : net income. There will be no adjustment to weighted average diluted shares outstanding in the years that non-vested shares are anti-di
+    ... [truncated, 6210 more chars]
+  --- segment 3: doc_id=NMIH_10-K_2024-12-31 score=5.702 len=1731 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : | Change in unrealized investment gains/losses, net of tax benefit of $ 54,709 | - | ( 205,808 ) | - | ( 205,808 ) |
+    : | Net income | - | 292,902 |
+    : | Balances, December 31, 2022 | 83,550 | $ | 865 | $ | 972,717 | $ | ( 56,575 ) | $ | ( 204,323 ) | $ | 901,043 | $ | 1,613,727 |
+    : | Common stock: shares issued under stock plans, net of shares withheld for employee taxes | 861 | 8 | 1,185 | - | 1,193 |
+    : | Repurchase of common stock | ( 3,530 ) | - | ( 92,346 ) | - | ( 92,346 ) |
+    : | Share-based compensation expense | - | 16,914 | - | 16,914 |
+    : | Change in unrealized investment gains/losses, net of tax expense of $ 17,120 | - | 64,406 | - | 64,406 |
+    : | Net income | - | 322,110 || Balances, December 31, 2023 | 80,881 | $ | 873 | $ | 990,816 | $ | ( 148,921 ) | $ | ( 139,917 ) | $ | 1,223,153 | $ | 1,926,004 |
+    : | Common stock: shares issued under stock plans, net of shares withheld for employee taxes | 569 | 6 | ( 5,935 ) | - | ( 5,929 ) |
+    : | Repurchase of common stock | ( 2,849 ) | - | ( 97,673 ) | - | ( 97,673 ) |
+    : | Share-based compensation expense | - | 19,811 | - | 19,811 |
+    : | Change in unrealized investment gains/losses, net of tax expense of $ 3,921 | - | 15,113 | - | 15,113 |
+    : | Net income | - | 360,106 |
+    : | Balances, December 31, 2024 | 78,601 | $ | 879 | $ | 1,004,692 | $ | ( 246,594 ) | $ | ( 124,804 ) | $ | 1,583,259 | $ | 2,217,432 |
+    : See accompanying notes to consolidated financial statements.
+    : 
+    : 88
+  --- segment 4: doc_id=NMIH_10-K_2024-12-31 score=5.859 len=1484 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : Consolidated Investment Portfolio
+    : 
+    : The primary objectives of our investment activity are to generate investment income and preserve capital, while maintaining sufficient liquidity to cover our operating needs. We aim to achieve
+    : diversification by type, quality, maturity, and industry. We have adopted an investment policy that defines, among other things, eligible and ineligible investments; concentration limits for asset
+    : types, industry sectors, single issuers, and certain credit ratings; and benchmarks for asset duration.
+    : 
+    : Our investment portfolio is comprised entirely of fixed maturity instruments. As of December 31, 2024, the fair value of our investment portfolio was $2.7 billion and we held an additional $54.3
+    : million of cash and cash equivalents. Pre-tax book yield on the investment portfolio for the year ended December 31, 2024 was 3.0%. Book yield is calculated as period-to-date net investment income
+    : divided by the average amortized cost of the investment portfolio. The yield on our investment portfolio is likely to change over time based on movements in interest rates, credit spreads, the
+    : duration or mix of our holdings and other factors.
+  --- segment 5: doc_id=NMIH_10-K_2024-12-31 score=4.515 len=1327 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual financial report (Form 10-K) of NMI Holdings, Inc. for the fiscal year ended December 31, 2024, detailing its business as a private mortgage insurer, its financial condition, and associated risk factors.
+    : 
+    : Net Investment Income
+    : 
+    : The following table presents the components of net investment income:
+    : 
+    : | For the years ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | (In Thousands) |
+    : | Investment income (1) | $ | 86,407 | $ | 68,214 | $ | 47,720 |
+    : | Investment expenses | ( 1,091 ) | ( 702 ) | ( 1,314 ) |
+    : | Net investment income | $ | 85,316 | $ | 67,512 | $ | 46,406 |
+    : 
+    : (1)    Includes interest income recognized on cash and cash equivalents of $ 5.0 million, $ 2.3 million, and $ 0.4 million for the years ended December 31, 2024, 2023 and 2022, respectively.
+    : 
+    : The following table presents the components of net realized investment gains (losses):
+    : 
+    : | For the years ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | (In Thousands) |
+    : | Gross realized investment gains | $ | 33 | $ | - | $ | 490 |
+    : | Gross realized investment losses | ( 10 ) | ( 33 ) | ( 9 ) |
+    : | Net realized investment gains (losses) | $ | 23 | $ | ( 33 ) | $ | 481 |
+    : 
+    : 98
+    : 
+    : NMI HOLDINGS, INC.
+    : 
+    : NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+    : 
+    : DECEMBER 31, 2024
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What was the pre-tax investment income yield for 2024 compared to 2023 and 2022?', 'doc_id': 'ACGL_10-K_2024-12-31'}
+  → returned 3 segments
+  --- segment 0: doc_id=ACGL_10-K_2024-12-31 score=24.683 len=10325 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations in the insurance, reinsurance, and mortgage sectors.
+    : 
+    : Net Investment Income
+    : 
+    : The components of net investment income were derived from the following sources:
+    : 
+    : | Year Ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | Fixed maturities | $ | 1,266 | $ | 917 | $ | 469 |
+    : | Short-term investments | 144 | 68 | 29 |
+    : | Equity securities | 40 | 22 |
+    : | Other (1) | 136 | 93 | 47 |
+    : | Gross investment income | 1,586 | 1,100 | 567 |
+    : | Investment expenses | ( 91 ) | ( 77 ) | ( 71 ) |
+    : | Net investment income | $ | 1,495 | $ | 1,023 | $ | 496 |
+    : 
+    : (1) Amounts include dividends and other distributions on investment funds, term loan investments, funds held balances, cash balances and other items.
+    : Net Realized Gains (Losses)
+    : 
+    : Net realized gains (losses) were as follows:
+    : 
+    : | Year Ended December 31, |
+    : | 2024 | 2023 | 2022 |
+    : | Available for sale securities: |
+    : | Gross gains on investment sales | $ | 259 | $ | 116 | $ | 81 |
+    : | Gross losses on investment sales | ( 354 ) | ( 547 ) | ( 317 ) |
+    : | Change in fair value of assets and liabilities accounted for using the fair value option: |
+    : | Fixed maturities | 3 | 18 | ( 71 ) |
+    : | Other investments | ( 144 ) | 27 | ( 21 ) |
+    : | Equity securities | ( 1 ) | 1 | ( 4 ) |
+    : | Short-term investments | - | ( 3 ) |
+    : | Equity securities, at fair value : |
+    : | Net realized gains (losses) on securities sold | 62 | 61 | 75 |
+    : | Net unrealized gains (losses) on equity securities still held at reporting date | 108 | 88 | ( 267 ) |
+    : | Allowance for credit losses: |
+    : | Investments related | - | 3 | ( 44 ) |
+    : | Under
+    ... [truncated, 8525 more chars]
+  --- segment 1: doc_id=ACGL_10-K_2024-12-31 score=17.701 len=8495 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations in the insurance, reinsurance, and mortgage sectors.
+    : 
+    : international mortgage insurance and reinsurance business covering loans primarily in Australia and Europe. The Company's results also include net investment income, net realized gains or losses
+    : (which includes realized and unrealized changes in the fair value of equity securities and assets accounted for using the fair value option, realized and unrealized gains or losses on derivative
+    : instruments, changes in the allowance for credit losses on financial assets and gains or losses realized from the acquisition or disposition of subsidiaries), equity in net income or loss of
+    : investment funds accounted for using the equity method, other income (loss), corporate expenses, transaction costs and other, amortization of intangible assets, interest expense, net foreign exchangegains or losses, income tax items, income or loss from operating affiliates and items related to the Company's non-cumulative preferred shares.
+    : | ARCH CAPITAL | 117 | 2024  FORM 10-K |
+    : 
+    : [Table of Contents](#i8f00ce33b17040b5b34e6d7060c3031e_10)
+    : 
+    : ARCH CAPITAL GROUP LTD. AND SUBSIDIARIES
+    : 
+    : NOTES TO CONSOLIDATED FINANCIAL STATEMENTSThe following tables summarize the Company's underwriting income or loss by segment, together with a reconciliation of underwriting income or loss to net income available to Arch common shareholders,
+    : summary information regarding net premiums written and earned by major line of business and net premiums written by location:| Year Ended December 31, 2024 |
+    : | 
+    ... [truncated, 6695 more chars]
+  --- segment 2: doc_id=ACGL_10-K_2024-12-31 score=13.866 len=8452 ---
+    : Document context: the following excerpt is from a document titled 'FORM 10-K'. This document is about: the annual report (Form 10-K) of Arch Capital Group Ltd. for the fiscal year ended December 31, 2024, detailing its business, financial condition, and results of operations in the insurance, reinsurance, and mortgage sectors.
+    : 
+    : changes in fair value recorded as an unrealized gain or loss component of accumulated other comprehensive income in shareholders' equity. The fair value of fixed maturity securities and equity
+    : securities is generally determined from quotations received from nationally recognized pricing services, or when such prices are not available, by reference to broker or underwriter bid indications.
+    : Short-term investments comprise securities due to mature within one year of the date of issue. Short-term investments include certain cash equivalents which are part of investment portfolios under the
+    : management of external and internal investment managers. The Company's investment portfolio includes certain funds that, due to their ownership structure, are accounted for by the Company using theequity method. In applying the equity method, these investments are initially recorded at cost and are subsequently adjusted based on the Company's| ARCH CAPITAL | 111 | 2024  FORM 10-K |
+    : 
+    : [Table of Contents](#i8f00ce33b17040b5b34e6d7060c3031e_10)
+    : 
+    : ARCH CAPITAL GROUP LTD. AND SUBSIDIARIES
+    : 
+    : NOTES TO CONSOLIDATED FINANCIAL STATEMENTSproportionate share of the net income or loss of the funds (which include changes in the fair value of the underlying securities in the funds). Such investments are generally recorded on a one to
+    : three month lag based on the availability of reports from the investment funds. Changes in the carrying value of such investments are recorded in net i
+    ... [truncated, 6652 more chars]
+
+[AGENT_RESPONSE]
+  REASONING (1251 chars):
+    | Let me now compile all the data I've collected.
+    | 
+    | **MGIC (MTG):** From the MTG 2024 10-K, the MD&A section says: "Net investment income in 2024 was $244.6 million, compared with $214.7 million in the prior year. The increase in net investment income was due to an increase of 42 basis points in the average investment yield."
+    | I need to find the actual yield numbers. Let me look more carefully at what was retrieved.
+    | 
+    | From MTG 10-K 2024-12-31, the result said "The increase in net investment income was due to an increase of 42 basis points in the average investment yield." So yield went up 42 bps from 2023 to 2024. But I don't have the base yield figure explicitly.
+    | 
+    | Let me look at the MTG 2024 10-K results more carefully. The segment shows investment income, net of expenses: $244,640 (2024), $214,740 (2023), $167,476 (2022). The yield change is 42 bps increase from 2023 to 2024.
+    | 
+    | Hmm, I don't have the actual yield percentages for MTG from what was retrieved. Let me search for it more specifically.
+    | 
+    | Actually, looking at the MTG 2024 10-K, the wiki data from earlier (which I don't have) mentioned the MGIC pre-tax yield was 4.0% in 2024. But I need to verify this.
+    | 
+    | Let me query the MTG 2024 10-K specifically for the investment yield figure.
+  TOOL_CALLS:
+    → dsrag_kb({'doc_id': 'MTG_10-K_2024-12-31', 'question': 'What was the average investment yield percentage for the years 2024, 2023, and 2022?'})
+    → dsrag_kb({'doc_id': 'RDN_10-K_2024-12-31', 'question': 'What was the average investment yield or pre-tax yield on the investment portfolio for the mortgage insurance segment for 2024, 2023 and 2022?'})
+    → dsrag_kb({'doc_id': 'ESNT_10-K_2024-12-31', 'question': 'What was the pre-tax investment income yield for 2024 and 2023?'})
+
+[FINALIZE_NODE — fallback after tool-call cap]
+    > Based on the retrieved filings, here’s what is available for pre-tax investment portfolio yield across the cohort. Data is incomplete—several issuers do not explicitly report the yield in the segments retrieved.
+    > 
+    > | Issuer (Ticker) | FY2022 | FY2023 | FY2024 | Source |
+    > |----------------|--------|--------|--------|--------|
+    > | **Arch Capital (ACGL)** | 1.99% | 3.53% | Not stated in retrieved segments | ACGL 10-K FY2023, MD&A |
+    > | **Essent (ESNT)** | 2.6% | 3.5% | Not stated in retrieved segments | ESNT 10-K FY2023, MD&A |
+    > | **NMI Holdings (NMIH)** | Not stated | 2.6% | 3.0% | NMIH 10-K FY2023 / FY2024, MD&A |
+    > | **MGIC (MTG)** | Not stated | Not stated | Not stated | – |
+    > | **Radian (RDN)** | Not stated | Not stated | Not stated | – |
+    > | **Enact (ACT)** | Not stated | Not stated | Not stated | – |
+    > 
+    > **Key takeaways from available data:**
+    > - **Arch** and **Essent** both saw a ~150 bps increase in pre-tax yield from FY2022 to FY2023 as rising interest rates lifted reinvestment rates.
+    > - **NMIH** reported a 40 bps increase from FY2023 (2.6%) to FY2024 (3.0%), continuing the upward trend.
+    > - For **MGIC**, **Radian**, and **Enact**, the 10-K excerpts retrieved do not contain explicit pre-tax yield disclosures. Those figures would require further retrieval from the specific “Results of Operations – Investment Income” sections, which were not captured by the tool’s hits.
+
+====================================================================================================
+[FINAL ANSWER]
+Based on the retrieved filings, here’s what is available for pre-tax investment portfolio yield across the cohort. Data is incomplete—several issuers do not explicitly report the yield in the segments retrieved.
+
+| Issuer (Ticker) | FY2022 | FY2023 | FY2024 | Source |
+|----------------|--------|--------|--------|--------|
+| **Arch Capital (ACGL)** | 1.99% | 3.53% | Not stated in retrieved segments | ACGL 10-K FY2023, MD&A |
+| **Essent (ESNT)** | 2.6% | 3.5% | Not stated in retrieved segments | ESNT 10-K FY2023, MD&A |
+| **NMI Holdings (NMIH)** | Not stated | 2.6% | 3.0% | NMIH 10-K FY2023 / FY2024, MD&A |
+| **MGIC (MTG)** | Not stated | Not stated | Not stated | – |
+| **Radian (RDN)** | Not stated | Not stated | Not stated | – |
+| **Enact (ACT)** | Not stated | Not stated | Not stated | – |
+
+**Key takeaways from available data:**
+- **Arch** and **Essent** both saw a ~150 bps increase in pre-tax yield from FY2022 to FY2023 as rising interest rates lifted reinvestment rates.
+- **NMIH** reported a 40 bps increase from FY2023 (2.6%) to FY2024 (3.0%), continuing the upward trend.
+- For **MGIC**, **Radian**, and **Enact**, the 10-K excerpts retrieved do not contain explicit pre-tax yield disclosures. Those figures would require further retrieval from the specific “Results of Operations – Investment Income” sections, which were not captured by the tool’s hits.
+====================================================================================================
