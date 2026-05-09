@@ -354,10 +354,12 @@ def _serialize_messages_for_summary(messages: list[BaseMessage]) -> str:
 
 def _llm_summarize(messages: list[BaseMessage], question_text: str) -> str:
     """One LLM call: compress the messages into a structured summary that's
-    relevant to `question_text`. Uses the orchestrator model at T=0 for
-    determinism."""
+    relevant to `question_text`. Uses the non-thinking DeepSeek variant
+    (`deepseek-chat`) at T=0 for determinism — thinking-mode reasoning
+    adds 10-25s of overhead that's wasted on a format-following task."""
+    from src.infrastructure.model import get_summary_model
     transcript = _serialize_messages_for_summary(messages)
-    model = get_model(temperature=0.0)
+    model = get_summary_model(temperature=0.0)
     prompt_messages = [
         SystemMessage(content=_SUMMARIZE_SYSTEM_PROMPT),
         HumanMessage(content=(

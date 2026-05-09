@@ -27,7 +27,7 @@ from src.infrastructure.model import extract_text_content
 def _history_strategy() -> str:
     """Read from env each call so tests / experiments can flip it
     without restarting the process."""
-    return os.environ.get("HISTORY_STRATEGY", "trim").strip().lower()
+    return os.environ.get("HISTORY_STRATEGY", "summarize").strip().lower()
 
 
 def _extract_question_text(messages: list[BaseMessage]) -> str:

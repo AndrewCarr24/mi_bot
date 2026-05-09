@@ -105,6 +105,33 @@ def get_model(temperature: float = 0.5, router: bool = False) -> BaseChatModel:
     return _bedrock(settings.ORCHESTRATOR_MODEL_ID, temperature)
 
 
+def get_summary_model(temperature: float = 0.0) -> BaseChatModel:
+    """Model for one-off summarize / compaction calls.
+
+    Uses a non-thinking DeepSeek variant (`deepseek-chat`, V3) when on
+    DeepSeek to avoid the ~10-25s thinking-mode reasoning overhead that
+    `deepseek-v4-flash` adds. Summarize is mostly a format-following task
+    and doesn't benefit from chain-of-thought, so we trade slightly lower
+    raw capability for ~2x faster wall time per fire.
+
+    On Bedrock orchestrators, falls back to the standard orchestrator
+    model (no thinking-mode equivalent).
+    """
+    if settings.ORCHESTRATOR_PROVIDER == "deepseek":
+        if not settings.DEEPSEEK_API_KEY:
+            raise RuntimeError(
+                "ORCHESTRATOR_PROVIDER=deepseek but DEEPSEEK_API_KEY is not set."
+            )
+        ChatCls = _deepseek_class()
+        return ChatCls(
+            model="deepseek-chat",  # non-thinking V3 variant
+            temperature=temperature,
+            api_key=settings.DEEPSEEK_API_KEY,
+            api_base=settings.DEEPSEEK_BASE_URL,
+        )
+    return _bedrock(settings.ORCHESTRATOR_MODEL_ID, temperature)
+
+
 def orchestrator_is_bedrock() -> bool:
     """Bedrock-specific features (cachePoint content blocks) are gated on this."""
     return settings.ORCHESTRATOR_PROVIDER == "bedrock"
