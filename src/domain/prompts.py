@@ -301,7 +301,9 @@ Topics (regulatory / industry framing):
 - topics/gse_relationship — How MIs interact with Fannie Mae and
   Freddie Mac; the GSE charter constraint that drives demand
 - topics/mi_regulatory_landscape — State insurance regulation,
-  RTC ratios, holding-company law, Bermuda overlay where applicable
+  RTC ratios, holding-company law, Bermuda overlay where applicable;
+  also tracks cohort 8-K Item 5.02 governance disclosures (board /
+  named-executive-officer changes) by year
 - topics/pmiers — Private Mortgage Insurer Eligibility Requirements
   (PMIERs): financial test, sufficiency ratios, Aug 2024 update,
   cohort PMIERs status

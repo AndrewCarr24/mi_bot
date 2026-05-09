@@ -63,6 +63,18 @@ Three reasons the regulatory landscape is operationally consequential.
 - **Master Policy**: Common Master Policy effective March 1, 2020 (INDUSTRY_USMI_RESILIENCY_2023-11).
 - **Rescission Relief**: Automatic relief after 36 timely payments; early relief after 12 timely payments with full file review (INDUSTRY_USMI_RESILIENCY_2023-11).
 
+## Cohort governance disclosures via 8-K Item 5.02
+
+Form 8-K Item 5.02 ("Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers; Compensatory Arrangements of Certain Officers") is the SEC-mandated channel for board additions, departures, and named-executive-officer changes at public reporting companies. For the six U.S. private MI cohort issuers (ACGL, ACT, ESNT, MTG, NMIH, RDN), Item 5.02 disclosures are infrequent — board composition is generally stable across the cohort, and the bulk of cohort 8-K filings each year are quarterly earnings releases (Item 2.02) and quarterly dividend declarations (no specific Item).
+
+**Calendar 2024 cohort Item 5.02 activity**: only one Item 5.02 disclosure across all six cohort issuers' 2024 8-Ks:
+
+- **MGIC (MTG)** — 8-K filed January 31, 2024: appointed Michael Thompson to the Board of Directors (MTG_8-K_2024-01-31).
+
+The other five cohort issuers (Radian Group, Essent Group, NMI Holdings, Enact Holdings, Arch Capital) reported no board additions, departures, or named-executive-officer restructurings via Item 5.02 in 2024. Their 2024 8-K activity consisted of quarterly earnings press releases and capital-action announcements (dividend declarations, share-repurchase authorizations, reinsurance / CRT bond issuances) filed under Items 2.02, 7.01, and 8.01 rather than Item 5.02.
+
+Note that Item 5.02 governs *formal board / officer changes that meet 8-K reporting thresholds*. Non-disclosable transitions (e.g., officer-level role shifts not naming a "named executive officer," or director nominations not involving an in-cycle appointment) appear in proxy statements (DEF 14A) rather than 8-Ks; those are out of scope of the indexed corpus.
+
 ## How it has evolved
 
 **Mid-20th century**: Modern private mortgage insurance industry established. Per USMI's 2023 white paper, "[f]or over 65 years, the private MI industry has served lenders, the GSEs and, since 2008, taxpayers" (INDUSTRY_USMI_RESILIENCY_2023-11).

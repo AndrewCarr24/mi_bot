@@ -83,6 +83,8 @@ Third, **the capital-return cadence has accelerated**. In 2025 MGIC returned app
 
 The headline credit signal in 2025 was modest normalization rather than deterioration: the delinquency rate ticked up to 2.43% from 2.40% at year-end 2024, but the year-over-year increase was the slowest since 2024, and management has framed this as the continuation of credit conditions returning to pre-COVID norms rather than an inflection in either direction (MTG_TRANSCRIPT_2025-12-31).
 
+**Board / officer changes via 8-K Item 5.02**: MGIC's only 2024 Item 5.02 disclosure was the appointment of **Michael Thompson to the Board of Directors**, disclosed in the 8-K filed January 31, 2024 (MTG_8-K_2024-01-31). MGIC reported no other Item 5.02 events (officer departures, additional director appointments, or compensatory restructurings) in calendar 2024. The other five cohort issuers (Radian, Essent, NMI Holdings, Enact, Arch Capital) likewise reported no Item 5.02 disclosures in their 2024 8-K filings — see [[topics/mi_regulatory_landscape]] for the cohort-wide tracker.
+
 ## Sources
 
 - [MTG_10-K_2025-12-31] — Primary source for full-year 2025 financial highlights ($738M net income, $3.14 EPS, $1.2B revenues, $303.1B IIF, $81.2B RIF, $60.2B NIW), 19.4% PMI market share, FHA/VA market shares, customer concentration (top 10 = 32%, largest = 16% of NIW), $5.7B PMIERs Available Assets / $2.5B excess, 73.8% of IIF and 87.2% of NIW under QSR, $800M MGIC dividends to holdco, $89M 2026 ordinary dividend capacity, Moody's A3→A2 upgrade and S&P stable→positive outlook revision, $0.56 dividend per share for 2025, 5.25% Senior Notes due 2028, 2.43% YE2025 delinquency rate, Wisconsin domicile and 1984 incorporation date, and segment reporting structure.
