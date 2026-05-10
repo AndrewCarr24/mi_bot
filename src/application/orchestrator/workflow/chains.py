@@ -380,34 +380,36 @@ def summarize_history(
     If `messages` is under HISTORY_TOKEN_BUDGET, both elements are
     no-ops: condensed_messages == messages, state_updates == [].
 
-    If over budget, summarize all messages after the first
-    HumanMessage into one SystemMessage and return:
+    If over budget, summarize the active turn's scratchwork (everything
+    AFTER the most recent original HumanMessage) into one SystemMessage:
 
-      condensed_messages = [head, summary_msg]   ← for the next LLM
-                                                   call
+      condensed_messages = [head, summary_msg]   ← head includes all
+                                                   prior turns + the
+                                                   current question
       state_updates      = [RemoveMessage(id=…) for each msg in rest
                             that has an id,  + summary_msg]
-                                                 ← for the caller to
-                                                   return through the
-                                                   messages reducer so
-                                                   state actually
-                                                   shrinks
 
-    Without `state_updates` being applied, the summary lasts only one
-    LLM call — the next agent turn would see the full uncompressed
-    history again and have to re-summarize from scratch.
-
-    The first HumanMessage (user's original question) is always
-    preserved.
+    Anchoring on the LAST original HumanMessage (not the first) is
+    critical in multi-turn sessions: with the first-anchor semantics
+    every prior turn — including subsequent users' HumanMessages — was
+    lumped into `rest`, so the summary swallowed the current question
+    and the agent answered turn 1 instead of turn N.
     """
     if count_tokens_approximately(messages) < HISTORY_TOKEN_BUDGET:
         return messages, []
 
-    first_human_idx = next(
-        (i for i, m in enumerate(messages) if isinstance(m, HumanMessage)),
+    # Walk backward to find the active turn's question. Skip
+    # tool-result HumanMessages (the ones finalize_node synthesizes
+    # from ToolMessages) — they aren't real user turns.
+    last_human_idx = next(
+        (
+            i
+            for i in range(len(messages) - 1, -1, -1)
+            if _is_original_user_message(messages[i])
+        ),
         None,
     )
-    if first_human_idx is None:
+    if last_human_idx is None:
         # No user question to anchor on — fall through to the legacy
         # trim. Should be unreachable in normal flow.
         logger.warning(
@@ -415,8 +417,8 @@ def summarize_history(
         )
         return trim_history(messages), []
 
-    head = messages[:first_human_idx + 1]   # SystemPrompt(s) + original question
-    rest = messages[first_human_idx + 1:]
+    head = messages[:last_human_idx + 1]   # System + prior turns + current Q
+    rest = messages[last_human_idx + 1:]
     if not rest:
         return messages, []
 

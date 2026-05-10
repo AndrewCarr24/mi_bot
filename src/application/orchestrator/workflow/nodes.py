@@ -3,7 +3,7 @@
 import os
 import uuid
 
-from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, RemoveMessage, ToolMessage
 from langchain_core.runnables import RunnableConfig
 from loguru import logger
 
@@ -31,10 +31,15 @@ def _history_strategy() -> str:
 
 
 def _extract_question_text(messages: list[BaseMessage]) -> str:
-    """The user's original question is the first HumanMessage whose
+    """The active turn's question is the LAST HumanMessage whose
     content does NOT start with the tool-result prefix that finalize_node
-    uses when synthesizing tool results into HumanMessages."""
-    for m in messages:
+    uses when synthesizing tool results into HumanMessages.
+
+    Walk from the end so multi-turn sessions resolve to the current
+    turn's question, not turn 1's. (Single-turn sessions have only one
+    candidate, so the direction doesn't matter.)
+    """
+    for m in reversed(messages):
         if isinstance(m, HumanMessage):
             content = m.content
             if isinstance(content, str) and not content.startswith(_TOOL_RESULT_PREFIX):
@@ -213,14 +218,18 @@ async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:
             # still need to be collapsed for the no-tools chain.
             condensed = _convert_tool_messages_to_human(raw_messages)
             condensed = trim_history(condensed)
+            state_updates = _orphan_tool_call_removals(raw_messages)
             logger.debug(
-                f"finalize_node[summarize<threshold]: collapsed {len(raw_messages)} msgs → {len(condensed)}"
+                f"finalize_node[summarize<threshold]: collapsed {len(raw_messages)} msgs → {len(condensed)}, "
+                f"orphan-removals={len(state_updates)}"
             )
     else:
         condensed = _convert_tool_messages_to_human(raw_messages)
         condensed = trim_history(condensed)
+        state_updates = _orphan_tool_call_removals(raw_messages)
         logger.debug(
-            f"finalize_node[trim]: condensed {len(raw_messages)} msgs → {len(condensed)}"
+            f"finalize_node[trim]: condensed {len(raw_messages)} msgs → {len(condensed)}, "
+            f"orphan-removals={len(state_updates)}"
         )
 
     configurable = config.get("configurable", {})
@@ -248,6 +257,39 @@ def _convert_tool_messages_to_human(messages: list[BaseMessage]) -> list[BaseMes
             continue
         out.append(msg)
     return out
+
+
+def _orphan_tool_call_removals(messages: list[BaseMessage]) -> list[BaseMessage]:
+    """Build RemoveMessage entries for AIMessage(tool_calls) whose calls
+    aren't fully answered by subsequent ToolMessages, plus any unpaired
+    ToolMessages.
+
+    The trim path of finalize_node strips tool blocks from the LLM input
+    via _convert_tool_messages_to_human, but doesn't update graph state.
+    In single-turn use this is harmless (state is discarded after END).
+    In multi-turn sessions the orphan AIMessage(tool_calls) survives into
+    the next turn and OpenAI/DeepSeek's API rejects the malformed list:
+    'An assistant message with tool_calls must be followed by tool
+    messages responding to each tool_call_id.'
+
+    This helper mirrors the message-pair pruning that
+    _convert_tool_messages_to_human does logically, but expressed as
+    RemoveMessage entries the messages reducer can apply.
+    """
+    answered: set[str] = set()
+    for msg in messages:
+        if isinstance(msg, ToolMessage) and msg.tool_call_id:
+            answered.add(msg.tool_call_id)
+
+    removals: list[BaseMessage] = []
+    for msg in messages:
+        if isinstance(msg, AIMessage) and msg.tool_calls:
+            call_ids = {tc.get("id") for tc in msg.tool_calls if tc.get("id")}
+            if call_ids and not call_ids.issubset(answered):
+                msg_id = getattr(msg, "id", None)
+                if msg_id:
+                    removals.append(RemoveMessage(id=msg_id))
+    return removals
 
 
 async def simple_response_node(state: AgentState, config: RunnableConfig) -> dict:
