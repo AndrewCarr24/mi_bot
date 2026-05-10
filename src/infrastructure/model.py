@@ -95,10 +95,28 @@ def _deepseek(model_id: str, temperature: float) -> BaseChatModel:
 def get_model(temperature: float = 0.5, router: bool = False) -> BaseChatModel:
     """Return the chat model for the requested role.
 
-    Router and judge always use Bedrock Haiku. The orchestrator honors
-    `settings.ORCHESTRATOR_PROVIDER`.
+    On the DeepSeek orchestrator, both router and orchestrator use
+    DeepSeek so the live agent runs through one provider:
+      - router: `deepseek-chat` (v4-flash, non-thinking). Routing is a
+        structured classifier (intent + slug) that doesn't benefit from
+        chain-of-thought; non-thinking keeps latency at Haiku-comparable
+        ~1-2s instead of the ~10-25s thinking-mode reasoning overhead.
+      - orchestrator: `deepseek-v4-flash` (thinking). The ReAct loop
+        does benefit from reasoning over multi-step tool plans.
+
+    On the Bedrock orchestrator, router falls back to Bedrock Haiku
+    (settings.ROUTER_MODEL_ID). The eval-time judge is configured
+    explicitly in eval/{run_eval,langsmith_eval}.py and is unaffected.
     """
     if router:
+        if settings.ORCHESTRATOR_PROVIDER == "deepseek" and settings.DEEPSEEK_API_KEY:
+            ChatCls = _deepseek_class()
+            return ChatCls(
+                model="deepseek-chat",
+                temperature=temperature,
+                api_key=settings.DEEPSEEK_API_KEY,
+                api_base=settings.DEEPSEEK_BASE_URL,
+            )
         return _bedrock(settings.ROUTER_MODEL_ID, temperature)
     if settings.ORCHESTRATOR_PROVIDER == "deepseek":
         return _deepseek(settings.DEEPSEEK_MODEL_ID, temperature)
@@ -108,11 +126,13 @@ def get_model(temperature: float = 0.5, router: bool = False) -> BaseChatModel:
 def get_summary_model(temperature: float = 0.0) -> BaseChatModel:
     """Model for one-off summarize / compaction calls.
 
-    Uses a non-thinking DeepSeek variant (`deepseek-chat`, V3) when on
-    DeepSeek to avoid the ~10-25s thinking-mode reasoning overhead that
-    `deepseek-v4-flash` adds. Summarize is mostly a format-following task
-    and doesn't benefit from chain-of-thought, so we trade slightly lower
-    raw capability for ~2x faster wall time per fire.
+    Uses `deepseek-chat` (v4-flash in non-thinking mode) when on
+    DeepSeek. Same underlying model as the orchestrator's
+    `deepseek-v4-flash`, just without the chain-of-thought overhead.
+    Summarize is a format-following task and doesn't need reasoning;
+    non-thinking is ~2x faster per fire. (DeepSeek's legacy V3 mapping
+    for `deepseek-chat` has been deprecated; both names point at v4
+    now, with thinking on/off the only difference.)
 
     On Bedrock orchestrators, falls back to the standard orchestrator
     model (no thinking-mode equivalent).
@@ -124,7 +144,7 @@ def get_summary_model(temperature: float = 0.0) -> BaseChatModel:
             )
         ChatCls = _deepseek_class()
         return ChatCls(
-            model="deepseek-chat",  # non-thinking V3 variant
+            model="deepseek-chat",
             temperature=temperature,
             api_key=settings.DEEPSEEK_API_KEY,
             api_base=settings.DEEPSEEK_BASE_URL,

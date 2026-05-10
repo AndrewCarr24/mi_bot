@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`agent_fin` is a deploy-ready LangGraph ReAct agent over a [dsRAG](https://github.com/D-Star-AI/dsRAG) KB of SEC filings. Single retrieval tool (`dsrag_kb`); orchestrator LLM swappable between DeepSeek (default) and Bedrock; router and judge are always Bedrock Haiku.
+`agent_fin` is a deploy-ready LangGraph ReAct agent over a [dsRAG](https://github.com/D-Star-AI/dsRAG) KB of SEC filings. Single retrieval tool (`dsrag_kb`); orchestrator LLM swappable between DeepSeek (default) and Bedrock. On DeepSeek the live agent is one-provider: orchestrator + summarize + router all use `deepseek-v4-flash` (router and summarize in non-thinking mode via `deepseek-chat`; orchestrator with thinking). On Bedrock the router falls back to Haiku. The eval-time judge is always Bedrock Haiku, configured explicitly in `eval/{run_eval,langsmith_eval}.py`.
 
 This directory is its own git repo (origin: `AndrewCarr24/mi_bot`) — gitignored from the parent `parse_sec/`. Commits here don't show up in `parse_sec`'s log.
 
@@ -14,7 +14,7 @@ See README.md for setup, run commands, the local→deploy loop, and orchestrator
 
 **Three entrypoints share one core.** `run_app.py` (CLI), `api.py` (FastAPI with Chainlit mounted at `/chat`), and `chat.py` all call `streaming.get_streaming_response`. Behavior changes propagate to all three automatically.
 
-**Graph topology:** `router_node → [route_by_intent] → wiki_preload | agent | simple_response → finalize? → memory_post_hook → END`. The router (Bedrock Haiku) classifies intent and may tag a wiki slug. `agent_node` is the ReAct loop; `should_continue` routes to `finalize_node` when `MAX_TOOL_CALLS_PER_TURN` is hit. No answer-cache node — the old `cache_check_node` placeholder was removed. The Bedrock prompt-cache (`cachePoint` blocks in `chains.py`) is unrelated and still load-bearing — don't delete it.
+**Graph topology:** `router_node → [route_by_intent] → wiki_preload | agent | simple_response → finalize? → memory_post_hook → END`. The router (DeepSeek `deepseek-chat`, or Bedrock Haiku when on Bedrock) classifies intent and may tag a wiki slug. `agent_node` is the ReAct loop; `should_continue` routes to `finalize_node` when `MAX_TOOL_CALLS_PER_TURN` is hit. No answer-cache node — the old `cache_check_node` placeholder was removed. The Bedrock prompt-cache (`cachePoint` blocks in `chains.py`) is unrelated and still load-bearing — don't delete it.
 
 **`dsrag_kb` has two implementations, not one branching tool.** `get_tools()` in `workflow/tools.py` returns either the strict `doc_id: str | None` variant (`MULTI_DOC_FILTER=off`, the champion) or the list-accepting variant (`filter`/`quota`). Edits to one don't propagate.
 
