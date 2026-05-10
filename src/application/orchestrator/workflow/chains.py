@@ -371,95 +371,135 @@ def _llm_summarize(messages: list[BaseMessage], question_text: str) -> str:
     return extract_text_content(response.content).strip()
 
 
+def _ids_to_removals(messages: list[BaseMessage]) -> list[BaseMessage]:
+    """RemoveMessage entries for every message in `messages` that has an id."""
+    return [RemoveMessage(id=m.id) for m in messages if getattr(m, "id", None)]
+
+
+def _diff_removals(
+    before: list[BaseMessage], after: list[BaseMessage]
+) -> list[BaseMessage]:
+    """RemoveMessage entries for messages present in `before` but not in
+    `after` (matched by LangChain message id). Used after compaction to
+    persist its dropping of intermediate tool blocks."""
+    after_ids = {m.id for m in after if getattr(m, "id", None)}
+    return [
+        RemoveMessage(id=m.id)
+        for m in before
+        if getattr(m, "id", None) and m.id not in after_ids
+    ]
+
+
 def summarize_history(
     messages: list[BaseMessage],
     question_text: str,
 ) -> tuple[list[BaseMessage], list[BaseMessage]]:
-    """Returns (condensed_messages, state_updates).
+    """Three-stage history condensation, mirroring trim_history's
+    structure but replacing within-turn trim with an LLM summary.
 
-    If `messages` is under HISTORY_TOKEN_BUDGET, both elements are
-    no-ops: condensed_messages == messages, state_updates == [].
+    Returns (condensed_messages, state_updates) — feed condensed to the
+    next LLM call, return state_updates through the messages reducer so
+    the changes persist.
 
-    If over budget, summarize the active turn's scratchwork (everything
-    AFTER the most recent original HumanMessage) into one SystemMessage:
+    Stage 1 — compact completed turns to [Q, final_A] pairs (cheap, no
+    LLM). Drops the intermediate AIMessage(tool_calls) and ToolMessage
+    chatter that's already folded into the final answer.
 
-      condensed_messages = [head, summary_msg]   ← head includes all
-                                                   prior turns + the
-                                                   current question
-      state_updates      = [RemoveMessage(id=…) for each msg in rest
-                            that has an id,  + summary_msg]
+    Stage 2 — if the compacted total still exceeds HISTORY_TOKEN_BUDGET,
+    evict completed [Q, A] pairs from the head, oldest-first.
 
-    Anchoring on the LAST original HumanMessage (not the first) is
-    critical in multi-turn sessions: with the first-anchor semantics
-    every prior turn — including subsequent users' HumanMessages — was
-    lumped into `rest`, so the summary swallowed the current question
-    and the agent answered turn 1 instead of turn N.
+    Stage 3 — if even the active turn alone exceeds budget (the cap+trim
+    spiral that made `trim_history` lossy), drop all of head and replace
+    the active turn's tool-call scratchwork with one LLM-authored
+    SystemMessage that distills facts retrieved, tools called, and open
+    questions. This is the only stage that incurs an LLM call; in
+    normal multi-turn flow, Stages 1+2 keep state in budget without it.
+
+    Anchoring on the LAST original HumanMessage is critical in
+    multi-turn sessions: a first-anchor would swallow subsequent
+    HumanMessages into the summary and the agent would answer turn 1
+    instead of turn N.
     """
-    if count_tokens_approximately(messages) < HISTORY_TOKEN_BUDGET:
-        return messages, []
+    # Stage 1: always compact (cheap, no LLM).
+    compacted = _compact_completed_turns(messages)
+    compaction_removals = _diff_removals(messages, compacted)
 
-    # Walk backward to find the active turn's question. Skip
-    # tool-result HumanMessages (the ones finalize_node synthesizes
-    # from ToolMessages) — they aren't real user turns.
+    if count_tokens_approximately(compacted) < HISTORY_TOKEN_BUDGET:
+        if compaction_removals:
+            logger.info(
+                f"summarize_history Stage 1: compacted {len(messages)} → "
+                f"{len(compacted)} msgs; under budget, no further work"
+            )
+        return compacted, compaction_removals
+
     last_human_idx = next(
         (
             i
-            for i in range(len(messages) - 1, -1, -1)
-            if _is_original_user_message(messages[i])
+            for i in range(len(compacted) - 1, -1, -1)
+            if _is_original_user_message(compacted[i])
         ),
         None,
     )
     if last_human_idx is None:
-        # No user question to anchor on — fall through to the legacy
-        # trim. Should be unreachable in normal flow.
         logger.warning(
             "summarize_history: no HumanMessage found; falling back to trim_history"
         )
         return trim_history(messages), []
 
-    head = messages[:last_human_idx + 1]   # System + prior turns + current Q
-    rest = messages[last_human_idx + 1:]
-    if not rest:
-        return messages, []
+    head = compacted[:last_human_idx]
+    tail = compacted[last_human_idx:]   # [current_question, ...active scratchwork]
+    tail_tokens = count_tokens_approximately(tail)
 
-    logger.info(
-        f"summarize_history: compressing {len(rest)} messages "
-        f"(~{count_tokens_approximately(rest):,} tokens) to a single summary"
-    )
-    summary_text = _llm_summarize(rest, question_text)
-    summary_msg = SystemMessage(
-        content=f"<prior_research_summary>\n{summary_text}\n</prior_research_summary>"
-    )
+    # Stage 3: active turn alone exceeds budget. Drop head, summarize
+    # active turn's scratchwork with the LLM.
+    if tail_tokens >= HISTORY_TOKEN_BUDGET:
+        question = tail[0]
+        rest = tail[1:]
+        head_removals = _ids_to_removals(head)
+        if not rest:
+            # Question alone is over budget — nothing to summarize.
+            return [question], compaction_removals + head_removals
 
-    # Build the state-update list. Removing a message requires its id;
-    # if any rest-message lacks an id (rare — LangGraph auto-assigns,
-    # but our synthetic wiki_preload_node AIMessage is one we
-    # construct manually), it stays in state and the next summarize
-    # round will re-include it.
-    removals: list[BaseMessage] = []
-    skipped_no_id = 0
-    for m in rest:
-        msg_id = getattr(m, "id", None)
-        if msg_id:
-            removals.append(RemoveMessage(id=msg_id))
-        else:
-            skipped_no_id += 1
-    if skipped_no_id:
-        logger.warning(
-            f"summarize_history: {skipped_no_id}/{len(rest)} messages had "
-            f"no id and could not be removed from state — they will appear "
-            f"in the next summarization input."
+        logger.info(
+            f"summarize_history Stage 3: compressing {len(rest)} active-turn "
+            f"messages (~{count_tokens_approximately(rest):,} tokens) to a single summary"
         )
+        summary_text = _llm_summarize(rest, question_text)
+        summary_msg = SystemMessage(
+            content=f"<prior_research_summary>\n{summary_text}\n</prior_research_summary>"
+        )
+        rest_removals = _ids_to_removals(rest)
+        state_updates = compaction_removals + head_removals + rest_removals + [summary_msg]
+        logger.info(
+            f"summarize_history Stage 3: produced summary "
+            f"(~{count_tokens_approximately([summary_msg]):,} tokens) — "
+            f"removing {len(head_removals) + len(rest_removals)} msgs from state"
+        )
+        return [question, summary_msg], state_updates
 
-    state_updates = removals + [summary_msg]
-    condensed_messages = head + [summary_msg]
+    # Stage 2: active turn fits; evict oldest [Q, A] pairs from head until
+    # compacted total fits budget.
+    budget = HISTORY_TOKEN_BUDGET - tail_tokens
+    evicted: list[BaseMessage] = []
+    while head and count_tokens_approximately(head) > budget:
+        next_h = next(
+            (i for i in range(1, len(head)) if _is_original_user_message(head[i])),
+            None,
+        )
+        if next_h is None:
+            evicted.extend(head)
+            head = []
+        else:
+            evicted.extend(head[:next_h])
+            head = head[next_h:]
 
-    logger.info(
-        f"summarize_history: produced summary "
-        f"(~{count_tokens_approximately([summary_msg]):,} tokens) — "
-        f"will remove {len(removals)} messages from state"
-    )
-    return condensed_messages, state_updates
+    eviction_removals = _ids_to_removals(evicted)
+    if eviction_removals:
+        logger.info(
+            f"summarize_history Stage 2: evicted {len(evicted)} prior-turn "
+            f"messages to fit budget"
+        )
+    return head + tail, compaction_removals + eviction_removals
 
 
 def _escape_braces(text: str) -> str:
