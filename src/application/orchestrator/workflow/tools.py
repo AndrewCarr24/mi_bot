@@ -28,11 +28,22 @@ from src.config import settings
 _WIKI_ROOT = Path(__file__).resolve().parents[4] / "wiki"
 
 
-# Per-thread set of (doc_id, chunk_index) tuples we've already returned
-# in earlier dsrag_kb calls within the same conversation. Used when
-# DEDUP_CHUNKS=true to keep subsequent calls from re-pulling the same
-# content. Keyed by thread_id from RunnableConfig.
+# Per-turn set of (doc_id, chunk_index) tuples we've already returned
+# in earlier dsrag_kb calls within the active turn. Used when
+# DEDUP_CHUNKS=true to keep subsequent calls within one ReAct loop from
+# re-pulling the same content. Keyed by thread_id, but `staging_node`
+# resets the entry at the start of every turn — so the effective scope
+# is the active turn, NOT the whole conversation. Without that reset,
+# cohort questions late in a session would have their relevant chunks
+# silently excluded because earlier turns had touched them.
 _SEEN_CHUNKS_PER_THREAD: dict[str, set] = {}
+
+
+def reset_chunk_dedup(thread_id: str) -> None:
+    """Clear the chunk-dedup `seen` set for `thread_id`. Called by
+    staging_node at the start of every turn so the dedup state can't
+    leak across turns — see the `_SEEN_CHUNKS_PER_THREAD` docstring."""
+    _SEEN_CHUNKS_PER_THREAD.pop(thread_id, None)
 
 
 # Per-doc top-K' quota for MULTI_DOC_FILTER=quota mode. Each scoped doc

@@ -21,7 +21,7 @@ from src.application.orchestrator.workflow.chains import (
     with_cache_on_last,
 )
 from src.application.orchestrator.workflow.state import AgentState, IntentType
-from src.application.orchestrator.workflow.tools import wiki_read_page
+from src.application.orchestrator.workflow.tools import reset_chunk_dedup, wiki_read_page
 from src.config import settings
 from src.infrastructure.model import extract_text_content
 
@@ -92,6 +92,16 @@ async def staging_node(state: AgentState, config: RunnableConfig) -> dict:
     and the HumanMessage immediately before that (qN-1). Only that
     pair is passed to disambiguate_question.
     """
+    # Reset per-turn chunk-dedup state. The `_SEEN_CHUNKS_PER_THREAD`
+    # set in tools.py is keyed on thread_id and was originally intended
+    # to prevent re-pulling the same chunks within a ReAct loop — but
+    # nothing was clearing it between turns, so on a shared-thread_id
+    # session, chunks returned in turn N got permanently excluded from
+    # turns N+1..end, starving later cohort retrievals. staging_node is
+    # the right reset point: it's the per-turn boundary.
+    thread_id = ((config or {}).get("configurable") or {}).get("thread_id", "_default")
+    reset_chunk_dedup(thread_id)
+
     messages = list(state["messages"])
     if not messages:
         return {}
