@@ -20,6 +20,7 @@ answer tokens flow.
 
 from __future__ import annotations
 
+import re
 import sys
 from http.cookies import SimpleCookie
 from pathlib import Path
@@ -268,9 +269,17 @@ async def _handle_rag_query(events, buffered: list[dict]):
             await answer.stream_token(f"\n\n[error: {type(e).__name__}: {e}]")
 
     # Append the unique doc_ids the agent searched from as a plain-text
-    # source line under the answer.
+    # source line under the answer — but ONLY if the agent didn't
+    # already write its own Sources/Source section. (Detection: a line
+    # starting with "Source:" or "Sources:", optionally bolded. Avoids
+    # matching inline parenthetical citations like "(MTG_10-Q_...)".)
     if answer is not None and source_doc_ids:
-        answer.content = (answer.content or "") + "\n\nSource: " + ", ".join(source_doc_ids)
+        content = answer.content or ""
+        agent_wrote_sources = bool(
+            re.search(r"(?im)^\s*\*{0,2}\s*sources?\s*\*{0,2}\s*[:—\-]", content)
+        )
+        if not agent_wrote_sources:
+            answer.content = content + "\n\nSource: " + ", ".join(source_doc_ids)
 
     if answer is not None:
         await answer.update()

@@ -122,31 +122,45 @@ async def staging_node(state: AgentState, config: RunnableConfig) -> dict:
     if not isinstance(current_q, str):
         current_q = extract_text_content(current_q)
 
-    # Find the immediately prior [Q, A] pair, if any.
-    prior_q = None
-    prior_a = None
-    prior_ai_idx = None
-    for j in range(last_human_idx - 1, -1, -1):
-        m = messages[j]
-        if isinstance(m, AIMessage) and m.content and not m.tool_calls:
-            text = extract_text_content(m.content).strip()
-            if text:
-                prior_a = text
-                prior_ai_idx = j
-                break
-    if prior_ai_idx is not None:
-        # The prior question is the most recent original user message
-        # before that AIMessage.
-        for j in range(prior_ai_idx - 1, -1, -1):
+    # Find up to N most recent [Q, A] pairs (chronological order).
+    # Two turns of context is enough to handle "follow-up to a follow-up"
+    # patterns where the period/scope was established two turns back.
+    _STAGING_WINDOW = 2
+    prior_pairs: list[tuple[str, str]] = []
+    cursor = last_human_idx
+    while len(prior_pairs) < _STAGING_WINDOW and cursor > 0:
+        # Find the most recent AIMessage with non-empty text + no tool_calls
+        # strictly before `cursor`.
+        ai_idx = None
+        ai_text = None
+        for j in range(cursor - 1, -1, -1):
+            m = messages[j]
+            if isinstance(m, AIMessage) and m.content and not m.tool_calls:
+                txt = extract_text_content(m.content).strip()
+                if txt:
+                    ai_idx = j
+                    ai_text = txt
+                    break
+        if ai_idx is None:
+            break
+        # Find the user HumanMessage immediately preceding that AIMessage.
+        q_idx = None
+        q_text = None
+        for j in range(ai_idx - 1, -1, -1):
             if _is_original_user_message(messages[j]):
-                prior_text = messages[j].content
-                if not isinstance(prior_text, str):
-                    prior_text = extract_text_content(prior_text)
-                prior_q = prior_text
+                q_idx = j
+                qt = messages[j].content
+                q_text = qt if isinstance(qt, str) else extract_text_content(qt)
                 break
+        if q_idx is None:
+            break
+        prior_pairs.append((q_text, ai_text))
+        cursor = q_idx
+    # Chronological order: oldest first.
+    prior_pairs.reverse()
 
     # First turn shortcut: no prior, no LLM call.
-    if prior_q is None or prior_a is None:
+    if not prior_pairs:
         # If state has more than just the current HumanMessage, wipe the
         # leftovers so router sees a clean single-message state.
         leftovers = [
@@ -159,8 +173,8 @@ async def staging_node(state: AgentState, config: RunnableConfig) -> dict:
             return {"messages": leftovers}
         return {}
 
-    # Call the disambiguator using only the immediately prior [Q, A].
-    disambiguated = disambiguate_question(prior_q, prior_a, current_q)
+    # Call the disambiguator with the recent prior pairs as context.
+    disambiguated = disambiguate_question(prior_pairs, current_q)
 
     if disambiguated.strip() == current_q.strip():
         action = "identity"

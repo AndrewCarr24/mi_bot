@@ -116,12 +116,15 @@ right filing and scope the retrieval to it:
      etc. These are authoritative regulator/trade-group sources;
      prefer them over a specific company's filing for definitions
      and industry-wide context.
-3. For cross-filing comparisons (e.g. "compare AMD and Boeing 2022
-   R&D"), call `dsrag_kb` twice — once per filing with its own doc_id —
-   or pass `doc_id=None` to search across all filings.
+3. For cross-filing comparisons (e.g. "compare MGIC and Radian's
+   FY2024 loss ratios"), call `dsrag_kb` twice — once per filing with
+   its own doc_id — or pass `doc_id=None` to search across all
+   filings.
 4. If the user's question doesn't specify a filing AND the catalog only
    has one filing that could match, use that one's doc_id. If multiple
-   could match, ask the user to disambiguate rather than guessing.
+   could match (e.g., the user asks about "Q3" without specifying the
+   year), pick the most natural choice — typically the most recent
+   matching period — and proceed.
 </filing_selection>
 
 <retrieval>
@@ -165,21 +168,25 @@ When a question genuinely requires content from MORE THAN ONE FILING
 (i.e. different `doc_id`s), emit one `dsrag_kb` call per filing in a
 single response — the runtime dispatches them in parallel, saving a
 sequential round-trip. Parallel-call examples:
-- "Compare AMD and Boeing FY2022 revenue" → two parallel calls, one
-  with doc_id=AMD_10-K_2022-12-31, one with doc_id=BA_10-K_2022-12-31.
 - "How do MGIC and Radian's FY2024 loss ratios differ?" → two parallel
-  calls (one per company's FY2024 10-K).
+  calls, one with doc_id=MTG_10-K_2024-12-31, one with
+  doc_id=RDN_10-K_2024-12-31.
+- "What was FY2024 NIW across the six MI cohort issuers?" → six
+  parallel calls, one per cohort 10-K (MTG, RDN, ESNT, NMIH, ACT,
+  ACGL).
 {multi_doc_filter_section}
 
 Use a SINGLE call (not parallel) for these — auto-query inside
 `dsrag_kb` decomposes the question into multiple search terms
 internally, and 10-Ks include prior-year comparatives in their own
 tables:
-- "How did Boeing's revenue change from FY2021 to FY2022?" → one call
-  to BA_10-K_2022-12-31; the comparison table includes both years.
+- "How did MGIC's loss ratio change from FY2023 to FY2024?" → one
+  call to MTG_10-K_2024-12-31; the comparison table includes both
+  years.
 - "What was MGIC's FY2024 net premiums earned and net loss ratio?" →
   one call (multiple metrics, same filing).
-- "Walk me through Boeing's FY2022 segment performance" → one call.
+- "Walk me through Arch Capital's FY2024 mortgage segment
+  performance" → one call to ACGL_10-K_2024-12-31.
 </retrieval>
 
 <answer_style>
@@ -202,6 +209,16 @@ a few sentences — not a multi-paragraph essay. Never include
 tutorial-style explanations of what a metric means unless the user
 explicitly asked for a definition. Do not append "summary,"
 "key takeaways," or "implications" sections unless the user asked.
+
+If you see a `<prior_research_summary>...</prior_research_summary>`
+block in your context, that block is INTERNAL research notes from
+your earlier work on this turn (produced when the active-turn
+scratchwork was compressed mid-loop). It is for YOUR REFERENCE ONLY.
+Never reproduce it: do not include the `<prior_research_summary>`
+tags, do not paste the note's text into your reply, do not list
+"already-called dsrag_kb" or "facts retrieved so far" as a section
+heading or preamble. Start your answer with the answer itself —
+the user did not ask you to recap what you did.
 </answer_style>
 """
 

@@ -82,6 +82,11 @@ async def get_streaming_response(
             elif event_type == "on_chat_model_stream":
                 if current_node not in _RESPONSE_NODES:
                     continue
+                # Skip tokens from internal LLM calls (summarize / disambiguate)
+                # invoked inside a response node. Those LLMs run for the agent's
+                # context only — their output must not reach the user.
+                if "internal_llm" in (event.get("tags") or []):
+                    continue
 
                 chunk = event_data.get("chunk")
                 if not chunk or not isinstance(chunk, AIMessageChunk):
@@ -255,6 +260,11 @@ async def get_streaming_events(
 
             elif event_type == "on_chat_model_stream":
                 if not in_response_node:
+                    continue
+                # Skip tokens from internal LLM calls (summarize / disambiguate)
+                # invoked inside a response node. Those LLMs run for the agent's
+                # context only — their output must not reach the user.
+                if "internal_llm" in (event.get("tags") or []):
                     continue
                 chunk = data.get("chunk")
                 if not chunk or not isinstance(chunk, AIMessageChunk):

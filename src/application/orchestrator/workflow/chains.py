@@ -288,33 +288,33 @@ def trim_history(messages: list[BaseMessage]) -> list[BaseMessage]:
 # HumanMessages — the conversion is only needed in the trim path.
 
 _SUMMARIZE_SYSTEM_PROMPT = """\
-You are compressing a financial-research transcript into a structured \
-summary.
+You are compressing a financial-research transcript into an internal \
+research-state note. The agent will read this note (as part of its \
+context) to continue working on the question; the note is NEVER \
+shown to the user verbatim.
 
 The user's original question is shown below. Read the transcript that \
 follows (agent reasoning, tool calls, and tool results) and produce a \
-summary that distills it down to the information relevant to answering \
-that question.
+note with three short paragraphs in this order — no markdown headers, \
+no bullet lists, no section titles. Just prose, terse and dense.
 
-Use these structured headers:
+First paragraph — facts retrieved so far that are relevant to the \
+question. Preserve all numerical figures, dates, and doc_ids verbatim. \
+Cite each fact inline like "MGIC FY2024 NIW = $55.7B (MTG_10-K_2024-12-31)". \
+Pack facts as a single dense paragraph, separated by semicolons.
 
-## Facts retrieved
-Per-entity / per-period facts that are directly relevant to the \
-question, with source citations like (TICKER_FORM_PERIOD). Preserve \
-all numerical figures and entity-specific values verbatim — do not \
-paraphrase numbers, dates, or doc_ids. One bullet per fact.
+Second paragraph — dsrag_kb invocations already issued (question + \
+doc_id), so the agent does not re-issue identical calls. Single \
+sentence: "Already-called dsrag_kb: <doc_id_1>, <doc_id_2>, ..."
 
-## Tools called
-List the dsrag_kb invocations already issued (question and doc_id) so \
-the agent does not re-issue identical calls. One bullet per call.
+Third paragraph — gaps that still need to be filled to answer the \
+original question. Single sentence; if no gaps, write "no further \
+retrieval needed."
 
-## Open questions
-Sub-questions or specific data points still missing that the agent \
-needs to fill in to answer the original question. One bullet each. \
-If no gaps remain, write "(none — sufficient to answer)".
-
-Be terse but complete on facts. The agent will rely on this summary \
-in lieu of the raw history; anything you omit is gone."""
+Output exactly those three paragraphs separated by blank lines, no \
+headers, no bullets, no labels. The agent will reference this as \
+context — do not format it in a way that invites being echoed to \
+the user."""
 
 
 def _serialize_messages_for_summary(messages: list[BaseMessage]) -> str:
@@ -356,7 +356,11 @@ def _llm_summarize(messages: list[BaseMessage], question_text: str) -> str:
     """One LLM call: compress the messages into a structured summary that's
     relevant to `question_text`. Uses the non-thinking DeepSeek variant
     (`deepseek-chat`) at T=0 for determinism — thinking-mode reasoning
-    adds 10-25s of overhead that's wasted on a format-following task."""
+    adds 10-25s of overhead that's wasted on a format-following task.
+
+    Tagged `internal_llm` so the streaming layer suppresses these tokens
+    instead of forwarding them to the user (this call's output is for
+    the agent's context only, never for the user)."""
     from src.infrastructure.model import get_summary_model
     transcript = _serialize_messages_for_summary(messages)
     model = get_summary_model(temperature=0.0)
@@ -367,7 +371,7 @@ def _llm_summarize(messages: list[BaseMessage], question_text: str) -> str:
             f"<transcript>\n{transcript}\n</transcript>"
         )),
     ]
-    response = model.invoke(prompt_messages)
+    response = model.invoke(prompt_messages, config={"tags": ["internal_llm"]})
     return extract_text_content(response.content).strip()
 
 
@@ -389,18 +393,24 @@ def _llm_summarize(messages: list[BaseMessage], question_text: str) -> str:
 # unrelated context into the question.
 
 _DISAMBIGUATE_SYSTEM_PROMPT = """\
-You disambiguate a user's question against the immediately prior \
-conversation turn so that downstream nodes never need to look at the \
+You disambiguate a user's question against the recent conversation \
+turn(s) so that downstream nodes never need to look at the \
 conversation history.
 
-Given the previous question and answer (if any) and the current \
-question, produce a single self-contained question:
+Given up to two prior [USER, ASSISTANT] pairs (most recent last) and \
+the current question, produce a single self-contained question:
 
-- Resolve any pronouns or implicit references against the prior turn. \
-For example, after a turn about AMD's FY2022 revenue, "What about \
-FY2015?" should become "What was AMD's revenue in FY2015?", and \
-"How does that compare?" should become the explicit comparison the \
-user is asking about.
+- Resolve any pronouns or implicit references against the prior \
+turn(s). For example, after a turn about MGIC's FY2024 NIW, "what \
+about Q3?" should become "What was MGIC's Q3 2024 NIW?", and "how \
+does that compare to Radian?" should become the explicit comparison \
+the user is asking about.
+
+- Carry forward period/scope context from the OLDEST relevant prior \
+turn, not just the most recent. If turn N-2 established "2024" and \
+turn N-1 elaborated on "the other MIs", the current "what about \
+their Q4?" should resolve to "What was the Q4 2024 NIW for [those \
+MIs]?" — pull the year from turn N-2 since it's still in scope.
 
 - Otherwise preserve the user's original wording — do not paraphrase \
 the substance of the question, do not split it into multiple queries, \
@@ -415,30 +425,42 @@ no explanation, no quotes."""
 
 
 def disambiguate_question(
-    prior_question: str | None,
-    prior_answer: str | None,
+    prior_pairs: list[tuple[str, str]],
     current_question: str,
 ) -> str:
     """Single LLM call: turn `current_question` into a self-contained
-    question using the immediately prior turn as context. If there's no
-    prior turn, returns `current_question` unchanged (no LLM call)."""
-    if not prior_question or not prior_answer:
+    question using up to 2 prior [Q, A] pairs as context. `prior_pairs`
+    is in chronological order (oldest first). If there are no prior
+    pairs, returns `current_question` unchanged (no LLM call)."""
+    if not prior_pairs:
         return current_question.strip()
 
     from src.infrastructure.model import get_summary_model
+
+    transcript_parts: list[str] = []
+    for i, (q, a) in enumerate(prior_pairs):
+        # Tag turns relative to the current question so the LLM can
+        # see ordering clearly (N-2 older, N-1 immediately prior).
+        offset = len(prior_pairs) - i  # 2, 1
+        transcript_parts.append(
+            f"<turn position=\"N-{offset}\">\n"
+            f"[USER]\n{q.strip()}\n\n"
+            f"[ASSISTANT]\n{a.strip()}\n"
+            f"</turn>"
+        )
+    transcript = "\n\n".join(transcript_parts)
 
     model = get_summary_model(temperature=0.0)
     prompt_messages = [
         SystemMessage(content=_DISAMBIGUATE_SYSTEM_PROMPT),
         HumanMessage(content=(
-            f"<previous_turn>\n"
-            f"[USER]\n{prior_question.strip()}\n\n"
-            f"[ASSISTANT]\n{prior_answer.strip()}\n"
-            f"</previous_turn>\n\n"
+            f"<prior_turns>\n{transcript}\n</prior_turns>\n\n"
             f"[USER — latest, disambiguate this]\n{current_question.strip()}"
         )),
     ]
-    response = model.invoke(prompt_messages)
+    # `internal_llm` tag: streaming layer suppresses these tokens so
+    # disambiguation work never reaches the UI.
+    response = model.invoke(prompt_messages, config={"tags": ["internal_llm"]})
     text = extract_text_content(response.content).strip()
     # Strip surrounding quotes or a leading "Question:" if the model
     # adds one despite the instructions.
