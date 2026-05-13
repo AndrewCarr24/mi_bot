@@ -21,6 +21,7 @@ Outputs (under eval/results/session_<ts>/):
 import asyncio
 import csv
 import json
+import os
 import sys
 import time
 from datetime import datetime, timezone
@@ -30,15 +31,24 @@ _HERE = Path(__file__).resolve()
 sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parents[1]))
 
+# Pin MI KB as default for this eval script — matches the multi-session
+# eval (langsmith_eval.py). The session-mode dataset is MI-cohort-specific;
+# silently running against data.financebench would produce meaningless
+# results. Set DSRAG_STORE_DIR explicitly in your shell or .env to override.
+_MI_STORE = _HERE.parents[1] / "data.mi" / "dsrag_store"
+if _MI_STORE.is_dir():
+    os.environ.setdefault("DSRAG_STORE_DIR", str(_MI_STORE))
+
 from langchain_aws import ChatBedrockConverse  # noqa: E402
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage  # noqa: E402
 from langchain_core.messages.utils import count_tokens_approximately  # noqa: E402
 from loguru import logger  # noqa: E402
+from pydantic import BaseModel, Field  # noqa: E402
 
 from pricing import cost_usd  # noqa: E402
 from usage import UsageCollector  # noqa: E402
 
-from src.application.orchestrator.workflow.graph import create_graph  # noqa: E402
+from src.application.orchestrator.streaming import get_streaming_events  # noqa: E402
 from src.config import Settings, settings  # noqa: E402
 from src.infrastructure.model import extract_text_content  # noqa: E402
 
@@ -46,14 +56,23 @@ from src.infrastructure.model import extract_text_content  # noqa: E402
 EVAL_DIR = _HERE.parent
 RESULTS_DIR = EVAL_DIR / "results"
 
+# Judge aligned with eval/langsmith_eval.py:correctness_evaluator so the
+# single-session result is comparable to the multi-session baseline.
+# Same model (Bedrock Haiku via ROUTER_MODEL_ID), same system prompt,
+# same Pydantic structured-output schema.
 JUDGE_SYSTEM = (
-    "You grade whether an assistant's answer is substantively correct given a "
-    "question and a verified expected answer. Numeric values within a 1% "
-    "rounding tolerance count as correct. Extra context is fine as long as "
-    "the core figures/direction match. A partially-correct answer (some "
-    "values right, some wrong) is INCORRECT. Reply with ONE line: "
-    "'CORRECT: <=20 word reason' or 'INCORRECT: <=20 word reason'."
+    "Compare a model answer to a reference answer. Mark correct=True only "
+    "if the model answer captures the key facts in the reference. Numeric "
+    "values within 1% rounding tolerance count as correct. Extra context "
+    "is fine. Missing or contradicting facts are not."
 )
+
+
+class CorrectnessJudgment(BaseModel):
+    correct: bool = Field(
+        description="Whether the model answer captures the key facts in the reference answer"
+    )
+    rationale: str = Field(description="Brief explanation, ≤30 words")
 
 
 def judge(question: str, expected: str, actual: str, collector: UsageCollector) -> tuple[bool, str]:
@@ -61,30 +80,20 @@ def judge(question: str, expected: str, actual: str, collector: UsageCollector) 
         model_id=settings.ROUTER_MODEL_ID,
         region_name=settings.AWS_REGION,
         temperature=0,
-    )
-    prompt = (
-        f"Question:\n{question}\n\n"
-        f"Expected answer:\n{expected}\n\n"
-        f"Agent answer:\n{actual}"
-    )
-    resp = llm.invoke(
-        [("system", JUDGE_SYSTEM), ("user", prompt)],
+    ).with_structured_output(CorrectnessJudgment)
+    result: CorrectnessJudgment = llm.invoke(
+        [
+            ("system", JUDGE_SYSTEM),
+            (
+                "user",
+                f"Question:\n{question}\n\n"
+                f"Reference answer:\n{expected}\n\n"
+                f"Model answer:\n{actual}",
+            ),
+        ],
         config={"callbacks": [collector]},
     )
-    text = extract_text_content(resp.content).strip()
-    first = text.splitlines()[0] if text else ""
-    verdict, _, rationale = first.partition(":")
-    correct = verdict.strip().upper() == "CORRECT"
-    return correct, rationale.strip() or first
-
-
-def _last_answer(messages: list[BaseMessage]) -> str:
-    """The agent's final answer for the most recent turn — last AIMessage
-    with non-empty text content and no tool_calls."""
-    for m in reversed(messages):
-        if isinstance(m, AIMessage) and m.content and not m.tool_calls:
-            return extract_text_content(m.content).strip()
-    return ""
+    return result.correct, result.rationale
 
 
 def _serialize_message(m: BaseMessage) -> dict:
@@ -132,17 +141,7 @@ async def main(csv_path: Path) -> None:
             for m, u in collector.by_model.items()
         )
 
-    graph = create_graph()
     thread_id = f"session-{ts}"
-    base_config = {
-        "configurable": {
-            "thread_id": thread_id,
-            "customer_name": "SessionEvaluator",
-            "actor_id": "user:session-evaluator",
-        },
-        "recursion_limit": 55,
-        "callbacks": [collector],
-    }
 
     state_messages: list[BaseMessage] = []
     fields = [
@@ -164,40 +163,44 @@ async def main(csv_path: Path) -> None:
         state_messages.append(HumanMessage(content=q))
 
         c0 = _total_cost()
-        tc0 = len(collector.tool_calls)
-        # summarize_history logs `compressing N messages` at level INFO; we
-        # snapshot loguru's count by intercepting via a sentinel in records.
-        # Cheaper: count by diffing collector calls of the summary model
-        # before/after — but that's tied to model id. Simplest: parse
-        # tool_call list for kb only; for summarize fires, look at the
-        # message list growth pattern. We'll approximate via a custom
-        # counter wired to loguru below.
         summarize_count_before = _summarize_fires.count
         t0 = time.perf_counter()
+
+        # Same entrypoint, customer_name, and answer-extraction logic as
+        # eval/langsmith_eval.py:predictor. The ONLY single-session deltas
+        # vs. multi-session are: (a) state_messages carries prior turns,
+        # (b) thread_id is reused across all turns. Cost-tracking callback
+        # is operational only (observer; doesn't change agent output).
+        answer_parts: list[str] = []
+        turn_tool_calls: list[dict] = []
         try:
-            result = await graph.ainvoke(
-                {
-                    "messages": state_messages,
-                    "customer_name": "SessionEvaluator",
-                    "tool_call_count": 0,  # reset per turn
-                },
-                config=base_config,
-            )
-            state_messages = list(result.get("messages", state_messages))
+            async for ev in get_streaming_events(
+                messages=state_messages,
+                customer_name="Evaluator",
+                conversation_id=thread_id,
+                callbacks=[collector],
+            ):
+                kind = ev.get("kind")
+                if kind == "answer_token":
+                    answer_parts.append(ev["text"])
+                elif kind == "rewind_to_thinking":
+                    text = ev["text"]
+                    joined = "".join(answer_parts)
+                    if joined.endswith(text):
+                        answer_parts = [joined[: -len(text)]]
+                elif kind == "tool_call":
+                    turn_tool_calls.append({"tool": ev["tool"], "args": ev.get("args", {})})
+            answer = "".join(answer_parts).strip() or "[no answer streamed]"
         except Exception as e:
             logger.exception(f"agent error on turn {i}: {e}")
-            state_messages.append(AIMessage(content=f"[agent error: {type(e).__name__}: {e}]"))
+            answer = f"[agent error: {type(e).__name__}: {e}]"
+        state_messages.append(AIMessage(content=answer))
 
         agent_seconds = time.perf_counter() - t0
         c1 = _total_cost()
-        per_turn_tools = collector.tool_calls[tc0:]
-        kb_calls = sum(1 for t in per_turn_tools if t.tool_name == "dsrag_kb")
+        kb_calls = sum(1 for tc in turn_tool_calls if tc["tool"] == "dsrag_kb")
         summarize_fires = _summarize_fires.count - summarize_count_before
         tokens_after = count_tokens_approximately(state_messages)
-
-        answer = _last_answer(state_messages)
-        if not answer:
-            answer = "[no AIMessage produced]"
 
         try:
             correct, rationale = judge(q, expected, answer, collector)

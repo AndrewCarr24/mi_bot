@@ -14,6 +14,7 @@ from src.application.orchestrator.workflow.nodes import (
     memory_post_hook,
     router_node,
     simple_response_node,
+    staging_node,
     wiki_preload_node,
 )
 from src.application.orchestrator.workflow.state import AgentState
@@ -26,20 +27,27 @@ def create_graph(force_recreate: bool = False):
     """
     Build the agent graph.
 
-        START -> router_node -> [intent? + wiki_slug?]
-                                  ├── rag_query + slug   -> wiki_preload_node -> agent_node <-> tool_node
-                                  ├── rag_query (no slug) -> agent_node                     <-> tool_node
-                                  └── simple/off          -> simple_response_node
-                                                           │
-                                                  memory_post_hook -> END
+        START -> staging_node -> router_node -> [intent? + wiki_slug?]
+                                                  ├── rag_query + slug   -> wiki_preload_node -> agent_node <-> tool_node
+                                                  ├── rag_query (no slug) -> agent_node                     <-> tool_node
+                                                  └── simple/off          -> simple_response_node
+                                                                           │
+                                                                  memory_post_hook -> END
+
+    staging_node is the seam between multi-turn UI and single-turn
+    agent behavior. It disambiguates the current question against the
+    immediately prior [Q, A] (using ONE LLM call) and wipes state
+    down to a single HumanMessage. Router/agent/finalize never see
+    conversation history. No-op for true first turns.
     """
     global _graph_instance
     if _graph_instance is not None and not force_recreate:
         return _graph_instance
 
-    logger.info("Creating RAG agent graph (router + ReAct + memory)")
+    logger.info("Creating RAG agent graph (staging + router + ReAct + memory)")
 
     builder = StateGraph(AgentState)
+    builder.add_node("staging_node", staging_node)
     builder.add_node("router_node", router_node)
     builder.add_node("wiki_preload_node", wiki_preload_node)
     builder.add_node("agent_node", agent_node)
@@ -48,7 +56,8 @@ def create_graph(force_recreate: bool = False):
     builder.add_node("tool_node", ToolNode(get_tools()))
     builder.add_node("memory_post_hook", memory_post_hook)
 
-    builder.add_edge(START, "router_node")
+    builder.add_edge(START, "staging_node")
+    builder.add_edge("staging_node", "router_node")
     builder.add_conditional_edges(
         "router_node",
         route_by_intent,

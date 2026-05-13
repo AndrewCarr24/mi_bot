@@ -10,6 +10,8 @@ from loguru import logger
 from src.application.orchestrator.workflow.chains import (
     RouterOutput,
     _TOOL_RESULT_PREFIX,
+    _is_original_user_message,
+    disambiguate_question,
     get_agent_chain,
     get_finalize_chain,
     get_router_chain,
@@ -64,6 +66,106 @@ def _condense_history(
     if _history_strategy() == "summarize":
         return summarize_history(messages, question_text)
     return trim_history(messages), []
+
+
+async def staging_node(state: AgentState, config: RunnableConfig) -> dict:
+    """First graph node: disambiguate the current question against the
+    immediately prior turn, then wipe state down to a single
+    HumanMessage so router/agent/finalize see no conversation history.
+
+    Why this seam exists: the agent's reasoning regresses in multi-turn
+    sessions because prior [Q, A] pairs in its context bias its
+    decisions (skip kb, conflate periods, partial cohort sweeps). By
+    moving pronoun-resolution out of the agent and into a dedicated
+    preprocessor that sees ONLY the previous turn (not the full
+    history), we get single-question-regime behavior from the agent
+    regardless of how long the chat session is.
+
+    First-turn case: no prior [Q, A] to disambiguate against. Returns
+    no state changes (state is already just the current HumanMessage).
+
+    Notes on multi-turn message layout: the harness/UI passes in
+    canonical history as `[HM(q1), AI(a1), HM(q2), AI(a2), ..., HM(qN)]`
+    where each AI is the final-answer assistant message. We find qN
+    (last original HumanMessage), then walk backward to find the most
+    recent AIMessage with text content + no tool_calls (that's aN-1)
+    and the HumanMessage immediately before that (qN-1). Only that
+    pair is passed to disambiguate_question.
+    """
+    messages = list(state["messages"])
+    if not messages:
+        return {}
+
+    # Find the current turn's question (last original user message).
+    last_human_idx = next(
+        (
+            i
+            for i in range(len(messages) - 1, -1, -1)
+            if _is_original_user_message(messages[i])
+        ),
+        None,
+    )
+    if last_human_idx is None:
+        return {}
+
+    current_q = messages[last_human_idx].content
+    if not isinstance(current_q, str):
+        current_q = extract_text_content(current_q)
+
+    # Find the immediately prior [Q, A] pair, if any.
+    prior_q = None
+    prior_a = None
+    prior_ai_idx = None
+    for j in range(last_human_idx - 1, -1, -1):
+        m = messages[j]
+        if isinstance(m, AIMessage) and m.content and not m.tool_calls:
+            text = extract_text_content(m.content).strip()
+            if text:
+                prior_a = text
+                prior_ai_idx = j
+                break
+    if prior_ai_idx is not None:
+        # The prior question is the most recent original user message
+        # before that AIMessage.
+        for j in range(prior_ai_idx - 1, -1, -1):
+            if _is_original_user_message(messages[j]):
+                prior_text = messages[j].content
+                if not isinstance(prior_text, str):
+                    prior_text = extract_text_content(prior_text)
+                prior_q = prior_text
+                break
+
+    # First turn shortcut: no prior, no LLM call.
+    if prior_q is None or prior_a is None:
+        # If state has more than just the current HumanMessage, wipe the
+        # leftovers so router sees a clean single-message state.
+        leftovers = [
+            RemoveMessage(id=m.id)
+            for k, m in enumerate(messages)
+            if k != last_human_idx and getattr(m, "id", None)
+        ]
+        if leftovers:
+            logger.debug(f"staging_node: first-turn cleanup, removing {len(leftovers)} stale msgs")
+            return {"messages": leftovers}
+        return {}
+
+    # Call the disambiguator using only the immediately prior [Q, A].
+    disambiguated = disambiguate_question(prior_q, prior_a, current_q)
+
+    if disambiguated.strip() == current_q.strip():
+        action = "identity"
+    else:
+        action = "rewrote"
+    logger.info(
+        f"staging_node: {action} — "
+        f"{current_q[:80]!r} → {disambiguated[:80]!r}"
+    )
+
+    # Wipe all messages, leave just the disambiguated current question.
+    removals = [
+        RemoveMessage(id=m.id) for m in messages if getattr(m, "id", None)
+    ]
+    return {"messages": removals + [HumanMessage(content=disambiguated)]}
 
 
 async def router_node(state: AgentState, config: RunnableConfig) -> dict:

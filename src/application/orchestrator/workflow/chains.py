@@ -371,6 +371,83 @@ def _llm_summarize(messages: list[BaseMessage], question_text: str) -> str:
     return extract_text_content(response.content).strip()
 
 
+# ---------------------------------------------------------------------------
+# Question disambiguation (staging-node helper)
+# ---------------------------------------------------------------------------
+#
+# `disambiguate_question` runs in `staging_node` — the first graph node.
+# It resolves pronouns and implicit references in the user's current
+# question using ONLY the immediately prior [Q, A] pair as context.
+# The agent itself never sees conversation history; it always receives
+# a single, self-contained HumanMessage.
+#
+# The prompt mirrors the pronoun-resolution language that previously
+# lived inside AGENT_SYSTEM_PROMPT's <retrieval> section. By moving it
+# to a dedicated node with limited context (one prior turn instead of
+# the whole conversation), we avoid the "rewriter over-rewriting"
+# failure mode where seeing many prior turns made the rewriter bake
+# unrelated context into the question.
+
+_DISAMBIGUATE_SYSTEM_PROMPT = """\
+You disambiguate a user's question against the immediately prior \
+conversation turn so that downstream nodes never need to look at the \
+conversation history.
+
+Given the previous question and answer (if any) and the current \
+question, produce a single self-contained question:
+
+- Resolve any pronouns or implicit references against the prior turn. \
+For example, after a turn about AMD's FY2022 revenue, "What about \
+FY2015?" should become "What was AMD's revenue in FY2015?", and \
+"How does that compare?" should become the explicit comparison the \
+user is asking about.
+
+- Otherwise preserve the user's original wording — do not paraphrase \
+the substance of the question, do not split it into multiple queries, \
+and do not drop specifics like figures, periods, or comparison \
+structure.
+
+If the current question already stands alone (no pronouns, no implicit \
+references that depend on prior context), output it verbatim.
+
+Output ONLY the disambiguated question on a single line. No preamble, \
+no explanation, no quotes."""
+
+
+def disambiguate_question(
+    prior_question: str | None,
+    prior_answer: str | None,
+    current_question: str,
+) -> str:
+    """Single LLM call: turn `current_question` into a self-contained
+    question using the immediately prior turn as context. If there's no
+    prior turn, returns `current_question` unchanged (no LLM call)."""
+    if not prior_question or not prior_answer:
+        return current_question.strip()
+
+    from src.infrastructure.model import get_summary_model
+
+    model = get_summary_model(temperature=0.0)
+    prompt_messages = [
+        SystemMessage(content=_DISAMBIGUATE_SYSTEM_PROMPT),
+        HumanMessage(content=(
+            f"<previous_turn>\n"
+            f"[USER]\n{prior_question.strip()}\n\n"
+            f"[ASSISTANT]\n{prior_answer.strip()}\n"
+            f"</previous_turn>\n\n"
+            f"[USER — latest, disambiguate this]\n{current_question.strip()}"
+        )),
+    ]
+    response = model.invoke(prompt_messages)
+    text = extract_text_content(response.content).strip()
+    # Strip surrounding quotes or a leading "Question:" if the model
+    # adds one despite the instructions.
+    text = text.strip('"\'')
+    if text.lower().startswith("question:"):
+        text = text[len("question:"):].strip()
+    return text or current_question.strip()
+
+
 def _ids_to_removals(messages: list[BaseMessage]) -> list[BaseMessage]:
     """RemoveMessage entries for every message in `messages` that has an id."""
     return [RemoveMessage(id=m.id) for m in messages if getattr(m, "id", None)]

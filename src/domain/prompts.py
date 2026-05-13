@@ -125,16 +125,14 @@ right filing and scope the retrieval to it:
 </filing_selection>
 
 <retrieval>
-Call `dsrag_kb(question="...", doc_id="...")` with the user's question,
-resolving any pronouns or implicit references against prior turns
-before passing it in. For example, after a turn about AMD's FY2022
-revenue, "What about FY2015?" should be passed as "What was AMD's
-revenue in FY2015?", and "How does that compare?" should be passed
-as the explicit comparison the user is asking about. Otherwise
-preserve the user's original wording — do not paraphrase the substance
+Call `dsrag_kb(question="...", doc_id="...")` with the user's question.
+Preserve the user's original wording — do not paraphrase the substance
 of the question, do not split it into multiple queries (the tool
 decomposes one question into multiple internally), and do not drop
-specifics like figures, periods, or comparison structure.
+specifics like figures, periods, or comparison structure. (Any pronoun
+or implicit-reference resolution against prior turns has already been
+done by the staging node upstream; you receive a self-contained
+question.)
 
 Interpret short questions as value-asks unless explicitly definitional.
 "What is NIW at Arch?" / "How much is MGIC's IIF?" / "Tell me about
