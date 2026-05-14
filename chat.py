@@ -20,8 +20,11 @@ answer tokens flow.
 
 from __future__ import annotations
 
+import os
 import re
 import sys
+import time
+import tracemalloc
 from http.cookies import SimpleCookie
 from pathlib import Path
 
@@ -29,6 +32,47 @@ import chainlit as cl
 import chainlit.data as cl_data
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 from loguru import logger
+
+
+# ── tracemalloc instrumentation ───────────────────────────────────────────
+# Snapshot before/after each on_message handler so we can see which Python
+# allocations grow during a turn. Enabled when TRACEMALLOC=true in env;
+# disabled by default to avoid the ~10-30% memory overhead in production.
+_TRACEMALLOC_ENABLED = os.environ.get("TRACEMALLOC", "").lower() == "true"
+_TURN_COUNTER = 0
+if _TRACEMALLOC_ENABLED:
+    tracemalloc.start(10)
+    logger.info("tracemalloc enabled — per-turn heap-delta logging is on")
+
+
+def _log_tracemalloc_diff(snap_before, snap_after, turn_id: str) -> None:
+    """Compare two tracemalloc snapshots and log the largest growers.
+
+    Skips entries smaller than 50 KB so the output stays focused on the
+    real hogs. Negative deltas (frees) are included so we can spot
+    objects that grew earlier and got released this turn."""
+    diff = snap_after.compare_to(snap_before, "lineno")
+    total_growth_kb = sum(s.size_diff for s in diff) / 1024
+    logger.info(
+        f"tracemalloc[turn={turn_id}]: total heap Δ = {total_growth_kb:+.0f} KB "
+        f"({total_growth_kb / 1024:+.2f} MB)"
+    )
+    sorted_diff = sorted(diff, key=lambda s: abs(s.size_diff), reverse=True)
+    n_shown = 0
+    for stat in sorted_diff:
+        kb = stat.size_diff / 1024
+        if abs(kb) < 50:
+            break  # rest are < 50 KB, not interesting
+        frames = stat.traceback.format() if stat.traceback else []
+        loc = frames[-1].strip() if frames else "<unknown>"
+        if len(loc) > 120:
+            loc = loc[:117] + "..."
+        logger.info(f"  Δ {kb:+8.0f} KB  count {stat.count_diff:+7d}  {loc}")
+        n_shown += 1
+        if n_shown >= 15:
+            break
+    if n_shown == 0:
+        logger.info("  (no allocations >= 50 KB delta — turn was quiet)")
 
 
 # Chainlit may exec this file from a different cwd than api.py — ensure
@@ -191,36 +235,49 @@ async def on_message(message: cl.Message):
     The intent event is read off the front of the stream before any
     answer tokens flow, so the branching decision is made up-front.
     """
-    session_id = cl.context.session.id
-    thread_id = getattr(cl.context.session, "thread_id", None) or session_id
+    global _TURN_COUNTER
+    _TURN_COUNTER += 1
+    turn_id = f"{_TURN_COUNTER:03d}"
+    snap_before = tracemalloc.take_snapshot() if _TRACEMALLOC_ENABLED else None
+    t_turn_start = time.perf_counter()
 
-    # Replay prior messages on this thread from the data layer so the
-    # stateless agent has full context.
-    prior = await _fetch_thread_messages(thread_id)
-    full_messages = prior + [HumanMessage(content=message.content)]
+    try:
+        session_id = cl.context.session.id
+        thread_id = getattr(cl.context.session, "thread_id", None) or session_id
 
-    events = get_streaming_events(
-        messages=full_messages,
-        customer_name="User",
-        conversation_id=thread_id,
-    )
+        # Replay prior messages on this thread from the data layer so the
+        # stateless agent has full context.
+        prior = await _fetch_thread_messages(thread_id)
+        full_messages = prior + [HumanMessage(content=message.content)]
 
-    # Read events until we see the intent event (always first under
-    # normal operation — router_node ends before any downstream node
-    # starts streaming). Buffer anything that comes before it just in
-    # case, though we don't expect that to happen.
-    intent = "rag_query"  # safe default if router somehow doesn't emit
-    buffered: list[dict] = []
-    async for event in events:
-        if event.get("kind") == "intent":
-            intent = event.get("intent", "rag_query")
-            break
-        buffered.append(event)
+        events = get_streaming_events(
+            messages=full_messages,
+            customer_name="User",
+            conversation_id=thread_id,
+        )
 
-    if intent == "rag_query":
-        await _handle_rag_query(events, buffered)
-    else:
-        await _handle_simple(events, buffered)
+        # Read events until we see the intent event (always first under
+        # normal operation — router_node ends before any downstream node
+        # starts streaming). Buffer anything that comes before it just in
+        # case, though we don't expect that to happen.
+        intent = "rag_query"  # safe default if router somehow doesn't emit
+        buffered: list[dict] = []
+        async for event in events:
+            if event.get("kind") == "intent":
+                intent = event.get("intent", "rag_query")
+                break
+            buffered.append(event)
+
+        if intent == "rag_query":
+            await _handle_rag_query(events, buffered)
+        else:
+            await _handle_simple(events, buffered)
+    finally:
+        if _TRACEMALLOC_ENABLED and snap_before is not None:
+            elapsed = time.perf_counter() - t_turn_start
+            logger.info(f"tracemalloc[turn={turn_id}]: turn took {elapsed:.1f}s")
+            snap_after = tracemalloc.take_snapshot()
+            _log_tracemalloc_diff(snap_before, snap_after, turn_id)
 
 
 async def _handle_rag_query(events, buffered: list[dict]):
