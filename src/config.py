@@ -46,7 +46,9 @@ class Settings(BaseSettings):
         default="deepseek",
         description=(
             "Which LLM provider serves the orchestrator (the ReAct agent). "
-            "Router and judge stay on Bedrock Haiku regardless."
+            "On DeepSeek the router also runs through DeepSeek (deepseek-chat); "
+            "on Bedrock the router falls back to Haiku. The eval-time judge "
+            "is always Bedrock Haiku, configured in eval/langsmith_eval.py."
         ),
     )
     ORCHESTRATOR_MODEL_ID: str = Field(

@@ -53,6 +53,28 @@ def reset_chunk_dedup(thread_id: str) -> None:
 _QUOTA_PER_DOC_K = 3
 
 
+def _rse_params() -> dict | None:
+    """RSE params override for kb.query() — controls the segment output
+    size (`overall_max_length`) without changing dsRAG's chunk-level
+    candidate pool (that's `RETRIEVAL_TOP_K`, read by
+    HybridKnowledgeBase). Tunable via env so we can A/B sweep.
+
+    Returns None to use dsRAG's default "balanced" preset; a dict to
+    override the segment cap. Read fresh per call so eval runs can
+    flip the env var without restarting the process.
+    """
+    raw = os.environ.get("RSE_MAX_SEGMENTS", "10").strip()
+    if not raw:
+        return {"overall_max_length": 10}
+    try:
+        n = int(raw)
+        if n > 0:
+            return {"overall_max_length": n}
+    except ValueError:
+        pass
+    return None
+
+
 def _query_per_doc_quota(kb, queries: list[str], doc_ids: list[str]) -> list:
     """Per-doc-quota retrieval. Run one single-doc kb.query per doc in
     `doc_ids`, take the top _QUOTA_PER_DOC_K segments from each, then
@@ -61,11 +83,15 @@ def _query_per_doc_quota(kb, queries: list[str], doc_ids: list[str]) -> list:
     parallel execution would race. Per-doc filter scope is small so
     the sequential cost is bounded.
     """
+    rse = _rse_params()
     merged: list = []
     for d in doc_ids:
         filt = {"field": "doc_id", "operator": "equals", "value": d}
         try:
-            res = kb.query(queries, metadata_filter=filt)
+            kwargs = {"metadata_filter": filt}
+            if rse is not None:
+                kwargs["rse_params"] = rse
+            res = kb.query(queries, **kwargs)
         except Exception as e:
             logger.warning(f"dsrag_kb quota: per-doc query for {d!r} failed: {e}")
             continue
@@ -188,9 +214,11 @@ def _dsrag_kb_impl(
             alpha = 0.5
     kb._rrf_alpha = alpha
 
+    rse = _rse_params()
     logger.info(
         f"dsrag_kb invoked: question={question[:80]!r} doc_id={doc_id!r} "
-        f"expanded_to={queries} α={alpha:.2f} dedup={dedup_on} mode={multi_doc_mode}"
+        f"expanded_to={queries} α={alpha:.2f} dedup={dedup_on} mode={multi_doc_mode} "
+        f"rse={rse}"
     )
 
     try:
@@ -204,7 +232,10 @@ def _dsrag_kb_impl(
                 metadata_filter = {"field": "doc_id", "operator": "equals", "value": doc_id}
             else:
                 metadata_filter = None
-            results = kb.query(queries, metadata_filter=metadata_filter)
+            kwargs = {"metadata_filter": metadata_filter}
+            if rse is not None:
+                kwargs["rse_params"] = rse
+            results = kb.query(queries, **kwargs)
     except Exception as e:
         logger.warning(f"dsrag_kb query failed: {e}")
         return json.dumps({"error": str(e)})

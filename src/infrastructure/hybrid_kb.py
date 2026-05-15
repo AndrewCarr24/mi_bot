@@ -39,8 +39,6 @@ import re
 import numpy as np
 from loguru import logger
 from rank_bm25 import BM25Okapi
-from sklearn.metrics.pairwise import cosine_similarity
-
 from dsrag.database.vector.types import VectorSearchResult
 from dsrag.knowledge_base import KnowledgeBase
 
@@ -101,14 +99,16 @@ class HybridKnowledgeBase(KnowledgeBase):
         super().__init__(*args, **kwargs)
         # Env-var toggles for A/B experiments:
         #   HYBRID_BM25=false   → skip BM25; pure semantic retrieval
-        #   RETRIEVAL_TOP_K=N   → candidates per retriever (default 200)
+        #   RETRIEVAL_TOP_K=N   → candidates per retriever (default 50;
+        #                          chosen from the tk/rse sweep — see
+        #                          eval/results/sweep_summary*.log)
         # Per-call attributes (set by the dsrag_kb tool):
         #   _excluded_chunks    set of (doc_id, chunk_index) to omit
         #                       from candidates BEFORE RRF/RSE
         #   _rrf_alpha          BM25 weight in RRF (0..1, default 0.5
         #                       = balanced standard RRF)
         self._use_bm25 = os.environ.get("HYBRID_BM25", "true").lower() != "false"
-        self._top_k_per_retriever = int(os.environ.get("RETRIEVAL_TOP_K", "200"))
+        self._top_k_per_retriever = int(os.environ.get("RETRIEVAL_TOP_K", "50"))
         self._excluded_chunks: set | None = None
         # 0.4 = semantic-favored. Was 0.5 (balanced standard RRF); the
         # alpha sweep on FinanceBench (see eval/results/alpha_sweep_*.json)
@@ -119,6 +119,35 @@ class HybridKnowledgeBase(KnowledgeBase):
         else:
             logger.info("HybridKnowledgeBase: BM25 disabled (HYBRID_BM25=false)")
             self._bm25 = None
+        self._build_vector_matrix_cache()
+
+    def _build_vector_matrix_cache(self) -> None:
+        """Materialize the per-chunk vectors into one contiguous fp32 matrix
+        and pre-normalize rows for cosine similarity. One-time cost; saves
+        ~360 MB of transient allocation on every subsequent search.
+
+        Without this, `_vector_search_filtered` ran
+        `np.asarray(self.vector_db.vectors)` + sklearn `cosine_similarity`
+        on every call — each of which rebuilds the matrix and adds a
+        normalize-copy. 12 parallel cohort searches stacked those
+        transients to ~3.5 GB and pushed RSS past App Runner's ceiling.
+        Cached path is also ~200x faster per call (matmul vs rebuild).
+        """
+        vecs = self.vector_db.vectors
+        if not vecs:
+            self._vectors_matrix_normalized = None
+            return
+        n, d = len(vecs), len(vecs[0])
+        logger.info(
+            f"HybridKnowledgeBase: building vector matrix cache "
+            f"({n:,} × {d} fp32 = {n*d*4/1024/1024:.0f} MB)"
+        )
+        matrix = np.asarray(vecs, dtype=np.float32)
+        norms = np.linalg.norm(matrix, axis=1, keepdims=True)
+        np.maximum(norms, 1e-12, out=norms)
+        matrix /= norms  # normalize in-place — no extra allocation
+        self._vectors_matrix_normalized = matrix
+        logger.info("HybridKnowledgeBase: vector matrix cache ready")
 
     def _build_bm25_index(self) -> None:
         """Build a BM25 index parallel to vector_db.metadata.
@@ -156,15 +185,15 @@ class HybridKnowledgeBase(KnowledgeBase):
         self, query_vector, top_k: int, metadata_filter: dict | None
     ) -> list[VectorSearchResult]:
         """Cosine search with filter applied. Replaces BasicVectorDB.search,
-        which silently drops the filter."""
+        which silently drops the filter. Uses the pre-normalized cached
+        matrix so cosine reduces to a single matmul — no per-call
+        allocation of the embedding matrix."""
         idx = self._filtered_indices(metadata_filter)
-        if len(idx) == 0:
+        if len(idx) == 0 or self._vectors_matrix_normalized is None:
             return []
-        vectors = np.asarray(self.vector_db.vectors)
-        # Cosine over the filtered subset only — both correct (filter
-        # works) and faster than scoring all vectors when filtered.
-        sims = cosine_similarity([query_vector], vectors[idx])[0]
-        # Take top_k by descending similarity
+        q = np.asarray(query_vector, dtype=np.float32).reshape(-1)
+        q_unit = q / max(float(np.linalg.norm(q)), 1e-12)
+        sims = self._vectors_matrix_normalized[idx] @ q_unit
         local_top = np.argsort(-sims)[: int(top_k)]
         return [
             VectorSearchResult(
