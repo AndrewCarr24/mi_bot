@@ -182,14 +182,31 @@ async def on_chat_resume(thread):
     return None
 
 
+# NOTE: Chainlit starters (cl.set_starters) are mutually exclusive with
+# sending a message in on_chat_start — the starter screen is replaced as
+# soon as the welcome message lands (verified empirically on 2.11). We
+# chose the rich welcome message: it carries the coverage dates and
+# scope limits that clickable starter chips can't.
 @cl.on_chat_start
 async def on_chat_start():
     await cl.Message(
         content=(
-            "Hi! I'm a SEC filings research assistant. Ask me about any of "
-            "the indexed 10-K / 10-Q / 8-K filings or earnings call transcripts — "
-            "financial figures, segment performance, MD&A commentary, or "
-            "compare across companies."
+            "**Welcome — I'm a research assistant for the U.S. private mortgage "
+            "insurance industry.**\n\n"
+            "I answer questions from the SEC filings and earnings calls of the six "
+            "public MIs — **Arch Capital (ACGL), Enact (ACT), Essent (ESNT), "
+            "MGIC (MTG), NMI Holdings (NMIH), and Radian (RDN)** — plus industry "
+            "references (PMIERs, FHFA reports, USMI papers).\n\n"
+            "**Coverage:** 10-Ks FY2022-2025 · 10-Qs and earnings 8-Ks Q1 2022 → Q1 2026 · "
+            "earnings call transcripts Q4 2022 → Q1 2026 (Radian back to Q1 2022).\n\n"
+            "**Things you can ask:**\n"
+            "- 📊 *Metric lookups* — \"What was NMI's PMIERs sufficiency ratio at year-end 2025?\"\n"
+            "- ⚖️ *Cohort comparisons* — \"Compare NIW across all six MIs for 2024.\"\n"
+            "- 📈 *Trends* — \"How did Enact's persistency evolve from 2022 to 2025?\"\n"
+            "- 🎙️ *Call commentary* — \"What did MGIC say about cure rates last quarter?\"\n"
+            "- 📖 *Concepts* — \"Why are MI loss ratios sometimes negative?\"\n\n"
+            "Every answer cites the underlying filings. I only cover these six "
+            "companies and this industry — other tickers are out of scope."
         )
     ).send()
 
