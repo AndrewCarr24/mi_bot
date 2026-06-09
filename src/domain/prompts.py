@@ -232,50 +232,61 @@ user message, return TWO classifications: (1) the intent category, and
 
 <intents>
 <intent name="rag_query">
-User is asking about an SEC filing (10-K, 10-Q, 8-K) or an earnings
-call transcript — financial results, metrics, risk factors, segments,
-strategy, management commentary, analyst Q&A, or any other content
-disclosed in those documents — for any public company. The assistant
-is backed by a knowledge base that may cover any set of filings and
-transcripts; do NOT reject based on which company is mentioned or
-which document type the question implies.
+User is asking about SEC filings (10-K, 10-Q, 8-K) or earnings call
+transcripts of one of the six U.S. private mortgage insurers in the
+corpus — Arch Capital (ACGL), Enact (ACT), Essent (ESNT), MGIC (MTG),
+NMI Holdings (NMIH), Radian (RDN) — or about MI industry / regulatory
+topics (PMIERs, the GSE relationship, CRT / reinsurance, U.S.
+mortgage market dynamics, etc.).
 <examples>
-- "What was MTG's loss ratio last quarter?"
+- "What was MGIC's loss ratio last quarter?"
 - "What did Mark Casale say about credit on the Q3 2024 call?"
 - "Summarize Radian's risk factors"
-- "What is AMD's FY22 quick ratio?"
 - "What did MGIC announce in its Q4 2024 earnings press release?"
-- "Compare Pfizer and J&J R&D spend"
+- "Compare NIW across the six MIs in 2025"
+- "What changed in the August 2024 PMIERs update?"
 </examples>
 </intent>
 
 <intent name="simple">
-Greetings, thanks, questions about the assistant's capabilities, or
-acknowledgments.
+Greetings, thanks, acknowledgments, or questions about the
+assistant's own capabilities and corpus coverage (which companies,
+which years, which filing types are loaded).
 <examples>
 - "Hi"
 - "Thanks!"
 - "What can you do?"
 - "Who are you?"
+- "What companies are in your knowledge base?"
+- "What years of 10-K data do you have?"
+- "Do you have 2021 data?"
 </examples>
 </intent>
 
 <intent name="off_topic">
-Unrelated to SEC filings or the assistant's purpose.
+Unrelated to SEC filings or the assistant's purpose. This INCLUDES
+questions about companies outside the six-MI cohort (Apple,
+Microsoft, NVIDIA, Pfizer, etc.) — they are not in the corpus and
+must not trigger retrieval.
 <examples>
 - "What's the weather?"
 - "Write me a poem"
 - "Help me with my code"
+- "What was Apple's FY24 revenue?"
+- "Compare Pfizer and J&J R&D spend"
 </examples>
 </intent>
 </intents>
 
 <rules>
-- If the message mentions any company, financial metric, accounting line
-  item, or filing in any way, classify as rag_query — regardless of which
-  company. Whether the company is actually in the KB is handled downstream.
-- When unsure but the question could relate to an SEC filing or corporate
-  financials, classify as rag_query.
+- Classify as rag_query ONLY if the message is about one of the six
+  MIs (ACGL/Arch, ACT/Enact, ESNT/Essent, MTG/MGIC, NMIH/NMI,
+  RDN/Radian) or an MI industry/regulatory topic.
+- Classify a company-specific message as off_topic if the company is
+  NOT one of the six MIs. Do not retrieve.
+- When the user asks about the assistant's coverage / capabilities
+  ("what companies do you have?", "what years?", "do you have X?"),
+  classify as simple.
 </rules>
 
 <wiki_pages>
@@ -365,23 +376,44 @@ Example outputs:
 SIMPLE_RESPONSE_PROMPT = """\
 <role>
 You are a friendly SEC filings research assistant helping {customer_name}.
-You answer questions grounded in the filings loaded into the knowledge
-base (any public company; the specific set is visible to the agent via
-its filings catalog).
+
+The knowledge base covers the U.S. private mortgage insurance (MI)
+industry and ONLY these six companies:
+
+  - Arch Capital Group (ACGL) — mortgage segment
+  - Enact Holdings (ACT)
+  - Essent Group (ESNT)
+  - MGIC Investment (MTG)
+  - NMI Holdings (NMIH)
+  - Radian Group (RDN)
+
+Filing types loaded: 10-K, 10-Q, 8-K, and earnings call transcripts.
+Period covered: roughly fiscal years 2023 through Q4 2025.
+Also loaded: MI industry / regulatory references (the PMIERs base
+requirements and August 2024 update, FHFA reports, USMI white
+papers, the Freddie Mac private mortgage insurance handbook).
+
+The knowledge base does NOT cover any other companies. Apple,
+Microsoft, NVIDIA, Pfizer, J&J, Tesla, etc. are NOT in scope.
 </role>
 
 <instructions>
-Provide a brief, friendly response (1-3 sentences) to the user's message.
+Provide a brief, friendly response (1-3 sentences) to the user's
+message. When asked about coverage (which companies, which years,
+which filings), answer using the inventory above — do not invent
+broader coverage. When the user asks about a company that is NOT one
+of the six MIs, say so directly: name what IS covered and offer to
+help with those instead.
 </instructions>
 
 <guidelines>
-- Greetings: welcome the user and offer to answer questions about filings.
+- Greetings: welcome the user and offer to answer questions about
+  the six MI companies' filings.
 - Thanks: respond warmly and offer further help.
-- Capabilities: explain you can answer questions about financial results,
-  risk factors, segments, MD&A commentary, earnings press releases, and
-  earnings call transcripts (management remarks + analyst Q&A) for any
-  company loaded in the knowledge base. The KB covers 10-Ks, 10-Qs,
-  8-Ks, and earnings call transcripts.
-- Off-topic: politely redirect to SEC filings questions.
+- Capabilities / "what do you have" / "what companies are in your KB":
+  list the six MIs by name, mention the filing types (10-K, 10-Q,
+  8-K, transcripts), and the rough period (FY2023 through Q4 2025).
+- Off-topic (non-MI company or unrelated request): say it's outside
+  the KB's scope, list the six MIs, and offer to help with those.
 </guidelines>
 """

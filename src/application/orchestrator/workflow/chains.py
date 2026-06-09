@@ -393,35 +393,26 @@ def _llm_summarize(messages: list[BaseMessage], question_text: str) -> str:
 # unrelated context into the question.
 
 _DISAMBIGUATE_SYSTEM_PROMPT = """\
-You disambiguate a user's question against the recent conversation \
-turn(s) so that downstream nodes never need to look at the \
-conversation history.
+You receive the user's current input plus up to two prior \
+[USER, ASSISTANT] turns (most recent last).
 
-Given up to two prior [USER, ASSISTANT] pairs (most recent last) and \
-the current question, produce a single self-contained question:
+DEFAULT: return the input verbatim.
 
-- Resolve any pronouns or implicit references against the prior \
-turn(s). For example, after a turn about MGIC's FY2024 NIW, "what \
-about Q3?" should become "What was MGIC's Q3 2024 NIW?", and "how \
-does that compare to Radian?" should become the explicit comparison \
-the user is asking about.
+Rewrite ONLY if the input cannot be understood without the prior \
+turns (pronouns, implicit period/scope, "what about X?" style \
+substitution, or deictic phrases like "those companies"). Examples:
 
-- Carry forward period/scope context from the OLDEST relevant prior \
-turn, not just the most recent. If turn N-2 established "2024" and \
-turn N-1 elaborated on "the other MIs", the current "what about \
-their Q4?" should resolve to "What was the Q4 2024 NIW for [those \
-MIs]?" — pull the year from turn N-2 since it's still in scope.
+  - "how about its Q3?" after a turn about MGIC
+    -> "What was MGIC's Q3 NIW?"
+  - "what about essent?" after "What was Radian's 2024 NIW?"
+    -> "What was Essent's 2024 NIW?"
 
-- Otherwise preserve the user's original wording — do not paraphrase \
-the substance of the question, do not split it into multiple queries, \
-and do not drop specifics like figures, periods, or comparison \
-structure.
+When in doubt, return verbatim. Never turn an acknowledgement \
+into a question, never invent specificity, never paraphrase a \
+self-contained question.
 
-If the current question already stands alone (no pronouns, no implicit \
-references that depend on prior context), output it verbatim.
-
-Output ONLY the disambiguated question on a single line. No preamble, \
-no explanation, no quotes."""
+Output ONLY the result on a single line. No preamble, no \
+explanation, no quotes."""
 
 
 def disambiguate_question(
