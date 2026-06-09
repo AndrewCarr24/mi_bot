@@ -12,7 +12,8 @@ LLM-Wiki pattern described by Karpathy (April 2026).
 
 1. **Raw sources** — the documents indexed in the dsRAG KB:
    - The per-MI corpus (10-Ks, 10-Qs, 8-Ks, earnings call transcripts,
-     2023 through Q4 2025) for Arch, Enact, Essent, MGIC, NMI, Radian.
+     FY2022 through Q1 2026; transcripts have a Q1-Q3 2022 gap except
+     Radian) for Arch, Enact, Essent, MGIC, NMI, Radian.
    - Industry / regulatory references (the PMIERs base requirements,
      the August 2024 PMIERs update, FHFA reports, USMI white papers,
      the Freddie Mac private mortgage insurance handbook).
