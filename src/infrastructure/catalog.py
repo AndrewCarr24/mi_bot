@@ -190,3 +190,20 @@ def format_for_prompt() -> str:
             f"{f['period_label']} | {f['period_end']} | {f['doc_id']}"
         )
     return "\n".join(lines)
+
+
+def latest_periods_summary() -> str:
+    """One-line summary of the most recent period per form type, for the
+    agent's <current_context> block. E.g.:
+    "10-K: FY2025 (2025-12-31) · 10-Q: 2026-03-31 · 8-K: 2026-05-06 ·
+    TRANSCRIPT: 2026-03-31"."""
+    latest: dict[str, str] = {}
+    for f in list_filings():
+        form, period = f["filing_type"], f["period_end"]
+        if form.startswith("INDUSTRY"):
+            continue
+        if period and period > latest.get(form, ""):
+            latest[form] = period
+    order = ["10-K", "10-Q", "8-K", "TRANSCRIPT"]
+    parts = [f"{form}: {latest[form]}" for form in order if form in latest]
+    return " · ".join(parts) if parts else "unknown"

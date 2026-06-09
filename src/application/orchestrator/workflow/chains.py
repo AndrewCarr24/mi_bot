@@ -660,9 +660,19 @@ def _build_agent_system(customer_name: str) -> str:
     # can serve different arms of an A/B/C comparison without restart.
     mode = _multi_doc_mode()
     multi_doc_section = MULTI_DOC_FILTER_SECTION if mode in ("filter", "quota") else ""
+    # Date anchor computed per call (this builder runs on every agent_node
+    # invocation) so "most recent quarter" resolves against the real
+    # current date, not a baked-in constant. kb_latest_summary is derived
+    # from the loaded KB so corpus updates propagate automatically.
+    from datetime import date
+
+    from src.infrastructure.catalog import latest_periods_summary
+
     return (
         AGENT_SYSTEM_PROMPT
         .replace("{customer_name}", customer_name)
+        .replace("{current_date}", date.today().strftime("%B %d, %Y"))
+        .replace("{kb_latest_summary}", latest_periods_summary())
         .replace("{filings_catalog}", format_catalog())
         .replace("{multi_doc_filter_section}", multi_doc_section)
     )
