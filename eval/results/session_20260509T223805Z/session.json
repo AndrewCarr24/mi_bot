@@ -1,0 +1,98 @@
+{
+  "thread_id": "session-20260509T223805Z",
+  "csv": "questions_mi_28q.csv",
+  "ts": "20260509T223805Z",
+  "run_seconds": 563.87,
+  "messages": [
+    {
+      "type": "HumanMessage",
+      "content": "What was MGIC Investment Corporation's PMIERs Available Assets and excess over Minimum Required Assets at December 31, 2024?"
+    },
+    {
+      "type": "SystemMessage",
+      "content": "<prior_research_summary>\n## Facts retrieved\n- MGIC's primary delinquency rate at December 31, 2024: **2.40%** (MTG_10-K_2024-12-31)\n- Radian's primary delinquency rate at December 31, 2024: Not explicitly stated in retrieved excerpts. The document shows 50,535 new primary default notices for 2024 and a Default to Claim Rate of 7.5% on new defaults, but no overall delinquency rate was found. (RDN_10-K_2024-12-31)\n- Essent's primary delinquency rate at December 31, 2024: Not explicitly stated in retrieved excerpts. The document mentions 3,620 increase in loans in default for the year, but no overall delinquency rate was found. (ESNT_10-K_2024-12-31)\n- NMI Holdings' primary delinquency rate at December 31, 2024: **1.01%** (6,642 loans in default against 659,567 total policies in-force) (NMIH_10-K_2024-12-31)\n- Enact's primary delinquency rate at December 31, 2024: **2.45%** (ACT_10-K_2024-12-31)\n- Arch Capital's primary delinquency rate at December 31, 2024: Not explicitly stated in retrieved excerpts. The document shows 40 paid claims in 2024 and net reserves of $333 million for U.S. primary mortgage insurance, but no overall delinquency rate was found. (ACGL_10-K_2024-12-31)\n\n## Tools called\n- dsrag_kb({\"doc_id\": \"MTG_10-K_2024-12-31\", \"question\": \"What was MGIC's primary delinquency rate or default rate as of December 31, 2024?\"})\n- dsrag_kb({\"doc_id\": \"RDN_10-K_2024-12-31\", \"question\": \"What was Radian's primary delinquency rate as of December 31, 2024?\"})\n- dsrag_kb({\"doc_id\": \"ESNT_10-K_2024-12-31\", \"question\": \"What was Essent's primary delinquency rate as of December 31, 2024?\"})\n- dsrag_kb({\"doc_id\": \"NMIH_10-K_2024-12-31\", \"question\": \"What was NMI Holdings' primary delinquency rate as of December 31, 2024?\"})\n- dsrag_kb({\"doc_id\": \"ACT_10-K_2024-12-31\", \"question\": \"What was Enact's primary delinquency rate as of December 31, 2024?\"})\n- dsrag_kb({\"doc_id\": \"ACGL_10-K_2024-12-31\", \"question\": \"What was Arch Capital's primary mortgage insurance delinquency rate as of December 31, 2024?\"})\n\n## Open questions\n- What was Radian's (RDN) primary delinquency rate at December 31, 2024?\n- What was Essent's (ESNT) primary delinquency rate at December 31, 2024?\n- What was Arch Capital's (ACGL) primary delinquency rate at December 31, 2024?\n</prior_research_summary>"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "dsrag_kb",
+          "args": {
+            "doc_id": "MTG_10-K_2024-12-31",
+            "question": "What was MGIC Investment Corporation's PMIERs Available Assets and excess over Minimum Required Assets at December 31, 2024?"
+          },
+          "id": "call_00_N107R29Z2Uy4KrYqwOTX5351"
+        }
+      ]
+    },
+    {
+      "type": "AIMessage",
+      "content": "The tool results available do not contain MGIC's PMIERs Available Assets or excess over Minimum Required Assets for December 31, 2024. The retrieved excerpts from MGIC's 2024 10-K covered the primary delinquency rate (2.40%) but did not include PMIERs sufficiency figures. To answer this question, a targeted retrieval from `MTG_10-K_2024-12-31` (or a related 8-K) would be needed."
+    },
+    {
+      "type": "HumanMessage",
+      "content": "How did NMI Holdings' (NMIH) net premiums earned trend across full years 2023, 2024, and 2025?"
+    },
+    {
+      "type": "AIMessage",
+      "content": "[agent error: BadRequestError: Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}]"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "For full-year 2024, what is the range of GAAP loss ratios reported across the six MI cohort issuers, and which issuers had negative versus positive loss ratios?"
+    },
+    {
+      "type": "AIMessage",
+      "content": "[agent error: BadRequestError: Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}]"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "According to the GSEs' August 2024 PMIERs update (Guidance 2024-01), what is the implementation phase-in schedule, and what substantive change does it make to the PMIERs standards?"
+    },
+    {
+      "type": "AIMessage",
+      "content": "[agent error: BadRequestError: Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}]"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "How has investment portfolio pre-tax yield evolved from FY2022 through FY2024 across the six MI cohort issuers (MGIC, Radian, Essent, NMI, Enact, Arch)?"
+    },
+    {
+      "type": "AIMessage",
+      "content": "[agent error: BadRequestError: Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}]"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "Did any of the six MI cohort issuers disclose a material weakness, control deficiency, restatement, or unresolved SEC staff comment in their 2024 10-Ks?"
+    },
+    {
+      "type": "AIMessage",
+      "content": "[agent error: BadRequestError: Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}]"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "Pull together everything Arch Capital disclosed about Q4 2024 share repurchases of its common stock \u2014 across the 10-K, the Q4 2024 8-K, and the Q4 2024 earnings call transcript. Are there discrepancies?"
+    },
+    {
+      "type": "AIMessage",
+      "content": "[agent error: BadRequestError: Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}]"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "If I want to spot which MI cohort issuer would be hit hardest by a new entrant disrupting pricing, what disclosures should I look at across the cohort, and what did the cohort actually say about pricing discipline in 2024?"
+    },
+    {
+      "type": "AIMessage",
+      "content": "[agent error: BadRequestError: Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}]"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "What board or named-executive changes did the six MI cohort issuers report in 2024 \u2014 additions, departures, or restructurings? Just the ones disclosed via 8-K Item 5.02."
+    },
+    {
+      "type": "AIMessage",
+      "content": "[agent error: BadRequestError: Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}]"
+    }
+  ]
+}

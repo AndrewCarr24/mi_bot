@@ -1,0 +1,8 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"What board or named-executive changes did the six MI cohort issuers report in 2024 — additions, departures, or restructurings? Just the ones disclosed via 8-K Item 5.02.","The only Item 5.02 disclosure in the cohort's 2024 8-Ks is MGIC's (MTG) appointment of Michael Thompson to its Board of Directors, disclosed in the 8-K filed January 31, 2024. None of the other five cohort issuers (Radian, Essent, NMI, Enact, Arch Capital) reported board additions, departures, or restructurings via Item 5.02 in 2024.","Only one Item 5.02 disclosure was filed across the six MI cohort issuers in calendar 2024:
+
+- **MGIC (MTG)** — 8-K filed January 31, 2024: appointed **Michael Thompson** to the Board of Directors.
+
+The other five issuers — **Arch Capital (ACGL), Enact Holdings (ACT), Essent Group (ESNT), NMI Holdings (NMIH), and Radian Group (RDN)** — reported no board additions, departures, or named-executive-officer restructurings under Item 5.02 during 2024. Their 2024 8-K activity was limited to quarterly earnings releases (Item 2.02), dividend declarations, and capital-action announcements.
+
+(Note: Proxy-statement disclosures of director nominations or officer role shifts that fall below the 8-K threshold are out of scope for this question, which asked specifically about Item 5.02 filings.)",True,Both identify MGIC's Michael Thompson appointment as sole Item 5.02 disclosure; both confirm other five issuers had none.,0.004309,0.000677,"[{""tool"": ""wiki_read_page"", ""tokens_est"": 6381}]",6381,12.83
