@@ -317,6 +317,7 @@ async def get_streaming_events(
                     yield {
                         "kind": "tool_result_segment",
                         "doc_id": seg.get("doc_id", ""),
+                        "section": seg.get("section", ""),
                         "score": seg.get("score"),
                         "content": content,
                     }

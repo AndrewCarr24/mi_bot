@@ -258,11 +258,28 @@ def _dsrag_kb_impl(
         {
             "score": round(float(r.get("score", 0.0) or 0.0), 3),
             "doc_id": r.get("doc_id", ""),
+            "section": _segment_section(kb, r),
             "content": r.get("content") or r.get("text") or "",
         }
         for r in results
     ]
     return json.dumps(payload, indent=2, default=str)
+
+
+def _segment_section(kb, result: dict) -> str:
+    """Section title of a segment's first chunk, for section-level
+    citations ("MTG 10-K FY2025, MD&A — Loss Reserves"). Segments can
+    span sections; the first chunk's title is the anchor. Best-effort:
+    returns "" rather than ever failing the tool call."""
+    try:
+        doc_id = result.get("doc_id", "")
+        cs = result.get("chunk_start")
+        if not doc_id or cs is None:
+            return ""
+        chunk = kb.chunk_db.data[doc_id][int(cs)]
+        return chunk.get("section_title", "") or ""
+    except Exception:
+        return ""
 
 
 # ── Tool variants — same name "dsrag_kb", different `doc_id` schemas ──
