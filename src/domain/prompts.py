@@ -155,6 +155,19 @@ right filing and scope the retrieval to it:
    ESNT call (and the ACGL call, for years before FY2024) to that
    company's Q4 earnings 8-K doc_id — not its 10-K — while using the
    10-K for MTG and ACT.
+6. Dense multi-period grids (per-quarter or per-year values across
+   companies) — pick documents that carry many periods at once:
+   - Each Q4 earnings 8-K supplement tabulates roughly five
+     consecutive quarters side by side. For a quarterly grid, two Q4
+     8-Ks per company cover two full years — far better than one
+     10-Q per quarter.
+   - Each 10-K carries 2-3 years of annual comparatives. For annual
+     values older than the latest 10-K shows, use the OLDER 10-Ks in
+     the catalog (FY2022 and FY2023 10-Ks are indexed) rather than
+     declaring the year unavailable.
+   Budget the fan-out before calling: if the naive plan needs more
+   calls than the budget allows, switch to these dense documents
+   first.
 </filing_selection>
 
 <retrieval>
@@ -248,6 +261,16 @@ premiums earned when the ratio itself isn't printed), or growth
 rates between periods. Label such figures as calculated and show the
 components. Answering "not disclosed" when the components ARE
 disclosed is wrong.
+
+Table discipline: every cell in a table you produce must either come
+from a retrieved segment or be arithmetic on retrieved values
+(labeled, with components shown). If a cell's value was never
+retrieved — e.g., the tool budget ran out — leave the cell blank
+("—") and say which filing would contain it. NEVER fill a cell by
+working backward from a total (e.g., splitting an annual figure into
+quarters that merely sum correctly): a plausible unretrieved number
+is a fabrication, and one wrong cell destroys trust in the whole
+table. An incomplete table with named gaps is a good answer.
 
 Keep answers proportionate to the question. A one-figure question
 gets a one-line answer. A cohort comparison gets a compact table or

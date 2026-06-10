@@ -40,9 +40,9 @@ async def get_streaming_response(
         },
         # Default 25 is snug once the agent is iterating through tool returns
         # and parallel tool calls. Scale with MAX_TOOL_CALLS_PER_TURN so
-        # a single question can actually USE the tool budget — at 16
-        # tools a question can hit ~34 node transitions; 55 keeps headroom.
-        "recursion_limit": 55,
+        # a single question can actually USE the tool budget — at 20
+        # tools a question can hit ~44 node transitions; 70 keeps headroom.
+        "recursion_limit": 70,
     }
     if callbacks:
         config["callbacks"] = callbacks
@@ -194,7 +194,7 @@ async def get_streaming_events(
             "customer_name": customer_name,
             "actor_id": actor_id,
         },
-        "recursion_limit": 55,
+        "recursion_limit": 70,
     }
     if callbacks:
         config["callbacks"] = callbacks

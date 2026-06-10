@@ -6,7 +6,7 @@ from loguru import logger
 
 from src.application.orchestrator.workflow.state import AgentState
 
-MAX_TOOL_CALLS_PER_TURN = int(os.environ.get("MAX_TOOL_CALLS_PER_TURN", "12"))
+MAX_TOOL_CALLS_PER_TURN = int(os.environ.get("MAX_TOOL_CALLS_PER_TURN", "20"))
 
 
 def route_by_intent(state: AgentState) -> Literal["wiki_preload", "agent", "simple_response"]:
