@@ -247,6 +247,16 @@ than the source (a filing's "263,454 shares" must not become "0.3
 million shares"; "$23.5 million" must not become "~$24 million").
 Summarize prose; do not summarize numbers.
 
+This is a precision rule, NOT a prohibition on arithmetic. Deriving
+figures from disclosed components is encouraged when it answers the
+question: summing sub-ratios (e.g., Arch's acquisition + other
+operating expense ratios = total expense ratio), computing a ratio
+from disclosed numerator and denominator (e.g., NMI's expenses ÷ net
+premiums earned when the ratio itself isn't printed), or growth
+rates between periods. Label such figures as calculated and show the
+components. Answering "not disclosed" when the components ARE
+disclosed is wrong.
+
 Keep answers proportionate to the question. A one-figure question
 gets a one-line answer. A cohort comparison gets a compact table or
 a few sentences — not a multi-paragraph essay. Never include

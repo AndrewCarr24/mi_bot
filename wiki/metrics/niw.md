@@ -48,11 +48,11 @@ NMI management's Q4 2025 industry estimate was approximately $310 billion, consi
 | MGIC | $60.2B | $55.7B | $46.1B |
 | Radian | $55.2B | $52.0B | n/a |
 | Enact | $51.5B | $51.0B | $53.1B |
-| NMI Holdings | $48.9B | n/a | n/a |
+| NMI Holdings | $48.9B | $46.0B | $40.5B |
+| Arch (U.S. MI) | $48.7B | $48.5B | $43.5B |
 | Essent | $46.6B | $45.6B | $47.7B |
-| Arch (USMI) | (not separately disclosed at total-NIW level; Q4 2025 was the highest of the year) | n/a | n/a |
 
-(MTG_10-K_2025-12-31; RDN_10-K_2025-12-31; ACT_10-K_2025-12-31; NMIH_10-K_2025-12-31; ESNT_10-K_2025-12-31; ACGL_TRANSCRIPT_2025-12-31).
+(MTG_10-K_2025-12-31; RDN_10-K_2025-12-31; ACT_10-K_2025-12-31; NMIH_10-K_2025-12-31; NMIH_10-K_2024-12-31; ESNT_10-K_2025-12-31; ACGL_10-K_2025-12-31 supplemental "Total new insurance written (NIW)" table — $48,705M / $48,479M for 2025 / 2024; ACGL_10-K_2024-12-31 for 2023 — $43,531M).
 
 **Per-MI 2025 market share** (per *Inside Mortgage Finance* and self-reported):
 - MGIC: 19.4% (vs. 18.6% in 2024) (MTG_10-K_2025-12-31).
@@ -88,6 +88,8 @@ NMI management's Q4 2025 industry estimate was approximately $310 billion, consi
 - [ESNT_10-K_2025-12-31] — Essent 2025 / 2024 / 2023 NIW ($46.6B / $45.6B / $47.7B); monthly premium policies comprised 99% of NIW in both 2025 and 2024.
 - [ESNT_TRANSCRIPT_2025-12-31] — Management's "kind of the 15, 16" share self-description.
 - [ACGL_TRANSCRIPT_2025-12-31] — Q4 2025 USMI NIW commentary (highest of the year).
+- [ACGL_10-K_2025-12-31] — Arch U.S. MI total NIW: $48,705M (2025) / $48,479M (2024), from the mortgage-segment supplemental "Total new insurance written (NIW)" table.
+- [ACGL_10-K_2024-12-31] — Arch U.S. MI total NIW $43,531M (2023).
 - [MTG_10-K_2024-12-31] — Cross-check for the 60.7% MGIC persistency low at March 31, 2021.
 - [MTG_TRANSCRIPT_2025-12-31] — 2026 outlook commentary on industry NIW size.
 - [INDUSTRY_PMIERS_2.0_BASE] — Risk-based required asset amount mechanics that drive how NIW translates into PMIERs MRA.
