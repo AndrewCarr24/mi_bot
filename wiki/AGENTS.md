@@ -27,8 +27,9 @@ LLM-Wiki pattern described by Karpathy (April 2026).
      PMIERs (the GSE eligibility framework, including the August 2024
      update), catastrophe impact on MI, CRT and reinsurance.
    - `metrics/*.md` — explainers for the core MI metrics: NIW
-     (new insurance written), IIF (insurance in force), persistency,
-     loss ratio.
+     (new insurance written), NIW mix (FICO/LTV/purchase-refi
+     composition, harmonized cohort tables), IIF (insurance in
+     force), persistency, loss ratio.
    - `AGENTS.md` — this file. Read it before authoring or editing
      wiki pages.
 
