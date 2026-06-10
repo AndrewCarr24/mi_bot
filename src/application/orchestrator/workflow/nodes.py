@@ -174,21 +174,38 @@ async def staging_node(state: AgentState, config: RunnableConfig) -> dict:
         return {}
 
     # Call the disambiguator with the recent prior pairs as context.
-    disambiguated = disambiguate_question(prior_pairs, current_q)
+    disambiguated, guard_fallback = disambiguate_question(prior_pairs, current_q)
 
-    if disambiguated.strip() == current_q.strip():
-        action = "identity"
-    else:
-        action = "rewrote"
+    removals = [
+        RemoveMessage(id=m.id) for m in messages if getattr(m, "id", None)
+    ]
+
+    if guard_fallback:
+        # The rewrite was rejected by a hallucination guard (invented
+        # numbers / question turned into a statement). The original
+        # question may not be self-contained, so pass the prior [Q, A]
+        # pairs through to the agent for THIS turn — the strong
+        # thinking model does its own disambiguation with full context.
+        # Trades one turn of the clean single-question regime for never
+        # handing the agent an unresolvable question.
+        logger.info(
+            f"staging_node: guard-fallback — passing {len(prior_pairs)} prior "
+            f"pair(s) through with original question {current_q[:80]!r}"
+        )
+        passthrough: list = []
+        for q, a in prior_pairs:
+            passthrough.append(HumanMessage(content=q))
+            passthrough.append(AIMessage(content=a))
+        passthrough.append(HumanMessage(content=current_q))
+        return {"messages": removals + passthrough}
+
+    action = "identity" if disambiguated.strip() == current_q.strip() else "rewrote"
     logger.info(
         f"staging_node: {action} — "
         f"{current_q[:80]!r} → {disambiguated[:80]!r}"
     )
 
     # Wipe all messages, leave just the disambiguated current question.
-    removals = [
-        RemoveMessage(id=m.id) for m in messages if getattr(m, "id", None)
-    ]
     return {"messages": removals + [HumanMessage(content=disambiguated)]}
 
 

@@ -419,13 +419,19 @@ explanation, no quotes."""
 def disambiguate_question(
     prior_pairs: list[tuple[str, str]],
     current_question: str,
-) -> str:
+) -> tuple[str, bool]:
     """Single LLM call: turn `current_question` into a self-contained
     question using up to 2 prior [Q, A] pairs as context. `prior_pairs`
     is in chronological order (oldest first). If there are no prior
-    pairs, returns `current_question` unchanged (no LLM call)."""
+    pairs, returns `current_question` unchanged (no LLM call).
+
+    Returns (question, guard_fallback). guard_fallback=True means the
+    rewrite was REJECTED by a hallucination guard and the original
+    question is being returned — the caller should pass the prior
+    turns through to the agent so disambiguation can still happen
+    downstream (the original question may not be self-contained)."""
     if not prior_pairs:
-        return current_question.strip()
+        return current_question.strip(), False
 
     from src.infrastructure.model import get_summary_model
 
@@ -460,7 +466,7 @@ def disambiguate_question(
     if text.lower().startswith("question:"):
         text = text[len("question:"):].strip()
     if not text:
-        return current_question.strip()
+        return current_question.strip(), False
 
     # ── Deterministic guards against rewriter hallucination ──────────
     # Observed live failure: "how does Enact's 2025 persistency compare
@@ -476,9 +482,9 @@ def disambiguate_question(
     if invented:
         logger.warning(
             f"disambiguate: rewrite invented numbers {sorted(invented)} not present "
-            f"in inputs — falling back to original question"
+            f"in inputs — falling back to original question + context passthrough"
         )
-        return current_question.strip()
+        return current_question.strip(), True
 
     # A question must stay a question. If the user asked something
     # ("?") and the rewrite contains no question mark, the rewriter
@@ -486,11 +492,11 @@ def disambiguate_question(
     if current_question.strip().endswith("?") and "?" not in text:
         logger.warning(
             "disambiguate: question rewritten into a statement — "
-            "falling back to original question"
+            "falling back to original question + context passthrough"
         )
-        return current_question.strip()
+        return current_question.strip(), True
 
-    return text
+    return text, False
 
 
 def _ids_to_removals(messages: list[BaseMessage]) -> list[BaseMessage]:
