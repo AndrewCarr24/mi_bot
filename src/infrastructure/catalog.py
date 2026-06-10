@@ -207,3 +207,52 @@ def latest_periods_summary() -> str:
     order = ["10-K", "10-Q", "8-K", "TRANSCRIPT"]
     parts = [f"{form}: {latest[form]}" for form in order if form in latest]
     return " · ".join(parts) if parts else "unknown"
+
+
+# ── Friendly citations ──────────────────────────────────────────────
+# Users see "Enact FY2025 10-K", never "ACT_10-K_2025-12-31". doc_ids
+# remain the retrieval keys; these helpers translate at render time.
+
+_EARNINGS_8K_QUARTER = {1: "Q4", 2: "Q4", 4: "Q1", 5: "Q1", 7: "Q2", 8: "Q2", 10: "Q3", 11: "Q3"}
+
+
+def friendly_citation(doc_id: str) -> str:
+    """Human-readable citation for a doc_id; returns the doc_id itself
+    if it can't be parsed (never fails)."""
+    d = _filing_dict_from_doc_id(doc_id)
+    if d is None:
+        return doc_id
+    company, form, period = d["company"], d["filing_type"], d["period_end"]
+    if d["ticker"] == "INDUSTRY":
+        label = d["filing_type"]
+        suffix = f" ({d['period_label']})" if d["period_label"] else ""
+        return f"{label}{suffix}"
+    year, month = period[:4], int(period[5:7])
+    if form == "10-K":
+        return f"{company} FY{year} 10-K"
+    if form == "10-Q":
+        return f"{company} Q{(month - 1) // 3 + 1} {year} 10-Q"
+    if form == "TRANSCRIPT":
+        return f"{company} Q{(month - 1) // 3 + 1} {year} earnings call"
+    if form == "8-K":
+        # 8-K period is the filing/event date; earnings 8-Ks file the
+        # month or two after quarter end. Jan/Feb filings report the
+        # PRIOR year's Q4.
+        q = _EARNINGS_8K_QUARTER.get(month)
+        if q == "Q4":
+            return f"{company} Q4 {int(year) - 1} earnings 8-K"
+        if q:
+            return f"{company} {q} {year} earnings 8-K"
+        return f"{company} 8-K ({period})"
+    return doc_id
+
+
+_ANY_DOC_ID_RE = re.compile(
+    r"\b(?:MTG|RDN|ESNT|NMIH|ACT|ACGL)_(?:10-K|10-Q|8-K|TRANSCRIPT)_\d{4}-\d{2}-\d{2}\b"
+    r"|\bINDUSTRY_[A-Z0-9._\-]+\b"
+)
+
+
+def replace_doc_ids(text: str) -> str:
+    """Replace every raw doc_id in `text` with its friendly citation."""
+    return _ANY_DOC_ID_RE.sub(lambda m: friendly_citation(m.group(0)), text)

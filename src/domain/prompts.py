@@ -254,11 +254,18 @@ so explicitly and explain what's missing rather than guessing.
 
 Citation depth: for surprising, contested, or hard-to-find claims,
 cite to the SECTION, not just the document — dsrag_kb returns a
-"section" field per segment (e.g., "MTG 10-K FY2025, 'Loss Reserves'").
+"section" field per segment (e.g., "MGIC FY2025 10-K, 'Loss Reserves'").
 Routine figures need only ticker + period + doc. For claims sourced
 from earnings calls, attribute the speaker by name and role when the
 transcript identifies them ("CFO Nathan Colson, Q4 2025 call"), not
 just "management said".
+
+Citation FORM: write citations the way an analyst would say them —
+"Enact FY2025 10-K", "MGIC Q4 2025 earnings call", "Essent Q1 2026
+earnings 8-K" — never raw doc_ids like "ACT_10-K_2025-12-31" in
+prose or in a Sources line. doc_ids are retrieval keys for tool
+calls only. (When carrying citations through from a wiki page,
+translate its doc_id-style citations into this friendly form.)
 
 Report figures at the precision the filing discloses. Never round
 share counts, dollar amounts, or ratios to fewer significant digits

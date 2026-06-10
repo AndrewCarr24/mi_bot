@@ -81,6 +81,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.application.orchestrator.streaming import get_streaming_events  # noqa: E402
 from src.data_layer import get_data_layer  # noqa: E402
+from src.infrastructure.catalog import friendly_citation, replace_doc_ids  # noqa: E402
 
 
 def _get_data_layer_instance():
@@ -307,9 +308,12 @@ async def _handle_rag_query(events, buffered: list[dict]):
     answer: cl.Message | None = None
 
     # Track unique doc_ids the agent retrieved from, in first-seen order,
-    # so we can list them under the answer as plain text.
+    # so we can list them under the answer as plain text. seen_sections
+    # maps doc_id -> first few section titles retrieved from it, for
+    # section-level source rendering.
     source_doc_ids: list[str] = []
     seen_doc_ids: set[str] = set()
+    seen_sections: dict[str, list[str]] = {}
 
     # Has any tool fired this turn? Drives the step rename.
     tool_used = False
@@ -324,7 +328,7 @@ async def _handle_rag_query(events, buffered: list[dict]):
             # Drain anything we buffered before the intent event, then
             # continue with the rest of the stream.
             for event in buffered:
-                answer = await _process_event(event, step, answer, source_doc_ids, seen_doc_ids)
+                answer = await _process_event(event, step, answer, source_doc_ids, seen_doc_ids, seen_sections)
             async for event in events:
                 kind = event.get("kind")
                 if kind == "tool_call" and not tool_used:
@@ -334,7 +338,7 @@ async def _handle_rag_query(events, buffered: list[dict]):
                         event["tool"], event["tool"]
                     )
                     tool_used = True
-                answer = await _process_event(event, step, answer, source_doc_ids, seen_doc_ids)
+                answer = await _process_event(event, step, answer, source_doc_ids, seen_doc_ids, seen_sections)
 
         except Exception as e:
             if answer is None:
@@ -353,10 +357,26 @@ async def _handle_rag_query(events, buffered: list[dict]):
             re.search(r"(?im)^\s*\*{0,2}\s*sources?\s*\*{0,2}\s*[:—\-]", content)
         )
         if not agent_wrote_sources:
-            answer.content = content + "\n\nSource: " + ", ".join(source_doc_ids)
+            answer.content = content + "\n\nSources: " + " · ".join(
+                _format_source(d, seen_sections) for d in source_doc_ids
+            )
 
     if answer is not None:
+        # Translate any raw doc_ids the agent emitted (inline citations,
+        # its own Sources line) into friendly names before the final
+        # render. Retrieval keys are plumbing; users see filings.
+        answer.content = replace_doc_ids(answer.content or "")
         await answer.update()
+
+
+def _format_source(doc_id: str, seen_sections: dict[str, list[str]]) -> str:
+    """One Sources-line entry: friendly name plus up to two retrieved
+    section titles ("Enact FY2025 10-K (Persistency; Loss Reserves)")."""
+    name = friendly_citation(doc_id)
+    secs = seen_sections.get(doc_id) or []
+    if secs:
+        return f"{name} ({'; '.join(secs[:2])})"
+    return name
 
 
 async def _handle_simple(events, buffered: list[dict]):
@@ -388,6 +408,7 @@ async def _process_event(
     answer: cl.Message | None,
     source_doc_ids: list[str],
     seen_doc_ids: set[str],
+    seen_sections: dict[str, list[str]],
 ) -> cl.Message | None:
     """Process one streaming event in the rag_query path. Returns the
     (possibly newly-created) answer message so the caller can keep its
@@ -418,6 +439,11 @@ async def _process_event(
         if doc_id and doc_id not in seen_doc_ids:
             seen_doc_ids.add(doc_id)
             source_doc_ids.append(doc_id)
+        section = (event.get("section") or "").strip()
+        if doc_id and section:
+            secs = seen_sections.setdefault(doc_id, [])
+            if section not in secs and len(secs) < 3:
+                secs.append(section)
 
     # intent events are consumed in on_message before we get here; no-op
     # if one slips through.
