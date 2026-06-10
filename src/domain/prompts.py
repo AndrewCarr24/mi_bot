@@ -433,9 +433,11 @@ Metrics (one per core MI metric):
 - metrics/iif — Insurance In Force (IIF): definition, mechanics,
   cohort comparisons
 - metrics/loss_ratio — Loss ratio for an MI: GAAP definition,
-  industry tendency to negative ratios in benign credit cycles.
-  Loss ratio ONLY — for expense ratio or combined ratio questions
-  there is no wiki page; return wiki_slug=null
+  industry tendency to negative ratios in benign credit cycles
+- metrics/expense_ratio — Expense ratio: per-company definitions and
+  methodology traps (MGIC's NPW denominator, Arch's split ratios),
+  harmonized FY2024-FY2025 cohort table. Use for expense-ratio or
+  combined-ratio questions, single-company or cohort
 - metrics/niw — New Insurance Written (NIW): definition, cohort
   trajectories, drivers
 - metrics/niw_mix — NIW composition by FICO band, LTV band, and
@@ -447,6 +449,10 @@ Metrics (one per core MI metric):
   sensitivity, cohort comparisons
 
 Topics (regulatory / industry framing):
+- topics/capital_return — Dividends, buybacks, special dividends,
+  payout ratios, and repurchase authorizations across the cohort;
+  per-company capital-return models and funding-pipeline constraints.
+  Use for "capital returned", buyback, or dividend questions
 - topics/catastrophe_impact_on_mi — How natural disasters
   (hurricanes, etc.) flow through MI delinquency and loss reserves
 - topics/crt_reinsurance — Credit risk transfer / reinsurance

@@ -29,7 +29,10 @@ NIW reflects the **original** principal amount (not subsequent unpaid balance), 
 
 **Third, NIW drives PMIERs required assets.** Because the risk-based required asset amount under PMIERs is calculated against the in-force book (which grows with NIW), writing more NIW or shifting NIW toward higher-risk attributes (lower FICO, higher LTV, higher DTI) increases Minimum Required Assets — all else equal (INDUSTRY_PMIERS_2.0_BASE Exhibit A; see [[topics/pmiers]]). Reinsurance credit can offset this through Section 707 reinsurance reductions; in 2025, MGIC reports approximately 87.2% of its 2025 NIW was subject to QSR transactions (MTG_10-K_2025-12-31), and Essent / Enact / NMI run similar forward-flow QSR programs.
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+**Q1 2026 update — refi-driven acceleration**: Q1 2026 NIW jumped across the cohort on returning refinance volume: Arch U.S. MI $14.8B (+61% YoY) (ACGL_8-K_2026-04-28); MGIC $14.4B (+41%, with refinances at 21% of NIW vs. 6% a year earlier) (MTG_8-K_2026-04-29); Radian mortgage $13.5B (+42%) (RDN_8-K_2026-05-06); Enact $13B (+30%) (ACT_8-K_2026-05-05); NMI $12.3B (vs. $9.2B) (NMIH_8-K_2026-04-30); Essent $11.1B (ESNT_8-K_2026-05-08). The refi re-emergence that began in 2025 accelerated markedly.
+
 
 **PMI industry NIW** (per *Inside Mortgage Finance* via MGIC):
 
@@ -94,6 +97,13 @@ NMI management's Q4 2025 industry estimate was approximately $310 billion, consi
 - [MTG_TRANSCRIPT_2025-12-31] — 2026 outlook commentary on industry NIW size.
 - [INDUSTRY_PMIERS_2.0_BASE] — Risk-based required asset amount mechanics that drive how NIW translates into PMIERs MRA.
 - [INDUSTRY_USMI_WHITE_PAPER_2020-10] — Industry-level 2019 NIW context (1.3M borrowers / $385B).
+
+- [ACGL_8-K_2026-04-28] — Q1 2026 U.S. MI NIW $14.8B.
+- [MTG_8-K_2026-04-29] — Q1 2026 NIW $14.4B; refi share 21%.
+- [RDN_8-K_2026-05-06] — Q1 2026 mortgage NIW $13.5B.
+- [ACT_8-K_2026-05-05] — Q1 2026 NIW $13B.
+- [NMIH_8-K_2026-04-30] — Q1 2026 NIW $12.3B.
+- [ESNT_8-K_2026-05-08] — Q1 2026 NIW $11.1B.
 
 ## Related
 

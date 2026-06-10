@@ -26,7 +26,13 @@ Third, **Bermuda domicile and the 2025 Bermuda Tax Credits Act materially shape 
 
 For mortgage-insurance-focused analysts, the most relevant headline is that Arch's U.S. primary mortgage insurance business is being managed through a constrained-origination market: NIW remains modest, IIF is roughly flat year-over-year, and persistency was 81.8% in Q4 2025 (ACGL_TRANSCRIPT_2025-12-31).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+### Q1 2026 update (quarter ended 2026-03-31)
+
+U.S. primary mortgage insurance NIW was $14.8 billion — up 61% from $9.2 billion in Q1 2025, the strongest quarter in the five-quarter disclosure window (ACGL_8-K_2026-04-28). Credit quality continued to tighten: 79.1% of Q1 2026 NIW carried FICO scores of 740 or above (vs. 74.4% a year earlier) (ACGL_8-K_2026-04-28).
+
+**Year-end 2025 detail:**
 
 Group-level results for FY 2025 (ACGL_10-K_2025-12-31; ACGL_TRANSCRIPT_2025-12-31):
 
@@ -83,6 +89,8 @@ Capital return has accelerated. Through 2025 Arch repurchased $1.9 billion of co
 - [ACGL_10-K_2025-12-31] — Primary source for the corporate structure (Bermuda exempted company, three reportable segments — Insurance, Reinsurance, Mortgage — operating worldwide), historical mortgage segment expansion (US platform established 2014, UGC acquired 2016, Arch Insurance (EU) authorized 2011 for European/U.K. MI, Arch LMI Pty Ltd. APRA-authorized in 2019, Westpac LMI acquired in August 2021 and renamed Arch Indemnity, Arch LMI converted to a services company in December 2022), full-year 2025 capital ($26.9B), $16.5B net premiums written, $4.4B net income to common shareholders, BVPS of $65.11 / $53.11, Bermuda headquarters, S&P 500 status, and historical reinsurance acquisitions (Barbican 2019, Somerset Bridge 2021).
 - [ACGL_TRANSCRIPT_2025-12-31] — Q4 2025 earnings call: source for $3.7B FY ATTOI / $9.84 EPS / 17.1% ROE / 22.6% BVPS growth / 21.2% Q4 NI ROE / $1.1B Q4 ATTOI (+26% YoY), the segment underwriting income figures (Insurance Q4 $119M / Reinsurance FY $1.6B record / Mortgage FY $1.0B fourth consecutive year), USMI specifics (81.8% Q4 persistency, 2.17% Q4 delinquency rate, IIF flat YoY, Q4 NIW highest of year), 80.6% consolidated Q4 combined ratio, $118M Q4 favorable PYD (2.8 points), $164M Q4 cat losses, $47.4B investable assets, $589M combined Q4 NII + equity-method ($434M + $155M), $6.2B FY operating cash flow, 14.9% FY 2025 ETR / 16-18% 2026 guidance, the Bermuda Tax Credits Act 2025 / QRTCs (Reinsurance 2026 OER guidance 3.9-4.5%, corporate expenses guidance $80-90M), $1.9B 2025 share repurchases / 21.2M shares / 5.6% of starting count, $349M January-2026-to-earnings-call buybacks, $1.9B peak-zone 1-in-250 PML / 8.2% of tangible equity, 2026 cat load 7-8% of NEP, January 2026 reinsurance renewals (10-20% rate decreases on property cat and short-tail XOL), and Arch's 25-year history with >15% BVPS CAGR.
 - [ACGL_10-K_2024-12-31] — Cross-check for prior-year segment loss ratios and historical context.
+
+- [ACGL_8-K_2026-04-28] — Q1 2026: U.S. primary MI NIW $14.8B (+61% YoY), 79.1% of NIW at FICO >=740.
 
 ## Related
 

@@ -32,7 +32,10 @@ When a borrower refinances, sells the home, or pays down the loan to the point w
 
 **Fourth, single-premium policies are different.** For single-premium policies, where the premium is collected upfront and earned over the estimated life of the policy, higher-than-expected persistency can *reduce* profitability because the policy remains in force longer than assumed at pricing. (Conversely, for monthly-premium policies, higher persistency *increases* profitability.) Per Enact: "the profitability of our single premium business increases when persistency rates are lower" (ACT_10-K_2025-12-31).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+**Q1 2026 update**: persistency continued its gradual decline as refinance activity returned — MGIC annual persistency 84.0% (from 84.8% at YE 2025) (MTG_8-K_2026-04-29); NMI 82.2% (from 83.4%) (NMIH_8-K_2026-04-30); Enact 80% (from 84% a year earlier) (ACT_8-K_2026-05-05); Radian quarterly-annualized 81.3% (RDN_8-K_2026-05-06). Directionally consistent across the cohort: the lock-in effect is easing but persistency remains well above 2020-2021 refi-boom lows.
+
 
 **Year-end 2025 persistency by MI**:
 
@@ -93,6 +96,11 @@ These note-rate distributions imply that persistency on the 2020-2022 vintages w
 - [ACGL_TRANSCRIPT_2025-12-31] — Arch USMI Q4 2025 persistency 81.8%.
 - [ACGL_TRANSCRIPT_2024-12-31] — Arch USMI Q4 2024 persistency context.
 - [INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09] — HOPA cancellation framework (78% automatic, 80% upon borrower request).
+
+- [MTG_8-K_2026-04-29] — Q1 2026 annual persistency 84.0%.
+- [NMIH_8-K_2026-04-30] — Q1 2026 annual persistency 82.2%.
+- [ACT_8-K_2026-05-05] — Q1 2026 persistency 80%.
+- [RDN_8-K_2026-05-06] — Q1 2026 quarterly-annualized persistency 81.3%.
 
 ## Related
 

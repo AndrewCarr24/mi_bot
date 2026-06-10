@@ -26,7 +26,13 @@ Third, **the existing mortgage insurance franchise remains the cash-generation e
 
 Within the U.S. mortgage insurance market, Radian's NIW share was approximately 18% in 2025 (vs. 17% in 2024); the PMI industry's share of the total insured mortgage market was approximately 38% in 2025 (down from 41% in 2024), with FHA at approximately 35% (up from 34%) (RDN_10-K_2025-12-31).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+### Q1 2026 update (quarter ended 2026-03-31)
+
+Radian's first quarter as a multi-line specialty insurer following the February 2, 2026 Inigo close. Net income from continuing operations was $129 million ($0.93 per diluted share), versus $152 million in Q1 2025; book value per share grew 10% year-over-year to $35.67 (RDN_8-K_2026-05-06). Mortgage NIW was $13.5 billion — up 42% from $9.5 billion in Q1 2025 (RDN_8-K_2026-05-06). Quarterly-annualized persistency was 81.3% (RDN_8-K_2026-05-06). On the Q1 2026 call, CEO Rick Thornberry framed the quarter as "an important and defining moment for Radian — our first as a global multi-line specialty insurer," while cautioning that "this quarter is not about declaring victory, it's about establishing momentum" (RDN_TRANSCRIPT_2026-03-31).
+
+**Year-end 2025 detail:**
 
 For the fiscal year ended December 31, 2025 (RDN_10-K_2025-12-31; RDN_TRANSCRIPT_2025-12-31):
 
@@ -89,6 +95,9 @@ Capital return shifted in 2025 to make room for Inigo. During 2025 the company r
 - [RDN_10-K_2025-12-31] — Primary source for 2025 financial results and balance-sheet detail (continuing-operations net income $618M / $4.39 EPS, $282.5B primary IIF, $74.7B primary RIF, $55.2B NIW, $1.6B PMIERs Cushion, $1.8B holdco liquidity, $795M Radian Guaranty distributions to Radian Group), the Q3 2025 segment recast eliminating "All Other" and reclassifying Mortgage Conduit / Title / Real Estate Services to discontinued operations, the September 2025 strategic announcements (Inigo agreement and divestiture plan), the $600M Intercompany Note (December 29, 2025; 10-year; 6.50%; PA Insurance Department approval), the Inigo subsidiaries (Inigo Managing Agent Limited, Inigo Corporate Member Limited, Syndicate 1301), the layered QSR/XOL Agreements (2012 through 2027), and the August 2024 PMIERs Updates phase-in.
 - [RDN_TRANSCRIPT_2025-12-31] — Q4 2025 earnings call: source for $159M Q4 net income from continuing ops / $1.15 EPS, 13.5% Q4 ROE / 13.1% FY ROE, $35.29 BVPS (+13% YoY), $237M Q4 net premiums earned, $1.2B FY revenues, $246M FY operating expenses, the $1.67B Inigo close on February 2, 2026 ($1.16B Inigo tangible equity / 1.4x multiple; $170M expected pretax accretion / 200+ bps ROE accretion at 25% U.K. tax rate), 13.5M shares repurchased for $430M / $576M total 2025 stockholder return / 8% share-count reduction, Q4 2025 default inventory (~25,000 / 2.56%), Q4 2025 reserve development ($35M favorable / $22M net provision / $57M new-default provision), 92.5% cumulative cure rate assumption / 7.5% initial default-to-claim, 38 bps in-force premium yield, the Q4 2025 $373M XOL transaction, $1.8B YE2025 holdco liquidity / ~$350M post-Inigo / $200M January 2026 revolver draw, ~$600M expected 2026 Radian Guaranty distributions / $140M Q1 2026 dividend, the divestiture process timeline (Q3 2026 completion), and the $110M YE2025 net carrying value of held-for-sale entities (after a $62M Q4 capital extraction).
 - [RDN_10-K_2024-12-31] — Cross-check for 2024 comparatives ($275.1B IIF, $72.1B RIF, $52.0B NIW, $885M YE2024 holdco liquidity, $604.4M net income).
+
+- [RDN_8-K_2026-05-06] — Q1 2026: continuing-ops net income $129M / $0.93, BVPS $35.67 (+10% YoY), mortgage NIW $13.5B, quarterly-annualized persistency 81.3%.
+- [RDN_TRANSCRIPT_2026-03-31] — Q1 2026 call: first-quarter-as-specialty-insurer framing.
 
 ## Related
 

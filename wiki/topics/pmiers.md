@@ -62,7 +62,10 @@ Three reasons PMIERs is the central regulatory artifact for U.S. private mortgag
 
 **Third, the rule is administered with discretion.** Both Fannie Mae and Freddie Mac retain the right, in their sole discretion, to modify, waive, or amend any provision of PMIERs, and have broad discretion to interpret it (INDUSTRY_PMIERS_2.0_BASE; INDUSTRY_PMIERS_GUIDANCE_2024-01). This means the GSEs can issue interim guidance, raise the Minimum Required Assets for an individual approved insurer where they determine the insurer has retained risk beyond traditional primary or pool MI, or impose remediation actions ranging from heightened reporting to suspension or termination of approved-insurer status (INDUSTRY_PMIERS_2.0_BASE Sections 703 and 901). The GSEs frequently evaluate PMIERs for additional interim changes (RDN_10-K_2025-12-31).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+**Q1 2026 update**: Enact's PMIERs sufficiency held at 162% (~$1.9 billion above requirements), flat with Q4 2025 (ACT_8-K_2026-05-05). NMI's available assets grew to $3.63 billion from $3.50 billion at year-end (NMIH_8-K_2026-04-30). The August 2024 investment-risk deductions continue phasing in through September 30, 2026 — the final phase-in step lands within the next two quarters (ACGL_10-K_2025-12-31).
+
 
 **Per-MI PMIERs status at year-end 2025**:
 
@@ -177,6 +180,9 @@ The trajectory of PMIERs since 2015 has been one of steady codification (2015 �
 - [RDN_10-K_2024-12-31] — Radian Guaranty YE 2024 status: Available Assets $6.0B and PMIERs Cushion of $2.2B *"or 56% over Minimum Required Assets"* → implied MRA ~$3.85B and sufficiency ratio ~156%.
 - [NMIH_10-K_2024-12-31] — NMI YE 2024 status: Available Assets $3,108M vs. Net Required Assets $1,829M → ~170% sufficiency on the Available÷Required basis (NMI's own framing: 70% on the (Available−Required)÷Required basis).
 - [ACGL_10-K_2024-12-31] — Arch YE 2024 status: PMIER sufficiency ratio of 186% across the eligible mortgage insurers (AMIC + UGRIC); pro-forma impact of Guidance 2024-01 quantified as a 17% reduction to Available Assets and a 154% pro-forma sufficiency ratio if fully phased in at YE 2024.
+
+- [ACT_8-K_2026-05-05] — Q1 2026 PMIERs sufficiency 162% / $1.9B excess.
+- [NMIH_8-K_2026-04-30] — Q1 2026 PMIERs available assets $3.63B.
 
 ## Related
 

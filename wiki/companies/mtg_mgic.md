@@ -24,7 +24,13 @@ Second, **the reinsurance program has materially restructured how MGIC manages c
 
 Third, **MGIC has become a high-payout-ratio capital-return story**. Across 2025 the company returned approximately $915 million to shareholders through dividends and repurchases, equating to a 124% payout ratio of the year's net income; the share count was reduced by 12% over the year, the per-share quarterly dividend was raised in Q3 2025 (the fifth consecutive annual increase), and management characterizes the firm as prioritizing prudent IIF growth alongside capital return rather than maximizing one over the other (MTG_TRANSCRIPT_2025-12-31). The company's exposure to FHA pricing dynamics is the principal external swing factor: the FHA accounted for an estimated 34.3% of the low-down-payment market in 2025 (versus 33.5% in 2024 and 33.2% in 2023) and the VA for 26.8% (versus 24.5% and 21.5%), so further FHA pricing actions or VA program expansion would directly affect MGIC's growth runway (MTG_10-K_2025-12-31).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+### Q1 2026 update (quarter ended 2026-03-31)
+
+NIW accelerated to $14.4 billion — up 41% from $10.2 billion in Q1 2025 and the largest first quarter since 2022 — driven substantially by returning refinance volume: refinances were 21% of NIW (vs. 17% in Q4 2025 and just 6% a year earlier) (MTG_8-K_2026-04-29). Annual persistency ticked down to 84.0% (from 84.8% at year-end 2025) (MTG_8-K_2026-04-29). On capital: the board authorized an additional $750 million share repurchase program in late April 2026, and MGIC paid a $400 million dividend to the holding company; over the prior four quarters, repurchases totaled $750 million and shareholder dividends $138 million (MTG_TRANSCRIPT_2026-03-31).
+
+**Year-end 2025 detail:**
 
 For the fiscal year ended December 31, 2025 (MTG_10-K_2025-12-31; MTG_TRANSCRIPT_2025-12-31):
 
@@ -90,6 +96,9 @@ The headline credit signal in 2025 was modest normalization rather than deterior
 - [MTG_10-K_2025-12-31] — Primary source for full-year 2025 financial highlights ($738M net income, $3.14 EPS, $1.2B revenues, $303.1B IIF, $81.2B RIF, $60.2B NIW), 19.4% PMI market share, FHA/VA market shares, customer concentration (top 10 = 32%, largest = 16% of NIW), $5.7B PMIERs Available Assets / $2.5B excess, 73.8% of IIF and 87.2% of NIW under QSR, $800M MGIC dividends to holdco, $89M 2026 ordinary dividend capacity, Moody's A3→A2 upgrade and S&P stable→positive outlook revision, $0.56 dividend per share for 2025, 5.25% Senior Notes due 2028, 2.43% YE2025 delinquency rate, Wisconsin domicile and 1984 incorporation date, and segment reporting structure.
 - [MTG_TRANSCRIPT_2025-12-31] — Q4 2025 earnings call: source for $169M Q4 net income / $0.75 EPS, 14.3% FY ROE / 13% Q4 ROE, $23.47 BVPS (+13% YoY), the $300B IIF milestone, 85% YE2025 persistency, 748 average credit score at origination, 38 bps in-force premium yield, 4.0% investment book yield, $201M FY 2025 expenses with $190-$200M 2026 guidance, the $2.8B / ~47% PMIERs reinsurance credit figure, $1.0B holding-company liquidity, the $915M total capital return / 124% payout / 12% share-count reduction, the 15% Q3 dividend increase / fifth consecutive annual increase, Q4 2025 specifics ($33M dividends + 6.8M shares for $189M), January 2026 buyback (2.7M shares for $73M) and $0.15/share dividend, and the Q4 2025 reinsurance actions (the $250M XOL on 2021 NIW, 40% QS on 2027 NIW, 2022-NIW QSR renegotiation cutting cost ~40%, and the eighth ILN providing $324M of loss protection in January 2026).
 - [MTG_10-K_2024-12-31] — Cross-check for 2024 comparatives ($55.7B NIW, $750M MGIC-to-holdco dividend, 18.6% market share, 37% top-10 customer concentration, $0.49 dividend per share).
+
+- [MTG_8-K_2026-04-29] — Q1 2026: NIW $14.4B (+41% YoY), refinance share 21%, annual persistency 84.0%.
+- [MTG_TRANSCRIPT_2026-03-31] — Q1 2026 call: new $750M repurchase authorization, $400M holdco dividend, prior-four-quarter capital return detail.
 
 ## Related
 

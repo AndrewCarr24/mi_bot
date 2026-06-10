@@ -37,7 +37,7 @@ sys.path.insert(0, str(_REPO_ROOT / "pipelines"))
 # Register Bedrock embedding before KB load (matches build_wiki.py)
 import bedrock_embedding  # noqa: F401, E402
 
-WIKI_ROOT = _REPO_ROOT / "data.mi" / "wiki"
+WIKI_ROOT = _REPO_ROOT / "wiki"
 REPORT_PATH = _REPO_ROOT / "data.mi" / "wiki_lint_report.md"
 
 

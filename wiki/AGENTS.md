@@ -25,11 +25,12 @@ LLM-Wiki pattern described by Karpathy (April 2026).
    - `topics/*.md` — regulatory and industry topic pages: GSE
      relationship, U.S. mortgage market, MI regulatory landscape,
      PMIERs (the GSE eligibility framework, including the August 2024
-     update), catastrophe impact on MI, CRT and reinsurance.
+     update), catastrophe impact on MI, CRT and reinsurance, capital
+     return (dividends/buybacks across the cohort).
    - `metrics/*.md` — explainers for the core MI metrics: NIW
      (new insurance written), NIW mix (FICO/LTV/purchase-refi
      composition, harmonized cohort tables), IIF (insurance in
-     force), persistency, loss ratio.
+     force), persistency, loss ratio, expense ratio.
    - `AGENTS.md` — this file. Read it before authoring or editing
      wiki pages.
 
