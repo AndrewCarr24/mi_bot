@@ -1,6 +1,7 @@
 """Chains for the router, the RAG agent, and the simple-response path."""
 
 import json
+import re
 import os
 from typing import Literal, Optional
 
@@ -458,7 +459,38 @@ def disambiguate_question(
     text = text.strip('"\'')
     if text.lower().startswith("question:"):
         text = text[len("question:"):].strip()
-    return text or current_question.strip()
+    if not text:
+        return current_question.strip()
+
+    # ── Deterministic guards against rewriter hallucination ──────────
+    # Observed live failure: "how does Enact's 2025 persistency compare
+    # to the other MI companies?" was rewritten into the STATEMENT
+    # "Enact's 2025 persistency of 82% is higher than Radian's 78% and
+    # MGIC's 79%, but lower than Essent's 84%" — Radian/MGIC/Essent
+    # figures fabricated from model memory. Prompt rules alone don't
+    # pin down the small non-thinking rewriter, so enforce in code:
+    source_text = current_question + " " + " ".join(q + " " + a for q, a in prior_pairs)
+    source_numbers = set(re.findall(r"\d{2,}(?:\.\d+)?", source_text))
+    rewrite_numbers = set(re.findall(r"\d{2,}(?:\.\d+)?", text))
+    invented = rewrite_numbers - source_numbers
+    if invented:
+        logger.warning(
+            f"disambiguate: rewrite invented numbers {sorted(invented)} not present "
+            f"in inputs — falling back to original question"
+        )
+        return current_question.strip()
+
+    # A question must stay a question. If the user asked something
+    # ("?") and the rewrite contains no question mark, the rewriter
+    # answered instead of rewriting (the T27-class failure).
+    if current_question.strip().endswith("?") and "?" not in text:
+        logger.warning(
+            "disambiguate: question rewritten into a statement — "
+            "falling back to original question"
+        )
+        return current_question.strip()
+
+    return text
 
 
 def _ids_to_removals(messages: list[BaseMessage]) -> list[BaseMessage]:
