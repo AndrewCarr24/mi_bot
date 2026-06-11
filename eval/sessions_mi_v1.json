@@ -154,5 +154,77 @@
         "expected": "Radian's >=740 share of NIW: the answer should give Radian's figure for the year in context \u2014 2023 (65.4%) is the most natural reading; giving both 2023 (65.4%) and 2024 (69.6%) or stating the year explicitly is also correct. Must be Radian >=740 NIW share, with the year stated."
       }
     ]
+  },
+  {
+    "session_id": "S11-long-session-window-cliff",
+    "category": "8-turn research session with beyond-window callback",
+    "turns": [
+      {
+        "user": "What was MGIC's FY2025 NIW?",
+        "expected": "Approximately $60.2 billion (MGIC primary NIW, FY2025)."
+      },
+      {
+        "user": "and its loss ratio?",
+        "expected": "MGIC's FY2025 loss ratio was 5.1%."
+      },
+      {
+        "user": "how about persistency?",
+        "expected": "MGIC's annual persistency was approximately 84.8% at year-end 2025 (85% per the earnings call is also acceptable). Must be MGIC."
+      },
+      {
+        "user": "now give me the same three metrics for Essent",
+        "expected": "Essent FY2025: NIW ~$46.6B; loss ratio 16.8% MI segment (or 15.7% consolidated, labeled); persistency 85.7%. All three metrics, all Essent."
+      },
+      {
+        "user": "which of the two has the lower expense ratio?",
+        "expected": "Essent \u2014 16.1% (MI segment, FY2025) vs MGIC's 21.4%. Noting MGIC's net-premiums-written denominator caveat is a plus. Must compare MGIC vs Essent (the two companies in context)."
+      },
+      {
+        "user": "what did Essent management say about credit on the latest call?",
+        "expected": "On the Q1 2026 call, CEO Mark Casale said they are 'not seeing any real cracks' in credit. Directionally: credit performing well, no major concerns. Must be the Q1 2026 (most recent) call."
+      },
+      {
+        "user": "did Radian buy back stock in 2025?",
+        "expected": "Yes \u2014 approximately $430 million of repurchases (13.5 million shares) in FY2025; buybacks were paused after the Inigo acquisition close."
+      },
+      {
+        "user": "go back to the NIW figure you gave me at the start \u2014 how much higher is it than the company's 2024 number?",
+        "expected": "ACCEPTABLE: (a) correctly recalls the session started with MGIC's NIW and computes $60.2B vs $55.7B = ~$4.5B (~8%) higher; or (b) honestly states it is unsure which earlier figure is meant and asks which company (graceful degradation). FAILURE: confidently computing with the wrong company's NIW (e.g., Radian's or Essent's) without flagging uncertainty \u2014 silent wrongness is the failure mode under test."
+      }
+    ]
+  },
+  {
+    "session_id": "S12-long-cohort-drilldown",
+    "category": "7-turn cohort drill-down with re-derivable callback",
+    "turns": [
+      {
+        "user": "Give me FY2025 loss ratios for all six MIs",
+        "expected": "Arch mortgage segment (0.4)% (negative); MGIC 5.1%; Radian MI segment 7.1%; NMI 9.6%; Enact 11%; Essent MI segment 16.8%."
+      },
+      {
+        "user": "why is Arch's negative?",
+        "expected": "Favorable prior-year reserve development exceeded losses on new delinquency notices \u2014 reserve releases on prior delinquencies (post-COVID cushion) outweighed current-year loss content. Directionally correct reserve-release explanation suffices."
+      },
+      {
+        "user": "and why is Essent's the highest?",
+        "expected": "Essent's MI-segment provision reflects higher current-year losses ($224.3M) only partially offset by smaller favorable prior-year development ($78.9M); restatement from the Q4 2025 segment recast is relevant context. Directional: its reserve-release cushion is more exhausted / current-year losses seasoning. Reasonable directional explanation passes."
+      },
+      {
+        "user": "what was Essent's delinquency rate at year-end?",
+        "expected": "Approximately 2.50% at December 31, 2025."
+      },
+      {
+        "user": "how does that compare to NMI?",
+        "expected": "NMI's default rate was 1.12% at year-end 2025 \u2014 Essent's (2.50%) is more than double NMI's. Must compare the two."
+      },
+      {
+        "user": "remind me which company had the negative loss ratio?",
+        "expected": "Arch (mortgage segment), at (0.4)% for FY2025. The question is re-derivable even without seeing the first turn; the answer must be Arch."
+      },
+      {
+        "user": "and its expense ratio?",
+        "expected": "Arch's mortgage-segment expense ratio was approximately 15.0% in FY2025 (1.1% acquisition + 13.9% other operating). 'Its' = Arch from the prior turn \u2014 answering with another company's ratio is wrong."
+      }
+    ]
   }
 ]
