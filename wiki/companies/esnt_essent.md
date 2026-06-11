@@ -43,7 +43,7 @@ For the fiscal year ended December 31, 2025 (ESNT_10-K_2025-12-31; ESNT_TRANSCRI
 - **NIW**: $46.6 billion in 2025, versus $45.6 billion in 2024 and $47.7 billion in 2023
 - **Primary IIF**: $248.4 billion at December 31, 2025, up 1.9% from $243.6 billion at year-end 2024
 - **12-month persistency**: 85.7% at December 31, 2025; roughly 60% of in-force loans carry a note rate of 6% or lower
-- **Portfolio quality**: weighted-average original LTV of 93%, weighted-average FICO of 747; default rate of 2.5% (20,210 defaults) at year-end 2025, up from 2.29% at September 30, 2025 and from 18,439 defaults at year-end 2024
+- **Portfolio quality**: weighted-average original LTV of 93%, weighted-average FICO of 747; default rate of 2.5% (20,210 defaults) at year-end 2025, up from 2.29% at September 30, 2025 and from 18,439 defaults at year-end 2024 (weighted averages per ESNT_8-K_2026-02-13; defaults per ESNT_10-K_2025-12-31)
 - **Average net premium rate**: 35 basis points for FY 2025 (the same level recorded in 2023 and 2024); fourth-quarter base premium rate was 41 bps and net premium rate was 34 bps
 - **Mortgage Insurance net premiums earned**: increased 1.3% year-over-year, driven by higher average IIF ($246.5B in 2025 vs. $241.6B in 2024)
 - **Mortgage Insurance net provision for losses and LAE**: approximately $145 million for 2025; Q4 was $55.2 million

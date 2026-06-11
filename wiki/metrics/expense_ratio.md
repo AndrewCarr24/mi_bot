@@ -1,6 +1,6 @@
 # Expense Ratio (MI-specific)
 
-> The expense ratio measures operating cost as a share of premium — but unlike the loss ratio, the six MIs do NOT compute it uniformly, so cross-company comparisons require methodology care. At a harmonized level, FY2025 expense ratios ran from roughly 15% (Arch mortgage segment, acquisition + other operating combined) to 27.7% (Radian MI segment), with the cohort middle around 16-22%. Every MI's ratio improved (declined) from 2024 to 2025, reflecting expense discipline and, at several MIs, higher premium denominators (ACGL_10-K_2025-12-31; ESNT_10-K_2025-12-31; MTG_10-K_2025-12-31; ACT_10-K_2025-12-31; RDN_10-K_2025-12-31).
+> The expense ratio measures operating cost as a share of premium — but unlike the loss ratio, the per-company definitions differ — MGIC's glossary uses net premiums written as the denominator while peers use net premiums earned, Arch discloses acquisition and operating components separately rather than one ratio, and NMI does not print a ratio at all (see the per-company definitions below) — so cross-company comparisons require methodology care. At a harmonized level, FY2025 expense ratios ran from roughly 15% (Arch mortgage segment, acquisition + other operating combined) to 27.7% (Radian MI segment), with the cohort middle around 16-22%. Every MI's ratio improved (declined) from 2024 to 2025, reflecting expense discipline and, at several MIs, higher premium denominators (ACGL_10-K_2025-12-31; ESNT_10-K_2025-12-31; MTG_10-K_2025-12-31; ACT_10-K_2025-12-31; RDN_10-K_2025-12-31).
 
 ## What it is
 
