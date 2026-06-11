@@ -22,13 +22,21 @@ See README.md for setup, run commands, the local→deploy loop, and orchestrator
 
 **`data/` is a symlink** to `data.mi/` or `data.financebench/`. All code reads through `data/...` — never hardcode either real path. Use `./scripts/switch_kb.sh` to flip; the LangSmith eval pins MI explicitly via `DSRAG_STORE_DIR`.
 
+## Quarterly refresh
+
+Corpus + wiki updates after each earnings season follow
+`docs/runbook_quarterly_refresh.md` (fetch → parse → index → wiki
+refresh → lint → eval gates). Don't improvise the cycle — the runbook
+encodes the venv split, the EX-99 merge gotcha, and the lint triage
+protocol.
+
 ## Evaluation
 
 **Default to `eval/langsmith_eval.py`** over the CSV-based `eval/run_eval.py`. LangSmith experiments give cross-run comparison and same-config aggregation; CSVs are standalone. Keep the CSV path for fast local sanity checks only.
 
 Two evaluators per question: `correctness` (LLM judge vs reference) and `retrieval_correctness` (deterministic doc_id check; catches structural failures where retrieval succeeded but cap+trim dropped data downstream). A faithfulness evaluator was prototyped and removed for cost; restore `FaithfulnessJudgment` and add it to evaluators in `cmd_run` to re-enable.
 
-LangSmith dataset: `mi_28q_v1`. Tag experiments with `--tag <descriptive>` (e.g. `champion-off`, `refactor-pre`).
+LangSmith datasets: `mi_28q_v1` (single-turn), `mi_v2_18q` (21 questions: cohort/FICO-LTV/recency/ambiguity), and `mi_sessions_v1` (multi-turn sessions via `eval/session_eval.py` — judged per turn; the only gate that catches conversational failures like staging rewriter bugs). Tag experiments with `--tag <descriptive>` (e.g. `champion-off`, `refactor-pre`).
 
 ## Things that will trip you up
 
