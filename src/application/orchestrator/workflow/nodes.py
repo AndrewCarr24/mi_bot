@@ -1,6 +1,7 @@
 """LangGraph nodes: router, cache check, agent (ReAct), simple response, memory post-hook."""
 
 import os
+import re
 import uuid
 
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, RemoveMessage, ToolMessage
@@ -66,6 +67,44 @@ def _condense_history(
     if _history_strategy() == "summarize":
         return summarize_history(messages, question_text)
     return trim_history(messages), []
+
+
+# Questions that explicitly reference the conversation itself — the
+# rewriter must never attempt these (it can't see beyond its window).
+_META_CONVERSATIONAL_RE = re.compile(
+    r"\b(you (gave|said|mentioned|told|showed|cited|quoted)|"
+    r"at the start|start of (this|the|our) (chat|conversation|session)|"
+    r"earlier in (this|the|our)|remind me|go(ing)? back to|"
+    r"as (you|we) (said|discussed|noted))\b",
+    re.IGNORECASE,
+)
+
+# Plainly context-dependent phrasings: if the rewriter returns one of
+# these verbatim, it failed to resolve the reference.
+_DEICTIC_RE = re.compile(
+    r"\b(the two|the three|both( of (them|those))?|the same|"
+    r"that (figure|number|metric|ratio|company|one|year|quarter)|"
+    r"those (figures|numbers|companies|years))\b"
+    r"|^\s*(and|what about|how about|now)?\s*(its|their)\b",
+    re.IGNORECASE,
+)
+
+
+def _passthrough_messages(
+    messages: list[BaseMessage],
+    prior_pairs: list[tuple[str, str]],
+    current_q: str,
+) -> list[BaseMessage]:
+    """Wipe state and re-inject the prior [Q, A] pairs plus the user's
+    original question — the guard-fallback path where the thinking agent
+    disambiguates with real context instead of a rewrite."""
+    removals = [RemoveMessage(id=m.id) for m in messages if getattr(m, "id", None)]
+    out: list[BaseMessage] = list(removals)
+    for q, a in prior_pairs:
+        out.append(HumanMessage(content=q))
+        out.append(AIMessage(content=a))
+    out.append(HumanMessage(content=current_q))
+    return out
 
 
 async def staging_node(state: AgentState, config: RunnableConfig) -> dict:
@@ -173,31 +212,56 @@ async def staging_node(state: AgentState, config: RunnableConfig) -> dict:
             return {"messages": leftovers}
         return {}
 
+    # Rule A — meta-conversational references ("the figure you gave me",
+    # "remind me", "at the start") refer to conversation HISTORY, which
+    # the rewriter structurally cannot see beyond its window. Observed
+    # failure: it resolved "the NIW figure you gave me at the start" to
+    # the wrong company (the oldest thing in its window). Never let the
+    # rewriter touch these — pass context through to the thinking agent.
+    if _META_CONVERSATIONAL_RE.search(current_q):
+        logger.info(
+            f"staging_node: meta-conversational reference — skipping rewriter, "
+            f"passing {len(prior_pairs)} prior pair(s) through with "
+            f"{current_q[:80]!r}"
+        )
+        return {"messages": _passthrough_messages(messages, prior_pairs, current_q)}
+
     # Call the disambiguator with the recent prior pairs as context.
     disambiguated, guard_fallback = disambiguate_question(prior_pairs, current_q)
+
+    # Rule B — if the rewrite came back IDENTICAL to a question that
+    # plainly depends on context ("which of the two...", "the same for
+    # X"), resolution failed: a context-free agent can't answer it.
+    # Observed failure: "which of the two has the lower expense ratio?"
+    # passed through verbatim, history wiped, agent had to ask which two.
+    if (
+        not guard_fallback
+        and disambiguated.strip() == current_q.strip()
+        and _DEICTIC_RE.search(current_q)
+    ):
+        logger.info(
+            f"staging_node: identity rewrite on deictic question — "
+            f"passing context through with {current_q[:80]!r}"
+        )
+        guard_fallback = True
 
     removals = [
         RemoveMessage(id=m.id) for m in messages if getattr(m, "id", None)
     ]
 
     if guard_fallback:
-        # The rewrite was rejected by a hallucination guard (invented
-        # numbers / question turned into a statement). The original
-        # question may not be self-contained, so pass the prior [Q, A]
-        # pairs through to the agent for THIS turn — the strong
-        # thinking model does its own disambiguation with full context.
-        # Trades one turn of the clean single-question regime for never
-        # handing the agent an unresolvable question.
+        # The rewrite was rejected (invented numbers / statement-ified /
+        # identity on a deictic question). The original question may not
+        # be self-contained, so pass the prior [Q, A] pairs through to
+        # the agent for THIS turn — the strong thinking model does its
+        # own disambiguation with full context. Trades one turn of the
+        # clean single-question regime for never handing the agent an
+        # unresolvable question.
         logger.info(
             f"staging_node: guard-fallback — passing {len(prior_pairs)} prior "
             f"pair(s) through with original question {current_q[:80]!r}"
         )
-        passthrough: list = []
-        for q, a in prior_pairs:
-            passthrough.append(HumanMessage(content=q))
-            passthrough.append(AIMessage(content=a))
-        passthrough.append(HumanMessage(content=current_q))
-        return {"messages": removals + passthrough}
+        return {"messages": _passthrough_messages(messages, prior_pairs, current_q)}
 
     action = "identity" if disambiguated.strip() == current_q.strip() else "rewrote"
     logger.info(
