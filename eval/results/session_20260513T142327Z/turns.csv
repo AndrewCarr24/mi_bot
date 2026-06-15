@@ -1,0 +1,321 @@
+turn,question,expected,answer,correct,rationale,agent_seconds,agent_cost_usd,judge_cost_usd,kb_calls_in_turn,messages_after_turn,tokens_after_turn,summarize_fires_in_turn
+1,"What was MGIC Investment Corporation's PMIERs Available Assets and excess over Minimum Required Assets at December 31, 2024?","Available Assets totaled approximately $5.8 billion, exceeding Minimum Required Assets by approximately $2.2 billion (sufficiency ratio of approximately 1.6x).","At December 31, 2024, MGIC's PMIERs **Available Assets** totaled **$5.8 billion**, with an **excess of $2.2 billion** over its **Minimum Required Assets** (MTG, 10-K FY2024).",True,"The model answer accurately captures all key facts from the reference: Available Assets of $5.8 billion, excess of $2.2 billion over Minimum Required Assets, and cites the 10-K filing. The sufficiency ratio is not mentioned but its absence doesn't contradict the reference.",14.95,0.002027,0.001474,1,2,84,0
+2,"How did Radian Group's primary mortgage insurance in force change from December 31, 2023 to December 31, 2024?","Primary insurance in force grew from approximately $270.0 billion at year-end 2023 to approximately $275.1 billion at year-end 2024, an increase of about $5.1 billion (~1.9%). 2024 NIW of $52.0 billion drove the growth, partially offset by cancellations.","Radian Group's primary mortgage insurance in force (IIF) was:
+
+- **$270.0 billion** at December 31, 2023
+- **$275.1 billion** at December 31, 2024
+
+That's an increase of **$5.1 billion**, or approximately **1.9%**, driven by $52.0 billion of new insurance written in 2024 net of cancellations and other portfolio adjustments (RDN 10-K, FY 2024).",True,"The model answer accurately captures all key facts: the starting balance ($270.0B), ending balance ($275.1B), the increase amount ($5.1B), the percentage change (1.9%), and the driver ($52.0B NIW offset by cancellations). All figures match the reference answer.",16.48,0.002223,0.00158,1,4,208,0
+3,"What was Essent Group's new insurance written (NIW) for the year ended December 31, 2024?","Approximately $45.6 billion, compared to $47.7 billion in FY2023 and $63.1 billion in FY2022.","Essent Group's new insurance written (NIW) for the year ended December 31, 2024 was **$45.6 billion** ($45,561,332,000). (ESNT, FY 2024 10-K & Q4 2024 earnings release)",True,"The model answer correctly identifies Essent Group's NIW for 2024 as $45.6 billion, matching the reference answer exactly. The model provides the precise figure with additional detail ($45,561,332,000) and cites appropriate sources.",18.92,0.003636,0.00143,2,6,283,0
+4,"What was NMI Holdings' annualized persistency rate at December 31, 2024, and how did it compare to year-end 2023?","85% at December 31, 2024, compared to 86% at December 31, 2023. NMI noted persistency remains historically high due to slower mortgage refinancing activity given the prevailing interest-rate environment.","NMI Holdings' annualized persistency rate was **85% at December 31, 2024**, down from **86% at December 31, 2023** (NMIH, FY 2024 10-K). The company noted that persistency remained historically high due to the continued slowdown in mortgage refinancing activity tied to the prevailing interest rate environment.",True,"The model answer accurately captures all key facts: 85% persistency rate at December 31, 2024, down from 86% at year-end 2023, and correctly explains the reason (slower refinancing due to interest rate environment). The citation to the 10-K is appropriate additional context.",15.01,0.002135,0.001519,1,8,399,0
+5,"In its FY2024 10-K, did MGIC report favorable or unfavorable prior-year loss reserve development on previously received delinquency notices? Approximately what was the dollar amount?",Favorable. Re-estimation of loss reserves on previously received delinquency notices resulted in approximately $212.5 million of favorable development in FY2024 (versus $208.5 million favorable in FY2023). Driven primarily by lower expected claim rates as home price appreciation enabled some borrowers to cure delinquencies through property sale.,"**Favorable.** MGIC reported approximately **$212.5 million** of favorable prior-year loss reserve development on previously received delinquency notices in its FY2024 10-K (the ""Composition of losses incurred"" table shows $(212,476) thousand, and the narrative describes it as ""favorable development of approximately $212.5 million""). The favorable development primarily resulted from a decrease in the expected claim rate on previously received delinquencies, driven by home price appreciation that allowed some borrowers to cure through property sales.",True,"Model answer correctly identifies favorable development of approximately $212.5 million, matching the reference answer exactly. It also captures the key driver: lower expected claim rates due to home price appreciation enabling borrowers to cure delinquencies through property sales. All material facts align.",14.49,0.002313,0.00154,1,10,593,0
+6,"What were NMI Holdings' three largest states by primary risk in force concentration at December 31, 2024?","California (10.1%), Texas (8.6%), and Florida (7.3%).","At December 31, 2024, NMI Holdings' three largest states by primary risk in force concentration were:
+
+1. **California** — 10.1% of primary RIF
+2. **Texas** — 8.6%
+3. **Florida** — 7.3%
+
+(NMIH_10-K_2024-12-31, Geographic Dispersion table)",True,"The model answer correctly identifies all three states and their exact percentages: California (10.1%), Texas (8.6%), and Florida (7.3%). The answer matches the reference answer precisely and includes proper source documentation.",45.09,0.00582,0.001389,3,12,689,0
+7,"What was Arch Capital Group's mortgage insurance subsidiaries' PMIERs Sufficiency Ratio at December 31, 2024, and how did it change from year-end 2023?","186% at December 31, 2024, down from 213% at December 31, 2023 — a decline of about 27 percentage points.","**186% at December 31, 2024**, down from **213% at December 31, 2023** — a decrease of 27 percentage points (ACGL 2024 10-K, p. 90 — ACGL_10-K_2024-12-31; ACGL 2023 10-K, p. 87 — ACGL_10-K_2023-12-31).
+
+The decline was driven in part by the August 2024 PMIERs update (Guidance 2024-01), which introduced new deductions to available assets for investment risk. On a pro-forma basis with full implementation of that update, the ratio would have been approximately 154% at year-end 2024 (the actual impact is being phased in through September 2026).",True,"The model answer correctly captures the key facts: 186% at December 31, 2024, down from 213% at December 31, 2023, representing a 27 percentage point decline. The additional context about the PMIERs update and pro-forma ratio is supplementary and does not contradict the reference answer.",17.23,0.003331,0.001646,2,14,873,0
+8,Did Arch Capital Group repurchase common shares in fiscal year 2024? Approximately how much?,Yes. During 2024 Arch repurchased approximately $24 million of common shares under its Board-authorized share repurchase program. (Down sharply from $586 million in 2022; no repurchases in 2023.),"Yes. In fiscal year 2024, Arch Capital Group repurchased approximately **$24 million of common shares** (0.3 million shares at an average price of $89.65 per share) under its share repurchase program (ACGL, FY 2024 10-K). This was a relatively modest amount — down sharply from $586 million in FY 2022 — as the company instead returned $1.9 billion to shareholders through a special cash dividend of $5.00 per share during 2024.",True,"The model answer correctly captures the key facts: Arch repurchased approximately $24 million of common shares in 2024, down from $586 million in 2022. The additional details (share count, price, special dividend) provide helpful context without contradicting the reference answer.",17.52,0.002444,0.001525,1,16,1013,0
+9,"Did Enact Holdings pay a special dividend during 2024, and what was its regular quarterly common-stock dividend rate at year-end 2024?",No special dividend in 2024 (Enact had paid special dividends of $0.71/share in Q4 2023 and $1.12/share in Q4 2022). The regular quarterly dividend rose from $0.16 per share to $0.185 per share starting in Q2 2024 and was paid at $0.185/share each quarter through year-end.,"**Enact did not pay a special dividend in 2024.** The company's two special dividends were both in earlier years: $1.12 per share in Q4 2022 and $0.71 per share in Q4 2023. For 2024, all four quarterly dividends were ordinary.
+
+At year-end 2024, the regular quarterly dividend rate was **$0.185 per share**, which had been increased from $0.16 beginning with the June 2024 payment (the March 2024 payment was still at $0.16). Total regular dividends declared and paid in 2024 were $0.715 per share (ACT, 10-K 2024-12-31, Notes to Consolidated Financial Statements, Cash Dividends table).",True,"The model answer correctly states: (1) no special dividend in 2024, (2) special dividends were $1.12/share in Q4 2022 and $0.71/share in Q4 2023, and (3) the regular quarterly dividend rate at year-end 2024 was $0.185/share, increased from $0.16 starting Q2 2024. All key facts match the reference answer.",19.28,0.002792,0.001821,1,18,1203,0
+10,"In its FY2024 10-K, what does Arch Capital identify as the expected impact of the August 2024 GSE updates to PMIERs on its mortgage insurance subsidiaries' available assets and Sufficiency Ratio?","The August 2024 PMIERs updates introduce new deductions to available assets for investment risk, becoming effective March 31, 2025 and phasing in through September 30, 2026. If fully implemented as of December 31, 2024 (without phase-in), the changes would have reduced Arch's available assets by approximately 17% and lowered the pro-forma PMIERs Sufficiency Ratio to approximately 154% (versus the reported 186%).","In its FY2024 10-K (ACGL_10-K_2024-12-31), Arch Capital reports that its eligible mortgage insurers (AMIC and UGRIC) had a **PMIERs sufficiency ratio of 186%**. For the expected impact of Guidance 2024-01 (the August 2024 GSE updates to PMIERs), Arch quantifies a **pro-forma 17% reduction to Available Assets** and a **pro-forma sufficiency ratio of 154%** if the new rules were fully phased in at year-end 2024.",True,"The model answer accurately captures all key facts from the reference: the 17% reduction to available assets, the pro-forma sufficiency ratio of 154%, the current reported ratio of 186%, and the context of August 2024 GSE updates to PMIERs. The additional detail about AMIC and UGRIC is supplementary context that doesn't contradict the reference.",9.01,0.000946,0.001729,0,20,1365,0
+11,"What was MGIC's new insurance written (NIW) in Q3 2024, and how did it compare to Q2 2024?","Q3 2024 NIW was $17.2 billion, up from $13.5 billion in Q2 2024 — a sequential increase of approximately $3.7 billion (~27%).","**MGIC, Q3 2024 NIW: $17.2 billion**, compared to **$13.5 billion in Q2 2024** — a sequential increase of **$3.7 billion (+27%).**",True,"The model answer captures all key facts: Q3 2024 NIW of $17.2 billion, Q2 2024 NIW of $13.5 billion, sequential increase of $3.7 billion, and 27% growth rate. All figures match the reference answer exactly.",22.19,0.004307,0.001483,2,22,1430,0
+12,"What was Essent Group's primary insurance in force at March 31, 2025, and how did it change from December 31, 2024?","Approximately $244.7 billion at March 31, 2025, up from approximately $243.6 billion at December 31, 2024 — an increase of about $1.1 billion (~0.4%).","Essent's primary (U.S. mortgage) insurance in force (IIF) was **$244.7 billion** at March 31, 2025, up from **$243.6 billion** at December 31, 2024 — an increase of **$1.0 billion** (ESNT, Q1 2025 10-Q).",True,"The model answer captures all key facts: the March 31, 2025 figure ($244.7B), December 31, 2024 figure ($243.6B), and the increase ($1.0B vs $1.1B reference). The $0.1B difference in stated increase is within rounding tolerance and doesn't contradict the core facts.",33.24,0.005883,0.00159,3,24,1519,0
+13,"What were Radian Guaranty's PMIERs Available Assets and PMIERs Excess Available Assets at March 31, 2025?","PMIERs Available Assets totaled approximately $6.0 billion at March 31, 2025, with PMIERs Excess Available Assets of approximately $2.1 billion.","At March 31, 2025, Radian Guaranty's PMIERs **Available Assets** were **$6.0 billion**, resulting in a **PMIERs Cushion (excess available assets) of $2.1 billion** (53% above Minimum Required Assets).",True,"The model answer correctly captures the key facts: PMIERs Available Assets of $6.0 billion and PMIERs Excess Available Assets of $2.1 billion at March 31, 2025. The additional context about the 53% cushion above Minimum Required Assets is supplementary and does not contradict the reference answer.",13.91,0.001885,0.001538,1,26,1606,0
+14,"For full-year 2024, what was the aggregate U.S. primary mortgage insurance new insurance written (NIW) reported by the six MI cohort issuers (MGIC, Radian, Essent, NMI, Enact, and Arch — U.S. primary segment for Arch)?","Approximately $298.8 billion in aggregate U.S. primary NIW in 2024: MGIC $55.7B, Radian $52.0B, Essent $45.6B, NMI $46.0B, Enact $51.0B, and Arch U.S. primary $48.5B.","Here are the FY2024 U.S. primary mortgage insurance NIW figures for each of the six cohort issuers:
+
+| Company | FY2024 U.S. Primary NIW |
+|---|---|
+| **MGIC** (MTG) | $55.7 billion |
+| **Radian** (RDN) | $52.0 billion |
+| **Enact** (ACT) | $51.0 billion |
+| **Arch Capital** (ACGL) — U.S. primary segment only | $48.5 billion |
+| **NMI Holdings** (NMIH) | $46.0 billion |
+| **Essent** (ESNT) | $45.6 billion |
+| **Aggregate** | **$298.8 billion** |
+
+*Sources: MTG 10-K FY2024 (NIW table: $55.7B); RDN 10-K FY2024 (NIW table: $51,984M); ACT 10-K FY2024 (Key Metrics: $51,002M); ACGL 10-K FY2024 (NIW table: $48,479M for U.S. primary); NMIH 10-K FY2024 (NIW table: $46,044M); ESNT 10-K FY2024 (stated ~$45.6B).*",True,"The model answer captures all key facts from the reference answer: all six companies listed with identical NIW figures ($55.7B, $52.0B, $45.6B, $46.0B, $51.0B, $48.5B) and the correct aggregate total of $298.8 billion. The model provides additional helpful context (ticker symbols, sources) without contradicting any reference information.",33.69,0.007831,0.001962,6,28,1848,0
+15,"What was the combined U.S. primary insurance-in-force (IIF) at year-end 2024 across the six MI cohort issuers (MGIC, Radian, Essent, NMI, Enact, Arch — Arch U.S. primary segment only)?","Approximately $1.58 trillion combined U.S. primary IIF at YE 2024: MGIC $295.4B, Radian $275.1B, Essent $243.6B, NMI $210.2B, Enact $268.8B, and Arch U.S. primary $290.4B.","**Combined U.S. primary IIF at December 31, 2024 across the six-MI cohort:**
+
+| MI | Primary IIF (year-end 2024) | Source |
+|---|---|---|
+| MGIC | $295.4B | MTG_10-K_2024-12-31 |
+| Arch (US primary segment) | $290.4B | ACGL_10-K_2024-12-31 |
+| Radian | $275.1B | RDN_10-K_2024-12-31 |
+| Enact | $268.8B | ACT_10-K_2024-12-31 |
+| Essent | $243.6B | ESNT_10-K_2024-12-31 |
+| NMI Holdings | $210.2B | NMIH_10-K_2024-12-31 |
+| **Total** | **≈ $1.58 trillion** | |
+
+All figures are direct primary IIF (before reinsurance). The six companies collectively held approximately **$1.58 trillion** in U.S. primary insurance-in-force at year-end 2024.",True,"The model answer captures all key facts from the reference: all six companies listed with exact matching figures ($295.4B, $275.1B, $243.6B, $210.2B, $268.8B, $290.4B) and the combined total of approximately $1.58 trillion. The presentation is well-organized with proper sourcing.",32.39,0.009353,0.001859,6,30,2063,0
+16,"How did MGIC's primary delinquency rate trend quarter-by-quarter through 2024 (Q1, Q2, Q3, Q4)?","MGIC's primary delinquency rate moved 2.15% at Q1 2024, 2.09% at Q2 2024, 2.24% at Q3 2024, and 2.40% at year-end (Q4) 2024.","MGIC's primary delinquency rate through 2024:
+
+| Period | Delinquency Rate |
+|---|---|
+| Q4 2023 (prior year-end) | 2.25% |
+| **Q1 2024** (Mar 31) | **2.15%** |
+| **Q2 2024** (Jun 30) | **2.09%** |
+| **Q3 2024** (Sep 30) | **2.24%** |
+| **Q4 2024** (Dec 31) | **2.40%** |
+
+The rate declined through the first half of 2024 (bottoming at 2.09% in Q2) as favorable cure activity continued to outpace new notices, then rose steadily in Q3 (2.24%) and Q4 (2.40%) as new delinquency notices picked up. The full-year movement from 2.25% (Q4 2023) to 2.40% (Q4 2024) reflects a modest net increase of 15 bps.
+
+Sources: MTG 10-Q for each quarter-end (Mar 31, Jun 30, Sep 30, Dec 31, 2024).",True,"The model answer captures all key facts from the reference: Q1 2024 at 2.15%, Q2 2024 at 2.09%, Q3 2024 at 2.24%, and Q4 2024 at 2.40%. The additional context about the trend pattern and year-over-year comparison is supplementary and does not contradict the reference.",27.26,0.007469,0.00184,4,32,2267,0
+17,"At year-end 2024, what was the dispersion in PMIERs sufficiency ratios across the six MI cohort issuers — which had the highest, which had the lowest, and what was the spread?","PMIERs sufficiency ratios at YE 2024 ranged from approximately 156% (Radian Guaranty, lowest, with a $2.2B/56% cushion over MRA) to 186% (Arch's combined eligible mortgage insurers AMIC and UGRIC, highest), a spread of about 30 percentage points. Other issuers: Essent 178%, NMI ~170%, Enact 167%, MGIC ~161%.","At year-end 2024, the PMIERs sufficiency ratios across the six U.S. private mortgage insurers were:
+
+| Issuer | Sufficiency Ratio (Available ÷ Required) |
+|---|---|
+| **Arch** (USMI / eligible MIs) | **186%** ← highest |
+| Essent Guaranty | 178% |
+| NMI Holdings (NMIC) | ~170%* |
+| Enact (EMICO) | 167% |
+| MGIC | ~161% |
+| **Radian Guaranty** | **~156%** ← lowest |
+
+*NMI reports on an alternate basis ((Available − Required) ÷ Required), which was 70%; the equivalent Available÷Required ratio is ~170%.
+
+**Highest:** Arch (186%)  
+**Lowest:** Radian (~156%)  
+**Spread:** Approximately **30 percentage points** from Radian to Arch.
+
+(Source: ACGL_10-K_2024-12-31; ESNT_10-K_2024-12-31; NMIH_10-K_2024-12-31; ACT_10-K_2024-12-31; MTG_10-K_2024-12-31; RDN_10-K_2024-12-31.)",True,"Model answer accurately captures all key facts: Arch highest at 186%, Radian lowest at ~156%, spread of ~30 percentage points, and all intermediate ratios (Essent 178%, NMI ~170%, Enact 167%, MGIC ~161%) match reference. Includes helpful clarification on NMI's alternate reporting basis.",10.81,0.000933,0.001901,0,34,2514,0
+18,"After the August 2024 PMIERs update revising Available Asset credit factors, which MI cohort issuer disclosed the largest pro-forma reduction to its YE 2024 PMIERs sufficiency ratio if the update were fully effective immediately, and how does it compare to the other five issuers' disclosures?","Arch Capital (ACGL) disclosed by far the largest pro-forma impact: its PMIERs sufficiency would drop from a reported 186% to a pro-forma 154% (a 32-percentage-point decline), with Available Assets falling 17% if fully effective at YE 2024. MGIC quantified a roughly 1% / $50M decrease in Available Assets (sufficiency essentially unchanged). Radian, Essent, NMI, and Enact each stated they do not expect the update to have a material impact on their PMIERs position.","**Arch Capital disclosed the largest pro-forma reduction.** At year-end 2024, Arch reported that if Guidance 2024-01 were fully effective immediately, its available assets would fall by **17%** and its PMIERs sufficiency ratio would drop from **186% to 154%** — a reduction of **32 percentage points** (ACGL 10-K 2024).
+
+**MGIC** disclosed a far smaller impact: available assets would decline by **~1% / ≈$50 million**, lowering its sufficiency from ≈161% to ≈160% (MTG 10-K 2024).
+
+The other four issuers each stated the update would not be material and **did not disclose specific pro-forma sufficiency-ratio figures**:
+
+- **Enact** — ""do not expect the impact … to be material"" (ACT 10-K 2024)
+- **Essent** — expects to ""remain in full compliance … no impact on … sufficiency ratio"" (ESNT 10-K 2024)
+- **Radian** — ""do not expect the PMIERs Updates to have a material impact on [the] capital position, … Cushion or … investment portfolio asset allocation strategy"" (RDN 10-K 2024)
+- **NMI** — ""do not expect the updated PMIERs to have a material impact on our available assets and risk-based required assets"" (NMIH 10-K 2024)
+
+In short, Arch was the only issuer that quantified a material pro-forma hit (17% AA reduction / 32pp sufficiency decline). MGIC disclosed a de minimis 1% AA reduction. The other four characterized the impact as immaterial with no specific numbers.",True,Model answer accurately captures all key facts: Arch's 32pp sufficiency decline (186% to 154%) and 17% AA reduction; MGIC's ~1%/$50M impact; and the other four issuers' immaterial impact disclosures. Includes specific citations and comprehensive comparison across all six issuers.,49.07,0.008666,0.001996,6,36,2942,0
+19,"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","Here is the FY2024 aggregate capital returned to common shareholders across the six MI cohort issuers, from each company's FY2024 10-K:
+
+| Company | Share Repurchases | Common Dividends (incl. specials) | Total |
+|---|---|---|---|
+| **ACGL** (Arch Capital) | $24M | $1,881M ($1.9B special) | **$1,905M** |
+| **ACT** (Enact) | $244M | $112M (regular only) | **$356M** |
+| **ESNT** (Essent) | $102.7M | $118.0M (regular only) | **$220.7M** |
+| **MTG** (MGIC) | $566.6M | $130.5M (regular only) | **$697.1M** |
+| **NMIH** (NMI Holdings) | $97.7M | $0 (no dividends paid) | **$97.7M** |
+| **RDN** (Radian) | $224M | $153M (regular + dividend equivalents) | **$377.0M** |
+| **Aggregate** | **$1,259.0M** | **$2,394.5M** | **$3,653.5M** |
+
+**Total FY2024 aggregate capital returned: ~$3.65 billion.**
+
+The total was heavily weighted by Arch Capital's $1.9 billion special dividend. Excluding that one-time item, the aggregate across the other five pure-play MI companies was ~$1.75 billion.",True,"Model answer captures all key facts: aggregate ~$3.65B (vs. reference ~$3.67B, within 1% tolerance), per-issuer breakdowns match reference values, and correctly identifies Arch's $1.9B special dividend as the dominant component.",82.45,0.01452,0.00191,8,38,3243,0
+20,"At year-end 2024, what was the range of primary delinquency / default rates across the six MI cohort issuers — which had the lowest, which had the highest, and what was the spread?","Primary delinquency / default rates at YE 2024 ranged from 1.01% (NMI Holdings, lowest, reflecting its newer post-2013 portfolio) to 2.45% (Enact, highest), a spread of approximately 144 basis points. Other issuers: Arch U.S. primary 2.09%, Essent 2.27%, MGIC 2.40%, and Radian 2.4%.","Here are the year-end 2024 primary delinquency/default rates across the six MI issuers:
+
+| Issuer | Delinquency / Default Rate |
+|---|---|
+| **NMI Holdings** | **1.01%** ← lowest |
+| Arch Capital (U.S. primary MI) | 2.09% |
+| Essent | 2.27% |
+| Radian | 2.4% |
+| MGIC | 2.40% |
+| **Enact** | **2.45%** ← highest |
+
+- **Lowest:** NMI Holdings at 1.01% (NMIH has the smallest and youngest insured portfolio of the cohort — $210B IIF vs. $275–$295B at the larger peers — and a weighted-average FICO of 757, the highest in the group).
+- **Highest:** Enact at 2.45%, which cited hurricane-related defaults from Helene and Milton as a contributor (Enact's FY2024 default inventory rose ~1,200 loans year-over year).
+- **Spread:** 1.44 percentage points (2.45% – 1.01%).
+
+The cohort is broadly split between the two smaller/newer issuers (NMI ~1.0%, Arch ~2.1%) and the four larger legacy players (Essent 2.27%, Radian 2.4%, MGIC 2.40%, Enact 2.45%), reflecting both portfolio seasoning differences and the impact of the 2024 hurricane season on certain books.",True,"The model answer accurately captures all key facts: NMI Holdings lowest at 1.01%, Enact highest at 2.45%, spread of 144 basis points (1.44 percentage points), and all other issuer rates match the reference (Arch 2.09%, Essent 2.27%, MGIC 2.40%, Radian 2.4%). Additional context provided is accurate and relevant.",40.72,0.009969,0.002027,6,40,3561,0
+21,"How did NMI Holdings' (NMIH) net premiums earned trend across full years 2023, 2024, and 2025?","NMI's net premiums earned grew from $510.8M in 2023 to $564.7M in 2024 (+11%) to $602.2M in 2025 (+7%) — a three-year increase of about 18%. The growth was driven by an expanding monthly IIF and direct monthly-pay premium receipts, partially offset by increased ceded reinsurance premiums.","NMI Holdings' net premiums earned (in thousands) across the three fiscal years:
+
+| Fiscal Year | Net Premiums Earned | YoY Change |
+|---|---|---|
+| **2023** | $510,768 ($510.8M) | — |
+| **2024** | $564,688 ($564.7M) | +$53.9M (+11%) |
+| **2025** | $602,212 ($602.2M) | +$37.5M (+7%) |
+
+The trend is a steady upward climb, driven primarily by growth in monthly insurance-in-force (IIF) and monthly pay premium receipts, partially offset by higher premiums ceded under reinsurance treaties.",True,"The model answer captures all key facts: exact net premiums earned figures for 2023-2025 ($510.8M, $564.7M, $602.2M), correct YoY growth percentages (+11%, +7%), and the drivers (expanding IIF and monthly-pay premiums, offset by increased ceded reinsurance). The presentation is more detailed but consistent with the reference.",20.06,0.004329,0.001752,3,42,3717,0
+22,"For full-year 2024, what is the range of GAAP loss ratios reported across the six MI cohort issuers, and which issuers had negative versus positive loss ratios?","Cohort 2024 GAAP loss ratios ranged from -4.4% (Arch mortgage segment, lowest) to +8.8% (Essent MI segment, highest) — a spread of 13.2 percentage points. Three issuers had negative loss ratios because favorable prior-period reserve development exceeded current-year accruals: Arch -4.4%, MGIC -1.5%, and Radian -0.2%. Three issuers had positive loss ratios: Essent 8.8%, NMI 5.6%, and Enact ~4%.","**FY 2024 GAAP Loss Ratios — Six MI Cohort Issuers**
+
+| Issuer | Segment Level | Loss Ratio (FY 2024) | Positive / Negative |
+|---|---|---|---|
+| Arch Capital | Mortgage segment | **(4.4)%** | Negative |
+| MGIC | Single-segment | **(1.5)%** | Negative |
+| Radian | Mortgage Insurance segment | **(0.2)%** | Negative |
+| NMI Holdings | Consolidated | **5.6%** | Positive |
+| Enact Holdings | Consolidated | **4%** | Positive |
+| Essent | Mortgage Insurance segment | **8.8%** (restated; originally reported 8.1%) | Positive |
+
+**Range: (4.4)% (Arch) to 8.8% (Essent MI segment).**
+
+**Three issuers with negative loss ratios:** Arch (–4.4%), MGIC (–1.5%), and Radian (–0.2%). The negative figures reflect favorable prior-year reserve releases on COVID-era delinquencies still exceeding losses on new delinquency notices in 2024.
+
+**Three issuers with positive loss ratios:** Essent (8.8%), NMI (5.6%), and Enact (4%). By 2024, these three had already transitioned into positive territory as their current-year loss emergence outpaced remaining favorable development, foreshadowing the broader upward move across the cohort in 2025.
+
+*Sources: ACGL_10-K_2025-12-31, MTG_10-K_2025-12-31, RDN_10-K_2025-12-31, NMIH_10-K_2025-12-31, ACT_10-K_2025-12-31, ESNT_10-K_2025-12-31 (all per the loss ratio wiki page).*",True,"Model answer accurately captures all key facts: correct range (-4.4% to +8.8%), correct spread (13.2 percentage points), correct identification of three negative issuers (Arch, MGIC, Radian) and three positive issuers (Essent, NMI, Enact), and correct explanation of negative ratios due to favorable prior-period reserve development.",12.59,0.001024,0.002116,0,44,4093,0
+23,"According to the GSEs' August 2024 PMIERs update (Guidance 2024-01), what is the implementation phase-in schedule, and what substantive change does it make to the PMIERs standards?","The August 21, 2024 PMIERs update refined the Available Assets definition by introducing new investment-risk deductions based on asset class and credit rating (more granular bond credit-quality and liquidity tiers) and establishing new limits on assets backed by residential mortgages or commercial real estate. The phase-in is over 24 months: 25% effective March 31, 2025; 50% effective September 30, 2025; 75% effective March 31, 2026; and 100% effective September 30, 2026. Separately, the COVID-19 Disaster Related Capital Charge for COVID-19 Defaulted Loans was eliminated effective March 31, 2025.","**PMIERs Guidance 2024-01 — Implementation Phase-In Schedule**
+
+The transition schedule uses a graduated ""add-back"" approach, where the difference between the prior Available Assets framework and the new rules is added back in stages:
+
+| Quarter Ending | Add-Back from Prior Framework | Implied Phase-In of New Rules |
+|---|---|---|
+| March 31, 2025 and June 30, 2025 | 75% | 25% |
+| September 30, 2025 and December 31, 2025 | 50% | 50% |
+| March 31, 2026 and June 30, 2026 | 25% | 75% |
+| September 30, 2026 onward | 0% | 100% |
+
+Source: INDUSTRY_PMIERS_GUIDANCE_2024-01 transition schedule.
+
+**Substantive Changes**
+
+Guidance 2024-01 tightens the definition of **Available Assets** under Section 703 in several ways:
+
+1. **Bond eligibility and rating haircuts.** Bonds must be rated by S&P, Moody's, Fitch, A.M. Best, DBRS, or KBRA; unrated bonds are ineligible. A new graduated haircut table applies by credit rating — 0.20% for AAA, scaling up to 25.00% for B+ to B- (with a 2-year maximum remaining term), and 100% for CCC+ and below. Full faith and credit U.S. government securities carry a 0% haircut.
+
+2. **Higher equity discount.** The haircut on common and preferred shares was raised from 25% to 50%.
+
+3. **New exclusions.** Mortgage insurance–linked notes (MILNs), all non-agency residential mortgage-backed securities (RMBS), BB-rated bonds with terms over 5 years, B-rated bonds with terms over 2 years, all bonds rated CCC+ or below, and non-agency CMBS rated below BBB-.
+
+4. **Concentration limits.**
+   - GSE debt/MBS: ≤ 25% of Available Assets
+   - Asset-backed securities (ABS): ≤ 20%
+   - Aggregate of sub-investment-grade bonds + common/preferred shares: ≤ 5%
+   - Non-agency CMBS: ≤ 5%
+   - Surplus notes: capped at 9% of Minimum Required Assets
+   - Corporate-owned life insurance (COLI): ≤ 10% of the risk-based required asset amount
+
+5. **Reporting additions.** Section 802 was amended to require new reporting elements for COLI and a new security-level dataset (Exhibit H).
+
+The net effect is a stricter asset-eligibility regime that reduces the types and amounts of investments that qualify as Available Assets, making the PMIERs financial test somewhat more conservative. Each of the six MIs assessed the fully phased-in impact in their 2025 10-Ks and concluded it was not expected to be material to their PMIERs compliance position.",True,"The model answer accurately captures the key facts: the 24-month phase-in schedule (25%, 50%, 75%, 100% at the specified dates), the refinement of Available Assets definition with investment-risk deductions by asset class and credit rating, and the elimination of the COVID-19 Disaster Related Capital Charge effective March 31, 2025. The detailed substantive changes align with the reference answer's core points.",15.25,0.001304,0.002433,0,46,4738,0
+24,"How has investment portfolio pre-tax yield evolved from FY2022 through FY2024 across the six MI cohort issuers (MGIC, Radian, Essent, NMI, Enact, Arch)?","Each issuer reports the metric slightly differently, but the directional trend is consistent — portfolio yields rose materially from FY2022 through FY2024 as rising rates lifted reinvestment yields. By issuer (FY2022 / FY2023 / FY2024): MGIC pre-tax yield 3.0% / 3.7% / 4.0%; Radian Average investment yield 3.1% / 3.6% / 3.7%; Essent pre-tax investment income yield 2.6% / 3.5% / 3.7%; NMI Holdings pre-tax book yield not explicitly stated for FY2022 (2022 10-K not in corpus) / 2.6% / 3.0%; Enact pre-tax yield 3.1% / 3.6% / 4.0%; Arch Capital pre-tax investment income yield 1.99% / 3.53% / 4.25%.","**Investment Portfolio Pre-Tax Yield — FY2022 → FY2024**
+
+| Issuer | FY2022 | FY2023 | FY2024 |
+|--------|--------|--------|--------|
+| **MGIC** (MTG) | 3.0% | 3.7% | 4.0% |
+| **Radian** (RDN) | 3.1% | 3.6% | 3.7% |
+| **Essent** (ESNT) | 2.6% | 3.5% | 3.7% |
+| **NMI** (NMIH) | N/A* | 2.6% | 3.0% |
+| **Enact** (ACT) | 3.1% | 3.6% | 4.0% |
+| **Arch** (ACGL) | 1.99% | 3.53% | 4.25% |
+
+*Sources: FY2024 10-Ks for MTG, RDN, ESNT, NMIH, ACT, ACGL; FY2023 10-Ks for ESNT, NMIH, ACGL.*
+
+**Trend**: Pre-tax yields rose steadily across the cohort from FY2022 to FY2024, reflecting the reinvestment of maturing fixed-income securities into a higher-rate environment. Arch posted the lowest FY2022 starting yield (1.99%) but the largest absolute increase (+2.26pp), while NMI had the lowest yield at each point in time. By FY2024 yields clustered in a narrow 3.0%–4.25% range, with MGIC, Enact, and Arch at the top end.
+
+*\*NMI's FY2022 pre-tax book yield was not explicitly stated in its FY2023 or FY2024 10-Ks. Based on reported net investment income ($46.4M) and average invested assets, the calculated yield would be approximately 2.3%–2.4%, but the metric as the company defines it (book yield) is only available for FY2023 (2.6%) and FY2024 (3.0%).*",True,"Model answer captures all key facts: correct yields for all six issuers across FY2022-FY2024, accurate trend description (rising yields due to reinvestment in higher-rate environment), correct identification of Arch's largest increase and NMI's lowest yields, and appropriate handling of NMI's missing FY2022 data with calculated estimate.",92.45,0.016003,0.002237,12,48,5097,1
+25,"Did any of the six MI cohort issuers disclose a material weakness, control deficiency, restatement, or unresolved SEC staff comment in their 2024 10-Ks?","No. None of the six cohort issuers disclosed any material weakness, control deficiency, restatement, or unresolved SEC staff comment in their 2024 10-Ks. All six concluded that internal control over financial reporting was effective as of December 31, 2024 and received unqualified audit opinions on both their financial statements and ICFR. Item 1B (Unresolved Staff Comments) is reported as 'None' or 'Not applicable' for each. Arch Capital excluded the MCE Acquisition (closed Aug 1, 2024) from its ICFR assessment per SEC guidance for recent acquisitions, but still concluded its ICFR was effective.","## Facts retrieved
+
+- **MGIC (MTG)**: Item 9A states management concluded disclosure controls and procedures were effective as of December 31, 2024; management concluded internal control over financial reporting was effective as of December 31, 2024; auditor (PwC) issued unqualified opinion on ICFR; no changes in ICFR during Q4 2024 that materially affected or are reasonably likely to materially affect ICFR; Item 9 states no changes in or disagreements with accountants. (MTG_10-K_2024-12-31)
+- **Radian (RDN)**: Item 9A states CEO and CFO concluded disclosure controls and procedures were effective as of December 31, 2024; management concluded internal control over financial reporting was effective as of December 31, 2024; auditor (PwC) issued unqualified opinion on ICFR; no change in ICFR during Q4 2024 that materially affected or is reasonably likely to materially affect ICFR; Item 9 states none. (RDN_10-K_2024-12-31)
+- **Essent (ESNT)**: Item 9A states CEO and CFO concluded disclosure controls and procedures were effective as of December 31, 2024; management determined ICFR was effective as of December 31, 2024; auditor (PwC) issued unqualified opinion on ICFR; no change in ICFR during most recent fiscal quarter that materially affected or is reasonably likely to materially affect ICFR; Item 9 states none. (ESNT_10-K_2024-12-31)
+- **NMI Holdings (NMIH)**: Item 9A states CEO and CFO concluded disclosure controls and procedures were effective as of December 31, 2024; management concluded ICFR was effective as of December 31, 2024; auditor (BDO) issued unqualified opinion on ICFR; no change in ICFR during period covered that materially affected or is reasonably likely to materially affect ICFR; Item 9 states none. (NMIH_10-K_2024-12-31)
+- **Enact (ACT)**: Item 9A states CEO and CFO concluded disclosure controls and procedures were effective as of December 31, 2024; management concluded ICFR was effective as of December 31, 2024; auditor (KPMG) issued unqualified opinion on ICFR; no changes in ICFR during Q4 2024 that materially affected or are reasonably likely to materially affect ICFR; Item 9 states none. (ACT_10-K_2024-12-31)
+- **Arch Capital (ACGL)**: Item 9A states CEO and CFO concluded disclosure controls and procedures were effective as of December 31, 2024; management determined ICFR was effective as of December 31, 2024 (excluding MCE acquisition, which represented 1.6% of total assets and 3.5% of total revenues); auditor (PwC) issued unqualified opinion on ICFR (also excluding MCE); no changes in ICFR during Q4 2024 that materially affected or are reasonably likely to materially affect ICFR (other than MCE integration); Item 9 states none. (ACGL_10-K_2024-12-31)
+
+## Tools called
+
+- dsrag_kb({""doc_id"": ""MTG_10-K_2024-12-31"", ""question"": ""Did MGIC disclose any material weakness, significant deficiency, restatement of previously issued financial statements, or unresolved SEC staff comment in its 2024 10-K?""})
+- dsrag_kb({""doc_id"": ""RDN_10-K_2024-12-31"", ""question"": ""Did Radian disclose any material weakness, significant deficiency, restatement of previously issued financial statements, or unresolved SEC staff comment in its 2024 10-K?""})
+- dsrag_kb({""doc_id"": ""ESNT_10-K_2024-12-31"", ""question"": ""Did Essent disclose any material weakness, significant deficiency, restatement of previously issued financial statements, or unresolved SEC staff comment in its 2024 10-K?""})
+- dsrag_kb({""doc_id"": ""NMIH_10-K_2024-12-31"", ""question"": ""Did NMI Holdings disclose any material weakness, significant deficiency, restatement of previously issued financial statements, or unresolved SEC staff comment in its 2024 10-K?""})
+- dsrag_kb({""doc_id"": ""ACT_10-K_2024-12-31"", ""question"": ""Did Enact Holdings disclose any material weakness, significant deficiency, restatement of previously issued financial statements, or unresolved SEC staff comment in its 2024 10-K?""})
+- dsrag_kb({""doc_id"": ""ACGL_10-K_2024-12-31"", ""question"": ""Did Arch Capital disclose any material weakness, significant deficiency, restatement of previously issued financial statements, or unresolved SEC staff comment in its 2024 10-K?""})
+- dsrag_kb({""doc_id"": ""MTG_10-K_2024-12-31"", ""question"": ""Item 9A Controls and Procedures material weakness disclosure internal control over financial reporting""})
+- dsrag_kb({""doc_id"": ""RDN_10-K_2024-12-31"", ""question"": ""Item 9A Controls and Procedures material weakness disclosure internal control over financial reporting""})
+- dsrag_kb({""doc_id"": ""ESNT_10-K_2024-12-31"", ""question"": ""Item 9A Controls and Procedures material weakness disclosure internal control over financial reporting""})
+- dsrag_kb({""doc_id"": ""NMIH_10-K_2024-12-31"", ""question"": ""Item 9A Controls and Procedures material weakness disclosure internal control over financial reporting""})
+- dsrag_kb({""doc_id"": ""ACT_10-K_2024-12-31"", ""question"": ""Item 9A Controls and Procedures material weakness disclosure internal control over financial reporting""})
+- dsrag_kb({""doc_id"": ""ACGL_10-K_2024-12-31"", ""question"": ""Item 9A Controls and Procedures material weakness disclosure internal control over financial reporting""})
+
+## Open questions
+
+(none — sufficient to answer)None. All six MI cohort issuers—**MGIC, Radian, Essent, NMI Holdings, Enact, and Arch Capital**—disclosed in their FY2024 10-Ks (Item 9A) that:
+
+- Management concluded disclosure controls and procedures were effective as of December 31, 2024.
+- Management concluded internal control over financial reporting (ICFR) was effective.
+- Their respective auditors (PwC for MGIC, Radian, Essent, and Arch; BDO for NMI; KPMG for Enact) issued unqualified opinions on ICFR.
+- No material weaknesses, significant deficiencies, or changes in ICFR during Q4 2024 that materially affected or were reasonably likely to materially affect ICFR.
+- Item 9 (changes in/disagreements with accountants): none for any of the six.
+
+The sole caveat: **Arch Capital** excluded the MCE acquisition (1.6% of total assets, 3.5% of total revenues) from its ICFR assessment and auditor's opinion, but that is a standard acquisition-carveout disclosure, not a control deficiency. No restatements or unresolved SEC staff comments were reported by any issuer.",True,"The model answer comprehensively captures all key facts from the reference: (1) no material weaknesses, control deficiencies, restatements, or unresolved SEC staff comments disclosed by any of the six issuers; (2) all six concluded ICFR was effective; (3) all received unqualified audit opinions; (4) Item 1B reported as none/not applicable; (5) Arch Capital's MCE acquisition exclusion from ICFR assessment per SEC guidance. The model provides detailed supporting evidence for each issuer.",73.59,0.01002,0.003689,12,50,6699,1
+26,"Pull together everything Arch Capital disclosed about Q4 2024 share repurchases of its common stock — across the 10-K, the Q4 2024 8-K, and the Q4 2024 earnings call transcript. Are there discrepancies?","Arch Capital repurchased approximately $24 million of common shares in Q4 2024, with no material discrepancies across the three sources. The 10-K (Item 5) provides the most granular breakdown: 263,454 total shares purchased at avg $89.71, of which 261,981 shares were under the publicly announced program (all in December at avg $89.66 ≈ $23.5M) and 1,473 shares were tax-withholding repurchases (517 in Oct, 80 in Nov, 876 in Dec). A new $1.0 billion repurchase program was authorized by the Board on December 20, 2024; approximately $996.8 million remained available at year-end. The Q4 2024 8-K (filed Feb 10, 2025) summarized the activity as 'share repurchases of approximately $24 million,' alongside the $1.9 billion / $5.00 per-share special dividend paid December 4, 2024. The Q4 2024 earnings call transcript stated 'we also repurchased shares worth $24 million in the fourth quarter' with capital-management context but no additional figures. All three sources reconcile to ~$24 million.","## Arch Capital Q4 2024 Share Repurchases — All Three Sources
+
+### 10-K (ACGL_10-K_2024-12-31) — Item 5, Shareholders' Equity Note 21
+
+Monthly detail from the Issuer Purchases table:
+
+| Month | Total Shares | Avg Price | Under Program | Remaining Auth. |
+|---|---|---|---|---|
+| Oct 2024 | 517¹ | $113.51 | 0 | $1,000,000 |
+| Nov 2024 | 80¹ | $101.85 | 0 | $1,000,000 |
+| Dec 2024 | 262,857 | $89.66 | 261,981 | $996,796 |
+| **Q4 Total** | **263,454** | **$89.71** | **261,981** | **$996,796** |
+
+¹ Withholding-tax shares on equity vesting/exercises, not open-market program.
+
+Full‑year table: aggregate cost $23.5 million, 0.3 million shares, average $89.65. The Board authorized a **new $1.0 billion program on December 20, 2024** (no expiration); $996.8 million remained at year‑end.
+
+### 8-K (Earnings Press Release, Feb 10, 2025)
+
+Bullet point in the highlights: **""Share repurchases of approximately $24 million""** — same figure, rounded to the nearest million.
+
+### Q4 2024 Earnings Call Transcript
+
+**Prepared remarks (Nicolas Papadopoulo):** ""We also repurchased shares worth $24 million in the fourth quarter.""
+
+**Q&A (Jimmy Bhullar, JPMorgan):** Bhullar noted the buyback was largely driven by the stock‑price decline late in the quarter. **François Morin confirmed** the opportunistic timing: ""*in this particular situation, yes, there's old kinda, you know, opportunity in late in the fourth quarter*"" and added that Arch will continue to return excess capital via buybacks when the stock price is attractive.
+
+---
+
+### Are There Discrepancies?
+
+**No.** All three sources are fully consistent:
+
+| Source | Dollar Amount | Detail |
+|---|---|---|
+| 10‑K | $23.5M | Precise aggregate cost; monthly table shows Dec execution |
+| 8‑K | ~$24M | Rounded to nearest million |
+| Transcript | $24M | Same rounded figure; adds context that activity was late‑Dec opportunistic |
+
+The small difference between $23.5M (10‑K precise) and $24M (8‑K/transcript rounded) is normal rounding to one significant digit. The program activity was essentially a single concentrated burst in the last ~10 days of December 2024 (~262k shares at ~$89.66) under the freshly authorized $1.0B board program.",True,"Model answer accurately captures all key facts: Q4 2024 repurchases of ~$24M ($23.5M precise), 263,454 shares at $89.71 avg, monthly breakdown with tax-withholding detail, new $1.0B program authorized Dec 20, 2024, and consistent messaging across 10-K, 8-K, and earnings call. No discrepancies identified. All figures align with reference answer.",39.22,0.005492,0.002582,3,52,7307,0
+27,"If I want to spot which MI cohort issuer would be hit hardest by a new entrant disrupting pricing, what disclosures should I look at across the cohort, and what did the cohort actually say about pricing discipline in 2024?","Disclosures to examine: net premium yields/trends in 10-K segment reporting and MD&A; NIW growth and market-share trajectory; customer concentration risk in 10-K Risk Factors (top-customer share of NIW); explicit risk-factor language about new entrants or pricing pressure; management commentary on pricing discipline in earnings call transcripts. In 2024, MGIC and Essent emphasized walking away from underpriced business and willingness to cede share to defend returns. Enact's 10-K explicitly acknowledged it 'may reduce certain of our rates to balance both profitability and market share,' implying more pricing flexibility/exposure, and Enact has elevated single-customer concentration (~20% of NIW). Radian had strong reported NIW growth (~24% YoY in Q4 2024) without prominently flagging pricing discipline. NMI Holdings noted lenders generally don't push back on pricing and runs the lowest premium yield in the cohort. Arch Capital's US MI segment characterized returns as still favorable. Multiple defensible candidates for 'most exposed' exist (NMIH on yield, Enact on customer concentration, Essent on top-10 concentration growth, or Radian on growth-without-discipline) depending on which framing is emphasized.","## Which issuer is most vulnerable to a new-entrant pricing disruption
+
+Based on the cohort's 2024 disclosures, the three most relevant vulnerability signals are:
+
+| Factor | Most exposed | Least exposed |
+|---|---|---|
+| **NIW dependency** (exposed to new pricing) | **NMIH** (fastest-growing, smallest IIF at $210B, most reliant on NIW for momentum) | MTG ($295B+ IIF, largest locked-in book) |
+| **Persistency buffer** (protects from roll-off into new pricing) | **ACGL** (81.8% — lowest in cohort) | ESNT (85.7% — highest) |
+| **Diversification** (mi cushion if MI margins compress) | **Monolines** (ESNT, NMIH, MTG, ACT, RDN — all pure MI plays) | **ACGL** (MI is 1/3 of underwriting income; P&C/Reinsurance absorb any MI margin shock) |
+
+**Most vulnerable overall: NMI Holdings (NMIH).** It has the smallest IIF ($210B vs. peers at $244–295B+), meaning a higher proportion of its earnings comes from current-year NIW — the very flow a new entrant's aggressive pricing would attack. It also has lower persistency (84.6%) than Essent or MGIC, so more of its book turns over into the competitive new-issue pool. Its advantage — low expense ratio (21.7%) and technology-driven pricing (rate GPS) — would help, but its growth-dependent model is structurally the most exposed to margin compression on new business.
+
+**Best protected: Essent (ESNT).** Highest persistency (85.7%), highest PMIERs sufficiency (178%), and the largest locked-in, high-premium-yield book relative to its size. A new entrant's price cuts would primarily affect new flow, which is a smaller share of Essent's earnings stream.
+
+**Diversified outlier: Arch (ACGL).** Even though its MI persistency is the lowest (81.8%), it can reallocate capital to its Reinsurance or Insurance segments if MI pricing deteriorates. A pricing disruption in MI would be painful but not existential.
+
+---
+
+## What the cohort said about pricing discipline in 2024
+
+Every company described the pricing environment as **disciplined-to-constructive** with no signs of erosion:
+
+**Arch** (Nicolas Papadopoulo): *""Overall, the US mortgage insurance industry remained disciplined despite suppressed mortgage origination due to low housing supply and high mortgage rates.""*
+
+**Enact** (Rohit Gupta): *""Pricing remained constructive in the quarter, and we maintained our commitment to prudent underwriting standards. Our pricing engine allows us to deliver competitive pricing on a risk basis.""*
+
+**Essent** (Mark Casale): *""On the mortgage insurance front, our industry remains competitive and strong credit guardrails remain in place, driven by the underpinnings established by the GSEs after the global financial crisis.""*
+
+**MGIC** (Tim Mattke): *""We don't talk a lot about pricing dynamics… I think it's fair to say that it feels like the risk return continues to be very favorable.""* (Declined to provide specifics, citing proprietary concerns.)
+
+**NMI Holdings** (Adam Pollitzer): *""The MI pricing environment remains balanced and constructive… allowing us to fully and fairly support our lenders and their borrowers, while at the same time appropriately protect risk adjusted returns.""* Also: *""We really don't get much pushback on pricing from lenders.""*
+
+**Radian** (Rick Thornberry): Did not directly address pricing competition; focused on the ""highly selective"" approach to originations and the value of persistency.
+
+**Key takeaway:** No company signaled that pricing discipline was breaking down in 2024. The universal language was ""disciplined,"" ""constructive,"" or ""balanced"" — with Essent and Arch explicitly citing GSE underwriting guardrails as the structural backstop preventing a race to the bottom.",True,"The model answer captures all key facts from the reference: identifies the same disclosure categories (net premium yields, NIW growth, customer concentration, risk factors, earnings calls); correctly characterizes 2024 positioning (MGIC/Essent on discipline, Enact on flexibility, NMIH on low yields, Radian on growth); and reaches defensible vulnerability conclusions aligned with reference's ""multiple defensible candidates"" framing.",68.4,0.009728,0.002771,6,54,8289,0
+28,"What board or named-executive changes did the six MI cohort issuers report in 2024 — additions, departures, or restructurings? Just the ones disclosed via 8-K Item 5.02.","The only Item 5.02 disclosure in the cohort's 2024 8-Ks is MGIC's (MTG) appointment of Michael Thompson to its Board of Directors, disclosed in the 8-K filed January 31, 2024. None of the other five cohort issuers (Radian, Essent, NMI, Enact, Arch Capital) reported board additions, departures, or restructurings via Item 5.02 in 2024. The other 8-Ks the cohort filed in 2024 are primarily earnings releases (Item 2.02) and dividend declarations.","Only one Item 5.02 disclosure across all six MI cohort issuers in calendar 2024:
+
+- **MGIC (MTG)** — 8-K filed January 31, 2024: appointed **Michael Thompson** to the Board of Directors.
+
+The other five — Radian Group, Essent Group, NMI Holdings, Enact Holdings, and Arch Capital — reported **no** board additions, departures, or named-executive-officer restructurings via Item 5.02 during 2024. All of their 2024 8-Ks were earnings releases (Item 2.02), capital-action announcements (dividends, repurchase authorizations, reinsurance / CRT bond issuances), or other non-Item 5.02 disclosures.",True,"The model answer accurately captures all key facts: MGIC's Michael Thompson board appointment via 8-K filed January 31, 2024 under Item 5.02, and confirmation that the other five cohort issuers (Radian, Essent, NMI, Enact, Arch Capital) reported no such disclosures in 2024. The additional context about other 8-K types is consistent with the reference.",8.27,0.000842,0.001887,0,56,8490,0

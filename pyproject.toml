@@ -5,9 +5,15 @@ description = "Deploy-ready SEC filings RAG agent: LangGraph ReAct + dsRAG (sing
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "aiosqlite>=0.20.0",
+    "sqlalchemy[asyncio]>=2.0.0",
+    # SQLAlchemy's async layer needs greenlet for sync↔async bridging;
+    # `sqlalchemy[asyncio]` pulls it in, but pin explicitly so the dep
+    # resolution is unambiguous and surfaces in lockfile diffs.
+    "greenlet>=3.0.0",
     "bedrock-agentcore>=1.2.0",
     "boto3>=1.42.0",
-    "chainlit>=1.3.0",
+    "chainlit>=2.11.1,<3",
     # Note: NOT [chroma]. The KB uses BasicVectorDB / BasicChunkDB
     # (file-pickle-backed), and chromadb's transitives (rust bindings,
     # onnxruntime, kubernetes client, etc.) add ~250MB without being used.
@@ -27,6 +33,7 @@ dependencies = [
     "openai>=1.50.0",
     "pydantic>=2.0.0",
     "pydantic-settings>=2.0.0",
+    "python-dotenv>=1.0.0",
     "rank-bm25>=0.2.2",
 ]
 
@@ -45,7 +52,12 @@ reranker = [
     "flashrank>=0.2.10",
 ]
 
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
 [dependency-groups]
 dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
     "selenium>=4.43.0",
 ]

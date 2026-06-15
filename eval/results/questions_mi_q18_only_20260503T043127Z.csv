@@ -1,0 +1,28 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"After the August 2024 PMIERs update revising Available Asset credit factors, which MI cohort issuer disclosed the largest pro-forma reduction to its YE 2024 PMIERs sufficiency ratio if the update were fully effective immediately, and how does it compare to the other five issuers' disclosures?","Arch Capital (ACGL) disclosed by far the largest pro-forma impact: its PMIERs sufficiency would drop from a reported 186% to a pro-forma 154% (a 32-percentage-point decline), with Available Assets falling 17% if fully effective at YE 2024. MGIC quantified a roughly 1% / $50M decrease in Available Assets (sufficiency essentially unchanged). Radian, Essent, NMI, and Enact each stated they do not expect the update to have a material impact on their PMIERs position.","The wiki has Arch and MGIC's pro-forma disclosures but is missing the others. Let me pull the specific Guidance 2024-01 pro-forma impact disclosures from each issuer's YE 2024 10-K.## Largest Pro-Forma Impact: **Arch Capital (ACGL)**
+
+**Arch Capital Group** disclosed the largest pro-forma reduction by far. In its YE 2024 10-K, Arch stated that if the August 2024 PMIERs update on Available Asset credit factors had been fully effective immediately at December 31, 2024:
+
+- Available Assets would have been **reduced by 17%**
+- The PMIERs sufficiency ratio would have fallen from **186% → 154%**, a **32-percentage-point decline**
+
+**Source:** *ACGL_10-K_2024-12-31* — ""If the GSEs had fully implemented this update to PMIERs as of December 31, 2024, the changes would have reduced available assets by 17% and resulted in a Pro-forma PMIERs Sufficiency Ratio of 154% compared with a reported PMIERs Sufficiency Ratio of 186%.""
+
+---
+
+## Comparison Across All Six Issuers
+
+| Issuer | Reported YE 2024 Sufficiency | Pro-Forma if Fully Effective | Implied Impact |
+|---|---|---|---|
+| **Arch Capital** | 186% | **154%** | **−32 pp** (Available Assets −17%) |
+| **MGIC** | ~161% | ~160% | −~1 pp (Available Assets −1% / −$50M) |
+| **Essent** | 178% | Not quantified | ""no impact"" / immaterial |
+| **Enact** | 167% | Not quantified | Not material |
+| **Radian** | ~156% | Not quantified | Not material |
+| **NMI Holdings** | ~170% | Not quantified | Not material |
+
+**Key observations:**
+
+- **Arch's impact was an order of magnitude larger** than any other issuer — a 17% reduction in Available Assets versus MGIC's ~1% reduction. The remaining four issuers (Essent, Enact, Radian, NMI) all explicitly characterized the update as ""not material"" to their capital position and did not provide specific pro-forma sufficiency ratios.
+- The disparity likely reflects differences in investment portfolio composition. Arch's eligible mortgage insurers held a meaningfully higher proportion of assets that lost credit under the new bond eligibility and haircut rules (e.g., non-agency RMBS/CMBS, lower-rated corporates, or assets now subject to concentration limits), whereas the other five MIs' portfolios were already more heavily weighted toward assets that retained full credit.
+- Under the actual phase-in schedule (25% effective March 31, 2025; 50% effective September 30, 2025), the real-world impact has been materially smaller than these pro-forma figures, and all six issuers remained fully compliant throughout 2025.",True,"Arch disclosed 32-pp decline (186%→154%, -17% Available Assets); MGIC ~1pp; others stated no material impact.",0.010886,0.001239,"[{""tool"": ""wiki_read_page"", ""tokens_est"": 7115}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6334}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8198}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8031}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7547}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7116}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6087}]",50428,67.24

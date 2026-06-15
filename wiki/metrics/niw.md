@@ -29,7 +29,10 @@ NIW reflects the **original** principal amount (not subsequent unpaid balance), 
 
 **Third, NIW drives PMIERs required assets.** Because the risk-based required asset amount under PMIERs is calculated against the in-force book (which grows with NIW), writing more NIW or shifting NIW toward higher-risk attributes (lower FICO, higher LTV, higher DTI) increases Minimum Required Assets — all else equal (INDUSTRY_PMIERS_2.0_BASE Exhibit A; see [[topics/pmiers]]). Reinsurance credit can offset this through Section 707 reinsurance reductions; in 2025, MGIC reports approximately 87.2% of its 2025 NIW was subject to QSR transactions (MTG_10-K_2025-12-31), and Essent / Enact / NMI run similar forward-flow QSR programs.
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+**Q1 2026 update — refi-driven acceleration**: Q1 2026 NIW jumped across the cohort on returning refinance volume: Arch U.S. MI $14.8B (+61% YoY) (ACGL_8-K_2026-04-28); MGIC $14.4B (+41%, with refinances at 21% of NIW vs. 6% a year earlier) (MTG_8-K_2026-04-29); Radian mortgage $13.5B (+42%) (RDN_8-K_2026-05-06); Enact $13B (+30%) (ACT_8-K_2026-05-05); NMI $12.3B (vs. $9.2B) (NMIH_8-K_2026-04-30); Essent $11.1B (ESNT_8-K_2026-05-08). The refi re-emergence that began in 2025 accelerated markedly.
+
 
 **PMI industry NIW** (per *Inside Mortgage Finance* via MGIC):
 
@@ -48,11 +51,11 @@ NMI management's Q4 2025 industry estimate was approximately $310 billion, consi
 | MGIC | $60.2B | $55.7B | $46.1B |
 | Radian | $55.2B | $52.0B | n/a |
 | Enact | $51.5B | $51.0B | $53.1B |
-| NMI Holdings | $48.9B | n/a | n/a |
+| NMI Holdings | $48.9B | $46.0B | $40.5B |
+| Arch (U.S. MI) | $48.7B | $48.5B | $43.5B |
 | Essent | $46.6B | $45.6B | $47.7B |
-| Arch (USMI) | (not separately disclosed at total-NIW level; Q4 2025 was the highest of the year) | n/a | n/a |
 
-(MTG_10-K_2025-12-31; RDN_10-K_2025-12-31; ACT_10-K_2025-12-31; NMIH_10-K_2025-12-31; ESNT_10-K_2025-12-31; ACGL_TRANSCRIPT_2025-12-31).
+(MTG_10-K_2025-12-31; RDN_10-K_2025-12-31; ACT_10-K_2025-12-31; NMIH_10-K_2025-12-31; NMIH_10-K_2024-12-31; ESNT_10-K_2025-12-31; ACGL_10-K_2025-12-31 supplemental "Total new insurance written (NIW)" table — $48,705M / $48,479M for 2025 / 2024; ACGL_10-K_2024-12-31 for 2023 — $43,531M).
 
 **Per-MI 2025 market share** (per *Inside Mortgage Finance* and self-reported):
 - MGIC: 19.4% (vs. 18.6% in 2024) (MTG_10-K_2025-12-31).
@@ -88,10 +91,19 @@ NMI management's Q4 2025 industry estimate was approximately $310 billion, consi
 - [ESNT_10-K_2025-12-31] — Essent 2025 / 2024 / 2023 NIW ($46.6B / $45.6B / $47.7B); monthly premium policies comprised 99% of NIW in both 2025 and 2024.
 - [ESNT_TRANSCRIPT_2025-12-31] — Management's "kind of the 15, 16" share self-description.
 - [ACGL_TRANSCRIPT_2025-12-31] — Q4 2025 USMI NIW commentary (highest of the year).
+- [ACGL_10-K_2025-12-31] — Arch U.S. MI total NIW: $48,705M (2025) / $48,479M (2024), from the mortgage-segment supplemental "Total new insurance written (NIW)" table.
+- [ACGL_10-K_2024-12-31] — Arch U.S. MI total NIW $43,531M (2023).
 - [MTG_10-K_2024-12-31] — Cross-check for the 60.7% MGIC persistency low at March 31, 2021.
 - [MTG_TRANSCRIPT_2025-12-31] — 2026 outlook commentary on industry NIW size.
 - [INDUSTRY_PMIERS_2.0_BASE] — Risk-based required asset amount mechanics that drive how NIW translates into PMIERs MRA.
 - [INDUSTRY_USMI_WHITE_PAPER_2020-10] — Industry-level 2019 NIW context (1.3M borrowers / $385B).
+
+- [ACGL_8-K_2026-04-28] — Q1 2026 U.S. MI NIW $14.8B.
+- [MTG_8-K_2026-04-29] — Q1 2026 NIW $14.4B; refi share 21%.
+- [RDN_8-K_2026-05-06] — Q1 2026 mortgage NIW $13.5B.
+- [ACT_8-K_2026-05-05] — Q1 2026 NIW $13B.
+- [NMIH_8-K_2026-04-30] — Q1 2026 NIW $12.3B.
+- [ESNT_8-K_2026-05-08] — Q1 2026 NIW $11.1B.
 
 ## Related
 

@@ -26,7 +26,13 @@ Third, **NMI is approaching parity NIW share among the six U.S. mortgage insurer
 
 The principal external risk factor that management focused on in the Q4 2025 call is potential FHA premium reductions: management's framing is that the FHA's capital position has structural challenges (capital, regulatory, budget) and that further FHA rate adjustments would impose additional risk on taxpayers given that the private MI industry is "ready, willing, and able" to provide the necessary support (NMIH_TRANSCRIPT_2025-12-31).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+### Q1 2026 update (quarter ended 2026-03-31)
+
+NIW was $12.3 billion — down from $14.2 billion in Q4 2025 but up sharply from $9.2 billion in Q1 2025 (NMIH_8-K_2026-04-30). Annual persistency declined to 82.2% (from 83.4% at year-end 2025), continuing the gradual softening as refinance activity returns (NMIH_8-K_2026-04-30). PMIERs available assets grew to $3.63 billion (from $3.50 billion at year-end 2025) (NMIH_8-K_2026-04-30).
+
+**Year-end 2025 detail:**
 
 For the fiscal year ended December 31, 2025 (NMIH_10-K_2025-12-31; NMIH_TRANSCRIPT_2025-12-31):
 
@@ -87,6 +93,8 @@ The 2025 trajectory in persistency reflects the start of a refinance-related nor
 - [NMIH_10-K_2025-12-31] — Primary source for the corporate structure (Delaware corporation incorporated May 2011, started operations 2012, first policy 2013), the wholly owned subsidiaries (NMIC, Re One, NMIS — including the commutation of Re One's reinsurance to NMIC and Re One's currently inactive status), Wisconsin OCI as primary regulator, year-end 2025 portfolio metrics ($221.4B primary IIF, $59.3B primary RIF, $48.9B 2025 NIW, 2,193 master policies, 225 employees), 70% PMIERs sufficiency ratio, dividend restrictions under Wisconsin law, and the Wisconsin RTC framework.
 - [NMIH_TRANSCRIPT_2025-12-31] — Q4 2025 earnings call: source for $388.9M FY net income (+8%) / $4.92 diluted EPS (+11%) / 16.2% ROE, $94.2M Q4 net income / $1.20 Q4 EPS / 14.8% Q4 ROE, $706.4M FY revenue (+9%) / $180.7M Q4 revenue (record), $152.5M Q4 net premiums earned (record), 28 bps Q4 net yield / 34 bps core yield, $27.5M Q4 investment income, $31.1M Q4 expenses / 20.4% expense ratio, $21.2M Q4 claims expense, $2.6B shareholders' equity / $33.98 BVPS / $34.58 ex-NUL BVPS (+16% YoY), $14.2B Q4 NIW, 83.4% Q4 persistency (vs. 83.9% in Q3) and the rate-driven decline framing, 7,661 YE2025 defaults / 1.12% default rate, the $3.5B Available Assets / $2.1B required / $1.4B excess PMIERs detail, the Q4 2025 reinsurance program extension to forward-flow coverage of all NIW through 2028 at ~4% pretax cost of capital, the $31M Q4 / $349M cumulative since 2022 / $226M remaining buyback capacity, the 90-new-lenders activation / 1,700+ active accounts / 680,000+ policies metrics, the ~$310B 2025 industry NIW estimate, and management's "industry-leading credit performance" framing.
 - [NMIH_10-K_2024-12-31] — Cross-check for 2024 comparative figures (prior-year IIF, NIW, and net income).
+
+- [NMIH_8-K_2026-04-30] — Q1 2026: NIW $12.3B, annual persistency 82.2%, PMIERs available assets $3.63B.
 
 ## Related
 

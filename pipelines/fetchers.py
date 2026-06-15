@@ -165,9 +165,35 @@ _DOCUMENT_BLOCK_RE = re.compile(
 )
 
 
+_HTML_SHELL_RE = re.compile(
+    r"<!DOCTYPE[^>]*>|</?html[^>]*>|</?body[^>]*>|<head[^>]*>.*?</head>",
+    re.DOTALL | re.IGNORECASE,
+)
+
+
+def _merge_html_bodies(bodies: list[str]) -> str:
+    """Merge multiple complete HTML documents into ONE valid document.
+
+    Naive `\\n`.join() of EX-99 blocks produces a file with several
+    `<html>...</html>` documents back to back — HTML parsers (docling
+    included) stop at the first `</html>`, silently dropping every
+    subsequent exhibit. ACGL's 8-Ks ship the press release as EX-99.1
+    and the financial supplement as EX-99.2; the supplement (NIW/RIF
+    credit-quality tables etc.) was being lost at parse time.
+
+    Strip each block's document shell (doctype/html/head/body tags) and
+    wrap the lot in a single shell, separated by <hr/>."""
+    stripped = [_HTML_SHELL_RE.sub("", b) for b in bodies]
+    return (
+        "<html><body>\n"
+        + "\n<hr/>\n".join(s.strip() for s in stripped)
+        + "\n</body></html>"
+    )
+
+
 def _extract_8k_ex99(filings_dir: str) -> None:
     """For each retained 8-K accession folder, write `combined.htm`
-    containing concatenated EX-99* exhibits from full-submission.txt
+    containing the merged EX-99* exhibits from full-submission.txt
     and remove `primary-document.html` (the boilerplate cover page).
 
     sec-edgar-downloader saves only `primary-document.html` (the cover,
@@ -205,7 +231,7 @@ def _extract_8k_ex99(filings_dir: str) -> None:
                 ]
                 if not ex99_bodies:
                     continue
-                combined.write_text("\n".join(ex99_bodies), encoding="utf-8")
+                combined.write_text(_merge_html_bodies(ex99_bodies), encoding="utf-8")
                 cover = accession_dir / "primary-document.html"
                 if cover.exists():
                     cover.unlink()

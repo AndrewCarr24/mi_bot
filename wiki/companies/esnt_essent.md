@@ -26,7 +26,13 @@ Third, Essent Re is sized to be more than a passive captive. At year-end 2025 it
 
 Management has also emphasized that Essent does not optimize for market share. CEO Mark Casale described Essent as "kind of the 15, 16" share player and explicitly stated that the company would rather return a marginal dollar to shareholders than chase low-priced new business (ESNT_TRANSCRIPT_2025-12-31). That posture is reflected in the share-count trajectory: during 2025 the company repurchased nearly 10% of the shares outstanding at year-end 2024 (ESNT_TRANSCRIPT_2025-12-31).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+### Q1 2026 update (quarter ended 2026-03-31)
+
+Net income was $171.8 million (vs. $175.4 million in Q1 2025). NIW was $11.1 billion for the quarter (ESNT_8-K_2026-05-08). On the Q1 2026 call, CEO Mark Casale characterized credit as showing no real cracks and reiterated the strategic lean into the Re segment (Lloyd's program, casualty quota share) while MI new business remains affordability-constrained (ESNT_TRANSCRIPT_2026-03-31).
+
+**Year-end 2025 detail:**
 
 For the fiscal year ended December 31, 2025 (ESNT_10-K_2025-12-31; ESNT_TRANSCRIPT_2025-12-31):
 
@@ -37,7 +43,7 @@ For the fiscal year ended December 31, 2025 (ESNT_10-K_2025-12-31; ESNT_TRANSCRI
 - **NIW**: $46.6 billion in 2025, versus $45.6 billion in 2024 and $47.7 billion in 2023
 - **Primary IIF**: $248.4 billion at December 31, 2025, up 1.9% from $243.6 billion at year-end 2024
 - **12-month persistency**: 85.7% at December 31, 2025; roughly 60% of in-force loans carry a note rate of 6% or lower
-- **Portfolio quality**: weighted-average original LTV of 93%, weighted-average FICO of 747; default rate of 2.5% (20,210 defaults) at year-end 2025, up from 2.29% at September 30, 2025 and from 18,439 defaults at year-end 2024
+- **Portfolio quality**: weighted-average original LTV of 93%, weighted-average FICO of 747; default rate of 2.5% (20,210 defaults) at year-end 2025, up from 2.29% at September 30, 2025 and from 18,439 defaults at year-end 2024 (weighted averages per ESNT_8-K_2026-02-13; defaults per ESNT_10-K_2025-12-31)
 - **Average net premium rate**: 35 basis points for FY 2025 (the same level recorded in 2023 and 2024); fourth-quarter base premium rate was 41 bps and net premium rate was 34 bps
 - **Mortgage Insurance net premiums earned**: increased 1.3% year-over-year, driven by higher average IIF ($246.5B in 2025 vs. $241.6B in 2024)
 - **Mortgage Insurance net provision for losses and LAE**: approximately $145 million for 2025; Q4 was $55.2 million
@@ -84,6 +90,9 @@ The headline financial trajectory through 2025 reflects these structural shifts 
 - [ESNT_10-K_2025-12-31] — Primary source for full-year 2025 financial results, the corporate structure (Group Ltd / Essent Guaranty / Essent Re / Essent Title), the Q4 2025 segment recast (MI vs. Reinsurance), Bermuda regulatory regime, Essent Re's intercompany quota share schedule (25% / 35% / 50%), the third-party QSR program (QSR-2025 25%, forward 2026 25%, forward 2027 20%), $1.3B XOL coverage, $500M senior notes terms, $5.8B GAAP equity, $248.4B IIF, $46.6B NIW, average net premium rate of 35 bps, defaults trajectory and the 2024 hurricane-related defaults, Essent Re's $2.3B risk in force, Essent Guaranty's $495M of dividends to its U.S. holding company in 2025, and Essent Guaranty's $2.6B of statutory contingency reserves at year-end 2025.
 - [ESNT_TRANSCRIPT_2025-12-31] — Q4 2025 earnings call: source for $690M FY 2025 net income / $6.90 EPS / 12% ROE / $60.31 BVPS, 169% PMIERs sufficiency with $1.4B excess, Essent Guaranty $3.6B statutory capital and 9.1:1 RTC ratio, $2.6B contingency reserves, Essent Re's $1.7B balance sheet and ~$80M third-party net income, ~98% of MI portfolio reinsured, the $50M Funds-at-Lloyd's commitment and Lloyd's expansion details ($100-$150M expected 2026 written premium), $700M of 2025 capital return and ~10% share-count reduction, Q4 2025 buybacks ($125M) and dividends ($29.5M), the 13% dividend increase to $0.35/share for 2026, $246M of 2026 ordinary dividend capacity at Essent Guaranty, $1.3B holding-company liquidity, $500M undrawn revolver, 8% debt-to-capital ratio, 2025 effective tax rate of 16%, management commentary on market-share posture (~15-16% share, no price-volume trade), portfolio quality (FICO 747, LTV 93%), and persistency (85.7%).
 - [ESNT_10-K_2024-12-31] — Cross-check for 2024 comparatives and historical context on the 2023 title acquisitions, the pre-2025 quota share percentages, and prior-year financial figures.
+
+- [ESNT_8-K_2026-05-08] — Q1 2026: net income $171.8M, NIW $11.1B.
+- [ESNT_TRANSCRIPT_2026-03-31] — Q1 2026 call: credit commentary; Re-segment strategic emphasis.
 
 ## Related
 

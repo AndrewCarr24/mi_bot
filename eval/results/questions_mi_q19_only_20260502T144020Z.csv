@@ -1,0 +1,17 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","Here is the full-year 2024 capital return to common shareholders (share repurchases + common dividends, including specials) for each of the six MI cohort companies:
+
+| Company | Share Repurchases | Common Dividends (incl. specials) | Total |
+|---|---|---|---|
+| **ACGL** (Arch Capital) | $24M | $1,866M¹ | **$1,890M** |
+| **ACT** (Enact Holdings) | $244M | $112M | **$356M** |
+| **ESNT** (Essent) | $102.7M | $118M | **$220.7M** |
+| **MTG** (MGIC) | $566.6M | $131M | **$697.6M** |
+| **NMIH** (NMI Holdings) | $97.7M | $0 | **$97.7M** |
+| **RDN** (Radian) | $224M | $153M² | **$377M** |
+| **Aggregate** | **$1,259M** | **$2,380M** | **$3,639M** |
+
+¹ Arch's dividend total is almost entirely a single $5.00/share special cash dividend (~$1.9B); Arch does not pay regular quarterly dividends.  
+² Radian's figure includes cash dividends to common shareholders and dividend equivalents on RSUs ($0.245/quarter × shares outstanding ≈ $147M in cash dividends plus ~$6M in dividend equivalents).
+
+**Key points:** Arch dominates the aggregate total due to its $1.9B special dividend. Excluding Arch, the other five companies returned a combined **$1,749M** to common shareholders, led by MGIC ($698M), Radian ($377M), and Enact ($356M). NMI Holdings was the only issuer paying no dividends.",True,Aggregate $3.639B matches expected $3.67B within 1% tolerance; all per-issuer figures align.,0.01679,0.000945,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 6757}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8306}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7701}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7477}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8270}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8184}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7819}]",54514,107.46

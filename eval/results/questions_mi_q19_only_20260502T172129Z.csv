@@ -1,0 +1,20 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","Here is the full-year 2024 aggregate capital returned to common shareholders for each of the six MI cohort issuers, based on their FY2024 10-K filings:
+
+| Issuer | Ticker | Share Repurchases ($M) | Common Dividends ($M) | Total Returned ($M) |
+|--------|--------|----------------------|----------------------|-------------------|
+| **Arch Capital** | ACGL | $24 | $1,881 (special dividend, no regular) | **$1,905** |
+| **Enact Holdings** | ACT | $244 | $112 | **$356** |
+| **Essent Group** | ESNT | $103 | $118 | **$221** |
+| **MGIC Investment** | MTG | $567 | $131 | **$698** |
+| **NMI Holdings** | NMIH | $98 | $0 (no dividends paid) | **$98** |
+| **Radian Group** | RDN | $224 | $153 | **$377** |
+| **Aggregate** | | | | **~$3,655** |
+
+**Aggregate total capital returned to common shareholders across the six MI cohort issuers in FY2024 was approximately $3.65 billion.**
+
+Key callouts:
+- Arch Capital's total was dominated by a one-time $1.9B special dividend ($5.00/share) — its first-ever common dividend — with only $24M in buybacks.
+- MGIC was the largest repurchaser at $567M and paid $131M in dividends.
+- NMIH returned capital only via buybacks ($98M) as it does not pay a dividend.
+- The aggregate excludes preferred dividends (e.g., Arch's $40M in preferred dividends on its Series F and G preferred shares).",True,Aggregate $3.65B matches expected $3.67B within 1% tolerance; per-issuer figures align with expected answer.,0.016098,0.000936,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 7771}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7794}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8292}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8364}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7047}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6579}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7027}]",52874,97.66

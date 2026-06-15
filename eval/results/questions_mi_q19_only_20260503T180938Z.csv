@@ -1,0 +1,27 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","Let me get the exact dividend dollar amounts I'm missing for some companies.Here is the full-year 2024 aggregate capital returned to common shareholders across the six MI cohort issuers, drawn from each company's FY2024 10-K:
+
+| Ticker | Company | Share Repurchases | Common Dividends (incl. specials) | Total Returned |
+|--------|---------|-----------------:|---------------------------------:|---------------:|
+| **ACGL** | Arch Capital | $24M\(^1\) | $1,866M\(^2\) | **$1,890M** |
+| **ACT** | Enact Holdings | $244M | $112M | **$356M** |
+| **ESNT** | Essent | $111.5M\(^3\) | $118.0M\(^4\) | **$229.5M** |
+| **MTG** | MGIC | $566.6M\(^5\) | $130.5M\(^6\) | **$697.1M** |
+| **NMIH** | NMI Holdings | $97.7M\(^7\) | $0\(^8\) | **$97.7M** |
+| **RDN** | Radian | $224M\(^9\) | $152.9M\(^{10}\) | **$376.9M** |
+| | | | **Aggregate** | **$3,647M** |
+
+**Notes (source references from the FY2024 10-Ks):**
+
+1. **ACGL** — Cash flow statement line ""Purchases of common shares under share repurchase program"" = $24M; Note 21 confirms $23.5M in repurchases under the program.
+2. **ACGL** — Cash flow statement ""Common dividends paid"" = $1,866M, which includes a ~$1.9B special cash dividend ($5.00/share) declared and paid in 2024. Prior to 2024 ACGL paid no common dividends.
+3. **ESNT** — Cash flow statement ""Treasury stock acquired"" = $111.5M (includes open-market repurchases of $102.7M plus shares acquired for tax withholdings).
+4. **ESNT** — Cash flow statement ""Dividends paid"" = $118.0M ($1.12/share across four quarters of $0.28).
+5. **MTG** — Note 13: ~25.3M shares repurchased for $566.6M including commissions.
+6. **MTG** — MD&A: ""cash dividends of $130.5 million to shareholders"" ($0.115/share in Q1–Q2, $0.13/share in Q3–Q4).
+7. **NMIH** — MD&A: 2.8M shares repurchased at a total cost of $97.7M including associated costs and taxes.
+8. **NMIH** — No dividends declared or paid in 2024.
+9. **RDN** — MD&A: 7.0M shares repurchased at a total cost of $224M including commissions.
+10. **RDN** — Statement of changes in equity: ""Dividends and dividend equivalents declared"" = $152.9M ($0.245/share quarterly).
+
+**Full-year 2024 aggregate capital returned to common shareholders across the six MI issuers: ~$3.65 billion.**",True,Aggregate of $3.647B matches expected ~$3.67B; per-issuer figures align within rounding tolerance.,0.017593,0.001308,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 8292}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8363}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7794}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6777}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7794}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7316}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7192}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5632}]",59160,105.62

@@ -1,0 +1,22 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","Here is a recap of the capital return activity in 2024 for each of the four mortgage insurers, based on their FY2024 10-Ks:
+
+**MGIC (MTG)**
+- **Share repurchases:** 25.3 million shares for $566.6 million. As of Dec 31, 2024, $457.2 million remained under authorization through Dec 31, 2026.
+- **Dividends:** $0.115/share in Q1/Q2, raised to $0.13/share in Q3/Q4. Total dividends paid of $130.5 million. In 2025, the dividend remained at $0.13/share.
+- **Subsidiary dividend to parent:** MGIC paid $750 million to the holding company.
+
+**NMI Holdings (NMIH)**
+- **Share repurchases:** 2.8 million shares for $97.7 million. As of Dec 31, 2024, $80.1 million remained under authorization. In February 2025, a new $250 million authorization was approved through 2027.
+- **Dividends:** Did not declare or pay any dividends on common stock in 2024 or previously.
+- **Subsidiary dividend to parent:** NMIC paid a $96.3 million ordinary dividend to NMIH.
+
+**Radian (RDN)**
+- **Share repurchases:** 7.0 million shares for $224 million. As of Dec 31, 2024, $543 million remained under the $900 million authorization extended through June 2026.
+- **Dividends:** $0.245/share quarterly for a total of $152.9 million declared. In February 2025, the quarterly dividend was increased to $0.255/share.
+- **Subsidiary dividend to parent:** Radian Guaranty paid $675 million in ordinary dividends to Radian Group.
+
+**Essent (ESNT)**
+- **Share repurchases:** ~1.2 million shares in Q4 2024 alone. As of Dec 31, 2024, $147.3 million remained under the $250 million authorization. In February 2025, a new $500 million authorization was approved through 2026.
+- **Dividends:** $0.28/share quarterly for a total of $119.9 million declared. In Q1 2025 the dividend was raised to $0.31/share.
+- **Subsidiary dividend to parent:** Essent Guaranty paid $165.5 million in dividends to Essent US Holdings, and Essent Re paid $300 million to Essent Group Ltd.",False,Answer omits Enact and Arch; provides only 4 of 6 cohort issuers and totals ~$1.67B instead of ~$3.67B.,0.028385,0.001174,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 7771}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7578}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8436}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7047}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7794}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6579}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7769}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7358}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7218}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7105}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6097}]",80752,103.26

@@ -1,0 +1,41 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","Let me get additional data for the companies where I'm still missing full-year figures.## Facts retrieved
+
+- **ACGL**: Full-year 2024 share repurchases of $23.5 million (ACGL_10-K_2024-12-31, Note 21: ""Aggregate cost of shares repurchased $23.5""). Common dividends paid (including special dividend) of $1,881 million (ACGL_10-K_2024-12-31, retained earnings: ""Common share dividends ($1,881)""). Total capital returned = $1,904.5 million.
+- **ACT**: Total capital returned to shareholders in 2024 was $354 million inclusive of quarterly dividends and share repurchases (ACT_8-K_2025-02-04: ""We returned $354 million to shareholders in 2024 inclusive of quarterly dividends and share repurchases""). Breakout: share repurchases $243 million (7.6 million shares at $31.95), dividends implied $111 million (ACT_8-K_2025-02-04: ""repurchased 7.6 million shares … total of $243 million"" and ""paid approximately $28 million … dividend in the fourth quarter"" but full-year total not directly given; $354M minus $243M = $111M). Total = $354 million.
+- **NMIH**: Change in treasury stock from Dec 31, 2023 to Dec 31, 2024 implies $97.7 million in share repurchases ($246,594 - $148,921 = $97,673 thousand) (NMIH_8-K_2025-02-06, balance sheet). No common dividends paid. Total capital returned = $97.7 million.
+- **RDN**: Full-year 2024 share repurchases of $224 million (7.0 million shares) and common dividends of $152 million ($0.245 per share in Q4; full-year total $152M) (RDN_8-K_2025-02-05: ""repurchased 7.0 million shares at a total cost of $224 million"" and ""paid total dividends of $152 million""). Total capital returned = $376 million.
+- **ESNT**: No explicit full-year 2024 share repurchase or common dividend totals found in the retrieved documents. Only Q4/January 2025 repurchases (~$118 million) and Q4 2025 dividend declaration ($0.31 per share) are mentioned.
+- **MTG**: No explicit full-year 2024 share repurchase or common dividend totals found in the retrieved documents. Only Q4 2024 share repurchases ($193.3 million for 7.8 million shares) and Q4 dividend ($0.13 per share) are mentioned.
+
+## Tools called
+
+- `dsrag_kb({""question"": ""Full year 2024 share repurchases and common dividends paid to shareholders"", ""doc_id"": ""ACGL_8-K_2025-02-10""})`
+- `dsrag_kb({""question"": ""Full year 2024 share repurchases and common dividends paid to shareholders"", ""doc_id"": ""ACT_8-K_2025-02-04""})`
+- `dsrag_kb({""question"": ""Full year 2024 share repurchases and common dividends paid to shareholders"", ""doc_id"": ""ESNT_8-K_2025-02-14""})`
+- `dsrag_kb({""question"": ""Full year 2024 share repurchases and common dividends paid to shareholders"", ""doc_id"": ""MTG_8-K_2025-02-03""})`
+- `dsrag_kb({""question"": ""Full year 2024 share repurchases and common dividends paid to shareholders"", ""doc_id"": ""NMIH_8-K_2025-02-06""})`
+- `dsrag_kb({""question"": ""Full year 2024 share repurchases and common dividends paid to shareholders"", ""doc_id"": ""RDN_8-K_2025-02-05""})`
+- `dsrag_kb({""doc_id"": ""ACGL_10-K_2024-12-31"", ""question"": ""Full year 2024 share repurchases and common dividends paid to common shareholders""})`
+- `dsrag_kb({""doc_id"": ""ESNT_8-K_2025-02-14"", ""question"": ""Full year 2024 share repurchases and common dividends paid to shareholders""})`
+- `dsrag_kb({""doc_id"": ""MTG_8-K_2025-02-03"", ""question"": ""Full year 2024 total share repurchases and total common dividends""})`
+- `dsrag_kb({""doc_id"": ""NMIH_8-K_2025-02-06"", ""question"": ""Full year 2024 share repurchases and common dividends paid""})`
+
+## Open questions
+
+- **ESNT**: Need full-year 2024 common dividends and share repurchases (only Q4/Jan 2025 repurchases and Q4 2025 dividend rate available).
+- **MTG**: Need full-year 2024 common dividends and share repurchases (only Q4 2024 repurchases and Q4 2024 dividend rate available).
+- (none — sufficient to answer) for ACGL, ACT, NMIH, RDN.Based on full-year 2024 filings, here is the known capital returned to common shareholders (share repurchases + common dividends including specials) per issuer:
+
+| Issuer | Share Repurchases | Common Dividends | Total Capital Returned |
+|--------|------------------|-----------------|----------------------|
+| **ACGL** | $23.5 million | $1,881 million | **$1,904.5 million** |
+| **ACT** | $243 million | $111 million | **$354 million** |
+| **NMIH** | $97.7 million | $0 | **$97.7 million** |
+| **RDN** | $224 million | $152 million | **$376 million** |
+| **ESNT** | — | — | **Not determinable** |
+| **MTG** | — | — | **Not determinable** |
+
+For **ESNT** and **MTG**, the retrieved documents (Q4 2024 8‑Ks) did not contain full‑year 2024 totals. Only partial quarterly data was available: ESNT repurchased ~$118 million in Q4 2024/January 2025 and declared a $0.31 per share dividend for Q4 2025; MTG repurchased $193.3 million in Q4 2024 and paid a $0.13 per share dividend in Q4 2024. Full‑year figures were not explicitly stated.
+
+A **partial aggregate** for the four issuers with complete data is **$2,732.2 million** (ACGL + ACT + NMIH + RDN). The cohort‑wide total cannot be computed without ESNT and MTG full‑year numbers.",False,"Agent identified wrong companies (ACGL, ACT, NMIH, RDN, ESNT, MTG) instead of the six MI cohort issuers (MGIC, Radian, Essent, NMI, Enact, Arch). Wrong aggregate and per-issuer figures.",0.02866,0.002426,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 7298}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6480}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4989}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6574}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7135}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7006}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7174}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6059}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5243}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7560}]",65518,148.36

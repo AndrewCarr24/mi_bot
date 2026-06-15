@@ -154,22 +154,31 @@ docker run --rm -p 8080:8080 \
   -v ~/.aws:/home/app/.aws:ro agent-fin:local
 # → catches container packaging issues that uvicorn alone won't surface
 
-# 4. Deploy loop (~5 min): push to ECR + redeploy App Runner
-#    Substitute <ACCOUNT_ID> (aws sts get-caller-identity) and
-#    <SERVICE_ARN> (aws apprunner list-services) before running.
-ACCOUNT_ID=<ACCOUNT_ID>
-SERVICE_ARN=<SERVICE_ARN>
-docker build --platform=linux/amd64 \
-  -t ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/agent-fin:latest .
-aws ecr get-login-password --region us-east-1 \
-  | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
-docker push ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/agent-fin:latest
-aws apprunner start-deployment --service-arn ${SERVICE_ARN}
+# 4. Deploy loop (~3-4 min warm, ~5-7 min cold): build + push + redeploy
+./scripts/deploy.sh
 ```
 
 **Cost note**: local uvicorn is free; each `/ask` call costs DeepSeek
 + Bedrock Haiku tokens (roughly 1-5¢ per question). The full eval over
 ~23 questions costs ~$0.50-1.
+
+## Deployment
+
+The first-time deploy needs CDK bootstrapped and the auth env vars set.
+
+```bash
+cd infra/cdk
+pip install -r requirements.txt
+cd ../..
+cdk bootstrap                           # one-time per AWS account/region
+set -a && . .env && set +a              # loads AGENT_PASSWORD, COOKIE_SECRET, etc.
+./scripts/deploy.sh                     # ~5-7 min cold; ~3-4 min on subsequent runs
+# → prints https://xxx.us-east-1.awsapprunner.com
+```
+
+Visit the URL, enter the password from `AGENT_PASSWORD`, and use the app.
+
+See [`infra/cdk/README.md`](./infra/cdk/README.md) for what's in the CDK stacks and how to destroy them.
 
 ## Switching the orchestrator
 

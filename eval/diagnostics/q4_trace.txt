@@ -1,0 +1,2139 @@
+====================================================================================================
+Q4: What board or named-executive changes did the six MI cohort issuers report in 2024 — additions, departures, or restructurings? Just the ones disclosed via 8-K Item 5.02.
+----------------------------------------------------------------------------------------------------
+EXPECTED:
+The only Item 5.02 disclosure in the cohort's 2024 8-Ks is MGIC's (MTG) appointment of Michael Thompson to its Board of Directors, disclosed in the 8-K filed January 31, 2024. None of the other five cohort issuers (Radian, Essent, NMI, Enact, Arch Capital) reported board additions, departures, or restructurings via Item 5.02 in 2024. The other 8-Ks the cohort filed in 2024 are primarily earnings releases (Item 2.02) and dividend declarations.
+
+Wall time: 145.95s
+
+[ROUTER]
+  intent='rag_query' wiki_slug=None cohort_query='board director named executive officer changes 2024'
+
+[AGENT_RESPONSE]
+  REASONING (2368 chars):
+    | The user wants to know about board or named-executive changes (additions, departures, restructurings) disclosed via 8-K Item 5.02 in 2024 across the six MI cohort issuers. Let me identify the six MI companies:
+    | 
+    | 1. ACGL (Arch Capital)
+    | 2. ACT (Enact Holdings)
+    | 3. ESNT (Essent)
+    | 4. MTG (MGIC)
+    | 5. NMIH (NMI Holdings)
+    | 6. RDN (Radian)
+    | 
+    | I need to look at their 8-K filings from 2024. Let me think about which 8-Ks might have Item 5.02 (Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers; Compensatory Arrangements of Certain Officers).
+    | 
+    | From the catalog, the 2024 8-Ks for each company are:
+    | 
+    | **ACGL (Arch Capital):**
+    | - ACGL_8-K_2024-02-14
+    | - ACGL_8-K_2024-04-29
+    | - ACGL_8-K_2024-07-30
+    | - ACGL_8-K_2024-10-30
+    | 
+    | **ACT (Enact Holdings):**
+    | - ACT_8-K_2024-02-06
+    | - ACT_8-K_2024-05-01
+    | - ACT_8-K_2024-07-31
+    | - ACT_8-K_2024-11-06
+    | 
+    | **ESNT (Essent):**
+    | - ESNT_8-K_2024-02-09
+    | - ESNT_8-K_2024-05-03
+    | - ESNT_8-K_2024-08-02
+    | - ESNT_8-K_2024-11-01
+    | - ESNT_8-K_2025-03-27 - wait, this is 2025, not 2024. Let me check.
+    |   Actually looking at the catalog: ESNT 8-K entries:
+    |   - 2023-05-05, 2023-08-04, 2023-11-02
+    |   - 2024-02-09, 2024-05-03, 2024-08-02, 2024-11-01
+    |   - 2025-02-14, 2025-03-27, 2025-05-09, 2025-08-08, 2025-11-07
+    |   - 2026-02-13
+    | 
+    | Wait, ESNT_8-K_2025-03-27 is in 2025 - that's not relevant for 2024.
+    | 
+    | Let me query each 2024 8-K for each company. I'll need to check each one for Item 5.02 content. Let me make parallel calls for the likely relevant ones. Actually, let me search broadly first by asking each 2024 8-K about Item 5.02 disclosures.
+    | 
+    | I'll make parallel calls for all 2024 8-Ks across all six companies.
+    | 
+    | Actually, let me start with a broad search across all 2024 8-Ks for these tickers. But the tool doesn't support wildcard doc_id filtering. Let me query each 8-K individually.
+    | 
+    | Let me query each 2024 8-K for the six companies. That's a lot of parallel calls but the system can handle it.
+    | 
+    | ACGL 2024 8-Ks: 2024-02-14, 2024-04-29, 2024-07-30, 2024-10-30
+    | ACT 2024 8-Ks: 2024-02-06, 2024-05-01, 2024-07-31, 2024-11-06
+    | ESNT 2024 8-Ks: 2024-02-09, 2024-05-03, 2024-08-02, 2024-11-01
+    | MTG 2024 8-Ks: 2024-01-31, 2024-05-01, 2024-07-31, 2024-11-04
+    | NMIH 2024 8-Ks: 2024-02-14, 2024-04-30, 2024-07-30, 2024-11-06
+    | RDN 2024 8-Ks: 2024-02-07, 2024-05-01, 2024-07-31, 2024-11-06
+    | 
+    | That's 25 calls. Let me ask broadly about Item 5.02 for each one.
+  TOOL_CALLS:
+    → dsrag_kb({'doc_id': 'ACGL_8-K_2024-02-14', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ACGL_8-K_2024-04-29', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ACGL_8-K_2024-07-30', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ACGL_8-K_2024-10-30', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ACT_8-K_2024-02-06', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ACT_8-K_2024-05-01', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ACT_8-K_2024-07-31', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ACT_8-K_2024-11-06', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ESNT_8-K_2024-02-09', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ESNT_8-K_2024-05-03', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ESNT_8-K_2024-08-02', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'ESNT_8-K_2024-11-01', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'MTG_8-K_2024-01-31', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'MTG_8-K_2024-05-01', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'MTG_8-K_2024-07-31', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'MTG_8-K_2024-11-04', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'NMIH_8-K_2024-02-14', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'NMIH_8-K_2024-04-30', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'NMIH_8-K_2024-07-30', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'NMIH_8-K_2024-11-06', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'RDN_8-K_2024-02-07', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'RDN_8-K_2024-05-01', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'RDN_8-K_2024-07-31', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+    → dsrag_kb({'doc_id': 'RDN_8-K_2024-11-06', 'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.'})
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ACT_8-K_2024-07-31'}
+  → returned 2 segments
+  --- segment 0: doc_id=ACT_8-K_2024-07-31 score=8.757 len=9350 ---
+    : Document context: the following excerpt is from a document titled 'ENACT REPORTS SECOND QUARTER 2024 RESULTS AND ANNOUNCES QUARTERLY DIVIDEND'. This document is about: Enact Holdings, Inc.'s financial results for the second quarter of 2024 and the announcement of a quarterly dividend.
+    : 
+    : | (In millions, except per share data or otherwise noted) | 2Q24 | 1Q24 | 2Q23 |
+    : | Net Income (loss) | $184 | $161 | $168 |
+    : | Diluted Net Income (loss) per share | $1.16 | $1.01 | $1.04 |
+    : | Adjusted Operating Income (loss) | $201 | $166 | $178 |
+    : | Adj. Diluted Operating Income (loss) per share | $1.27 | $1.04 | $1.10 |
+    : | NIW ($B) | $14 | $11 | $15 |
+    : | Primary IIF ($B) | $266 | $264 | $258 |
+    : | Primary Persistency Rate | 83% | 85% | 84% |
+    : | Net Premiums Earned | $245 | $241 | $239 |
+    : | Losses Incurred | $(17) | $20 | $(4) |
+    : | Loss Ratio | (7)% | 8% | (2)% |
+    : | Operating Expenses | $56 | $53 | $55 |
+    : | Expense Ratio | 23% | 22% | 23% |
+    : | Net Investment Income | $60 | $57 | $51 |
+    : | Net Investment gains (losses) | $(8) | $(7) | $(13) |
+    : | Return on Equity | 15.4% | 13.8% | 15.5% || Adjusted Operating Return on Equity | 16.9% | 14.2% | 16.4% |
+    : | PMIERs Sufficiency ($) | $2,057 | $1,883 | $1,958 |
+    : | PMIERs Sufficiency (%) | 169% | 163% | 162% |
+    : 1
+    : 
+    : image\_0.jpg
+    : 
+    : <!-- image -->Second Quarter 2024 Financial and Operating Highlights
+    : 
+    : •
+    : 
+    : Net income was $184 million, or $1.16 per diluted share, compared with $161 million, or $1.01 per diluted share, for the first quarter of 2024 and $168 million, or $1.04 per diluted share, for the
+    : second quarter of 2023. Adjusted operating income was $201 million, or $1.27 per diluted share, compared with $166 million, or $1.04 per diluted share, for the first quarter of 2024 and $178 million,
+    : or $1.10 per diluted share, for the second quarter of 2023.
+    : 
+    : •New insurance wr
+    ... [truncated, 7550 more chars]
+  --- segment 1: doc_id=ACT_8-K_2024-07-31 score=8.935 len=10017 ---
+    : Document context: the following excerpt is from a document titled 'ENACT REPORTS SECOND QUARTER 2024 RESULTS AND ANNOUNCES QUARTERLY DIVIDEND'. This document is about: Enact Holdings, Inc.'s financial results for the second quarter of 2024 and the announcement of a quarterly dividend.
+    : 
+    : differ materially from the results discussed in our forward-looking statements. Our forward-looking statements contained herein speak only as of the date of this press release. Factors or events that
+    : we cannot predict, including risks related to an economic downturn or a recession in the United States and in other countries around the world; changes in political, business, regulatory, and economic
+    : conditions; changes in or to Fannie Mae and Freddie Mac (the "GSEs"), whether through Federal legislation, restructurings or a shift in business practices; failure to continue to meet the mortgage
+    : insurer eligibility requirements of the GSEs; competition for customers; lenders or investors seeking alternatives to private mortgage insurance; an increase in the number of loans insured throughFederal government mortgage insurance programs, including those offered by the Federal Housing Administration; and other factors described in the risk factors contained in our 2023 Annual Report on
+    : Form 10-K and other filings with the SEC, may cause our actual results to differ from those expressed in forward-looking statements. Although Enact believes the expectations reflected in such
+    : forward-looking statements are based on reasonable assumptions, Enact can give no assurance that its expectations will be achieved and it undertakes no obligation to update publicly any
+    : forward-looking statements as a result of new information, future events, or otherwise, except as required by applicable law.GAAP/Non-GAAP Disc
+    ... [truncated, 8217 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'NMIH_8-K_2024-04-30'}
+  → returned 4 segments
+  --- segment 0: doc_id=NMIH_8-K_2024-04-30 score=26.465 len=10587 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Record First Quarter 2024 Financial Results'. This document is about: the record first quarter 2024 financial results of NMI Holdings, Inc., including net income, revenue, and insurance portfolio growth.
+    : 
+    : | Income tax expense | 25,517 | 21,768 | 21,715 |
+    : | Net income | $ | 89,050 | $ | 83,413 | $ | 74,458 |
+    : | Adjustments: |
+    : | Net realized investment losses | - | 33 |
+    : | Adjusted income before taxes | 114,567 | 105,181 | 96,206 |
+    : | Income tax expense on adjustments  (1) | - | 7 |
+    : | Adjusted net income | $ | 89,050 | $ | 83,413 | $ | 74,484 |
+    : | Weighted average diluted shares outstanding | 82,099 | 82,685 | 84,840 |
+    : | Diluted EPS | $ | 1.08 | $ | 1.01 | $ | 0.88 |
+    : | Adjusted diluted EPS | $ | 1.08 | $ | 1.01 | $ | 0.88 |
+    : | Return-on-equity | 18.2 | % | 18.0 | % | 17.9 | % |
+    : | Adjusted return-on-equity | 18.2 | % | 18.0 | % | 17.9 | % |
+    : | Expense ratio  (2) | 21.8 | % | 22.4 | % | 21.2 | % |
+    : | Adjusted expense ratio  (3) | 21.8 | % | 22.4 | % | 21.2 | % |
+    : | Combined ratio  (4) | 24.5 | % | 28.5 | % | 26.7 | % |
+    : | Adjusted combined ratio  (5) | 24.5 | % | 28.5 | % | 26.7 | % |
+    : | Book value per share  (6) | $ | 24.56 | $ | 23.81 | $ | 20.49 |
+    : | Book value per share (excluding net unrealized gains and losses)  (7) | $ | 26.42 | $ | 25.54 | $ | 22.56 |(1) Marginal tax impact of non-GAAP adjustments is calculated based on our statutory U.S. federal corporate income tax rate of 21%, except for those items that are not eligible for an income tax
+    : deduction.
+    : 
+    : (2)    Expense ratio is calculated by dividing underwriting and operating expenses by net premiums earned.
+    : 
+    : 8
+    : 
+    : EXHIBIT 99.1
+    : 
+    : (3) Adjusted expense ratio is calculated by dividing adjusted underwriting and operating expense (underwriting
+    ... [truncated, 8787 more chars]
+  --- segment 1: doc_id=NMIH_8-K_2024-04-30 score=35.835 len=9068 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Record First Quarter 2024 Financial Results'. This document is about: the record first quarter 2024 financial results of NMI Holdings, Inc., including net income, revenue, and insurance portfolio growth.
+    : 
+    : Adam Pollitzer, President and Chief Executive Officer of National MI, said, "In the first quarter, we again delivered standout operating performance, continued growth in our high-quality insured
+    : portfolio, record profitability and strong returns. Our products and the support we provide are more important today than ever before and we're delivering unique solutions for our customers and their
+    : borrowers. We have built an exceptionally high-quality book covered by a comprehensive set of risk transfer solutions, our credit performance continues to stand ahead, and we have a robust balance
+    : sheet supported by the significant earnings power of our platform. Looking forward, we're well-positioned to continue delivering differentiated growth, returns and value for our shareholders."
+    : Selected first quarter 2024 highlights include:
+    : 
+    : •
+    : 
+    : Primary insurance-in-force at quarter end was $199.4 billion, compared to $197.0 billion at the end of the fourth quarter and $186.7 billion at the end of the first quarter of 2023.
+    : 
+    : •
+    : 
+    : Net premiums earned were $136.7 million, compared to $132.9 million in the fourth quarter and $121.8 million in the first quarter of 2023.
+    : 
+    : •
+    : 
+    : Total revenue was $156.3 million, compared to $151.4 million in the fourth quarter and $136.8 million in the first quarter of 2023.
+    : 
+    : •
+    : 
+    : Insurance claims and claim expenses were $3.7 million, compared to $8.2 million in the fourth quarter and $6.7 million in the first quarter of 2023. Loss ratio was
+    : 
+    : 2.7%
+    : 
+    : compared to
+    : 
+    : 6.2%
+    : 
+    : in the fo
+    ... [truncated, 7268 more chars]
+  --- segment 2: doc_id=NMIH_8-K_2024-04-30 score=8.57 len=3271 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Record First Quarter 2024 Financial Results'. This document is about: the record first quarter 2024 financial results of NMI Holdings, Inc., including net income, revenue, and insurance portfolio growth.
+    : 
+    : The tables below present our total primary IIF and RIF by FICO and LTV, and total primary RIF by loan type as of the dates indicated.
+    : 
+    : | Primary IIF by FICO | As of |
+    : | March 31, 2024 | December 31, 2023 | March 31, 2023 |
+    : | (In Millions) |
+    : | >= 760 | $ | 99,195 | $ | 98,034 | $ | 91,623 |
+    : | 740-759 | 35,416 | 34,829 | 33,156 |
+    : | 720-739 | 28,033 | 27,755 | 26,233 |
+    : | 700-719 | 18,904 | 18,734 | 18,203 |
+    : | 680-699 | 13,002 | 12,867 | 12,502 |
+    : | <=679 | 4,823 | 4,810 | 5,007 |
+    : | Total | $ | 199,373 | $ | 197,029 | $ | 186,724 |
+    : 
+    : | Primary RIF by FICO | As of |
+    : | March 31, 2024 | December 31, 2023 | March 31, 2023 |
+    : | (In Millions) |
+    : | >= 760 | $ | 25,935 | $ | 25,523 | $ | 23,472 |
+    : | 740-759 | 9,392 | 9,207 | 8,692 |
+    : | 720-739 | 7,484 | 7,387 | 6,903 |
+    : | 700-719 | 5,089 | 5,021 | 4,847 |
+    : | 680-699 | 3,479 | 3,433 | 3,311 |
+    : | <=679 | 1,231 | 1,225 | 1,269 |
+    : | Total | $ | 52,610 | $ | 51,796 | $ | 48,494 |
+    : 
+    : 13
+    : EXHIBIT 99.1
+    : 
+    : | Primary IIF by LTV | As of |
+    : | March 31, 2024 | December 31, 2023 | March 31, 2023 |
+    : | (In Millions) |
+    : | 95.01% and above | $ | 20,277 | $ | 19,609 | $ | 17,583 |
+    : | 90.01% to 95.00% | 97,028 | 95,415 | 89,125 |
+    : | 85.01% to 90.00% | 61,169 | 60,348 | 56,425 |
+    : | 85.00% and below | 20,899 | 21,657 | 23,591 |
+    : | Total | $ | 199,373 | $ | 197,029 | $ | 186,724 |
+    : 
+    : | Primary RIF by LTV | As of |
+    : | March 31, 2024 | December 31, 2023 | March 31, 2023 |
+    : | (In Millions) |
+    : | 95.01% and above | $ | 6,275 | $ | 6,062 | $ | 5,413 |
+    : | 90.01% to 95.00% | 28,663 | 28,184 | 26,
+    ... [truncated, 1471 more chars]
+  --- segment 3: doc_id=NMIH_8-K_2024-04-30 score=3.915 len=1142 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Record First Quarter 2024 Financial Results'. This document is about: the record first quarter 2024 financial results of NMI Holdings, Inc., including net income, revenue, and insurance portfolio growth.
+    : 
+    : | Basic | $ | 1.10 | $ | 0.89 |
+    : | Diluted | $ | 1.08 | $ | 0.88 |
+    : | Weighted average common shares outstanding |
+    : | Basic | 80,726 | 83,600 |
+    : | Diluted | 82,099 | 84,840 |
+    : | Loss ratio  (1) | 2.7% | 5.5% |
+    : | Expense ratio  (2) | 21.8% | 21.2% |
+    : | Combined ratio | 24.5% | 26.7% |
+    : | Net income | $ | 89,050 | $ | 74,458 |
+    : | Other comprehensive (loss) income, net of tax: |
+    : | Unrealized (losses) gains in accumulated other comprehensive income, net of tax (benefit) expense of $(2,729) and $8,633 for the quarters ended March 31, 2024 and 2023, respectively | (9,905) |
+    : 32,476 |
+    : | Reclassification adjustment for realized losses included in net income, net of tax benefit of $7 for the quarter ended March 31, 2023 | - | 26 |
+    : | Other comprehensive (loss) income, net of tax | (9,905) | 32,502 |
+    : | Comprehensive income | $ | 79,145 | $ | 106,960 |
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ACT_8-K_2024-05-01'}
+  → returned 2 segments
+  --- segment 0: doc_id=ACT_8-K_2024-05-01 score=4.051 len=1083 ---
+    : Document context: the following excerpt is from a document titled 'Enact Announces 16% Increase to Quarterly Dividend and New $250 Million Share Repurchase Program'. This document is about: Enact Holdings, Inc. announcing a 16% increase to its quarterly dividend and a new $250 million share repurchase program.
+    : 
+    : Additionally, Enact announced that its Board of Directors authorized a new share repurchase program under which the company may purchase up to $250 million of its common stock. The new share
+    : repurchase authorization is in addition to the company's current $100 million share repurchase program, of which $24 million remains as of April 26th, 2024.
+    : 
+    : "Today's announcement underscores the strength of our financial position and our ongoing confidence in our business," said Rohit Gupta, Enact's President and Chief Executive Officer "The decision by
+    : the Board to raise our quarterly dividend and authorize a new share repurchase program are aligned with our disciplined and balanced approach to capital allocation focused on creating long-term value
+    : for our shareholders."
+  --- segment 1: doc_id=ACT_8-K_2024-05-01 score=4.563 len=1029 ---
+    : Document context: the following excerpt is from a document titled 'Enact Announces 16% Increase to Quarterly Dividend and New $250 Million Share Repurchase Program'. This document is about: Enact Holdings, Inc. announcing a 16% increase to its quarterly dividend and a new $250 million share repurchase program.
+    : 
+    : Exhibit 99.3
+    : 
+    : image\_0b.jpg
+    : 
+    : <!-- image -->
+    : 
+    : 8325 Six Forks Road
+    : 
+    : Raleigh, NC 27615
+    : 
+    : 919-846-4100
+    : 
+    : 800-444-5664
+    : 
+    : EnactMI.com
+    : 
+    : FOR IMMEDIATE RELEASE
+    : 
+    : May 1, 2024
+    : 
+    : Enact Announces 16% Increase to Quarterly Dividend and New $250 Million Share Repurchase Program
+    : 
+    : RALEIGH, N.C., May 1, 2024 - Enact Holdings, Inc. (Nasdaq: ACT) (Enact)
+    : 
+    : a leading provider of private mortgage insurance through its insurance subsidiaries, today announced that its Board of Directors declared a quarterly dividend of $0.185 per common share, an increase
+    : of 16% from the prior quarter's dividend. This dividend will be payable on June 13, 2024, to shareholders of record on May 29, 2024. Future dividends will be subject to Board approval.
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ESNT_8-K_2024-05-03'}
+  → returned 4 segments
+  --- segment 0: doc_id=ESNT_8-K_2024-05-03 score=49.375 len=14475 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces First Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the first quarter of 2024 and the declaration of a quarterly dividend.
+    : 
+    : | Exhibit E |
+    : | Essent Group Ltd. and Subsidiaries |
+    : | Supplemental Information - U.S. Mortgage Insurance Portfolio |
+    : | New Insurance Written: Flow |
+    : | NIW by Credit Score |
+    : | Three Months Ended |
+    : | March 31, 2024 | December 31, 2023 | March 31, 2023 |
+    : | ($ in thousands) |
+    : | >=760 | $ | 3,596,600 | 43.2 | % | $ | 3,708,316 | 42.3 | % | $ | 4,847,058 | 37.7 | % |
+    : | 740-759 | 1,410,446 | 16.9 | 1,531,800 | 17.5 | 2,397,982 | 18.6 |
+    : | 720-739 | 1,244,648 | 15.0 | 1,333,537 | 15.2 | 2,204,844 | 17.1 |
+    : | 700-719 | 1,140,430 | 13.7 | 1,256,250 | 14.3 | 2,002,892 | 15.5 |
+    : | 680-699 | 563,419 | 6.8 | 581,913 | 6.6 | 1,100,815 | 8.5 |
+    : | <=679 | 368,001 | 4.4 | 357,344 | 4.1 | 340,198 | 2.6 |
+    : | Total | $ | 8,323,544 | 100.0 | % | $ | 8,769,160 | 100.0 | % | $ | 12,893,789 | 100.0 | % || Weighted average credit score | 747 | 745 |
+    : | NIW by LTV |
+    : | Three Months Ended |
+    : | March 31, 2024 | December 31, 2023 | March 31, 2023 |
+    : | ($ in thousands) |
+    : | 85.00% and below | $ | 559,899 | 6.7 | % | $ | 642,636 | 7.3 | % | $ | 963,009 | 7.5 | % |
+    : | 85.01% to 90.00% | 1,732,131 | 20.8 | 1,871,854 | 21.3 | 2,685,828 | 20.8 |
+    : | 90.01% to 95.00% | 4,517,655 | 54.3 | 4,660,032 | 53.1 | 7,430,113 | 57.6 |
+    : | 95.01% and above | 1,513,859 | 18.2 | 1,594,638 | 18.3 | 1,814,839 | 14.1 |
+    : | Total | $ | 8,323,544 | 100.0 | % | $ | 8,769,160 | 100.0 | % | $ | 12,893,789 | 100.0 | % |
+    : | Weighted average LTV | 93 | % | 93 | % | 93 | % |
+    : | NIW by Product |
+    : | Three Months Ended |
+    : | March 31, 2024 | December 31, 2023 | Marc
+    ... [truncated, 12675 more chars]
+  --- segment 1: doc_id=ESNT_8-K_2024-05-03 score=23.165 len=10841 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces First Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the first quarter of 2024 and the declaration of a quarterly dividend.
+    : 
+    : | Exhibit L |
+    : | Essent Group Ltd. and Subsidiaries |
+    : | Supplemental Information |
+    : | Detail of Reserves by Default Delinquency |
+    : | U.S. Mortgage Insurance Portfolio |
+    : | March 31, 2024 |
+    : | Number of Policies in Default | Percentage of Policies in Default | Amount of Reserves | Percentage of Reserves | Defaulted RIF | Reserves as a Percentage of Defaulted RIF |
+    : | ($ in thousands) |
+    : | Missed Payments: |
+    : | Three payments or less | 6,527 | 47 | % | $ | 42,354 | 18 | % | $ | 482,151 | 9 | % |
+    : | Four to eleven payments | 5,440 | 39 | 104,123 | 45 | 426,513 | 24 |
+    : | Twelve or more payments | 1,883 | 13 | 80,025 | 34 | 130,816 | 61 |
+    : | Pending claims | 142 | 1 | 7,382 | 3 | 8,351 | 88 |
+    : | Total case reserves | 13,992 | 100 | % | 233,884 | 100 | % | $ | 1,047,831 | 22 | % |
+    : | IBNR | 17,541 || LAE | 2,140 |
+    : | Total reserves for losses and LAE | $ | 253,565 |
+    : | Average reserve per default: |
+    : | Case | $ | 16.7 |
+    : | Total | $ | 18.1 |
+    : | Default Rate | 1.72% |
+    : | December 31, 2023 |
+    : | Number of Policies in Default | Percentage of Policies in Default | Amount of Reserves | Percentage of Reserves | Defaulted RIF | Reserves as a Percentage of Defaulted RIF |
+    : | ($ in thousands) |
+    : | Missed Payments: |
+    : | Three payments or less | 7,288 | 49 | % | $ | 44,607 | 20 | % | $ | 527,419 | 8 | % |
+    : | Four to eleven payments | 5,421 | 37 | 97,424 | 43 | 417,876 | 23 |
+    : | Twelve or more payments | 1,984 | 13 | 78,540 | 35 | 132,257 | 59 |
+    : | Pending claims | 126 | 1 | 5,550 | 2 | 6,302 | 88 |
+    : | Total case reserves | 14
+    ... [truncated, 9041 more chars]
+  --- segment 2: doc_id=ESNT_8-K_2024-05-03 score=19.266 len=2475 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces First Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the first quarter of 2024 and the declaration of a quarterly dividend.
+    : 
+    : Exhibit 99.1
+    : 
+    : Essent Group Ltd. Announces First Quarter 2024 Results and Declares Quarterly Dividend
+    : 
+    : HAMILTON, Bermuda--(BUSINESS WIRE)--May 3, 2024--Essent Group Ltd. (NYSE: ESNT) today reported net income for the quarter ended March 31, 2024 of $181.7 million or $1.70 per diluted share, compared
+    : to $170.8 million or $1.59 per diluted share for the quarter ended March 31, 2023.
+    : 
+    : Essent also announced today that its Board of Directors has declared a quarterly cash dividend of $0.28 per common share. The dividend is payable on June 10, 2024, to shareholders of record on May
+    : 31, 2024.
+    : "We are pleased with our financial results in the first quarter, as our high-quality portfolio and consumer resilience have translated to favorable credit performance, and the current rate
+    : environment has benefited investment income and persistency," said Mark A. Casale, Chairman and Chief Executive Officer. "The Essent franchise continues to grow, propelled by the strong performance of
+    : our mortgage insurance and reinsurance operations, and integration of the title business."
+    : Financial Highlights:
+    : 
+    : •
+    : 
+    : New insurance written for the first quarter of 2024 was $8.3 billion, compared to $8.8 billion in the fourth quarter of 2023 and $12.9 billion in the first quarter of 2023.
+    : 
+    : •
+    : 
+    : Insurance in force as of March 31, 2024 was $238.5 billion, compared to $239.1 billion as of December 31, 2023 and $231.5 billion as of March 31, 2023.
+    : 
+    : •
+    : 
+    : Net investment income for the first quarter of 2024 was $52.1 million, up 2
+    ... [truncated, 675 more chars]
+  --- segment 3: doc_id=ESNT_8-K_2024-05-03 score=4.14 len=1586 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces First Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the first quarter of 2024 and the declaration of a quarterly dividend.
+    : 
+    : "Qualified Mortgage" reducing the size of the mortgage origination market or creating incentives to use government mortgage insurance programs; the definition of "Qualified Residential Mortgage"
+    : reducing the number of low down payment loans or lenders and investors seeking alternatives to private mortgage insurance; the implementation of the Basel III Capital Accord discouraging the use of
+    : private mortgage insurance; a decrease in the length of time that insurance policies are in force; uncertainty of loss reserve estimates; our non-U.S. operations becoming subject to U.S. Federal
+    : income taxation; becoming considered a passive foreign investment company for U.S. Federal income tax purposes; and other risks and factors described in Part I, Item 1A "Risk Factors" of our AnnualReport on Form 10-K for the year ended December 31, 2023 filed with the Securities and Exchange Commission on February 16, 2024, as subsequently updated through other reports we file with the
+    : Securities and Exchange Commission. Any forward-looking information presented herein is made only as of the date of this press release, and we do not undertake any obligation to update or revise any
+    : forward-looking information to reflect changes in assumptions, the occurrence of unanticipated events, or otherwise.
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ACGL_8-K_2024-07-30'}
+  → returned 4 segments
+  --- segment 0: doc_id=ACGL_8-K_2024-07-30 score=18.944 len=7459 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 SECOND QUARTER RESULTS'. This document is about: Arch Capital Group Ltd.'s financial results for the second quarter of 2024, including net income, underwriting performance, and segment results.
+    : 
+    : | Equity in net (income) loss of investment funds accounted for using the equity method | (0.44) | (0.18) |
+    : | Net foreign exchange (gains) losses | 0.00 | 0.01 |
+    : | Transaction costs and other | 0.05 | 0.00 |
+    : | Income tax expense (benefit) (2) | (0.02) | 0.01 |
+    : | After-tax operating income available to Arch common shareholders | $ | 2.57 | $ | 1.92 |
+    : | Weighted average common shares and common share equivalents outstanding - diluted | 381.6 | 378.4 |
+    : | Beginning common shareholders' equity | $ | 18,525 | $ | 13,158 |
+    : | Ending common shareholders' equity | 19,835 | 13,811 |
+    : | Average common shareholders' equity | $ | 19,180 | $ | 13,485 |
+    : | Annualized net income return on average common equity | 26.3 | % | 19.6 | % || Annualized operating return on average common equity | 20.5 | % | 21.5 | % |(1) Net realized gains or losses include realized and unrealized changes in the fair value of equity securities and assets accounted for using the fair value option, realized and unrealized gains and
+    : losses on derivative instruments, changes in the allowance for credit losses on financial assets and gains and losses realized from the acquisition or disposition of subsidiaries.
+    : 
+    : (2) Income tax expense (benefit) on net realized gains or losses, equity in net income (loss) of investment funds accounted for using the equity method, net foreign exchange gains or losses and
+    : transaction costs and other reflects the relative mix reported by jurisdiction and the varying tax rates in each jurisdictio
+    ... [truncated, 5659 more chars]
+  --- segment 1: doc_id=ACGL_8-K_2024-07-30 score=16.662 len=10478 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 SECOND QUARTER RESULTS'. This document is about: Arch Capital Group Ltd.'s financial results for the second quarter of 2024, including net income, underwriting performance, and segment results.
+    : 
+    : This presentation includes the use of "after-tax operating income or loss available to Arch common shareholders," which is defined as net income available to Arch common shareholders, excluding net
+    : realized gains or losses (which includes realized and unrealized changes in the fair value of equity securities and assets accounted for using the fair value option, realized and unrealized gains and
+    : losses on derivative instruments, changes in the allowance for credit losses on financial assets and gains and losses realized from the acquisition or disposition of subsidiaries), equity in net
+    : income or loss of investment funds accounted for using the equity method, net foreign exchange gains or losses, transaction costs and other, net of income taxes and the use of annualized operatingreturn on average common equity. The presentation of after-tax operating income available to Arch common shareholders and annualized operating return on average common equity are non-GAAP financial
+    : measures as defined in Regulation G. The reconciliation of such measures to net income available to Arch common shareholders and annualized net income return on average common equity (the most
+    : directly comparable GAAP financial measures) in accordance with Regulation G is included on page 2 of this release.The Company believes that net realized gains or losses, equity in net income or loss of investment funds accounted for using the equity method, net foreign exchange gains or losses and transaction
+    : costs and
+    ... [truncated, 8678 more chars]
+  --- segment 2: doc_id=ACGL_8-K_2024-07-30 score=8.869 len=4176 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 SECOND QUARTER RESULTS'. This document is about: Arch Capital Group Ltd.'s financial results for the second quarter of 2024, including net income, underwriting performance, and segment results.
+    : 
+    : accuracy of those estimates and judgments utilized in the preparation of the Company's financial statements, including those related to revenue recognition, insurance and other reserves, reinsurance
+    : recoverables, investment valuations, intangible assets, bad debts, income taxes, deferred tax assets, contingencies and litigation, and any determination to use the deposit method of accounting;
+    : 
+    : •
+    : 
+    : greater than expected loss ratios on business written by the Company and adverse development on claim and/or claim expense liabilities related to business written by its insurance and reinsurance
+    : subsidiaries;
+    : 
+    : •
+    : 
+    : the adequacy of the Company's loss reserves;
+    : 
+    : •
+    : 
+    : severity and/or frequency of losses;
+    : 
+    : •
+    : 
+    : greater frequency or severity of unpredictable natural and man-made catastrophic events;
+    : 
+    : •
+    : 
+    : claims resulting from natural or man-made catastrophic events or severe economic events in the Company's insurance, reinsurance and mortgage businesses could cause large losses and substantial
+    : volatility in the Company's results of operations;
+    : 
+    : •
+    : 
+    : the effect of climate change on the Company's business;
+    : 
+    : •
+    : 
+    : the effect of contagious diseases (including COVID-19) on the Company's business;
+    : 
+    : •
+    : 
+    : acts of terrorism, geopolitical political unrest and other regional and global hostilities or other unforecasted and unpredictable events;
+    : 
+    : •
+    : availability to the Company of reinsurance to manage its gross and net exposures and the cost of such reinsurance;
+    : 
+    : •
+    : 
+    : the failure of reinsurers, managing general agents,
+    ... [truncated, 2376 more chars]
+  --- segment 3: doc_id=ACGL_8-K_2024-07-30 score=11.291 len=1520 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 SECOND QUARTER RESULTS'. This document is about: Arch Capital Group Ltd.'s financial results for the second quarter of 2024, including net income, underwriting performance, and segment results.
+    : 
+    : Marc Grandisson, Chief Executive Officer of ACGL commented: "Our excellent results this quarter highlight the value of our ongoing commitment to bottom-line returns combined with disciplined
+    : execution throughout the underwriting cycle. We are pleased with the contributions made by our underwriting and investment teams, which are key to us being able to consistently generate returns above
+    : our target."
+    : All earnings per share amounts discussed in this release are on a diluted basis. The following table summarizes the Company's underwriting results:
+    : 
+    : | (U.S. Dollars in millions) | Three Months Ended June 30, |
+    : | 2024 | 2023 | % Change |
+    : | Gross premiums written | $ | 5,382 | $ | 4,845 | 11.1 |
+    : | Net premiums written | 3,781 | 3,428 | 10.3 |
+    : | Net premiums earned | 3,565 | 2,965 | 20.2 |
+    : | Underwriting income | 762 | 606 | 25.7 |
+    : | Underwriting Ratios | % Point Change |
+    : | Loss ratio | 51.2 | % | 50.3 | % | 0.9 |
+    : | Underwriting expense ratio | 27.5 | % | 29.5 | % | (2.0) |
+    : | Combined ratio | 78.7 | % | 79.8 | % | (1.1) |
+    : | Combined ratio excluding catastrophic activity and prior year development  (1) | 76.7 | % | 79.7 | % | (3.0) |
+    : 
+    : (1)    See 'Comments on Non-GAAP Financial Measures' for further details.
+    : 
+    : 1
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ESNT_8-K_2024-08-02'}
+  → returned 4 segments
+  --- segment 0: doc_id=ESNT_8-K_2024-08-02 score=37.159 len=13801 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Second Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the second quarter of 2024, including net income, new insurance written, and a declared quarterly dividend.
+    : 
+    : | <=679 | 611,945 | 4.8 | 406,754 | 3.0 | 979,946 | 4.7 | 746,952 | 2.8 |
+    : | Total | $ | 12,503,125 | 100.0 | % | $ | 13,498,080 | 100.0 | % | $ | 20,826,669 | 100.0 | % | $ | 26,391,869 | 100.0 | % |
+    : | Weighted average credit score | 748 | 746 | 748 | 746 |
+    : | NIW by LTV |
+    : | Three Months Ended | Six Months Ended |
+    : | June 30, 2024 | June 30, 2023 | June 30, 2024 | June 30, 2023 |
+    : | ($ in thousands) |
+    : | 85.00% and below | $ | 854,349 | 6.8 | % | $ | 988,752 | 7.3 | % | $ | 1,414,248 | 6.8 | % | $ | 1,951,761 | 7.4 | % |
+    : | 85.01% to 90.00% | 2,423,665 | 19.4 | 2,819,310 | 20.9 | 4,155,796 | 20.0 | 5,505,138 | 20.9 |
+    : | 90.01% to 95.00% | 6,874,853 | 55.0 | 7,339,533 | 54.4 | 11,392,508 | 54.7 | 14,769,646 | 55.9 || 95.01% and above | 2,350,258 | 18.8 | 2,350,485 | 17.4 | 3,864,117 | 18.5 | 4,165,324 | 15.8 |
+    : | Total | $ | 12,503,125 | 100.0 | % | $ | 13,498,080 | 100.0 | % | $ | 20,826,669 | 100.0 | % | $ | 26,391,869 | 100.0 | % |
+    : | Weighted average LTV | 93 | % | 93 | % | 93 | % | 93 | % |
+    : | NIW by Product |
+    : | Three Months Ended | Six Months Ended |
+    : | June 30, 2024 | June 30, 2023 | June 30, 2024 | June 30, 2023 |
+    : | Single Premium policies | 1.3 | % | 4.3 | % | 1.6 | % | 4.1 | % |
+    : | Monthly Premium policies | 98.7 | 95.7 | 98.4 | 95.9 |
+    : | 100.0 | % | 100.0 | % | 100.0 | % | 100.0 | % |
+    : | NIW by Purchase vs. Refinance |
+    : | Three Months Ended | Six Months Ended |
+    : | June 30, 2024 | June 30, 2023 | June 30, 2024 | June 30, 2023 |
+    : | Purchase | 97.8 | % 
+    ... [truncated, 12001 more chars]
+  --- segment 1: doc_id=ESNT_8-K_2024-08-02 score=20.745 len=11308 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Second Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the second quarter of 2024, including net income, new insurance written, and a declared quarterly dividend.
+    : 
+    : | LAE | 2,108 |
+    : | Total reserves for losses and LAE | $ | 246,107 |
+    : | Average reserve per default: |
+    : | Case | $ | 16.3 |
+    : | Total | $ | 17.6 |
+    : | Default Rate | 1.71% |
+    : | December 31, 2023 |
+    : | Number of Policies in Default | Percentage of Policies in Default | Amount of Reserves | Percentage of Reserves | Defaulted RIF | Reserves as a Percentage of Defaulted RIF |
+    : | ($ in thousands) |
+    : | Missed Payments: |
+    : | Three payments or less | 7,288 | 49 | % | $ | 44,607 | 20 | % | $ | 527,419 | 8 | % |
+    : | Four to eleven payments | 5,421 | 37 | 97,424 | 43 | 417,876 | 23 |
+    : | Twelve or more payments | 1,984 | 13 | 78,540 | 35 | 132,257 | 59 |
+    : | Pending claims | 126 | 1 | 5,550 | 2 | 6,302 | 88 |
+    : | Total case reserves | 14,819 | 100 | % | 226,121 | 100 | % | $ | 1,083,854 | 21 | % |
+    : | IBNR | 16,959 || LAE | 2,322 |
+    : | Total reserves for losses and LAE | $ | 245,402 |
+    : | Average reserve per default: |
+    : | Case | $ | 15.3 |
+    : | Total | $ | 16.6 |
+    : | Default Rate | 1.80% |
+    : | June 30, 2023 |
+    : | Number of Policies in Default | Percentage of Policies in Default | Amount of Reserves | Percentage of Reserves | Defaulted RIF | Reserves as a Percentage of Defaulted RIF |
+    : | ($ in thousands) |
+    : | Missed Payments: |
+    : | Three payments or less | 5,581 | 45 | % | $ | 33,864 | 17 | % | $ | 388,012 | 9 | % |
+    : | Four to eleven payments | 4,725 | 38 | 82,196 | 41 | 348,955 | 24 |
+    : | Twelve or more payments | 2,045 | 16 | 78,236 | 39 | 123,903 | 63 |
+    : | Pending claims | 129 | 1 | 5,680 | 3 | 6,
+    ... [truncated, 9508 more chars]
+  --- segment 2: doc_id=ESNT_8-K_2024-08-02 score=13.196 len=2419 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Second Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the second quarter of 2024, including net income, new insurance written, and a declared quarterly dividend.
+    : 
+    : Exhibit 99.1
+    : 
+    : Essent Group Ltd. Announces Second Quarter 2024 Results and Declares Quarterly Dividend
+    : 
+    : HAMILTON, Bermuda--(BUSINESS WIRE)--August 2, 2024--Essent Group Ltd. (NYSE: ESNT) today reported net income for the quarter ended June 30, 2024 of $203.6 million or $1.91 per diluted share, compared
+    : to $172.2 million or $1.61 per diluted share for the quarter ended June 30, 2023.
+    : 
+    : Essent also announced today that its Board of Directors has declared a quarterly cash dividend of $0.28 per common share. The dividend is payable on September 10, 2024, to shareholders of record on
+    : August 30, 2024.
+    : "We are pleased with our financial results in the second quarter, as our high-quality portfolio and resilience in the housing and labor markets translated to favorable credit performance, and the
+    : current rate environment continues to benefit investment income and persistency," said Mark A. Casale, Chairman and Chief Executive Officer. "The Essent franchise achieved another milestone by closing
+    : on our inaugural senior debt offering on July 1. Combined with an amended and extended revolving credit facility, we now have over $1.3 billion in available holding company liquidity."
+    : Financial Highlights:
+    : 
+    : •
+    : 
+    : New insurance written for the second quarter of 2024 was $12.5 billion, compared to $8.3 billion in the first quarter of 2024 and $13.5 billion in the second quarter of 2023.
+    : 
+    : •
+    : 
+    : Insurance in force as of June 30, 2024 was $240.7 billion, compared to $238.5 bi
+    ... [truncated, 619 more chars]
+  --- segment 3: doc_id=ESNT_8-K_2024-08-02 score=4.812 len=1533 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Second Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the second quarter of 2024, including net income, new insurance written, and a declared quarterly dividend.
+    : 
+    : through Federal legislation, restructurings or a shift in business practices; failure to continue to meet the mortgage insurer eligibility requirements of the GSEs; competition for customers or the
+    : loss of a significant customer; lenders or investors seeking alternatives to private mortgage insurance; an increase in the number of loans insured through Federal government mortgage insurance
+    : programs; decline in the volume of low down payment mortgage originations; uncertainty of loss reserve estimates; decrease in the length of time our insurance policies are in force; deteriorating
+    : economic conditions; and other risks and factors described in Part I, Item 1A "Risk Factors" of our Annual Report on Form 10-K for the year ended December 31, 2023 filed with the Securities andExchange Commission on February 16, 2024, as subsequently updated through other reports we file with the Securities and Exchange Commission. Any forward-looking information presented herein is made
+    : only as of the date of this press release, and we do not undertake any obligation to update or revise any forward-looking information to reflect changes in assumptions, the occurrence of unanticipated
+    : events, or otherwise.
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ACGL_8-K_2024-10-30'}
+  → returned 4 segments
+  --- segment 0: doc_id=ACGL_8-K_2024-10-30 score=23.904 len=10920 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 THIRD QUARTER RESULTS'. This document is about: the financial results of Arch Capital Group Ltd. for the third quarter of 2024.
+    : 
+    : The Company's results include net investment income, net realized gains or losses (which includes realized and unrealized changes in the fair value of equity securities and assets accounted for using
+    : the fair value option, realized and unrealized gains and losses on derivative instruments, changes in the allowance for credit losses on financial assets and gains and losses realized from the
+    : acquisition or disposition of subsidiaries), equity in net income or loss of investment funds accounted for using the equity method, other income (loss), corporate expenses, transaction costs and
+    : other, amortization of intangible assets, interest expense, net foreign exchange gains or losses, income tax items, income or loss from operating affiliates and items related to the Company'snon-cumulative preferred shares.Investment returns were as follows:
+    : 
+    : | (U.S. Dollars in millions, except per share data) | Three Months Ended |
+    : | September 30, | June 30, | September 30, |
+    : | 2024 | 2023 |
+    : | Pre-tax net investment income | $ | 399 | $ | 364 | $ | 269 |
+    : | Per share | $ | 1.04 | $ | 0.95 | $ | 0.71 |
+    : | Equity in net income (loss) of investment funds accounted for using the equity method | $ | 171 | $ | 167 | $ | 59 |
+    : | Per share | $ | 0.45 | $ | 0.44 | $ | 0.16 |
+    : | Pre-tax investment income yield, at amortized cost (1) | 4.40 | % | 4.39 | % | 3.68 | % |
+    : | Total return on investments (2) | 3.97 | % | 1.33 | % | (0.40) | % |(1) Presented on an annualized basis and excluding the impact of investments for which returns are not included within investment income, such 
+    ... [truncated, 9120 more chars]
+  --- segment 1: doc_id=ACGL_8-K_2024-10-30 score=21.264 len=8806 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 THIRD QUARTER RESULTS'. This document is about: the financial results of Arch Capital Group Ltd. for the third quarter of 2024.
+    : 
+    : ARCH CAPITAL GROUP LTD. REPORTS 2024 THIRD QUARTER RESULTS
+    : 
+    : PEMBROKE, BERMUDA--(BUSINESS WIRE)--Arch Capital Group Ltd. (NASDAQ: ACGL; "Arch," "our" or "the Company") announces its 2024 third quarter results. The results included:
+    : 
+    : •
+    : 
+    : Net income available to Arch common shareholders of $978 million, or $2.56 per share, representing a 19.0% annualized net income return on average common equity, compared to net income available to
+    : Arch common shareholders of $713 million, or $1.88 per share, for the 2023 third quarter.
+    : 
+    : •
+    : 
+    : After-tax operating income available to Arch common shareholders
+    : 
+    : (1)
+    : 
+    : of $762 million, or $1.99 per share, representing a 14.8% annualized operating return on average common equity
+    : 
+    : (1)
+    : 
+    : , compared to $876 million, or $2.31 per share, for the 2023 third quarter.
+    : 
+    : •
+    : 
+    : Pre-tax current accident year catastrophic losses for the Company's insurance and reinsurance segments, net of reinsurance and reinstatement premiums, of $450 million, due in part to Hurricane Helene
+    : and a series of other global events.
+    : 
+    : •
+    : 
+    : Favorable development in prior year loss reserves, net of related adjustments, of $119 million.
+    : 
+    : •
+    : 
+    : Combined ratio excluding catastrophic activity and prior year development
+    : 
+    : (1)
+    : 
+    : of 78.3%, compared to 77.0% for the 2023 third quarter.
+    : 
+    : •
+    : 
+    : Book value per common share of $57.00 at September 30, 2024, an 8.1% increase from June 30, 2024.
+    : Nicolas Papadopoulo, Chief Executive Officer of ACGL commented: "Our third quarter results demonstrate the value of our diversified platform with excellent bottom-line contributions from all ou
+    ... [truncated, 7006 more chars]
+  --- segment 2: doc_id=ACGL_8-K_2024-10-30 score=20.818 len=3061 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 THIRD QUARTER RESULTS'. This document is about: the financial results of Arch Capital Group Ltd. for the third quarter of 2024.
+    : 
+    : the Company's investment performance, including legislative or regulatory developments that may adversely affect the fair value of the Company's investments;
+    : 
+    : •
+    : 
+    : changes in general economic conditions, including new or continued sovereign debt concerns or downgrades of U.S. securities by credit rating agencies, which could affect the Company's business,
+    : financial condition and results of operations;
+    : 
+    : •
+    : 
+    : the volatility of the Company's shareholders' equity from foreign currency fluctuations, which could increase due to us not matching portions of the Company's projected liabilities in foreign
+    : currencies with investments in the same currencies;
+    : 
+    : •
+    : changes in accounting principles or policies or in the Company's application of such accounting principles or policies;
+    : 
+    : •
+    : 
+    : changes in the political environment of certain countries in which the Company operates, underwrites business or invests;
+    : 
+    : •
+    : 
+    : an incident, disruption in operations or other cyber event caused by cyber attacks, the use of artificial intelligence technologies or other technology on the Company's systems or those of the
+    : Company's business partners and service providers, which could negatively impact the Company's business and/or expose the Company to litigation;
+    : •
+    : 
+    : statutory or regulatory developments, including as to tax matters and insurance and other regulatory matters such as the adoption of legislation that affects Bermuda-headquartered companies and/or
+    : Bermuda-based insurers or reinsurers and/or changes in regulations or tax laws applicable to the Company, its subsidiaries, b
+    ... [truncated, 1261 more chars]
+  --- segment 3: doc_id=ACGL_8-K_2024-10-30 score=3.076 len=943 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 THIRD QUARTER RESULTS'. This document is about: the financial results of Arch Capital Group Ltd. for the third quarter of 2024.
+    : 
+    : Estimated net favorable development of prior year loss reserves, before related adjustments, decreased the loss ratio by 20.5 points, compared to 31.4 points in the 2023 third quarter. Such amounts
+    : were primarily related to better than expected cure rates. The 2024 third quarter loss ratio, excluding net favorable development, was slightly higher than in the 2023 third quarter, primarily due to
+    : higher new delinquencies in the period.
+    : 
+    : The underwriting expense ratio was 15.2% in the 2024 third quarter, compared to 16.8% in the 2023 third quarter. The decrease was primarily due to higher level of ceding and profit commissions on
+    : U.S. primary business, along with a higher level of net premiums earned.
+    : 
+    : 5
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ACT_8-K_2024-02-06'}
+  → returned 3 segments
+  --- segment 0: doc_id=ACT_8-K_2024-02-06 score=21.148 len=11672 ---
+    : Document context: the following excerpt is from a document titled 'ENACT REPORTS FOURTH QUARTER AND FULL YEAR 2023 RESULTS'. This document is about: Enact Holdings, Inc.'s financial results for the fourth quarter and full year 2023.
+    : 
+    : Exhibit 99.1
+    : 
+    : image\_0.jpg
+    : 
+    : <!-- image -->
+    : 
+    : ENACT REPORTS FOURTH QUARTER AND FULL YEAR 2023 RESULTS
+    : 
+    : \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+    : 
+    : Fourth quarter GAAP Net Income of
+    : 
+    : $157 million, or $0.98 per diluted share
+    : 
+    : Full year GAAP Net Income of $666 million, or $4.11 per diluted share
+    : 
+    : Fourth quarter Adjusted Operating Income of $158 million, or $0.98 per diluted share
+    : 
+    : Full year Adjusted Operating Income of $676 million, or $4.18 per diluted share
+    : 
+    : Fourth quarter Return on Equity of 13.8% and Adjusted Operating Return on Equity of 13.9%
+    : 
+    : Full year Return on Equity of 15.2% and Adjusted Operating Return on Equity of 15.5%
+    : 
+    : Record Primary insurance in-force of $263 billion, a 6% increase from fourth quarter 2022
+    : 
+    : PMIERs Sufficiency of 161% or $1,887 million
+    : 
+    : Returned over $300 million of capital to shareholders in 2023
+    : 
+    : Book Value Per Share of $29.07 and Book Value Per Share excluding AOCI of $30.52
+    : 
+    : Raleigh, NC, February 6, 2024 -
+    : 
+    : Enact Holdings, Inc. (Nasdaq: ACT) today announced financial results for the fourth quarter of 2023.
+    : "Our fourth quarter performance completed a very strong year for Enact," said Rohit Gupta, President and CEO of Enact. "We ended 2023 with record insurance in-force as we continued to grow our core
+    : business, extend our platform, strengthen our balance sheet, and drive expense discipline. Further, we delivered on our commitment to return $300 million to shareholders in 2023. Looking ahead, we
+    : enter 2024 well positioned to continue to deliver responsible insurance in-force g
+    ... [truncated, 9872 more chars]
+  --- segment 1: doc_id=ACT_8-K_2024-02-06 score=11.899 len=5496 ---
+    : Document context: the following excerpt is from a document titled 'ENACT REPORTS FOURTH QUARTER AND FULL YEAR 2023 RESULTS'. This document is about: Enact Holdings, Inc.'s financial results for the fourth quarter and full year 2023.
+    : 
+    : Adjustments to reconcile net income (loss) available to the Company's common stockholders to adjusted operating income (loss) assume a 21% tax rate.
+    : 
+    : The tables at the end of this press release provide a reconciliation of net income (loss) to adjusted operating income (loss) and U.S. GAAP return on equity to adjusted operating return on equity for
+    : the three months and twelve months ending December 31, 2023 and 2022, as well as for the three months ended September 30, 2023.
+    : 
+    : 5
+    : 
+    : image\_0.jpg
+    : 
+    : <!-- image -->Exhibit A:
+    : 
+    : Consolidated Statements of Income (amounts in thousands, except per share amounts)| 4Q23 | 3Q23 | 4Q22 | 2023 | 2022 |
+    : | REVENUES: |
+    : | Premiums | $240,101 | $243,346 | $232,737 | $957,075 | $939,462 |
+    : | Net investment income | 56,161 | 54,952 | 44,896 | 207,369 | 155,311 |
+    : | Net investment gains (losses) | (876) | (23) | (1,274) | (14,022) | (2,036) |
+    : | Other income | 804 | 760 | 483 | 3,264 | 2,309 |
+    : | Total revenues | 296,190 | 299,035 | 276,842 | 1,153,686 | 1,095,046 |
+    : | LOSSES AND EXPENSES: |
+    : | Losses incurred | 24,372 | 17,847 | 18,097 | 27,165 | (94,221) |
+    : | Acquisition and operating expenses, net of deferrals | 56,560 | 52,339 | 59,955 | 212,491 | 226,941 |
+    : | Amortization of deferred acquisition costs and intangibles | 2,566 | 2,803 | 2,747 | 10,654 | 12,405 |
+    : | Interest expense | 12,948 | 12,941 | 13,258 | 51,867 | 51,699 || Total losses and expenses | 96,446 | 85,930 | 94,057 | 302,177 | 196,824 |
+    : | INCOME BEFORE INCOME TAXES | 199,744 | 213,105 | 182,785 | 851,509 | 898,222 |
+    : | Provision for income taxes  (1) | 42,436
+    ... [truncated, 3696 more chars]
+  --- segment 2: doc_id=ACT_8-K_2024-02-06 score=14.116 len=2272 ---
+    : Document context: the following excerpt is from a document titled 'ENACT REPORTS FOURTH QUARTER AND FULL YEAR 2023 RESULTS'. This document is about: Enact Holdings, Inc.'s financial results for the fourth quarter and full year 2023.
+    : 
+    : Factors or events that we cannot predict, including uncertainty around Covid-19 and the effects of government and other measures seeking to contain its spread; supply chain constraints; inflation;
+    : increases in interest rates; risks related to an economic downturn or recession in the United States and in other countries around the world; changes in political, business, regulatory, and economic
+    : conditions; future adverse rating agency actions, including with respect to rating downgrades or potential downgrades or being put on review for potential downgrade, all of which could have adverse
+    : implications;changes in or to Fannie Mae and Freddie Mac (the "GSEs"), whether through Federal legislation, restructurings or a shift in business practices; failure to continue to meet the mortgage insurer
+    : eligibility requirements of the GSEs; competition for customers; lenders or investors seeking alternatives to private mortgage insurance; an increase in the number of loans insured through Federal
+    : government mortgage insurance programs, including those offered by the Federal Housing Administration; and other factors described in the risk factors contained in our Annual Report on Form 10-K and
+    : other filings with the Securities and Exchange Commission, may cause our actual results to differ from those expressed in forward-looking statements.In addition, the potential for future dividend payments and other forms of returning capital to shareholders, including share repurchases, will be determined in consultation with the Board of
+    : Directors, and after consider
+    ... [truncated, 472 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ESNT_8-K_2024-02-09'}
+  → returned 4 segments
+  --- segment 0: doc_id=ESNT_8-K_2024-02-09 score=41.273 len=12470 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Fourth Quarter & Full Year 2023 Results and Increases Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the fourth quarter and full year 2023, including net income, dividend increase, and supplemental financial data.
+    : 
+    : | Weighted average interest rate (end of period) | 7.11 | % | 7.07 | % | 6.87 | % | 6.52 | % | 6.02 | % |
+    : | Debt-to-capital | 7.69 | % | 8.12 | % | 8.24 | % | 8.38 | % | 8.70 | % |
+    : | (1) Other income includes net favorable (unfavorable) changes in the fair value of embedded derivatives associated with certain of our third-party reinsurance agreements, which for the quarters
+    : ended December 31, 2023, September 30, 2023, June 30, 2023, March 31, 2023, and December 31, 2022 was $412, ($898), $2,726, ($368), and ($6,515), respectively. |
+    : | (2) Income tax expense for the quarters ended December 31, 2023, September 30, 2023, June 30, 2023, March 31, 2023 and December 31, 2022 includes ($1,132), ($763), ($888), ($368) and ($4,122),respectively, of discrete tax (benefit) expense associated with realized and unrealized gains and losses. Income tax expense for the quarter ended December 31, 2023 also includes a $2,731 net benefit
+    : associated with the recognition of a deferred tax asset for unrealized losses on the investment portfolios of Essent Group and Essent Re upon the enactment of the Bermuda Corporate Income Tax. Income
+    : tax expense for the quarter ended June 30, 2023 also includes $5,295 of net discrete tax expense associated with prior year tax returns. || Exhibit D |
+    : | Essent Group Ltd. and Subsidiaries |
+    : | Supplemental Information |
+    : | U.S Mortgage Insurance Portfolio Historical Quarterly Data |
+    : | 2023 | 2022 |
+    : | Other Data, cont
+    ... [truncated, 10670 more chars]
+  --- segment 1: doc_id=ESNT_8-K_2024-02-09 score=30.572 len=11959 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Fourth Quarter & Full Year 2023 Results and Increases Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the fourth quarter and full year 2023, including net income, dividend increase, and supplemental financial data.
+    : 
+    : | Excess of Loss Reinsurance  (2) |
+    : | Earned Premiums Ceded |
+    : | Deal Name | Vintage | Remaining Insurance in Force | Remaining Risk in Force | Original Reinsurance in Force | Remaining Reinsurance in Force | Losses Ceded to Date | Original First Layer Retention
+    : | Remaining First Layer Retention | Quarter-to-Date | Year-to-Date | Reduction in PMIERs Minimum Required Assets (3) |
+    : | XOL 2018-1 | Jan. 2017 - Dec. 2017 | $ | - | $ | - | $ | - | $ | - | $ | - | $ | - | $ | - | $ | - | $ | 955 | $ | - |
+    : | XOL 2019-1 | Jan. 2018 - Dec. 2018 | 5,503,086 | 1,441,695 | 118,650 | 76,144 | - | 253,643 | 245,894 | 627 | 2,489 | - |
+    : | XOL 2020-1 | Jan. 2019 - Dec. 2019 | 6,887,869 | 1,797,683 | 55,102 | 36,403 | - | 215,605 | 213,230 | (4) | 290 | 1,221 | - |
+    : | XOL 2022-1 | Oct. 2021 - Dec. 2022 | 70,477,115 | 19,058,430 | 141,992 | - | 507,114 | 506,183 | 1,611 | 6,390 | 138,081 |
+    : | Total | $ | 82,868,070 | $ | 22,297,808 | $ | 315,744 | $ | 254,539 | $ | - | $ | 976,362 | $ | 965,220 | $ | 2,528 | $ | 11,055 | $ | 138,081 |
+    : | Quota Share Reinsurance  (2) |
+    : | Losses Ceded | Ceding Commission | Earned Premiums Ceded |
+    : | Year | Ceding Percentage | Remaining Insurance in Force | Remaining Risk in Force | Remaining Ceded Insurance in Force | Remaining Ceded Risk in Force | Quarter-to-Date | Year-to-Date |
+    : Quarter-to-Date | Year-to-Date | Quarter-to-Date | Year-to-Date | Reduction in PMIERs Minimum Required Assets (3) |
+    : | Sep. 2019 - Dec. 2020 |
+    ... [truncated, 10159 more chars]
+  --- segment 2: doc_id=ESNT_8-K_2024-02-09 score=16.279 len=1733 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Fourth Quarter & Full Year 2023 Results and Increases Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the fourth quarter and full year 2023, including net income, dividend increase, and supplemental financial data.
+    : 
+    : Essent also announced today that its Board of Directors has declared a quarterly cash dividend of $0.28 per common share. The dividend is payable on March 22, 2024, to shareholders of record on March
+    : 13, 2024.
+    : "We are pleased with our fourth quarter and full year 2023 financial results, which benefited from favorable credit performance and higher interest rates," said Mark A. Casale, Chairman and Chief
+    : Executive Officer. "Our results continue to demonstrate the earnings power of our business and provide us with attractive levels of operating cash flows, indicating the overall strength and stability
+    : of our franchise."
+    : Financial Highlights:
+    : 
+    : •
+    : 
+    : New insurance written for the fourth quarter of 2023 was $8.8 billion, compared to $12.5 billion in the third quarter of 2023 and $13.0 billion in the fourth quarter of 2022.
+    : 
+    : •
+    : 
+    : Insurance in force as of December 31, 2023 was $239.1 billion, compared to $238.7 billion as of September 30, 2023 and $227.1 billion as of December 31, 2022.
+    : 
+    : •
+    : 
+    : Net investment income for the fourth quarter of 2023 was $50.6 million, up 34% from the fourth quarter of 2022. In 2023, net investment income was $186.1 million, up 50% from 2022.
+    : 
+    : •
+    : 
+    : On January 8, 2024, S&amp;P Global Ratings raised its long-term financial strength and issuer credit ratings on Essent Guaranty, Inc. and Essent Reinsurance Ltd. to 'A-' from 'BBB+', with a stable
+    : outlook.
+  --- segment 3: doc_id=ESNT_8-K_2024-02-09 score=6.567 len=1785 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Fourth Quarter & Full Year 2023 Results and Increases Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the fourth quarter and full year 2023, including net income, dividend increase, and supplemental financial data.
+    : 
+    : | Loss from other invested assets | (421) | - | (421) | (11,118) | - | (11,118) |
+    : | Settlement services  (3) | 1,475 | - | 3,512 | - |
+    : | Other income | 4,920 | 503 | 4,417 | 21,524 | 907 | 20,617 |
+    : | Total revenues | 297,277 | 19,775 | 277,502 | 1,109,759 | 43,225 | 1,066,534 |
+    : | Losses and expenses: |
+    : | Provision (benefit) for losses and LAE | 19,640 | 655 | 18,985 | 31,542 | 1,422 | 30,120 |
+    : | Other underwriting and operating expenses | 55,248 | 11,595 | 43,653 | 200,431 | 25,061 | 175,370 |
+    : | Premiums retained by agents | 11,475 | - | 24,650 | - |
+    : | Interest expense | 7,953 | - | 7,953 | 30,137 | - | 30,137 |
+    : | Total losses and expenses | 94,316 | 23,725 | 70,591 | 286,760 | 51,133 | 235,627 |
+    : | Loss ratio (1) | 7.9 | % | 3.5 | % | 8.3 | % | 3.4 | % | 3.4 | % | 3.4 | % || Expense ratio (2) | 27.0 | % | 122.5 | % | 19.1 | % | 24.5 | % | 119.8 | % | 20.0 | % |
+    : | Combined ratio | 34.9 | % | 126.0 | % | 27.4 | % | 27.9 | % | 123.2 | % | 23.4 | % |
+    : | (1)  Loss ratio is calculated by dividing the provision for losses and LAE by the sum of net premiums earned and settlement services revenue, if applicable. |
+    : | (2) Expense ratio is calculated by dividing the sum of other underwriting and operating expenses and premiums retained by agents by the sum of net premiums earned and settlement services revenue,
+    : if applicable. |
+    : | (3)  Settlement services revenue is included in "Other income" within Exhibit A and Exhibit C. |
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'MTG_8-K_2024-11-04'}
+  → returned 4 segments
+  --- segment 0: doc_id=MTG_8-K_2024-11-04 score=22.642 len=12581 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Third Quarter 2024 Results'. This document is about: MGIC Investment Corporation's financial results for the third quarter of 2024, including net income, adjusted net operating income, and other key metrics.
+    : 
+    : | Reconciliation of Income before tax / Net income to Adjusted pre-tax operating income / Adjusted net operating income |
+    : | Nine Months Ended September 30, |
+    : | 2024 | 2023 |
+    : | (In thousands, except per share amounts) | Pre-tax | Tax Effect | Net (after-tax) | Pre-tax | Tax Effect | Net (after-tax) |
+    : | Income before tax / Net income | $ | 734,001 | $ | 155,707 | $ | 578,294 | $ | 672,382 | $ | 143,937 | $ | 528,445 |
+    : | Adjustments: |
+    : | Net realized investment losses | 7,168 | 1,505 | 5,663 | 10,619 | 2,230 | 8,389 |
+    : | Adjusted pre-tax operating income / Adjusted net operating income | $ | 741,169 | $ | 157,212 | $ | 583,957 | $ | 683,001 | $ | 146,167 | $ | 536,834 |
+    : | Reconciliation of Net income per diluted share to Adjusted net operating income per diluted share |
+    : | Weighted average shares - diluted | 266,915 | 289,924 |
+    : | Net income per diluted share | $ | 2.17 | $ | 1.83 |
+    : | Net realized investment losses | 0.02 | 0.03 |
+    : | Adjusted net operating income per diluted share | $ | 2.19 | $ | 1.86 |
+    : | MGIC INVESTMENT CORPORATION AND SUBSIDIARIES |
+    : | CONDENSED CONSOLIDATED BALANCE SHEETS (UNAUDITED) |
+    : | September 30, | December 31, | September 30, |
+    : | (In thousands, except per share data) | 2024 | 2023 |
+    : | ASSETS |
+    : | Investments  (1) | $ | 5,980,348 | $ | 5,738,734 | $ | 5,596,336 |
+    : | Cash and cash equivalents | 288,622 | 363,666 | 266,543 |
+    : | Restricted cash and cash equivalents | 10,987 | 6,978 | 8,582 |
+    : | Reinsurance recoverable on loss reserves  (2) | 45,327 | 33
+    ... [truncated, 10781 more chars]
+  --- segment 1: doc_id=MTG_8-K_2024-11-04 score=23.181 len=7948 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Third Quarter 2024 Results'. This document is about: MGIC Investment Corporation's financial results for the third quarter of 2024, including net income, adjusted net operating income, and other key metrics.
+    : 
+    : pressure on home prices. A decline in home prices may occur even absent a deterioration in economic conditions due to declines in demand for homes, which in turn may result from changes in buyers'
+    : perceptions of the potential for future appreciation, restrictions on and the cost of mortgage credit due to more stringent underwriting standards, higher interest rates, changes to the tax
+    : deductibility of mortgage interest, decreases in the rate of household formations, or other factors.Changes in the business practices of Fannie Mae and Freddie Mac ("the GSEs"), federal legislation that changes their charters or a restructuring of the GSEs could reduce our revenues or increase our
+    : losses.The substantial majority of our new insurance written ("NIW") is for loans purchased by the GSEs; therefore, the business practices of the GSEs greatly impact our business. In 2022 the GSEs each
+    : published Equitable Housing Finance Plans ("Plans"). Updated Plans were published by the GSEs in the spring of 2024. The Plans seek to advance equity in housing finance over a three-year period and
+    : include potential changes to the GSEs' business practices and policies. Specifically relating to mortgage insurance, (1) Fannie Mae's Plan includes the creation of special purpose credit program(s)
+    : ("SPCPs") targeted to historically underserved borrowers and the support of locally-controlled SPCPs with a goal of lowering costs for such borrowers through lower than standard mortgage insurancerequirem
+    ... [truncated, 6148 more chars]
+  --- segment 2: doc_id=MTG_8-K_2024-11-04 score=5.973 len=2831 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Third Quarter 2024 Results'. This document is about: MGIC Investment Corporation's financial results for the third quarter of 2024, including net income, adjusted net operating income, and other key metrics.
+    : 
+    : | SUMMARY FINANCIAL METRICS | Quarter ended |
+    : | ($ in millions, except where otherwise noted) | Q3 2024 | Q2 2024 | Q3 2023 |
+    : | Net income | $ | 200.0 | $ | 204.2 | $ | 182.8 |
+    : | Net income per diluted share | $ | 0.77 | $ | 0.77 | $ | 0.64 |
+    : | Adjusted net operating income | $ | 200.7 | $ | 204.9 | $ | 183.0 |
+    : | Adjusted net operating income per diluted share | $ | 0.77 | $ | 0.77 | $ | 0.64 |
+    : | New insurance written (NIW) (billions) | $ | 17.2 | $ | 13.5 | $ | 14.6 |
+    : | Net premiums earned | $ | 243.3 | $ | 243.5 | $ | 241.3 |
+    : | Insurance in force (billions) | $ | 292.8 | $ | 291.6 | $ | 294.3 |
+    : | Annual persistency | 85.3 | % | 85.4 | % | 86.3 | % |
+    : | Losses incurred, net | $ | (9.8) | $ | (18.3) | $ | (0.1) |
+    : | Primary delinquency inventory | 25,089 | 23,370 | 24,720 |
+    : | Primary IIF delinquency rate (count based) | 2.24 | % | 2.09 | % | 2.14 | % |
+    : | Loss ratio | (4.0 | %) | (7.5 | %) | (0.0 | %) |
+    : | Underwriting expense ratio | 22.4 | % | 23.1 | % | 22.2 | % |
+    : | In force portfolio yield (bps) | 38.9 | 38.4 | 38.6 |
+    : | Net premium yield (bps) | 33.4 | 32.9 |
+    : | Annualized return on equity | 15.6 | % | 16.0 | % | 15.1 | % |
+    : | Book value per common share outstanding | $ | 20.66 | $ | 19.58 | $ | 17.37 |
+    : | Adjust for AOCI | $ | 0.80 | $ | 1.27 | $ | 1.78 |
+    : | Tangible book value per share | $ | 21.46 | $ | 20.85 | $ | 19.15 |
+    : | CAPITAL AND LIQUIDITY | As of |
+    : | ($ in billions, except where otherwise noted) | September 30, 2024 | June 30, 2024 | September 30, 2023 |
+    : | 
+    ... [truncated, 1031 more chars]
+  --- segment 3: doc_id=MTG_8-K_2024-11-04 score=9.465 len=1087 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Third Quarter 2024 Results'. This document is about: MGIC Investment Corporation's financial results for the third quarter of 2024, including net income, adjusted net operating income, and other key metrics.
+    : 
+    : The market price for our common stock may fluctuate significantly. In addition to the risk factors described herein, the following factors may have an adverse impact on the market price for our
+    : common stock: changes in general conditions in the economy, the mortgage insurance industry or the financial stability of markets and financial services industry; announcements by us or our
+    : competitors of acquisitions or strategic initiatives; our actual or anticipated quarterly and annual operating results; changes in expectations of future financial performance (including incurred
+    : losses on our insurance in force); changes in estimates of securities analysts or rating agencies; actual or anticipated changes in our share repurchase program or dividends; changes in operating
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ACT_8-K_2024-11-06'}
+  → returned 4 segments
+  --- segment 0: doc_id=ACT_8-K_2024-11-06 score=35.315 len=10105 ---
+    : Document context: the following excerpt is from a document titled 'ENACT REPORTS THIRD QUARTER 2024 RESULTS AND ANNOUNCES QUARTERLY DIVIDEND'. This document is about: Enact Holdings, Inc.'s financial results for the third quarter of 2024 and the announcement of a quarterly dividend.
+    : 
+    : | (In millions, except per share data or otherwise noted) | 3Q24 | 2Q24 | 3Q23 |
+    : | Net Income (loss) | $181 | $184 | $164 |
+    : | Diluted Net Income (loss) per share | $1.15 | $1.16 | $1.02 |
+    : | Adjusted Operating Income (loss) | $182 | $201 | $164 |
+    : | Adj. Diluted Operating Income (loss) per share | $1.16 | $1.27 | $1.02 |
+    : | NIW ($B) | $14 |
+    : | Primary IIF ($B) | $268 | $266 | $262 |
+    : | Primary Persistency Rate | 83% | 84% |
+    : | Net Premiums Earned | $249 | $245 | $243 |
+    : | Losses Incurred | $12 | $(17) | $18 |
+    : | Loss Ratio | 5% | (7)% | 7% |
+    : | Operating Expenses | $56 | $55 |
+    : | Expense Ratio | 22% | 23% |
+    : | Net Investment Income | $61 | $60 | $55 |
+    : | Net Investment gains (losses) | $(1) | $(8) | $0 |
+    : | Return on Equity | 14.7% | 15.4% | 14.9% || Adjusted Operating Return on Equity | 14.8% | 16.9% | 14.9% |
+    : | PMIERs Sufficiency ($) | $2,190 | $2,057 | $2,017 |
+    : | PMIERs Sufficiency (%) | 173% | 169% | 162% |
+    : 1
+    : 
+    : image\_0a.jpg
+    : 
+    : <!-- image -->Third Quarter 2024 Financial and Operating Highlights
+    : 
+    : •
+    : 
+    : Net income was $181 million, or $1.15 per diluted share, compared with $184 million, or $1.16 per diluted share, for the second quarter of 2024 and $164 million, or $1.02 per diluted share, for the
+    : third quarter of 2023. Adjusted operating income was $182 million, or $1.16 per diluted share, compared with $201 million, or $1.27 per diluted share, for the second quarter of 2024 and $164 million,
+    : or $1.02 per diluted share, for the third quarter of 2023.
+    : 
+    : •
+    : 
+    : New insurance written (NIW) was approximately $14 bi
+    ... [truncated, 8305 more chars]
+  --- segment 1: doc_id=ACT_8-K_2024-11-06 score=32.905 len=8333 ---
+    : Document context: the following excerpt is from a document titled 'ENACT REPORTS THIRD QUARTER 2024 RESULTS AND ANNOUNCES QUARTERLY DIVIDEND'. This document is about: Enact Holdings, Inc.'s financial results for the third quarter of 2024 and the announcement of a quarterly dividend.
+    : 
+    : Adjusted operating income (loss) per share is derived from adjusted operating income (loss). The chief operating decision maker evaluates performance and allocates resources on the basis of adjusted
+    : operating income (loss). Enact Holdings, Inc. (the "Company") defines adjusted operating income (loss) as net income (loss) excluding the after-tax effects of net investment gains (losses),
+    : restructuring costs and infrequent or unusual non-operating items, and gain (loss) on the extinguishment of debt. The Company excludes net investment gains (losses), gains (losses) on the
+    : extinguishment of debt and infrequent or unusual non-operating items because the Company does not consider them to be related to the operating performance of the Company and other activities. Therecognition of realized investment gains or losses can vary significantly across periods as the activity is highly discretionary based on the timing of individual securities sales due to such factors
+    : as market opportunities or exposure management. Trends in the profitability of our fundamental operating activities can be more clearly identified without the fluctuations of these realized gains and
+    : losses. We do not view them to be indicative of our fundamental operating activities. Therefore, these items are excluded from our calculation of adjusted operating income. In addition, adjusted
+    : operating income (loss) per share is derived from adjusted operating income (loss) divided by shares outstanding. Adjusted operating return on equit
+    ... [truncated, 6533 more chars]
+  --- segment 2: doc_id=ACT_8-K_2024-11-06 score=3.921 len=1899 ---
+    : Document context: the following excerpt is from a document titled 'ENACT REPORTS THIRD QUARTER 2024 RESULTS AND ANNOUNCES QUARTERLY DIVIDEND'. This document is about: Enact Holdings, Inc.'s financial results for the third quarter of 2024 and the announcement of a quarterly dividend.
+    : 
+    : Exhibit 99.1
+    : 
+    : image\_0a.jpg
+    : 
+    : <!-- image -->
+    : 
+    : ENACT REPORTS THIRD
+    : 
+    : QUARTER 2024 RESULTS AND ANNOUNCES QUARTERLY DIVIDEND
+    : 
+    : \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+    : 
+    : GAAP Net Income of
+    : 
+    : $181 million, or $1.15 per diluted share
+    : 
+    : Adjusted Operating Income of $182 million, or $1.16 per diluted share
+    : 
+    : Return on Equity of 14.7% and Adjusted Operating Return on Equity of 14.8%
+    : 
+    : Record Primary insurance in-force of $268 billion, a 2% increase from third quarter 2023
+    : 
+    : PMIERs Sufficiency of 173% or $2,190 million
+    : 
+    : Book Value Per Share of $32.61 and Book Value Per Share excluding AOCI of $33.27
+    : 
+    : Announces quarterly cash dividend of $0.185 per common share
+    : 
+    : Raleigh, NC, November 6, 2024 -
+    : Enact Holdings, Inc. (Nasdaq: ACT) today announced financial results for the third quarter of 2024."Our strong third-quarter performance underscores the continued successful execution of our strategy," stated Rohit Gupta, President and CEO of Enact. "Driven by our effective go-to-market strategy,
+    : our insurance-in-force reached a new peak during the quarter, while our careful risk and expense management initiatives continued to produce strong bottom-line performance, fueling our ability to
+    : deliver for our policyholders, invest in our business, and return capital to our shareholders. Looking to the remainder of the year and beyond, we believe we are well positioned to continue driving
+    : value for all stakeholders. The long-term drivers of demand remain intact, and we will continue to pl
+    ... [truncated, 99 more chars]
+  --- segment 3: doc_id=ACT_8-K_2024-11-06 score=1.583 len=696 ---
+    : Document context: the following excerpt is from a document titled 'ENACT REPORTS THIRD QUARTER 2024 RESULTS AND ANNOUNCES QUARTERLY DIVIDEND'. This document is about: Enact Holdings, Inc.'s financial results for the third quarter of 2024 and the announcement of a quarterly dividend.
+    : 
+    : expressed in forward-looking statements. Although Enact believes the expectations reflected in such forward-looking statements are based on reasonable assumptions, Enact can give no assurance that its
+    : expectations will be achieved and it undertakes no obligation to update publicly any forward-looking statements as a result of new information, future events, or otherwise, except as required by
+    : applicable law.
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'NMIH_8-K_2024-02-14'}
+  → returned 3 segments
+  --- segment 0: doc_id=NMIH_8-K_2024-02-14 score=32.821 len=8933 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Fourth Quarter and Full Year 2023 Financial Results'. This document is about: the fourth quarter and full year 2023 financial results of NMI Holdings, Inc., including net income, revenue, and operational highlights.
+    : 
+    : Adam Pollitzer, President and Chief Executive Officer of National MI, said, "The fourth quarter capped another year of standout success for National MI. In 2023, we delivered strong operating
+    : performance, generated significant NIW volume and consistent growth in our insured portfolio, and achieved record financial results and an 18.2% return on equity. We have built an exceptionally
+    : high-quality book covered by a comprehensive set of risk transfer solutions, our credit performance continues to stand ahead, and we have a robust balance sheet supported by the significant earnings
+    : power of our platform. Looking forward, we're well-positioned to continue delivering differentiated growth, returns and value for our shareholders."
+    : Selected fourth quarter 2023 highlights include:
+    : 
+    : •
+    : 
+    : Primary insurance-in-force at quarter end was $197.0 billion, compared to $194.8 billion at the end of the third quarter and $184.0 billion at the end of the fourth quarter of 2022
+    : 
+    : •
+    : 
+    : Net premiums earned were $132.9 million, compared to $130.1 million in the third quarter and $119.6 million in the fourth quarter of 2022
+    : 
+    : •
+    : 
+    : Total revenue was $151.4 million, compared to $148.2 million in the third quarter and $133.1 million in the fourth quarter of 2022
+    : 
+    : •
+    : 
+    : Underwriting and operating expenses were $29.7 million, compared to $27.7 million in the third quarter and $26.7 million in the fourth quarter of 2022
+    : 
+    : •
+    : 
+    : Insurance claims and claim expenses were $8.2 million, compared to $4.8 million in th
+    ... [truncated, 7133 more chars]
+  --- segment 1: doc_id=NMIH_8-K_2024-02-14 score=42.42 len=10156 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Fourth Quarter and Full Year 2023 Financial Results'. This document is about: the fourth quarter and full year 2023 financial results of NMI Holdings, Inc., including net income, revenue, and operational highlights.
+    : 
+    : alternatives to private mortgage insurance; our ability to implement our business strategy, including our ability to write mortgage insurance on high quality low down payment residential mortgage
+    : loans, implement successfully and on a timely basis, complex infrastructure, systems, procedures, and internal controls to support our business and regulatory and reporting requirements of the
+    : insurance industry; our ability to attract and retain a diverse customer base, including the largest mortgage originators; failure of risk management or pricing or investment strategies; decrease in
+    : the length of time our insurance policies are in force; emergence of unexpected claim and coverage issues, including claims exceeding our reserves or amounts we had expected to experience; potentialadverse impacts arising from natural disasters including, with respect to affected areas, a decline in new business, adverse effects on home prices, and an increase in notices of default on insured
+    : mortgages; climate risk and efforts to manage or regulate climate risk by government agencies could affect our business and operations; potential adverse impacts arising from the occurrence of any
+    : man-made disasters or public health emergencies, including pandemics; the inability of our counter-parties, including third party reinsurers, to meet their obligations to us; failure to maintain,
+    : improve and continue to develop necessary information technology systems or the failure of technology providers 
+    ... [truncated, 8356 more chars]
+  --- segment 2: doc_id=NMIH_8-K_2024-02-14 score=51.549 len=9502 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Fourth Quarter and Full Year 2023 Financial Results'. This document is about: the fourth quarter and full year 2023 financial results of NMI Holdings, Inc., including net income, revenue, and operational highlights.
+    : 
+    : | Combined ratio  (3) | 28.5 | % | 25.2 | % | 26.1 | % | 24.0 | % |
+    : | Net income | $ | 83,413 | $ | 72,940 | $ | 322,110 | $ | 292,902 |
+    : | Other comprehensive income (loss), net of tax: |
+    : | Unrealized gains (losses) in accumulated other comprehensive income, net of tax expense (benefit) of $19,580 and $4,505 for the three months ended December 31, 2023 and 2022, and $17,113 and
+    : $(54,608) for the years ended December 31, 2023 and 2022, respectively | 73,660 | 16,948 | 64,380 | (205,428) |
+    : | Reclassification adjustment for realized (gains) losses included in net income, net of tax expense (benefit) of $0 and $1 for the three months ended December 31, 2023 and 2022, and $(7) and $101
+    : for the years ended December 31, 2023, and 2022, respectively | - | (5) | 26 | (380) |
+    : | Other comprehensive income (loss), net of tax | 73,660 | 16,943 | 64,406 | (205,808) |
+    : | Comprehensive income | $ | 157,073 | $ | 89,883 | $ | 386,516 | $ | 87,094 |(1)    Loss ratio is calculated by dividing insurance claims and claim expenses (benefits) by net premiums earned.
+    : 
+    : (2)    Expense ratio is calculated by dividing other underwriting and operating expenses by net premiums earned.
+    : 
+    : (3)    Combined ratio may not foot due to rounding.
+    : 
+    : 6
+    : 
+    : EXHIBIT 99.1
+    : | Consolidated balance sheets (unaudited) | December 31, 2023 | December 31, 2022 |
+    : | Assets | (In Thousands, except for share data) |
+    : | Fixed maturities, available-for-sale, at fair value (amortized cost of $2,542,862 and $2,352,747 as of Decemb
+    ... [truncated, 7702 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'MTG_8-K_2024-01-31'}
+  → returned 3 segments
+  --- segment 0: doc_id=MTG_8-K_2024-01-31 score=30.18 len=9339 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Fourth Quarter 2023 Results'. This document is about: the financial results and operational highlights of MGIC Investment Corporation for the fourth quarter and full year of 2023.
+    : 
+    : Risk Factors Relating to the Mortgage Insurance Industry and its Regulation
+    : 
+    : Downturns in the domestic economy or declines in home prices may result in more homeowners defaulting and our losses increasing, with a corresponding decrease in our returns.
+    : 
+    : Losses result from events that reduce a borrower's ability or willingness to make mortgage payments, such as unemployment, health issues, changes in family status, and decreases in home prices that
+    : result in the borrower's mortgage balance exceeding the net value of the home. A deterioration in economic conditions, including an increase in unemployment, generally increases the likelihood that
+    : borrowers will not have sufficient income to pay their mortgages and can also adversely affect home prices.High levels of unemployment may result in an increasing number of loan delinquencies and an increasing number of insurance claims; however, unemployment is difficult to predict given the uncertainty
+    : in the current market environment, including as a result of global events such as wars, instability in the financial services industry, and the possibility of an economic recession.The seasonally-adjusted Purchase-Only U.S. Home Price Index of the Federal Housing Finance Agency (the "FHFA"), which is based on single-family properties whose mortgages have been purchased or
+    : securitized by Fannie Mae or Freddie Mac, indicates that home prices increased 0.3% nationwide in November, 2023 compared to October, 2023. Although the 12 month change in home prices re
+    ... [truncated, 7539 more chars]
+  --- segment 1: doc_id=MTG_8-K_2024-01-31 score=51.421 len=9873 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Fourth Quarter 2023 Results'. This document is about: the financial results and operational highlights of MGIC Investment Corporation for the fourth quarter and full year of 2023.
+    : 
+    : Even when home prices are stable or rising, mortgages with certain characteristics have higher probabilities of claims. As of December 31, 2023, mortgages with these characteristics in our primary
+    : risk in force included mortgages with LTV ratios greater than 95% (16%), mortgages with borrowers having FICO scores below 680 (7%), including those with borrowers having FICO scores of 620-679 (6%),
+    : mortgages with limited underwriting, including limited borrower documentation (1%), and mortgages with borrowers having DTI ratios greater than 45% (or where no ratio is available) (18%), each
+    : attribute is determined at the time of loan origination. Loans with more than one of these attributes accounted for 5% of our primary risk in force as of December 31, 2023, and 4% of our primary riskin force as of December 31, 2022 and December 31, 2021. When home prices increase, interest rates increase and/or the percentage of our NIW from purchase transactions increases, our NIW on mortgages
+    : with higher LTV ratios and higher DTI ratios may increase. Our NIW on mortgages with LTV ratios greater than 95% was 12% in 2023 and 2022. Our NIW on mortgages with DTI ratios greater than 45% was 26%
+    : in 2023 and 21% in 2022.From time to time, we change the processes we use to underwrite loans. For example: we rely on information provided to us by lenders that was obtained from certain of the GSEs' automated appraisal
+    : and income verification tools, which may produce results that differ from the results that would have been
+    ... [truncated, 8073 more chars]
+  --- segment 2: doc_id=MTG_8-K_2024-01-31 score=17.042 len=8033 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Fourth Quarter 2023 Results'. This document is about: the financial results and operational highlights of MGIC Investment Corporation for the fourth quarter and full year of 2023.
+    : 
+    : | Primary Risk In Force (RIF) (billions) | $ | 77.2 | $ | 77.1 | $ | 76.4 | $ | 76.0 | $ | 76.5 |
+    : | By FICO (%)  (5) |
+    : | FICO 760 & > | 43 | % | 43 | % | 43 | % | 42 | % | 42 | % |
+    : | FICO 740-759 | 18 | % | 18 | % | 18 | % | 18 | % | 18 | % |
+    : | FICO 720-739 | 14 | % | 14 | % | 14 | % | 14 | % | 14 | % |
+    : | FICO 700-719 | 11 | % | 11 | % | 11 | % | 11 | % | 11 | % |
+    : | FICO 680-699 | 7 | % | 7 | % | 7 | % | 8 | % | 8 | % |
+    : | FICO 660-679 | 3 | % | 3 | % | 3 | % | 3 | % | 3 | % |
+    : | FICO 640-659 | 2 | % | 2 | % | 2 | % | 2 | % | 2 | % |
+    : | FICO 639 & < | 2 | % | 2 | % | 2 | % | 2 | % | 2 | % |
+    : | Average Coverage Ratio (RIF/IIF) | 26.3 | % | 26.2 | % | 26.1 | % | 26.0 | % | 25.9 | % |
+    : | Direct Pool RIF (millions) |
+    : | With aggregate loss limits | $ | 186 | $ | 187 | $ | 189 | $ | 189 | $ | 196 || Without aggregate loss limits | $ | 70 | $ | 72 | $ | 75 | $ | 78 | $ | 80 |(1) Total direct premiums earned, excluding premium refunds and accelerated premiums from single premium policy cancellations divided by average primary insurance in force.
+    : 
+    : (2)  Premium refunds and our estimate of refundable premium on our delinquency inventory divided by average primary insurance in force.
+    : 
+    : (3) Ceded premiums earned, net of profit commissions and assumed premiums. Assumed premiums include our participation in GSE Credit Risk Transfer programs, of which the impact on the net premium
+    : yield was 0.4 bps in 2023 and 0.3 bps in 2022. Ceded premiums for reinsurance cancellation activities decreased the premium yield by 1
+    ... [truncated, 6233 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'MTG_8-K_2024-07-31'}
+  → returned 4 segments
+  --- segment 0: doc_id=MTG_8-K_2024-07-31 score=18.592 len=11200 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Second Quarter 2024 Results'. This document is about: the financial results of MGIC Investment Corporation for the second quarter of 2024.
+    : 
+    : (1)    Includes $5 million termination fee incurred to terminate our 2020 QSR Transaction in Q4 2023.
+    : 
+    : (2) Includes $8 million of additional ceded premium in Q4 2023 associated with the cost of the tender premium and associated expenses on our Home Re 2019-1 Ltd., Home Re 2021-1 Ltd., and Home Re
+    : 2021-2 Ltd. Transactions.
+    : 
+    : (3)    Preliminary
+    : Risk Factors
+    : 
+    : As used below, "we," "our" and "us" refer to MGIC Investment Corporation's consolidated operations or to MGIC Investment Corporation, as the context requires; and "MGIC" refers to Mortgage Guaranty
+    : Insurance Corporation.
+    : Risk Factors Relating to Global Events
+    : 
+    : Wars and/or other global events may adversely affect the U.S. economy and our business.
+    : 
+    : Wars and/or other global events may result in increased inflation rates, strained supply chains, and increased volatility in the domestic and global financial markets. Wars and/or other global events
+    : have in the past and may continue to impact our business in various ways, including the following which are described in more detail in the remainder of these risk factors:
+    : 
+    : •
+    : 
+    : The terms under which we are able to obtain quota share reinsurance ("QSR") and/or excess-of-loss ("XOL") reinsurance through the insurance-linked notes ("ILN") market and the traditional reinsurance
+    : market may be negatively impacted and terms under which we are able to access those markets in the future may be limited or less attractive.
+    : 
+    : •
+    : 
+    : The risk of a cybersecurity incident that affects our company may increase.
+    : 
+    : •
+    : 
+    : Wars may negatively impact the domestic economy
+    ... [truncated, 9400 more chars]
+  --- segment 1: doc_id=MTG_8-K_2024-07-31 score=20.939 len=7099 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Second Quarter 2024 Results'. This document is about: the financial results of MGIC Investment Corporation for the second quarter of 2024.
+    : 
+    : The NAIC established a Mortgage Guaranty Insurance Working Group to determine and make recommendations to the NAIC's Financial Condition Committee as to what, if any, changes to make to the solvency
+    : and other regulations relating to mortgage guaranty insurers. A draft of a revised Mortgage Guaranty Insurance Model Act was adopted by the Financial Condition Committee in July 2023 and by the
+    : Executive Committee and Plenary NAIC in August 2023.The revised Model Act includes requirements relating to, among other things: (i) capital and minimum capital requirements, and contingency reserves; (ii) restrictions on mortgage insurers'
+    : investments in notes secured by mortgages; (iii) prudent underwriting standards and formal underwriting guidelines; (iv) the establishment of formal, internal "Mortgage Guaranty Quality Control
+    : Programs" with respect to in-force business; and (v) reinsurance and prohibitions on captive reinsurance arrangements. It is uncertain when the revised Model Act will be adopted in any jurisdiction.
+    : The provisions of the Model Act, if adopted in their final form, are not expected to have a material adverse effect on our business. It is unknown whether any changes will be made by statelegislatures prior to adoption, and the effect changes, if any, will have on the mortgage guaranty insurance market generally, or on our business. Wisconsin, where MGIC is domiciled, has begun the
+    : process to replace current MI regulations with the Model Act, though it is expected that some changes will be made before formal adoption.While M
+    ... [truncated, 5299 more chars]
+  --- segment 2: doc_id=MTG_8-K_2024-07-31 score=10.837 len=6614 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Second Quarter 2024 Results'. This document is about: the financial results of MGIC Investment Corporation for the second quarter of 2024.
+    : 
+    : NON-GAAP RECONCILIATIONS
+    : 
+    : | Reconciliation of Income before tax / Net income to Adjusted pre-tax operating income / Adjusted net operating income |
+    : | Three Months Ended June 30, |
+    : | 2024 | 2023 |
+    : | (In thousands, except per share amounts) | Pre-tax | Tax Effect | Net  (after-tax) | Pre-tax | Tax Effect | Net  (after-tax) |
+    : | Income before tax / Net income | $ | 259,825 | $ | 55,597 | $ | 204,228 | $ | 242,382 | $ | 51,328 | $ | 191,054 |
+    : | Adjustments: |
+    : | Net realized investment losses | 822 | 173 | 649 | 6,314 | 1,326 | 4,988 |
+    : | Adjusted pre-tax operating income / Adjusted  net operating income | $ | 260,647 | $ | 55,770 | $ | 204,877 | $ | 248,696 | $ | 52,654 | $ | 196,042 |
+    : | Reconciliation of Net income per diluted share to Adjusted net operating income per diluted share |
+    : | Weighted average shares - diluted | 266,872 | 289,566 |
+    : | Net income per diluted share | $ | 0.77 | $ | 0.66 |
+    : | Net realized investment losses | - | 0.02 |
+    : | Adjusted net operating income per diluted share | $ | 0.77 | $ | 0.68 || Reconciliation of Income before tax / Net income to Adjusted pre-tax operating income / Adjusted net operating income |
+    : | Six Months Ended June 30, |
+    : | 2024 | 2023 |
+    : | (In thousands, except per share amounts) | Pre-tax | Tax Effect | Net (after-tax) | Pre-tax | Tax Effect | Net (after-tax) |
+    : | Income before tax / Net income | $ | 479,705 | $ | 101,380 | $ | 378,325 | $ | 437,986 | $ | 92,385 | $ | 345,601 |
+    : | Adjustments: |
+    : | Net realized investment losses | 6,251 | 1,313 | 4,938 | 10,382 | 2,180 | 8,202 |
+    : | Adjusted pre-tax o
+    ... [truncated, 4814 more chars]
+  --- segment 3: doc_id=MTG_8-K_2024-07-31 score=17.162 len=1981 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports Second Quarter 2024 Results'. This document is about: the financial results of MGIC Investment Corporation for the second quarter of 2024.
+    : 
+    : The price of our common stock may fluctuate significantly, which may make it difficult for holders to resell common stock when they want or at a price they find attractive.
+    : 
+    : The market price for our common stock may fluctuate significantly. In addition to the risk factors described herein, the following factors may have an adverse impact on the market price for our
+    : common stock: changes in general conditions in the economy, the mortgage insurance industry or the financial stability of markets and financial services industry; announcements by us or our
+    : competitors of acquisitions or strategic initiatives; our actual or anticipated quarterly and annual operating results; changes in expectations of future financial performance (including incurredlosses on our insurance in force); changes in estimates of securities analysts or rating agencies; actual or anticipated changes in our share repurchase program or dividends; changes in operating
+    : performance or market valuation of companies in the mortgage insurance industry; the addition or departure of key personnel; changes in tax law; and adverse press or news announcements affecting us or
+    : the industry. In addition, ownership by certain types of investors may affect the market price and trading volume of our common stock. For example, ownership in our common stock by investors such as
+    : index funds and exchange-traded funds can affect the stock's price when those investors must purchase or sell our common stock because the investors have experienced significant cash inflows or
+    : outflows, the 
+    ... [truncated, 181 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ACGL_8-K_2024-02-14'}
+  → returned 3 segments
+  --- segment 0: doc_id=ACGL_8-K_2024-02-14 score=31.872 len=8380 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2023 FOURTH QUARTER RESULTS'. This document is about: the financial results of Arch Capital Group Ltd. for the fourth quarter of 2023, including net income, underwriting performance, and the impact of Bermuda's new corporate income tax.
+    : 
+    : | Three Months Ended December 31, |
+    : | (U.S. Dollars in millions) | 2023 | 2022 | % Change |
+    : | Gross premiums written | $ | 1,934 | $ | 1,644 | 17.6 |
+    : | Net premiums written | 1,449 | 1,217 | 19.1 |
+    : | Net premiums earned | 1,449 | 1,244 | 16.5 |
+    : | Underwriting income | $ | 99 | $ | 98 | 1.0 |
+    : | Underwriting Ratios | % Point Change |
+    : | Loss ratio | 58.4 | % | 58.7 | % | (0.3) |
+    : | Underwriting expense ratio | 34.7 | % | 33.4 | % | 1.3 |
+    : | Combined ratio | 93.1 | % | 92.1 | % | 1.0 |
+    : | Catastrophic activity and prior year development: |
+    : | Current accident year catastrophic events, net of reinsurance and reinstatement premiums | 3.8 | % | 2.8 | % | 1.0 |
+    : | Net (favorable) adverse development in prior year loss reserves, net of related adjustments | (0.5) | % | (0.3) | % | (0.2) || Combined ratio excluding catastrophic activity and prior year development | 89.8 | % | 89.6 | % | 0.2 |Gross premiums written by the insurance segment in the 2023 fourth quarter were 17.6% higher than in the 2022 fourth quarter, while net premiums written were 19.1% higher than in the 2022 fourth
+    : quarter. Growth in net premiums written reflected increases in most lines of business, due in part to new business opportunities, increases in existing accounts and rate changes. In addition, the
+    : insurance segment retained a higher portion of business written in the 2023 fourth quarter than in the 2022 fourth quarter. Net premiums earned in the 2023 fourth quarter were 16.5% 
+    ... [truncated, 6580 more chars]
+  --- segment 1: doc_id=ACGL_8-K_2024-02-14 score=46.927 len=8717 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2023 FOURTH QUARTER RESULTS'. This document is about: the financial results of Arch Capital Group Ltd. for the fourth quarter of 2023, including net income, underwriting performance, and the impact of Bermuda's new corporate income tax.
+    : 
+    : | Loss ratio | 58.7 | % | 52.9 | % | (46.9) | % | 45.0 | % |
+    : | Acquisition expense ratio | 19.6 | % | 19.9 | % | 4.4 | % | 18.1 | % |
+    : | Other operating expense ratio | 13.8 | % | 5.6 | % | 15.4 | % | 10.4 | % |
+    : | Combined ratio | 92.1 | % | 78.4 | % | (27.1) | % | 73.5 | % |
+    : | Net premiums written to gross premiums written | 74.0 | % | 85.9 | % | 77.2 | % | 80.0 | % |(1) Certain amounts included in the gross premiums written of each segment are related to intersegment transactions and are included in the gross premiums written of each segment. Accordingly, the
+    : sum of gross premiums written for each segment does not agree to the total gross premiums written as shown in the table above due to the elimination of intersegment transactions in the total.
+    : 
+    : (2)    Certain expenses have been excluded from 'corporate expenses' and reflected in 'Transaction costs and other.' See 'Comments on Regulation G' for a further discussion of such items.
+    : 
+    : 10Cautionary Note Regarding Forward-Looking StatementsThe Private Securities Litigation Reform Act of 1995 ("PSLRA") provides a "safe harbor" for forward-looking statements. This release or any other written or oral statements made by or on behalf of
+    : the Company may include forward-looking statements, which reflect the Company's current views with respect to future events and financial performance. All statements other than statements of
+    : historical fact included in or incorporated by reference in this release
+    ... [truncated, 6917 more chars]
+  --- segment 2: doc_id=ACGL_8-K_2024-02-14 score=71.726 len=9104 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2023 FOURTH QUARTER RESULTS'. This document is about: the financial results of Arch Capital Group Ltd. for the fourth quarter of 2023, including net income, underwriting performance, and the impact of Bermuda's new corporate income tax.
+    : 
+    : Comments on Regulation G
+    : 
+    : 
+    : Throughout this release, the Company presents its operations in the way it believes will be the most meaningful and useful to investors, analysts, rating agencies and others who use the Company's
+    : financial information in evaluating the performance of the Company and that investors and such other persons benefit from having a consistent basis for comparison between quarters and for comparison
+    : with other companies within the industry. These measures may not, however, be comparable to similarly titled measures used by companies outside of the insurance industry. Investors are cautioned not
+    : to place undue reliance on these non-GAAP financial measures in assessing the Company's overall financial performance.
+    : This presentation includes the use of "after-tax operating income or loss available to Arch common shareholders," which is defined as net income available to Arch common shareholders, excluding net
+    : realized gains or losses (which includes changes in the allowance for credit losses on financial assets and net impairment losses recognized in earnings), equity in net income or loss of investment
+    : funds accounted for using the equity method, net foreign exchange gains or losses, transaction costs and other, net of income taxes (which for the 2023 fourth quarter reflects the establishment of a
+    : net deferred tax asset related to the enactment of Bermuda's new corporate income tax), and the use of annualized operating retu
+    ... [truncated, 7304 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ACGL_8-K_2024-04-29'}
+  → returned 4 segments
+  --- segment 0: doc_id=ACGL_8-K_2024-04-29 score=27.417 len=7600 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 FIRST QUARTER RESULTS'. This document is about: Arch Capital Group Ltd.'s financial results for the first quarter of 2024, including net income, underwriting performance, and segment results.
+    : 
+    : | Equity in net (income) loss of investment funds accounted for using the equity method | (0.26) | (0.13) |
+    : | Net foreign exchange (gains) losses | (0.08) | 0.05 |
+    : | Transaction costs and other | 0.02 | 0.00 |
+    : | Income tax expense (benefit) (2) | 0.03 | (0.01) |
+    : | After-tax operating income available to Arch common shareholders | $ | 2.45 | $ | 1.73 |
+    : | Weighted average common shares and common share equivalents outstanding - diluted | 380.5 | 377.6 |
+    : | Beginning common shareholders' equity | $ | 17,523 | $ | 12,080 |
+    : | Ending common shareholders' equity | 18,525 | 13,158 |
+    : | Average common shareholders' equity | $ | 18,024 | $ | 12,619 |
+    : | Annualized net income return on average common equity | 24.6 | % | 22.3 | % |
+    : | Annualized operating return on average common equity | 20.7 | % | 20.7 | % |(1) Net realized gains or losses include realized and unrealized changes in the fair value of equity securities and assets accounted for using the fair value option, realized and unrealized gains and
+    : losses on derivative instruments and changes in the allowance for credit losses on financial assets.
+    : 
+    : (2) Income tax expense (benefit) on net realized gains or losses, equity in net income (loss) of investment funds accounted for using the equity method, net foreign exchange gains or losses and
+    : transaction costs and other reflects the relative mix reported by jurisdiction and the varying tax rates in each jurisdiction.
+    : 
+    : 2
+    : Segment Information
+    : 
+    : 
+    : The following section provides analysis on the Com
+    ... [truncated, 5800 more chars]
+  --- segment 1: doc_id=ACGL_8-K_2024-04-29 score=52.523 len=12258 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 FIRST QUARTER RESULTS'. This document is about: Arch Capital Group Ltd.'s financial results for the first quarter of 2024, including net income, underwriting performance, and segment results.
+    : 
+    : On a pre-tax basis, net foreign exchange gains for the 2024 first quarter were $31 million, compared to net foreign exchange losses of $18 million for the 2023 first quarter. For both periods, such
+    : amounts were primarily unrealized and resulted from the effects of revaluing the Company's net insurance liabilities required to be settled in foreign currencies at each balance sheet date. Changes in
+    : the value of available-for-sale investments held in foreign currencies due to foreign currency rate movements are reflected as a direct increase or decrease to shareholders' equity and are not
+    : included in the consolidated statements of income.The Company's effective tax rate on income before income taxes (based on the Company's estimated annual effective tax rate) was 8.3% for the 2024 first quarter, compared to 8.2% for the 2023 first
+    : quarter. The Company's effective tax rate on pre-tax operating income available to Arch common shareholders was 8.5% for the 2024 first quarter, compared to 9.2% for the 2023 first quarter. The
+    : effective tax rate may fluctuate from period to period based upon the relative mix of income or loss reported by jurisdiction, the level of catastrophic loss activity incurred, and the varying tax
+    : rates in each jurisdiction.
+    : Income from operating affiliates for the 2024 first quarter was $55 million, or $0.14 per share, compared to $39 million, or $0.10 per share, for the 2023 first quarter, and primarily reflects
+    : amounts related to the Company's investment in Somer
+    ... [truncated, 10458 more chars]
+  --- segment 2: doc_id=ACGL_8-K_2024-04-29 score=19.488 len=2586 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 FIRST QUARTER RESULTS'. This document is about: Arch Capital Group Ltd.'s financial results for the first quarter of 2024, including net income, underwriting performance, and segment results.
+    : 
+    : the timing of loss payments being faster or the receipt of reinsurance recoverables being slower than anticipated by the Company;
+    : 
+    : •
+    : 
+    : the Company's investment performance, including legislative or regulatory developments that may adversely affect the fair value of the Company's investments;
+    : 
+    : •
+    : 
+    : changes in general economic conditions, including new or continued sovereign debt concerns or downgrades of U.S. securities by credit rating agencies, which could affect the Company's business,
+    : financial condition and results of operations;
+    : 
+    : •
+    : 
+    : the volatility of the Company's shareholders' equity from foreign currency fluctuations, which could increase due to us not matching portions of the Company's projected liabilities in foreigncurrencies with investments in the same currencies;
+    : 
+    : •
+    : 
+    : changes in accounting principles or policies or in the Company's application of such accounting principles or policies;
+    : 
+    : •
+    : 
+    : changes in the political environment of certain countries in which the Company operates, underwrites business or invests;
+    : 
+    : •
+    : 
+    : an incident, disruption in operations or other cyber event caused by cyber attacks, the use of artificial intelligence technologies or other technology on the Company's systems or those of the
+    : Company's business partners and service providers, which could negatively impact the Company's business and/or expose the Company to litigation;
+    : 
+    : •statutory or regulatory developments, including as to tax matters and insurance and other regulatory matters such as the adop
+    ... [truncated, 786 more chars]
+  --- segment 3: doc_id=ACGL_8-K_2024-04-29 score=7.31 len=1883 ---
+    : Document context: the following excerpt is from a document titled 'ARCH CAPITAL GROUP LTD. REPORTS 2024 FIRST QUARTER RESULTS'. This document is about: Arch Capital Group Ltd.'s financial results for the first quarter of 2024, including net income, underwriting performance, and segment results.
+    : 
+    : accuracy of those estimates and judgments utilized in the preparation of the Company's financial statements, including those related to revenue recognition, insurance and other reserves, reinsurance
+    : recoverables, investment valuations, intangible assets, bad debts, income taxes, deferred tax assets, contingencies and litigation, and any determination to use the deposit method of accounting;
+    : 
+    : •
+    : 
+    : greater than expected loss ratios on business written by the Company and adverse development on claim and/or claim expense liabilities related to business written by its insurance and reinsurance
+    : subsidiaries;
+    : 
+    : •
+    : 
+    : the adequacy of the Company's loss reserves;
+    : 
+    : •
+    : 
+    : severity and/or frequency of losses;
+    : 
+    : •
+    : 
+    : greater frequency or severity of unpredictable natural and man-made catastrophic events;
+    : 
+    : •claims resulting from natural or man-made catastrophic events or severe economic events in the Company's insurance, reinsurance and mortgage businesses could cause large losses and substantial
+    : volatility in the Company's results of operations;
+    : 
+    : •
+    : 
+    : the effect of climate change on the Company's business;
+    : 
+    : •
+    : 
+    : the effect of contagious diseases (including COVID-19) on the Company's business;
+    : 
+    : •
+    : 
+    : acts of terrorism, geopolitical political unrest and other regional and global hostilities or other unforecasted and unpredictable events;
+    : 
+    : •
+    : 
+    : availability to the Company of reinsurance to manage its gross and net exposures and the cost of such reinsurance;
+    : 
+    : •
+    : 
+    : the failure of reinsurers, managing general agents, th
+    ... [truncated, 83 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'ESNT_8-K_2024-11-01'}
+  → returned 3 segments
+  --- segment 0: doc_id=ESNT_8-K_2024-11-01 score=41.727 len=14191 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Third Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the third quarter of 2024 and the declaration of a quarterly dividend.
+    : 
+    : | Exhibit E |
+    : | Essent Group Ltd. and Subsidiaries |
+    : | Supplemental Information - U.S. Mortgage Insurance Portfolio |
+    : | New Insurance Written: Flow |
+    : | NIW by Credit Score |
+    : | Three Months Ended | Nine Months Ended |
+    : | September 30, 2024 | September 30, 2023 | September 30, 2024 | September 30, 2023 |
+    : | ($ in thousands) |
+    : | >=760 | $ | 5,339,574 | 42.7 | % | $ | 5,212,343 | 41.8 | % | $ | 14,387,356 | 43.2 | % | $ | 15,473,191 | 39.8 | % |
+    : | 740-759 | 2,141,817 | 17.1 | 2,205,066 | 17.6 | 5,717,289 | 17.1 | 7,031,821 | 18.1 |
+    : | 720-739 | 1,764,319 | 14.1 | 1,911,320 | 15.3 | 4,828,718 | 14.5 | 6,310,564 | 16.2 |
+    : | 700-719 | 1,622,450 | 13.0 | 1,867,510 | 14.9 | 4,348,047 | 13.0 | 5,892,704 | 15.1 |
+    : | 680-699 | 918,116 | 7.3 | 891,471 | 7.1 | 2,351,589 | 7.1 | 3,024,347 | 7.8 || <=679 | 727,419 | 5.8 | 418,113 | 3.3 | 1,707,365 | 5.1 | 1,165,065 | 3.0 |
+    : | Total | $ | 12,513,695 | 100.0 | % | $ | 12,505,823 | 100.0 | % | $ | 33,340,364 | 100.0 | % | $ | 38,897,692 | 100.0 | % |
+    : | Weighted average credit score | 747 | 746 |
+    : | NIW by LTV |
+    : | Three Months Ended | Nine Months Ended |
+    : | September 30, 2024 | September 30, 2023 | September 30, 2024 | September 30, 2023 |
+    : | ($ in thousands) |
+    : | 85.00% and below | $ | 836,186 | 6.7 | % | $ | 849,250 | 6.7 | % | $ | 2,250,434 | 6.7 | % | $ | 2,801,011 | 7.2 | % |
+    : | 85.01% to 90.00% | 2,415,504 | 19.3 | 2,445,924 | 19.6 | 6,571,300 | 19.7 | 7,951,062 | 20.4 |
+    : | 90.01% to 95.00% | 6,616,174 | 52.9 | 6,614,050 | 52.9 | 18,008,682 | 54.0 | 21,383,
+    ... [truncated, 12391 more chars]
+  --- segment 1: doc_id=ESNT_8-K_2024-11-01 score=120.44 len=11572 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Third Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the third quarter of 2024 and the declaration of a quarterly dividend.
+    : 
+    : | Exhibit K |
+    : | Essent Group Ltd. and Subsidiaries |
+    : | Supplemental Information |
+    : | Rollforward of Defaults and Reserve for Losses and LAE |
+    : | U.S. Mortgage Insurance Portfolio |
+    : | Rollforward of Insured Loans in Default |
+    : | Three Months Ended |
+    : | 2024 | 2023 |
+    : | September 30 | June 30 | March 31 | December 31 | September 30 |
+    : | Beginning default inventory | 13,954 | 13,992 | 14,819 | 13,391 | 12,480 |
+    : | Plus: new defaults  (A) | 9,984 | 8,119 | 8,260 | 9,007 | 7,953 |
+    : | Less: cures | (7,819) | (7,956) | (8,951) | (7,418) | (6,902) |
+    : | Less: claims paid | (182) | (183) | (123) | (148) | (129) |
+    : | Less: rescissions and denials, net | (31) | (18) | (13) | (11) |
+    : | Ending default inventory | 15,906 | 13,954 | 13,992 | 14,819 | 13,391 || (A)  New defaults remaining as of September 30, 2024 | 7,189 | 3,198 | 1,665 | 1,309 | 806 |
+    : | Cure rate  (1) | 28 | % | 61 | % | 80 | % | 85 | % | 90 | % |
+    : | Total amount paid for claims (in thousands) | $ | 5,749 | $ | 5,566 | $ | 3,605 | $ | 3,411 | $ | 2,956 |
+    : | Average amount paid per claim (in thousands) | $ | 32 | $ | 30 | $ | 29 | $ | 22 | $ | 23 |
+    : | Severity | 58 | % | 60 | % | 65 | % | 62 | % | 66 | % |
+    : | Rollforward of Reserve for Losses and LAE |
+    : | Three Months Ended |
+    : | 2024 | 2023 |
+    : | ($ in thousands) | September 30 | June 30 | March 31 | December 31 | September 30 |
+    : | Reserve for losses and LAE at beginning of period | $ | 246,107 | $ | 253,565 | $ | 245,402 | $ | 226,617 | $ | 216,888 |
+    : | Less: Reinsurance recoverables | 26,022 | 26,570
+    ... [truncated, 9772 more chars]
+  --- segment 2: doc_id=ESNT_8-K_2024-11-01 score=19.842 len=3361 ---
+    : Document context: the following excerpt is from a document titled 'Essent Group Ltd. Announces Third Quarter 2024 Results and Declares Quarterly Dividend'. This document is about: Essent Group Ltd.'s financial results for the third quarter of 2024 and the declaration of a quarterly dividend.
+    : 
+    : "We are pleased with our third quarter financial results, as we continue to generate high quality earnings," said Mark A. Casale, Chairman and Chief Executive Officer. "Our results continue to
+    : benefit from the impact of interest rates on persistency and the growth in our investment portfolio. Our performance for the quarter demonstrates the strength of our operating model in producing
+    : strong returns and growing book value per share."
+    : Financial Highlights:
+    : 
+    : •
+    : 
+    : New insurance written for the third quarter of 2024 was $12.5 billion, consistent with the second quarter of 2024 and the third quarter of 2023.
+    : 
+    : •
+    : 
+    : Insurance in force as of September 30, 2024 was $243.0 billion, compared to $240.7 billion as of June 30, 2024 and $238.7 billion as of September 30, 2023.
+    : 
+    : •
+    : 
+    : Net investment income for the nine months ended September 30, 2024 was $165.5 million, up 22% from the comparable period in 2023.
+    : 
+    : •
+    : 
+    : In September, Essent closed its 10
+    : 
+    : th
+    : 
+    : mortgage insurance-linked note transaction, Radnor Re 2024-1, which provides $363 million of collateralized reinsurance coverage for new insurance written from July 2023 through July 2024.
+    : Conference Call:
+    : 
+    : Essent management will hold a conference call at 10:00 AM Eastern time today to discuss its results. The conference call will be broadcast live over the Internet at
+    : 
+    : http://ir.essentgroup.com/events-and-presentations/events/default.aspx
+    : 
+    : . The call may also be accessed by dialing 888-330-2384 inside the U.S., or 240-789-2701 for international callers
+    ... [truncated, 1561 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'MTG_8-K_2024-05-01'}
+  → returned 5 segments
+  --- segment 0: doc_id=MTG_8-K_2024-05-01 score=39.298 len=9252 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports First Quarter 2024 Results'. This document is about: MGIC Investment Corporation's financial results for the first quarter of 2024, including net income, adjusted net operating income, and other key metrics.
+    : 
+    : Risk Factors Relating to the Mortgage Insurance Industry and its Regulation
+    : 
+    : Downturns in the domestic economy or declines in home prices may result in more homeowners defaulting and our losses increasing, with a corresponding decrease in our returns.
+    : 
+    : Losses result from events that reduce a borrower's ability or willingness to make mortgage payments, such as unemployment, health issues, changes in family status, and decreases in home prices that
+    : result in the borrower's mortgage balance exceeding the net value of the home. A deterioration in economic conditions, including an increase in unemployment, generally increases the likelihood that
+    : borrowers will not have sufficient income to pay their mortgages and can also adversely affect home prices.High levels of unemployment may result in an increasing number of loan delinquencies and an increasing number of insurance claims; however, unemployment is difficult to predict as it may be impacted
+    : by a number of factors, including the health of the economy, and wars and other global events.The seasonally-adjusted Purchase-Only U.S. Home Price Index of the Federal Housing Finance Agency (the "FHFA"), which is based on single-family properties whose mortgages have been purchased or
+    : securitized by Fannie Mae or Freddie Mac, indicates that home prices increased 1.2% nationwide in February, 2024 compared to January, 2024. Although the 12 month change in home prices recently reached
+    : historically high rates, the rate of growth 
+    ... [truncated, 7452 more chars]
+  --- segment 1: doc_id=MTG_8-K_2024-05-01 score=89.755 len=11132 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports First Quarter 2024 Results'. This document is about: MGIC Investment Corporation's financial results for the first quarter of 2024, including net income, adjusted net operating income, and other key metrics.
+    : 
+    : From time to time, in response to market conditions, we change the types of loans that we insure. We also may change our underwriting guidelines, including by agreeing with certain approval
+    : recommendations from a GSE automated underwriting system. We also make exceptions to our underwriting requirements on a loan-by-loan basis and for certain customer programs. Our underwriting
+    : requirements are available on our website at http://www.mgic.com/underwriting/index.html.
+    : Even when home prices are stable or rising, mortgages with certain characteristics have higher probabilities of claims. As of March 31, 2024, mortgages with these characteristics in our primary risk
+    : in force included mortgages with LTV ratios greater than 95% (16%), mortgages with borrowers having FICO scores below 680 (7%), including those with borrowers having FICO scores of 620-679 (6%),
+    : mortgages with limited underwriting, including limited borrower documentation (1%), and mortgages with borrowers having DTI ratios greater than 45% (or where no ratio is available) (18%), each
+    : attribute is determined at the time of loan origination. Loans with more than one of these attributes accounted for 5% of our primary risk in force as of March 31, 2024, and 5% and 4% of our primary
+    : risk in force as of December 31, 2023 and December 31, 2022, respectively. When home prices increase, interest rates increase and/or the percentage of our NIW from purchase transactions increases, our
+    : NIW on mortgages with higher L
+    ... [truncated, 9332 more chars]
+  --- segment 2: doc_id=MTG_8-K_2024-05-01 score=24.034 len=1876 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports First Quarter 2024 Results'. This document is about: MGIC Investment Corporation's financial results for the first quarter of 2024, including net income, adjusted net operating income, and other key metrics.
+    : 
+    : The market price for our common stock may fluctuate significantly. In addition to the risk factors described herein, the following factors may have an adverse impact on the market price for our
+    : common stock: changes in general conditions in the economy, the mortgage insurance industry or the financial stability of markets and financial services industry; announcements by us or our
+    : competitors of acquisitions or strategic initiatives; our actual or anticipated quarterly and annual operating results; changes in expectations of future financial performance (including incurred
+    : losses on our insurance in force); changes in estimates of securities analysts or rating agencies; actual or anticipated changes in our share repurchase program or dividends; changes in operatingperformance or market valuation of companies in the mortgage insurance industry; the addition or departure of key personnel; changes in tax law; and adverse press or news announcements affecting us or
+    : the industry. In addition, ownership by certain types of investors may affect the market price and trading volume of our common stock. For example, ownership in our common stock by investors such as
+    : index funds and exchange-traded funds can affect the stock's price when those investors must purchase or sell our common stock because the investors have experienced significant cash inflows
+    : or outflows, the index to which our common stock belongs has been rebalanced, or our common stock is added to and/or remov
+    ... [truncated, 76 more chars]
+  --- segment 3: doc_id=MTG_8-K_2024-05-01 score=30.819 len=1571 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports First Quarter 2024 Results'. This document is about: MGIC Investment Corporation's financial results for the first quarter of 2024, including net income, adjusted net operating income, and other key metrics.
+    : 
+    : (1) Total direct premiums earned, excluding premium refunds and accelerated premiums from single premium policy cancellations divided by average primary insurance in force.
+    : 
+    : (2)  Premium refunds and our estimate of refundable premium on our delinquency inventory divided by average primary insurance in force.
+    : 
+    : (3) Ceded premiums earned, net of profit commissions and assumed premiums. Assumed premiums include our participation in GSE Credit Risk Transfer programs, of which the impact on the net premium
+    : yield was 0.5 bps in the first quarter of 2024. Ceded premiums for reinsurance cancellation activities decreased the premium yield by 1.9 bps in the fourth quarter of 2023.(4) As of September 30, 2023, we refined our methodology for calculating our Annual Persistency by excluding the amortization of the principal balance.  All prior periods have been revised.
+    : 
+    : (5) The FICO credit score at the time of origination for a loan with multiple borrowers is the lowest of the borrowers' "decision FICO scores." A borrower's "decision FICO score" is determined as
+    : follows: if there are three FICO scores available, the middle FICO score is used; if two FICO scores are available, the lower of the two is used; if only one FICO score is available, it is used.
+  --- segment 4: doc_id=MTG_8-K_2024-05-01 score=8.599 len=457 ---
+    : Document context: the following excerpt is from a document titled 'MGIC Investment Corporation Reports First Quarter 2024 Results'. This document is about: MGIC Investment Corporation's financial results for the first quarter of 2024, including net income, adjusted net operating income, and other key metrics.
+    : 
+    : Competition or changes in our relationships with our customers could reduce our revenues, reduce our premium yields and / or increase our losses.
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'NMIH_8-K_2024-11-06'}
+  → returned 3 segments
+  --- segment 0: doc_id=NMIH_8-K_2024-11-06 score=17.111 len=11151 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Third Quarter 2024 Financial Results; Announces New Reinsurance Agreements'. This document is about: NMI Holdings, Inc.'s third quarter 2024 financial results, including net income, revenue, and new reinsurance agreements.
+    : 
+    : | Service expenses | 208 | 194 | 239 | 539 | 586 |
+    : | Interest expense | 7,076 | 14,678 | 8,059 | 29,794 | 24,146 |
+    : | Total expenses | 46,765 | 43,478 | 40,859 | 131,929 | 120,101 |
+    : | Income before income taxes | 119,327 | 118,644 | 107,300 | 352,538 | 307,522 |
+    : | Income tax expense | 26,517 | 26,565 | 23,345 | 78,599 | 68,825 |
+    : | Net income | $ | 92,810 | $ | 92,079 | $ | 83,955 | $ | 273,939 | $ | 238,697 |
+    : | Adjustments: |
+    : | Net realized investment losses | 10 | - | 10 | 33 |
+    : | Capital markets transaction costs | - | 6,966 | - | 6,966 | - |
+    : | Adjusted income before taxes | 119,337 | 125,610 | 107,300 | 359,514 | 307,555 |
+    : | Income tax expense on adjustments  (1) | 2 | 1,463 | - | 1,465 | 7 |
+    : | Adjusted net income | $ | 92,818 | $ | 97,582 | $ | 83,955 | $ | 279,450 | $ | 238,723 || Weighted average diluted shares outstanding | 81,045 | 81,300 | 83,670 | 81,484 | 84,236 |
+    : | Diluted EPS | $ | 1.15 | $ | 1.13 | $ | 1.00 | $ | 3.36 | $ | 2.83 |
+    : | Adjusted diluted EPS | $ | 1.15 | $ | 1.20 | $ | 1.00 | $ | 3.43 | $ | 2.83 |
+    : | Return-on-equity | 17.5 | % | 18.3 | % | 19.0 | % | 17.7 | % | 18.7 | % |
+    : | Adjusted return-on-equity | 17.5 | % | 19.4 | % | 19.0 | % | 18.1 | % | 18.7 | % |
+    : | Expense ratio  (2) | 20.3 | % | 20.1 | % | 21.3 | % | 20.7 | % | 21.4 | % |
+    : | Adjusted expense ratio  (3) | 20.3 | % | 20.1 | % | 21.3 | % | 20.7 | % | 21.4 | % |
+    : | Combined ratio  (4) | 27.5 | % | 20.3 | % | 25.0 | % | 24.1 | % | 25.2 | % |
+    : | Adjusted combined ratio  (5) | 27.5 | 
+    ... [truncated, 9351 more chars]
+  --- segment 1: doc_id=NMIH_8-K_2024-11-06 score=38.784 len=11444 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Third Quarter 2024 Financial Results; Announces New Reinsurance Agreements'. This document is about: NMI Holdings, Inc.'s third quarter 2024 financial results, including net income, revenue, and new reinsurance agreements.
+    : 
+    : cause actual results to differ materially from those expressed in them. Many risks and uncertainties are inherent in our industry and markets. Others are more specific to our business and operations.
+    : Important factors that could cause actual events or results to differ materially from those indicated in such statements include, but are not limited to: changes in general economic, market and
+    : political conditions and policies (including changes in interest rates and inflation) and investment results or other conditions that affect the U.S. housing market or the U.S. markets for home
+    : mortgages, mortgage insurance, reinsurance and credit risk transfer markets, including the risk related to geopolitical instability, inflation, an economic downturn (including any decline in homeprices) or recession, and their impacts on our business, operations and personnel; changes in the charters, business practices, policies, pricing or priorities of Fannie Mae and Freddie Mac
+    : (collectively, the GSEs), which may include decisions that have the impact of decreasing or discontinuing the use of mortgage insurance as credit enhancement generally, or with first time homebuyers
+    : or on very high loan-to-value mortgages; or changes in the direction of housing policy objectives of the Federal Housing Finance Agency ("FHFA"), such as the FHFA's priority to increase the
+    : accessibility to and affordability of homeownership for low-and-moderate income borrowers and underrepresented communiti
+    ... [truncated, 9644 more chars]
+  --- segment 2: doc_id=NMIH_8-K_2024-11-06 score=8.458 len=2846 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Third Quarter 2024 Financial Results; Announces New Reinsurance Agreements'. This document is about: NMI Holdings, Inc.'s third quarter 2024 financial results, including net income, revenue, and new reinsurance agreements.
+    : 
+    : EXHIBIT 99.1
+    : 
+    : Investor Contact
+    : 
+    : John M. Swenson
+    : 
+    : Vice President, Investor Relations and Treasury
+    : 
+    : John.Swenson@nationalmi.com
+    : 
+    : (510) 788-8417
+    : 
+    : 5
+    : EXHIBIT 99.1| Consolidated statements of operations and comprehensive income (unaudited) | For the three months ended September 30, | For the nine months ended September 30, |
+    : | 2024 | 2023 | 2024 | 2023 |
+    : | (In Thousands, except for per share data) |
+    : | Revenues |
+    : | Net premiums earned | $ | 143,343 | $ | 130,089 | $ | 421,168 | $ | 377,828 |
+    : | Net investment income | 22,474 | 17,853 | 62,598 | 49,265 |
+    : | Net realized investment losses | (10) | - | (10) | (33) |
+    : | Other revenues | 285 | 217 | 711 | 563 |
+    : | Total revenues | 166,092 | 148,159 | 484,467 | 427,623 |
+    : | Expenses |
+    : | Insurance claims and claim expenses | 10,321 | 4,812 | 14,291 | 14,386 |
+    : | Underwriting and operating expenses | 29,160 | 27,749 | 87,305 | 80,983 |
+    : | Service expenses | 208 | 239 | 539 | 586 || Interest expense | 7,076 | 8,059 | 29,794 | 24,146 |
+    : | Total expenses | 46,765 | 40,859 | 131,929 | 120,101 |
+    : | Income before income taxes | 119,327 | 107,300 | 352,538 | 307,522 |
+    : | Income tax expense | 26,517 | 23,345 | 78,599 | 68,825 |
+    : | Net income | $ | 92,810 | $ | 83,955 | $ | 273,939 | $ | 238,697 |
+    : | Earnings per share |
+    : | Basic | $ | 1.17 | $ | 1.02 | $ | 3.42 | $ | 2.88 |
+    : | Diluted | $ | 1.15 | $ | 1.00 | $ | 3.36 | $ | 2.83 |
+    : | Weighted average common shares outstanding |
+    : | Basic | 79,549 | 82,096 | 80,129 | 82,879 |
+    : | Diluted | 81,045 | 83
+    ... [truncated, 1046 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'RDN_8-K_2024-07-31'}
+  → returned 3 segments
+  --- segment 0: doc_id=RDN_8-K_2024-07-31 score=27.972 len=10107 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces Second Quarter 2024 Financial Results'. This document is about: Radian Group Inc.’s financial results for the second quarter of 2024, including net income, revenue, and mortgage insurance performance.
+    : 
+    : ### Reconciliation of Diluted Net Income Per Share to Adjusted Diluted Net Operating Income Per Share
+    : 
+    : | **2024** | **2023** |
+    : | **Qtr 2** | **Qtr 1** | **Qtr 4** | **Qtr 3** | **Qtr 2** |
+    : | Diluted net income per share | $ | 0.98 | $ | 0.98 | $ | 0.91 | $ | 0.98 | $ | 0.91 |
+    : | Less per-share impact of reconciling income (expense)  items |
+    : | Net gains (losses) on investments and other financial instruments | (0.03 | ) | - | 0.08 | (0.06 | ) | - |
+    : | Amortization and impairment of goodwill and other acquired intangible assets | - | (0.07 | ) | (0.01 | ) | (0.01 | ) |
+    : | Impairment of other long-lived assets and other non-operating items | - | (0.03 | ) | (0.09 | ) | 0.01 | - |
+    : | Income tax (provision) benefit on reconciling income (expense) items (1) | - | 0.01 | 0.02 | 0.01 | - |
+    : | Difference between statutory and effective tax rates | 0.02 | (0.03 | ) | 0.01 | (0.01 | ) | 0.01 |
+    : | Per-share impact of reconciling income (expense)  items | (0.01 | ) | (0.05 | ) | (0.05 | ) | (0.06 | ) | - |
+    : | Adjusted diluted net operating income per share (1) | $ | 0.99 | $ | 1.03 | $ | 0.96 | $ | 1.04 | $ | 0.91 |
+    : 
+    : | (1) | Calculated using the company's federal statutory tax rate of 21%. |
+    : 
+    : ### Radian Group Inc. and Subsidiaries
+    : 
+    : 
+    : ### Consolidated Non-GAAP Financial Measure Reconciliations
+    : 
+    : 
+    : ### Exhibit G (page 2 of 2)
+    : 
+    : 
+    : ### Reconciliation of Return on Equity to Adjusted Net Operating Return on Equity** **(1)| **2024** | **2023** |
+    : | **Qtr 2** | **Qtr 1** | **Qtr 4** | **Qtr 3** | **Qtr 2** |
+    : | Return on eq
+    ... [truncated, 8307 more chars]
+  --- segment 1: doc_id=RDN_8-K_2024-07-31 score=21.188 len=9342 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces Second Quarter 2024 Financial Results'. This document is about: Radian Group Inc.’s financial results for the second quarter of 2024, including net income, revenue, and mortgage insurance performance.
+    : 
+    : ### Radian Group Inc. and Subsidiaries
+    : 
+    : 
+    : ### Segment Information
+    : 
+    : 
+    : ### Exhibit E (page 3 of 4)
+    : 
+    : | **Mortgage Insurance** |
+    : | **2024** | **2023** |
+    : | (In thousands) | **Qtr 2** | **Qtr 1** | **Qtr 4** | **Qtr 3** | **Qtr 2** |
+    : | Net premiums written | $ | 232,645 | $ | 231,877 | $ | 225,112 | $ | 235,169 | $ | 214,540 |
+    : | (Increase) decrease in unearned premiums | 2,173 | 2,122 | 5,268 | 1,632 | (3,808 | ) |
+    : | Net premiums earned | 234,818 | 233,999 | 230,380 | 236,801 | 210,732 |
+    : | Services revenue | 309 | 210 | 202 | 266 | 284 |
+    : | Net investment income | 50,102 | 49,574 | 51,061 | 49,953 | 48,070 |
+    : | Other income | 754 | 1,240 | 1,302 | 1,237 | 1,246 |
+    : | Total | 285,983 | 285,023 | 282,945 | 288,257 | 260,332 |
+    : | Provision for losses | (1,769 | ) | (6,886 | ) | 4,608 | (8,257 | ) | (21,623 | ) |
+    : | Policy acquisition costs | 6,522 | 6,794 | 6,147 | 6,920 | 5,218 |
+    : | Cost of services | 156 | 153 | 157 | 172 | 143 |
+    : | Other operating expenses before allocated corporate operating expenses | 17,157 | 17,270 | 15,559 | 16,776 | 20,009 |
+    : | Interest expense | 21,957 | 23,333 | 21,748 | 21,673 | 21,405 |
+    : | Total | 44,023 | 40,664 | 48,219 | 37,284 | 25,152 |
+    : | Adjusted pretax operating income before allocated corporate operating expenses | 241,960 | 244,359 | 234,726 | 250,973 | 235,180 |
+    : | Allocation of corporate operating expenses | 43,197 | 34,509 | 36,929 | 31,744 | 37,081 |
+    : | Adjusted pretax operating income (1) | $ | 198,763 | $ | 209,850 | $ | 197,797 | $ | 219,229 | $ | 198,099 |
+    : 
+    : ### Radi
+    ... [truncated, 7542 more chars]
+  --- segment 2: doc_id=RDN_8-K_2024-07-31 score=10.251 len=3927 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces Second Quarter 2024 Financial Results'. This document is about: Radian Group Inc.’s financial results for the second quarter of 2024, including net income, revenue, and mortgage insurance performance.
+    : 
+    : | • | the possibility that we may fail to estimate accurately, especially in the event of an extended economic downturn or a period of extreme market volatility and economic uncertainty, the
+    : likelihood, magnitude and timing of losses in establishing loss reserves for our mortgage insurance business or to accurately calculate and/or project our Available Assets and Minimum Required Assets
+    : under the PMIERs, which could be impacted by, among other things, the size and mix of our IIF, future changes to the PMIERs, the level of defaults in our portfolio, the reported status of defaults in
+    : our portfolio (including whether they are subject to mortgage forbearance, a repayment plan or a loan modification trial period), the level of cash flow generated by our insurance operations and ourrisk distribution strategies; || • | volatility in our financial results caused by changes in the fair value of our assets and liabilities, including with respect to our use of derivatives and within our investment portfolio; |
+    : 
+    : | • | changes in GAAP or SAP rules and guidance, or their interpretation; || • | risks associated with investments to grow our existing businesses, or to pursue new lines of business or new products and services, including our ability and related costs to develop, launch
+    : and implement new and innovative technologies and digital products and services, whether these products and services receive broad customer acceptance or disrupt existing customer relationships, and
+    : additional financial risk
+    ... [truncated, 2127 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'NMIH_8-K_2024-07-30'}
+  → returned 4 segments
+  --- segment 0: doc_id=NMIH_8-K_2024-07-30 score=29.52 len=9384 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Record Second Quarter 2024 Financial Results'. This document is about: the record second quarter 2024 financial results of NMI Holdings, Inc., including net income, adjusted net income, and key insurance metrics.
+    : 
+    : Selected second quarter 2024 highlights include:
+    : 
+    : •
+    : 
+    : Primary insurance-in-force at quarter end was $203.5 billion, compared to $199.4 billion at the end of the first quarter and $191.3 billion at the end of the second quarter of 2023.
+    : 
+    : •
+    : 
+    : Net premiums earned were $141.2 million, compared to $136.7 million in the first quarter and $126.0 million in the second quarter of 2023.
+    : 
+    : •
+    : 
+    : Total revenue was $162.1 million, compared to $156.3 million in the first quarter and $142.7 million in the second quarter of 2023.
+    : 
+    : •
+    : 
+    : Insurance claims and claim expenses were $0.3 million, compared to $3.7 million in the first quarter and $2.9 million in the second quarter of 2023. Loss ratio was 0.2% compared to 2.7% in the first
+    : quarter and 2.3% in the second quarter of 2023.
+    : 
+    : •Underwriting and operating expenses were $28.3 million, compared to $29.8 million in the first quarter and $27.4 million in the second quarter of 2023. Expense ratio was 20.1% compared to 21.8% in
+    : the first quarter and 21.8% in the second quarter of 2023.
+    : 
+    : •
+    : 
+    : Net income was $92.1 million, up 3% compared to $89.0 million in the first quarter and up 15% compared to $80.3 million in the second quarter of 2023. Diluted EPS was $1.13, up 4% compared to $1.08
+    : in the first quarter and up 19% compared to $0.95 in the second quarter of 2023.
+    : 
+    : •Adjusted net income was $97.6 million, up 10% compared to $89.0 million in the first quarter and up 22% compared to $80.3 million in the second quarter of 2023. Adjusted diluted EPS wa
+    ... [truncated, 7584 more chars]
+  --- segment 1: doc_id=NMIH_8-K_2024-07-30 score=28.054 len=9989 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Record Second Quarter 2024 Financial Results'. This document is about: the record second quarter 2024 financial results of NMI Holdings, Inc., including net income, adjusted net income, and key insurance metrics.
+    : 
+    : | Service expenses | 194 | 137 | 267 | 331 | 347 |
+    : | Interest expense | 14,678 | 8,040 | 8,048 | 22,718 | 16,087 |
+    : | Total expenses | 43,478 | 41,686 | 38,636 | 85,164 | 79,242 |
+    : | Income before income taxes | 118,644 | 114,567 | 104,049 | 233,211 | 200,222 |
+    : | Income tax expense | 26,565 | 25,517 | 23,765 | 52,082 | 45,480 |
+    : | Net income | $ | 92,079 | $ | 89,050 | $ | 80,284 | $ | 181,129 | $ | 154,742 |
+    : | Adjustments: |
+    : | Net realized investment losses | - | 33 |
+    : | Capital markets transaction costs | 6,966 | - | 6,966 | - |
+    : | Adjusted income before taxes | 125,610 | 114,567 | 104,049 | 240,177 | 200,255 |
+    : | Income tax expense on adjustments  (1) | 1,463 | - | 1,463 | 7 |
+    : | Adjusted net income | $ | 97,582 | $ | 89,050 | $ | 80,284 | $ | 186,632 | $ | 154,768 || Weighted average diluted shares outstanding | 81,300 | 82,099 | 84,190 | 81,703 | 84,504 |
+    : | Diluted EPS | $ | 1.13 | $ | 1.08 | $ | 0.95 | $ | 2.22 | $ | 1.83 |
+    : | Adjusted diluted EPS | $ | 1.20 | $ | 1.08 | $ | 0.95 | $ | 2.28 | $ | 1.83 |
+    : | Return-on-equity | 18.3 | % | 18.2 | % | 18.6 | % | 18.2 | % | 18.4 | % |
+    : | Adjusted return-on-equity | 19.4 | % | 18.2 | % | 18.6 | % | 18.8 | % | 18.4 | % |
+    : | Expense ratio  (2) | 20.1 | % | 21.8 | % | 21.8 | % | 20.9 | % | 21.5 | % |
+    : | Adjusted expense ratio  (3) | 20.1 | % | 21.8 | % | 21.8 | % | 20.9 | % | 21.5 | % |
+    : | Combined ratio  (4) | 20.3 | % | 24.5 | % | 24.1 | % | 22.4 | % | 25.4 | % |
+    : | Adjusted combined ratio  (5) | 20.3 | % | 24.5 | % | 24.1 | % | 22.4
+    ... [truncated, 8189 more chars]
+  --- segment 2: doc_id=NMIH_8-K_2024-07-30 score=8.208 len=920 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Record Second Quarter 2024 Financial Results'. This document is about: the record second quarter 2024 financial results of NMI Holdings, Inc., including net income, adjusted net income, and key insurance metrics.
+    : 
+    : Adam Pollitzer, President and Chief Executive Officer of National MI, said, "In the second quarter, we again delivered standout operating performance, strong growth in our high-quality insured
+    : portfolio, and record financial results. We have built an exceptionally high-quality book covered by a comprehensive set of risk transfer solutions, our credit performance continues to stand ahead,
+    : and we have a robust balance sheet supported by the significant earnings power of our platform. Looking forward, we're well positioned to continue delivering differentiated growth, returns and value
+    : for our shareholders."
+  --- segment 3: doc_id=NMIH_8-K_2024-07-30 score=9.499 len=4089 ---
+    : Document context: the following excerpt is from a document titled 'NMI Holdings, Inc. Reports Record Second Quarter 2024 Financial Results'. This document is about: the record second quarter 2024 financial results of NMI Holdings, Inc., including net income, adjusted net income, and key insurance metrics.
+    : 
+    : The tables below present our total primary IIF and RIF by FICO and LTV, and total primary RIF by loan type as of the dates indicated.
+    : 
+    : | Primary IIF by FICO | As of |
+    : | June 30, 2024 | March 31, 2024 | June 30, 2023 |
+    : | (In Millions) |
+    : | >= 760 | $ | 101,531 | $ | 99,195 | $ | 94,931 |
+    : | 740-759 | 36,135 | 35,416 | 33,841 |
+    : | 720-739 | 28,479 | 28,033 | 26,862 |
+    : | 700-719 | 19,295 | 18,904 | 18,261 |
+    : | 680-699 | 13,138 | 13,002 | 12,506 |
+    : | <=679 | 4,923 | 4,823 | 4,905 |
+    : | Total | $ | 203,501 | $ | 199,373 | $ | 191,306 |
+    : 
+    : | Primary RIF by FICO | As of |
+    : | June 30, 2024 | March 31, 2024 | June 30, 2023 |
+    : | (In Millions) |
+    : | >= 760 | $ | 26,692 | $ | 25,935 | $ | 24,472 |
+    : | 740-759 | 9,624 | 9,392 | 8,888 |
+    : | 720-739 | 7,634 | 7,484 | 7,090 |
+    : | 700-719 | 5,217 | 5,089 | 4,865 |
+    : | 680-699 | 3,530 | 3,479 | 3,315 |
+    : | <=679 | 1,259 | 1,231 | 1,245 |
+    : | Total | $ | 53,956 | $ | 52,610 | $ | 49,875 |
+    : 
+    : 13
+    : EXHIBIT 99.1
+    : 
+    : | Primary IIF by LTV | As of |
+    : | June 30, 2024 | March 31, 2024 | June 30, 2023 |
+    : | (In Millions) |
+    : | 95.01% and above | $ | 21,556 | $ | 20,277 | $ | 18,141 |
+    : | 90.01% to 95.00% | 99,355 | 97,028 | 91,719 |
+    : | 85.01% to 90.00% | 62,461 | 61,169 | 58,210 |
+    : | 85.00% and below | 20,129 | 20,899 | 23,236 |
+    : | Total | $ | 203,501 | $ | 199,373 | $ | 191,306 |
+    : 
+    : | Primary RIF by LTV | As of |
+    : | June 30, 2024 | March 31, 2024 | June 30, 2023 |
+    : | (In Millions) |
+    : | 95.01% and above | $ | 6,698 | $ | 6,275 | $ | 5,600 |
+    : | 90.01% to 95.00% | 29,354 | 28,663 | 27,097 |
+    : | 85
+    ... [truncated, 2289 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'RDN_8-K_2024-05-01'}
+  → returned 3 segments
+  --- segment 0: doc_id=RDN_8-K_2024-05-01 score=28.655 len=7692 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces First Quarter 2024 Financial Results'. This document is about: Radian Group Inc.'s financial results for the first quarter of 2024, highlighting net income, revenue growth, and mortgage insurance performance.
+    : 
+    : risks and uncertainties include, without limitation:
+    : 
+    : | • | the health of the U.S. housing market generally and changes in economic conditions that impact the size of the insurable mortgage market, the credit performance of our insured mortgage
+    : portfolio and our business prospects, including changes resulting from inflationary pressures, the higher interest rate environment and the risk of higher unemployment rates, as well as other
+    : macroeconomic stresses and uncertainties, including potential impacts resulting from political and geopolitical events; |
+    : 
+    : | • | changes in the way customers, investors, ratings agencies, regulators or legislators perceive our performance, financial strength and future prospects; || • | Radian Guaranty's ability to remain eligible under the PMIERs to insure loans purchased by the GSEs; |
+    : 
+    : | • | our ability to maintain an adequate level of capital in our insurance subsidiaries to satisfy current and future regulatory requirements; |
+    : 
+    : | • | changes in the charters or business practices of, or rules or regulations imposed by or applicable to, the GSEs or loans purchased by the GSEs, or changes in the requirements for Radian
+    : Guaranty to remain an approved insurer to the GSEs, such as changes in the PMIERs or the GSEs' interpretation and application of the PMIERs or other applicable requirements; || • | the effects of the ERCF, which establishes a new regulatory capital framework for the GSEs, and which, as finalized, increases the capital requirements for t
+    ... [truncated, 5892 more chars]
+  --- segment 1: doc_id=RDN_8-K_2024-05-01 score=45.474 len=9765 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces First Quarter 2024 Financial Results'. This document is about: Radian Group Inc.'s financial results for the first quarter of 2024, highlighting net income, revenue growth, and mortgage insurance performance.
+    : 
+    : ### *Use of Non-GAAP Financial Measures*
+    : 
+    : In addition to the traditional GAAP financial measures, we have presented "adjusted pretax operating income (loss)," "adjusted
+    : 
+    : diluted net operating income (loss) per share" and "adjusted net operating return on equity," which are non-GAAP financial measures for the consolidated company, among our key performance
+    : 
+    : indicators to evaluate our fundamental financial performance. These non-GAAP financial measures align with the way our business performance is evaluated by both management and by our board of
+    : directors. Thesemeasures have been established in order to increase transparency for the purposes of evaluating our operating trends and enabling more meaningful comparisons with our peers. Although on a
+    : consolidated basis adjusted pretax operating income (loss),
+    : 
+    : adjusted diluted net operating income (loss) per share and adjusted net operating return on equity are non-GAAP financial measures, we believe these measures aid in understanding the underlying
+    : performance of
+    : 
+    : our operations. Our senior management, including our Chief Executive Officer (Radian's chief operating decision maker), uses adjusted pretax operating income (loss) as our primary measure to evaluate
+    : the fundamental financial performance of our
+    : 
+    : businesses and to allocate resources to them.Adjusted pretax operating income (loss) is defined as GAAP consolidated pretax income
+    : 
+    : (loss) excluding the effects of: (i) net gains (losses) on investments and other financial instruments
+    ... [truncated, 7965 more chars]
+  --- segment 2: doc_id=RDN_8-K_2024-05-01 score=21.596 len=8597 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces First Quarter 2024 Financial Results'. This document is about: Radian Group Inc.'s financial results for the first quarter of 2024, highlighting net income, revenue growth, and mortgage insurance performance.
+    : 
+    : Book value per share at March 31, 2024, was $29.30, compared to $28.71 at December 31, 2023, and $26.23 at March 31,
+    : 
+    : 2023. This represents a 12% growth in book value per share at March 31, 2024, as compared to March 31, 2023, and includes accumulated other comprehensive income (loss) of $(2.39) per share as of
+    : March 31, 2024, and $(2.47) per share
+    : 
+    : as of March 31, 2023. Changes in accumulated other comprehensive income (loss) are primarily from net unrealized gains or losses on investments as a result of decreases or increases, respectively, in
+    : market interest rates.
+    : "We had a strong start to the year with excellent first quarter operating results for Radian. We increased book value per share by 12% year-over-year and
+    : 
+    : delivered return on equity of approximately 14%. These results demonstrate the embedded economic value of our high-quality mortgage insurance portfolio, which is the main driver of future earnings
+    : for our company and reached an all-time high of $271 billion during the quarter," said Radian's Chief Executive Officer Rick Thornberry. "We continue to strategically manage capital, paying our fifth
+    : consecutive quarterly
+    : 
+    : dividend of $100 million from Radian Guaranty to Radian Group and returning capital to stockholders through dividends and share repurchases."
+    : 
+    : ### FIRST QUARTER HIGHLIGHTS
+    : 
+    : | • | NIW was $11.5 billion in the first quarter of 2024, compared to $10.6 billion in the fourth quarter of 2023, and $11.3 billion in the first quarter of 2023. |
+    : 
+    : | • | Purchase NI
+    ... [truncated, 6797 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'RDN_8-K_2024-11-06'}
+  → returned 3 segments
+  --- segment 0: doc_id=RDN_8-K_2024-11-06 score=45.469 len=7854 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces Third Quarter 2024 Financial Results'. This document is about: Radian Group Inc.'s financial results for the third quarter of 2024, including net income, book value per share, and capital management activities.
+    : 
+    : the health of the U.S. housing market generally and changes in economic conditions that impact the size of the insurable mortgage market, the credit performance of our insured mortgage portfolio, the
+    : returns on our investments in residential mortgage loans acquired through our Mortgage Conduit business and other investments held in our investment portfolio, as well as our business prospects,
+    : including: changes resulting from inflationary pressures, the interest rate environment and the risk of higher unemployment rates; other macroeconomic stresses and uncertainties, including potential
+    : impacts resulting from political and geopolitical events, civil disturbances and endemics/pandemics or extreme weather events and other natural disasters that may adversely affect regional economicconditions and housing markets;■
+    : 
+    : changes in the way customers, investors, ratings agencies, regulators or legislators perceive our performance, financial strength and future prospects;
+    : 
+    : ■
+    : 
+    : Radian Guaranty's ability to remain eligible under the PMIERs to insure loans purchased by the GSEs;
+    : 
+    : ■
+    : 
+    : our ability to maintain an adequate level of capital in our insurance subsidiaries to satisfy current and future regulatory requirements;
+    : 
+    : ■
+    : 
+    : changes in the charters or business practices of, or rules or regulations imposed by or applicable to, the GSEs or loans purchased by the GSEs, or changes in the requirements for Radian Guaranty to
+    : remain an approved insurer to the GSEs, such as changes in the PMIERs or the G
+    ... [truncated, 6054 more chars]
+  --- segment 1: doc_id=RDN_8-K_2024-11-06 score=146.751 len=12578 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces Third Quarter 2024 Financial Results'. This document is about: Radian Group Inc.'s financial results for the third quarter of 2024, including net income, book value per share, and capital management activities.
+    : 
+    : | Selected Mortgage Insurance Key Ratios |
+    : | 2024 | 2023 |
+    : | (In thousands) | Qtr 3 | Qtr 2 | Qtr 1 | Qtr 4 | Qtr 3 |
+    : | Loss ratio (1) | 2.7 | % | (0.8 | )% | (2.9 | )% | 2.0 | % | (3.5 | )% |
+    : | Expense ratio (2) | 23.7 | % | 28.5 | % | 25.0 | % | 25.5 | % | 23.4 | % |
+    : 
+    : (1)
+    : 
+    : For our Mortgage Insurance segment, calculated as provision for losses expressed as a percentage of net premiums earned.
+    : 
+    : (2)
+    : 
+    : For our Mortgage Insurance segment, calculated as operating expenses, (which consist of policy acquisition costs and other operating expenses, as well as allocated corporate operating expenses),
+    : expressed as a percentage of net premiums earned.
+    : Radian Group Inc. and Subsidiaries
+    : 
+    : Definition of Consolidated Non-GAAP Financial Measures
+    : 
+    : Exhibit F (page 1 of 2)
+    : 
+    : Use of Non-GAAP Financial Measures
+    : 
+    : In addition to the traditional GAAP financial measures, we have presented "adjusted pretax operating income (loss)," "adjusted diluted net operating income (loss) per share" and "adjusted net
+    : operating return on equity," which are non-GAAP financial measures for the consolidated company, among our key performance indicators to evaluate our fundamental financial performance. These non-GAAPfinancial measures align with the way our business performance is evaluated by both management and by our board of directors. These measures have been established in order to increase transparency for
+    : the purposes of evaluating our operating trends and enabling more meaningful comparisons with our peers. Althou
+    ... [truncated, 10778 more chars]
+  --- segment 2: doc_id=RDN_8-K_2024-11-06 score=16.855 len=6183 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces Third Quarter 2024 Financial Results'. This document is about: Radian Group Inc.'s financial results for the third quarter of 2024, including net income, book value per share, and capital management activities.
+    : 
+    : | Provision for losses - mortgage insurance | $6 | $(2) | $(8) || As of |
+    : | ($ in millions, except per-share amounts) | September 30, 2024 | June 30, 2024 | September 30, 2023 |
+    : | Book value per share | $31.37 | $29.66 | $26.69 |
+    : | Accumulated other comprehensive income (loss) value per share (4) | $(1.56) | $(2.50) | $(3.35) |
+    : | PMIERs Available Assets (5) | $5,984 | $5,978 | $5,758 |
+    : | PMIERs excess Available Assets (6) | $2,122 | $2,206 | $1,670 |
+    : | Available holding company liquidity (7) | $844 | $1,190 | $1,004 |
+    : | Total investments | $6,497 | $6,588 | $5,886 |
+    : | Residential mortgage loans held for sale, at fair value (8) | $530 | $458 | $138 |
+    : | Primary mortgage insurance in force | $274,721 | $272,827 | $269,511 |
+    : | Percentage of primary loans in default (9) | 2.25% | 2.04% | 2.03% |
+    : | Mortgage insurance loss reserves | $357 | $351 | $362 |(1)
+    : 
+    : Adjusted results, including adjusted pretax operating income, adjusted diluted net operating income per share and adjusted net operating return on equity, are non-GAAP financial measures. For
+    : definitions and reconciliations of these measures to the comparable GAAP measures, see Exhibits F and G.
+    : 
+    : (2)
+    : 
+    : Calculated using the Company's federal statutory tax rate of 21%.
+    : 
+    : (3)
+    : 
+    : Calculated by dividing annualized net income by average stockholders' equity, based on the average of the beginning and ending balances for each period presented.
+    : 
+    : (4)
+    : 
+    : Included in book value per share for each period presented.
+    : 
+    : (5)Represents Radian Guaranty's Ava
+    ... [truncated, 4383 more chars]
+
+[TOOL_RESULT dsrag_kb]
+  args={'question': 'What board or executive officer changes (Item 5.02) were disclosed in this 8-K filing? Details on director appointments, resignations, or officer changes.', 'doc_id': 'RDN_8-K_2024-02-07'}
+  → returned 2 segments
+  --- segment 0: doc_id=RDN_8-K_2024-02-07 score=43.857 len=15407 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces Fourth Quarter and Full Year 2023 Financial Results'. This document is about: the financial results of Radian Group Inc. for the fourth quarter and full year 2023.
+    : 
+    : | Policy acquisition costs | 5,931 | - | 5,931 |
+    : | Cost of services | 235 | 15,893 | - | 16,128 |
+    : | Other operating expenses before allocated corporate operating expenses (4) | 20,131 | 27,998 | 3,606 | (264 | ) | 51,471 |
+    : | Interest expense | 21,580 | - | 14 | - | 21,594 |
+    : | Total | 4,368 | 43,801 | 3,620 | (264 | ) | 51,525 |
+    : | Adjusted pretax operating income (loss) before allocated corporate operating expenses | 278,570 | (25,164 | ) | 2,995 | - | 256,401 |
+    : | Allocation of corporate operating expenses | 36,663 | 6,302 | 420 | - | 43,385 |
+    : | Adjusted pretax operating income (loss) | $ | 241,907 | $ | (31,466 | ) | $ | 2,575 | $ | - | $ | 213,016 || **Year Ended December 31, 2023** |
+    : | (In thousands) | **Mortgage Insurance** | **homegenius** | **All Other** **(1)** | **Inter-segment** **(2)** | **Total** |
+    : | Net premiums written (3) | $ | 904,240 | $ | 10,215 | $ | - | $ | - | $ | 914,455 |
+    : | Decrease in unearned premiums | 5,123 | - | 5,123 |
+    : | Net premiums earned | 909,363 | 10,215 | - | 919,578 |
+    : | Services revenue | 1,088 | 45,394 | - | (390 | ) | 46,092 || Net investment income | 195,077 | 2,031 | 61,322 | - | 258,430 |
+    : | Net gains (losses) on investments and other financial instruments | - | 814 | - | 814 |
+    : | Other income | 5,372 | - | 27 | (20 | ) | 5,379 |
+    : | Total | 1,110,900 | 57,640 | 62,163 | (410 | ) | 1,230,293 |
+    : | Provision for losses | (42,136 | ) | (390 | ) | - | (42,526 | ) |
+    : | Policy acquisition costs | 24,578 | - | 24,578 |
+    : | Cost of services | 713 | 37,778 | - | 38,491 |
+    : | Other operating expenses before
+    ... [truncated, 13607 more chars]
+  --- segment 1: doc_id=RDN_8-K_2024-02-07 score=41.442 len=10754 ---
+    : Document context: the following excerpt is from a document titled 'Radian Announces Fourth Quarter and Full Year 2023 Financial Results'. This document is about: the financial results of Radian Group Inc. for the fourth quarter and full year 2023.
+    : 
+    : | Total | 100.0 | % | 100.0 | % | 100.0 | % | 100.0 | % | 100.0 | % |
+    : | Primary RIF by LTV |
+    : | 95.01% and above | 18.6 | % | 18.4 | % | 18.0 | % | 17.5 | % | 17.1 | % |
+    : | 90.01% to 95.00% | 48.2 | 48.4 | 48.5 | 48.4 |
+    : | 85.01% to 90.00% | 27.1 | 27.0 | 26.9 | 27.0 | 27.2 |
+    : | 85.00% and below | 6.1 | 6.4 | 6.7 | 7.0 | 7.3 |
+    : | Total | 100.0 | % | 100.0 | % | 100.0 | % | 100.0 | % | 100.0 | % |
+    : | Primary RIF by policy year |
+    : | 2008 and prior | 2.8 | % | 2.9 | % | 3.1 | % | 3.3 | % | 3.5 | % |
+    : | 2009 - 2017 | 6.9 | 7.5 | 8.2 | 9.1 | 10.0 |
+    : | 2018 | 2.8 | 2.9 | 3.1 | 3.3 | 3.5 |
+    : | 2019 | 5.4 | 5.6 | 5.9 | 6.4 | 6.7 |
+    : | 2020 | 16.6 | 17.5 | 18.7 | 20.3 | 21.6 |
+    : | 2021 | 24.5 | 25.6 | 26.9 | 28.6 | 29.5 |
+    : | 2022 | 22.4 | 22.8 | 23.6 | 24.7 | 25.2 |
+    : | 2023 | 18.6 | 15.2 | 10.5 | 4.3 | - || Total | 100.0 | % | 100.0 | % | 100.0 | % | 100.0 | % | 100.0 | % |
+    : | Persistency Rate (12 months ended) | 84.0 | % | 83.6 | % | 82.8 | % | 81.6 | % | 79.6 | % |
+    : | Persistency Rate (quarterly, annualized) (2) | 85.8 | % | 84.2 | % | 83.5 | % | 84.4 | % | 84.1 | % || (1) | For loans with multiple borrowers, the percentage of primary RIF by FICO score represents the lowest of the borrowers' FICO scores. |
+    : | (2) | The Persistency Rate on a quarterly, annualized basis is calculated based on loan-level detail for the quarter ending as of the date shown. It may be impacted by seasonality or other factors,
+    : including the level of refinance activity during the applicable periods and may not be indicative of full-year trends. |FORWARD-LOOKING STATEMENTS
+    : 
+    : All
+    ... [truncated, 8954 more chars]
+
+[AGENT_RESPONSE]
+  REASONING (2455 chars):
+    | The user wants to know about board or named-executive changes reported by the six MI cohort issuers in 2024 via 8-K Item 5.02. Let me identify the six MI cohort issuers: ACGL (Arch Capital), ACT (Enact Holdings), ESNT (Essent), MTG (MGIC), NMIH (NMI Holdings), RDN (Radian).
+    | 
+    | I need to search their 8-K filings from 2024 for Item 5.02 disclosures. Let me look at the 8-K filings in the catalog for 2024:
+    | 
+    | ACGL: 2024-02-14, 2024-04-29, 2024-07-30, 2024-10-30
+    | ACT: 2024-02-06, 2024-05-01, 2024-07-31, 2024-11-06
+    | ESNT: 2024-02-09, 2024-05-03, 2024-08-02, 2024-11-01 (also 2025-03-27)
+    | MTG: 2024-01-31, 2024-05-01, 2024-07-31, 2024-11-04
+    | NMIH: 2024-02-14, 2024-04-30, 2024-07-30, 2024-11-06
+    | RDN: 2024-02-07, 2024-05-01, 2024-07-31, 2024-11-06
+    | 
+    | Let me search across all these 8-Ks for Item 5.02 changes. I'll run parallel queries for each company's 2024 8-Ks. Actually, I could search each filing individually, but that's 24+ filings. Let me think about the best approach.
+    | 
+    | Actually, I should search for each company's 2024 8-K filings for Item 5.02. Let me do a query per company, scoped to their 2024 8-Ks. But I can only pass one doc_id per call. 
+    | 
+    | Let me first try a broader search. Actually, I can search across all filings by passing doc_id=None, but that might bring in too much irrelevant stuff. 
+    | 
+    | Let me try searching per company's 2024 8-Ks. But the doc_id format is specific to individual filings. Let me search across each company's 2024 8-Ks one at a time... but that would be many calls.
+    | 
+    | Actually, I think the best approach is to search with doc_id=None but with a well-crafted question, or to make parallel calls for each company's relevant 8-Ks. Let me try to make parallel calls for each company, asking about Item 5.02 changes in their 2024 8-Ks.
+    | 
+    | But wait - the tool only accepts one doc_id at a time. So I need to make multiple parallel calls. Let me structure this efficiently.
+    | 
+    | Let me start with a broad search to see what comes up, then narrow down.
+    | 
+    | Actually, let me think about which 8-Ks might have Item 5.02. Usually, earnings release 8-Ks are under Item 2.02. Item 5.02 is for departure of directors or certain officers; election of directors; appointment of certain officers; etc. So these would be separate 8-Ks or additional items in the same 8-K.
+    | 
+    | ESNT has an 8-K on 2025-03-27 which is 2025, not 2024. Let me focus on 2024.
+    | 
+    | Let me search broadly first with a question about board and executive changes at MI companies in 2024.
+  TOOL_CALLS:
+    → dsrag_kb({'question': 'Board or named-executive changes, departures, additions, or restructurings disclosed under Item 5.02 in 2024 8-K filings', 'doc_id': 'ACGL_8-K_2024-02-14'})
+    → dsrag_kb({'question': 'Board or named-executive changes, departures, additions, or restructurings disclosed under Item 5.02 in 2024 8-K', 'doc_id': 'ACGL_8-K_2024-04-29'})
+    → dsrag_kb({'question': 'Board or named-executive changes, departures, additions, or restructurings disclosed under Item 5.02 in 2024 8-K', 'doc_id': 'ACGL_8-K_2024-07-30'})
+    → dsrag_kb({'question': 'Board or named-executive changes, departures, additions, or restructurings disclosed under Item 5.02 in 2024 8-K', 'doc_id': 'ACGL_8-K_2024-10-30'})
+    → dsrag_kb({'question': 'Board or named-executive changes, departures, additions, or restructurings disclosed under Item 5.02 in 2024 8-K', 'doc_id': 'ACT_8-K_2024-02-06'})
+    → dsrag_kb({'question': 'Board or named-executive changes, departures, additions, or restructurings disclosed under Item 5.02 in 2024 8-K', 'doc_id': 'ACT_8-K_2024-05-01'})
+    → dsrag_kb({'question': 'Board or named-executive changes, departures, additions, or restructurings disclosed under Item 5.02 in 2024 8-K', 'doc_id': 'ACT_8-K_2024-07-31'})
+    → dsrag_kb({'question': 'Board or named-executive changes, departures, additions, or restructurings disclosed under Item 5.02 in 2024 8-K', 'doc_id': 'ACT_8-K_2024-11-06'})
+
+[FINALIZE_NODE — fallback after tool-call cap]
+    > The 8-K excerpts retrieved (covering earnings press releases for MGIC, NMI Holdings, and Radian during 2024) contain no Item 5.02 disclosures — no director appointments, departures, named-executive changes, or board restructurings are discussed. The same applies to the NMIH and RDN filings retrieved; they are earnings results (typically filed under Items 2.02/7.01). No Item 5.02 changes were identified for any of the six MI cohort issuers in the documents captured.
+
+====================================================================================================
+[FINAL ANSWER]
+The 8-K excerpts retrieved (covering earnings press releases for MGIC, NMI Holdings, and Radian during 2024) contain no Item 5.02 disclosures — no director appointments, departures, named-executive changes, or board restructurings are discussed. The same applies to the NMIH and RDN filings retrieved; they are earnings results (typically filed under Items 2.02/7.01). No Item 5.02 changes were identified for any of the six MI cohort issuers in the documents captured.
+====================================================================================================

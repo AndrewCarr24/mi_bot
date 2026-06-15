@@ -1,0 +1,14 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","For full-year 2024, the aggregate capital returned to common shareholders (share repurchases plus common dividends, including specials) across the six MI cohort issuers was approximately **$3.65 billion**, split as follows:
+
+| Issuer | Share Repurchases ($M) | Common Dividends ($M) | Total ($M) |
+|--------|----------------------|----------------------|------------|
+| Arch Capital (ACGL) | 23.5 | 1,881 (incl. $1.9B special) | 1,904.5 |
+| Enact (ACT) | 244 | 112 | 356 |
+| Essent (ESNT) | 102.7 | 118 | 220.7 |
+| MGIC (MTG) | 566.6 | 131 | 697.6 |
+| NMI Holdings (NMIH) | 97.7 | 0 | 97.7 |
+| Radian (RDN) | 224 | 153 | 377 |
+| **Total** | **1,258.5** | **2,395** | **3,653.5** |
+
+Figures are from each company’s FY2024 10-K. Arch’s common dividend includes a $1.9 billion special dividend paid in December 2024; NMIH paid no dividends.",True,Aggregate total of $3.65B matches expected $3.67B within 1% tolerance; all per-issuer breakdowns align.,0.028718,0.000835,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 6543}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8011}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7950}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8317}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8364}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7364}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7787}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6381}]",60717,125.78

@@ -28,11 +28,79 @@ from src.config import settings
 _WIKI_ROOT = Path(__file__).resolve().parents[4] / "wiki"
 
 
-# Per-thread set of (doc_id, chunk_index) tuples we've already returned
-# in earlier dsrag_kb calls within the same conversation. Used when
-# DEDUP_CHUNKS=true to keep subsequent calls from re-pulling the same
-# content. Keyed by thread_id from RunnableConfig.
+# Per-turn set of (doc_id, chunk_index) tuples we've already returned
+# in earlier dsrag_kb calls within the active turn. Used when
+# DEDUP_CHUNKS=true to keep subsequent calls within one ReAct loop from
+# re-pulling the same content. Keyed by thread_id, but `staging_node`
+# resets the entry at the start of every turn — so the effective scope
+# is the active turn, NOT the whole conversation. Without that reset,
+# cohort questions late in a session would have their relevant chunks
+# silently excluded because earlier turns had touched them.
 _SEEN_CHUNKS_PER_THREAD: dict[str, set] = {}
+
+
+def reset_chunk_dedup(thread_id: str) -> None:
+    """Clear the chunk-dedup `seen` set for `thread_id`. Called by
+    staging_node at the start of every turn so the dedup state can't
+    leak across turns — see the `_SEEN_CHUNKS_PER_THREAD` docstring."""
+    _SEEN_CHUNKS_PER_THREAD.pop(thread_id, None)
+
+
+# Per-doc top-K' quota for MULTI_DOC_FILTER=quota mode. Each scoped doc
+# contributes at most this many segments to the merged result. Tuned
+# vs. fan-out (~5/doc) and pure filter (~5 total): 3/doc keeps the
+# merged output small while preserving multi-issuer coverage.
+_QUOTA_PER_DOC_K = 3
+
+
+def _rse_params() -> dict | None:
+    """RSE params override for kb.query() — controls the segment output
+    size (`overall_max_length`) without changing dsRAG's chunk-level
+    candidate pool (that's `RETRIEVAL_TOP_K`, read by
+    HybridKnowledgeBase). Tunable via env so we can A/B sweep.
+
+    Returns None to use dsRAG's default "balanced" preset; a dict to
+    override the segment cap. Read fresh per call so eval runs can
+    flip the env var without restarting the process.
+    """
+    raw = os.environ.get("RSE_MAX_SEGMENTS", "10").strip()
+    if not raw:
+        return {"overall_max_length": 10}
+    try:
+        n = int(raw)
+        if n > 0:
+            return {"overall_max_length": n}
+    except ValueError:
+        pass
+    return None
+
+
+def _query_per_doc_quota(kb, queries: list[str], doc_ids: list[str]) -> list:
+    """Per-doc-quota retrieval. Run one single-doc kb.query per doc in
+    `doc_ids`, take the top _QUOTA_PER_DOC_K segments from each, then
+    merge and sort by score. Sequential because kb._rrf_alpha and
+    kb._excluded_chunks are shared mutable attrs on the singleton kb;
+    parallel execution would race. Per-doc filter scope is small so
+    the sequential cost is bounded.
+    """
+    rse = _rse_params()
+    merged: list = []
+    for d in doc_ids:
+        filt = {"field": "doc_id", "operator": "equals", "value": d}
+        try:
+            kwargs = {"metadata_filter": filt}
+            if rse is not None:
+                kwargs["rse_params"] = rse
+            res = kb.query(queries, **kwargs)
+        except Exception as e:
+            logger.warning(f"dsrag_kb quota: per-doc query for {d!r} failed: {e}")
+            continue
+        merged.extend(res[:_QUOTA_PER_DOC_K])
+    merged.sort(key=lambda r: float(r.get("score", 0.0) or 0.0), reverse=True)
+    # Cap the merged list. For small subsets (2-3 docs) keep ~6 max;
+    # for full cohort (6 docs) allow up to 12.
+    cap = max(_QUOTA_PER_DOC_K, len(doc_ids) * 2)
+    return merged[:cap]
 
 
 @tool
@@ -76,8 +144,158 @@ async def memory_retrieval_tool(
         return json.dumps({"error": str(e)})
 
 
-@tool
-def dsrag_kb(
+def _dsrag_kb_impl(
+    question: str,
+    doc_id: str | list[str] | None,
+    config: RunnableConfig | None,
+) -> str:
+    """Shared retrieval body for both `dsrag_kb` tool variants.
+
+    Two thin tool wrappers below expose this with different `doc_id`
+    signatures (str-only vs str|list) so we can vary what the agent
+    sees in its tool schema based on `MULTI_DOC_FILTER`. The body
+    itself accepts either shape uniformly — the schema is what the
+    agent's prompt is gated on, not the impl.
+    """
+    from src.infrastructure.dsrag_kb import (
+        get_kb,
+        get_search_queries,
+        smart_rrf_alpha,
+    )
+
+    try:
+        queries = get_search_queries(
+            question,
+            max_queries=int(os.environ.get("AUTO_QUERY_MAX", "3")),
+        )
+    except Exception as e:
+        logger.warning(f"dsrag_kb auto-query failed: {e}")
+        queries = [question]
+
+    kb = get_kb()
+
+    # MULTI_DOC_FILTER mode: 'off' / 'filter' / 'quota'. Tolerates legacy
+    # 'true' = filter. Read fresh per call for A/B/C ergonomics.
+    _md_raw = os.environ.get("MULTI_DOC_FILTER", "off").strip().lower()
+    if _md_raw in ("true", "1"):
+        multi_doc_mode = "filter"
+    elif _md_raw in ("filter", "quota"):
+        multi_doc_mode = _md_raw
+    else:
+        multi_doc_mode = "off"
+
+    # --- env-var-driven A/B knobs (set per call, reset after) -------------
+    thread_id = ((config or {}).get("configurable") or {}).get("thread_id", "_default")
+
+    # Chunk dedup: when DEDUP_CHUNKS=true, exclude chunks already
+    # returned in earlier calls in this thread.
+    dedup_on = os.environ.get("DEDUP_CHUNKS", "true").lower() == "true"
+    seen = _SEEN_CHUNKS_PER_THREAD.setdefault(thread_id, set()) if dedup_on else None
+    kb._excluded_chunks = seen if dedup_on else None
+
+    # RRF alpha: BM25 weight in fusion. Default "smart" — DeepSeek picks
+    # per question. Numeric value (e.g. "0.4") forces a static alpha for
+    # the whole session. Smart mode is generalizable (adapts to question
+    # character) at near-equal quality.
+    #
+    # Note: on the 23-question FinanceBench eval, the static value
+    # alpha=0.4 was technically the most accurate (22/23 vs smart at
+    # 21/23). Smart mode trades 1 question of accuracy for fewer
+    # iterations (1.52 calls/q vs 1.61) and slightly lower cost
+    # ($0.081 vs $0.085). See eval/results/alpha_sweep_*.json.
+    alpha_raw = os.environ.get("RRF_ALPHA", "0.4").strip()
+    if alpha_raw.lower() == "smart":
+        alpha = smart_rrf_alpha(question)
+        logger.info(f"dsrag_kb: smart α={alpha:.2f} for question {question[:60]!r}")
+    else:
+        try:
+            alpha = max(0.0, min(1.0, float(alpha_raw)))
+        except ValueError:
+            alpha = 0.5
+    kb._rrf_alpha = alpha
+
+    rse = _rse_params()
+    logger.info(
+        f"dsrag_kb invoked: question={question[:80]!r} doc_id={doc_id!r} "
+        f"expanded_to={queries} α={alpha:.2f} dedup={dedup_on} mode={multi_doc_mode} "
+        f"rse={rse}"
+    )
+
+    try:
+        if multi_doc_mode == "quota" and isinstance(doc_id, list) and doc_id:
+            results = _query_per_doc_quota(kb, queries, doc_id)
+        else:
+            if isinstance(doc_id, list) and doc_id:
+                # 'filter' mode (or 'off' fallback when agent passed a list anyway)
+                metadata_filter = {"field": "doc_id", "operator": "in", "value": doc_id}
+            elif isinstance(doc_id, str) and doc_id:
+                metadata_filter = {"field": "doc_id", "operator": "equals", "value": doc_id}
+            else:
+                metadata_filter = None
+            kwargs = {"metadata_filter": metadata_filter}
+            if rse is not None:
+                kwargs["rse_params"] = rse
+            results = kb.query(queries, **kwargs)
+    except Exception as e:
+        logger.warning(f"dsrag_kb query failed: {e}")
+        return json.dumps({"error": str(e)})
+    finally:
+        # Reset per-call attrs so a stale value can't leak into the next call.
+        kb._excluded_chunks = None
+        kb._rrf_alpha = 0.4
+
+    # If dedup is on, mark every chunk that contributed to a returned
+    # segment as "seen" so it's excluded from future calls in this thread.
+    if dedup_on and seen is not None:
+        for r in results:
+            doc = r.get("doc_id", "")
+            cs, ce = r.get("chunk_start"), r.get("chunk_end")
+            if cs is not None and ce is not None:
+                for ci in range(int(cs), int(ce) + 1):
+                    seen.add((doc, ci))
+
+    payload = [
+        {
+            "score": round(float(r.get("score", 0.0) or 0.0), 3),
+            "doc_id": r.get("doc_id", ""),
+            "section": _segment_section(kb, r),
+            "content": r.get("content") or r.get("text") or "",
+        }
+        for r in results
+    ]
+    return json.dumps(payload, indent=2, default=str)
+
+
+def _segment_section(kb, result: dict) -> str:
+    """Section title of a segment's first chunk, for section-level
+    citations ("MTG 10-K FY2025, MD&A — Loss Reserves"). Segments can
+    span sections; the first chunk's title is the anchor. Best-effort:
+    returns "" rather than ever failing the tool call."""
+    try:
+        doc_id = result.get("doc_id", "")
+        cs = result.get("chunk_start")
+        if not doc_id or cs is None:
+            return ""
+        chunk = kb.chunk_db.data[doc_id][int(cs)]
+        return chunk.get("section_title", "") or ""
+    except Exception:
+        return ""
+
+
+# ── Tool variants — same name "dsrag_kb", different `doc_id` schemas ──
+#
+# The signature on these wrappers is what the LLM actually sees in its
+# tool schema (via langchain's `bind_tools`). Keeping a strict variant
+# (str only) preserves the pre-multi-doc-prototype behavior in OFF
+# mode: the agent CANNOT emit `doc_id=[...]` because the JSON schema
+# rejects it before the tool body runs. Without the strict variant,
+# the agent could opt into list-form regardless of MULTI_DOC_FILTER,
+# making OFF effectively equivalent to FILTER for any question where
+# the agent decided to consolidate calls — corrupting the control
+# condition.
+
+@tool("dsrag_kb")
+def _dsrag_kb_strict(
     question: str,
     doc_id: str | None = None,
     config: Annotated[RunnableConfig, InjectedToolArg] = None,
@@ -107,89 +325,56 @@ def dsrag_kb(
     Returns:
         JSON list of {score, doc_id, content} segments, highest score first.
     """
-    from src.infrastructure.dsrag_kb import (
-        get_kb,
-        get_search_queries,
-        smart_rrf_alpha,
-    )
+    return _dsrag_kb_impl(question, doc_id, config)
 
-    try:
-        queries = get_search_queries(question, max_queries=6)
-    except Exception as e:
-        logger.warning(f"dsrag_kb auto-query failed: {e}")
-        queries = [question]
 
-    kb = get_kb()
-    metadata_filter = (
-        {"field": "doc_id", "operator": "equals", "value": doc_id}
-        if doc_id
-        else None
-    )
+@tool("dsrag_kb")
+def _dsrag_kb_list(
+    question: str,
+    doc_id: str | list[str] | None = None,
+    config: Annotated[RunnableConfig, InjectedToolArg] = None,
+) -> str:
+    """
+    Semantic search over SEC filings via a dsRAG knowledge base. Pass the
+    user's question verbatim — the tool decomposes it into multiple
+    search queries internally (via dsRAG's auto-query helper, which is
+    domain-tuned for SEC filings) and runs them all against the KB.
+    Returns the most relevant multi-chunk *segments* (contiguous sections
+    identified by dsRAG's Relevant Segment Extraction). Segments include
+    an AutoContext header describing the source document and section.
 
-    # --- env-var-driven A/B knobs (set per call, reset after) -------------
-    thread_id = ((config or {}).get("configurable") or {}).get("thread_id", "_default")
+    Scoping options for `doc_id`:
+      - **string** (e.g. "ACT_10-Q_2024-09-30") — restrict retrieval to
+        that single filing. Recommended when the user's question names a
+        specific ticker + period.
+      - **list of strings** (e.g. ["MTG_10-K_2024-12-31",
+        "RDN_10-K_2024-12-31"]) — restrict retrieval to a known subset
+        of filings. Use this for paired or cohort comparisons instead of
+        making N parallel calls. The KB returns top-K segments scored
+        across the whole subset, so coverage of the smaller filings can
+        suffer when scores skew. Prefer the list form for 2-3 filings;
+        for full 6-issuer cohort sweeps, fan-out (one call per filing)
+        still gives more reliable per-issuer coverage.
+      - **None** — search across ALL filings. Appropriate when you don't
+        know which filings to scope to.
 
-    # Chunk dedup: when DEDUP_CHUNKS=true, exclude chunks already
-    # returned in earlier calls in this thread.
-    dedup_on = os.environ.get("DEDUP_CHUNKS", "false").lower() == "true"
-    seen = _SEEN_CHUNKS_PER_THREAD.setdefault(thread_id, set()) if dedup_on else None
-    kb._excluded_chunks = seen if dedup_on else None
+    Use the `doc_id` column in the system prompt's filings_catalog to pick
+    values exactly (format: TICKER_FORM_PERIOD).
 
-    # RRF alpha: BM25 weight in fusion. Default "smart" — DeepSeek picks
-    # per question. Numeric value (e.g. "0.4") forces a static alpha for
-    # the whole session. Smart mode is generalizable (adapts to question
-    # character) at near-equal quality.
-    #
-    # Note: on the 23-question FinanceBench eval, the static value
-    # alpha=0.4 was technically the most accurate (22/23 vs smart at
-    # 21/23). Smart mode trades 1 question of accuracy for fewer
-    # iterations (1.52 calls/q vs 1.61) and slightly lower cost
-    # ($0.081 vs $0.085). See eval/results/alpha_sweep_*.json.
-    alpha_raw = os.environ.get("RRF_ALPHA", "smart").strip()
-    if alpha_raw.lower() == "smart":
-        alpha = smart_rrf_alpha(question)
-        logger.info(f"dsrag_kb: smart α={alpha:.2f} for question {question[:60]!r}")
-    else:
-        try:
-            alpha = max(0.0, min(1.0, float(alpha_raw)))
-        except ValueError:
-            alpha = 0.5
-    kb._rrf_alpha = alpha
+    Args:
+        question: The user's question (verbatim; do not paraphrase).
+        doc_id: Single doc_id, list of doc_ids, or None.
 
-    logger.info(
-        f"dsrag_kb invoked: question={question[:80]!r} doc_id={doc_id!r} "
-        f"expanded_to={queries} α={alpha:.2f} dedup={dedup_on}"
-    )
+    Returns:
+        JSON list of {score, doc_id, content} segments, highest score first.
+    """
+    return _dsrag_kb_impl(question, doc_id, config)
 
-    try:
-        results = kb.query(queries, metadata_filter=metadata_filter)
-    except Exception as e:
-        logger.warning(f"dsrag_kb query failed: {e}")
-        return json.dumps({"error": str(e)})
-    finally:
-        # Reset per-call attrs so a stale value can't leak into the next call.
-        kb._excluded_chunks = None
-        kb._rrf_alpha = 0.4
 
-    # If dedup is on, mark every chunk that contributed to a returned
-    # segment as "seen" so it's excluded from future calls in this thread.
-    if dedup_on and seen is not None:
-        for r in results:
-            doc = r.get("doc_id", "")
-            cs, ce = r.get("chunk_start"), r.get("chunk_end")
-            if cs is not None and ce is not None:
-                for ci in range(int(cs), int(ce) + 1):
-                    seen.add((doc, ci))
-
-    payload = [
-        {
-            "score": round(float(r.get("score", 0.0) or 0.0), 3),
-            "doc_id": r.get("doc_id", ""),
-            "content": (r.get("content") or r.get("text") or "")[:6000],
-        }
-        for r in results
-    ]
-    return json.dumps(payload, indent=2, default=str)
+# Backward-compat alias so existing imports (e.g. pipelines/build_wiki.py)
+# keep working. Defaults to the permissive variant since callers using it
+# directly (rather than via get_tools) usually want the broader signature.
+dsrag_kb = _dsrag_kb_list
 
 
 @tool
@@ -273,11 +458,35 @@ def wiki_read_page(slug: str) -> str:
 def get_tools() -> list:
     """Return the tools bound to the ReAct agent.
 
-    `dsrag_kb` and `wiki_read_page` are always present.
+    `dsrag_kb` is bound here in one of two schema variants:
+      - OFF mode: `_dsrag_kb_strict` (signature: `doc_id: str | None`).
+        The agent's tool schema doesn't include the list option, so
+        list-form is structurally impossible and the agent fan-outs
+        with single-doc calls — matching the pre-multi-doc-prototype
+        control behavior.
+      - filter / quota: `_dsrag_kb_list` (signature: `doc_id: str |
+        list[str] | None`). The agent can consolidate multi-doc calls.
+
+    Read fresh per call so an A/B/C eval can flip MULTI_DOC_FILTER
+    between runs without restarting the process; the next call to
+    `get_agent_chain` rebinds with the appropriate schema.
+
+    `wiki_read_page` is reserved for deterministic graph-side preload
+    via `wiki_preload_node` — the router decides whether a question's
+    primary topic matches a wiki page and, if so, the graph reads that
+    page before the agent runs. The agent itself doesn't have
+    wiki_read_page available, which enforces the "wiki at most once
+    per turn" constraint structurally.
+
     `memory_retrieval_tool` is only added when AgentCore Memory is
     configured (MEMORY_ID set).
     """
-    tools = [dsrag_kb, wiki_read_page]
+    _md_raw = os.environ.get("MULTI_DOC_FILTER", "off").strip().lower()
+    if _md_raw in ("filter", "quota", "true", "1"):
+        primary = _dsrag_kb_list
+    else:
+        primary = _dsrag_kb_strict
+    tools = [primary]
     if settings.MEMORY_ID:
         tools.append(memory_retrieval_tool)
     return tools

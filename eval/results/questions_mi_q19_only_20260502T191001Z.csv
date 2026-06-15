@@ -1,0 +1,89 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","Let me get the exact total dividend and capital return figures I'm still missing for a few of these companies.## Facts retrieved
+
+- **ACGL (Arch Capital)** – FY2024 share repurchases under the program: **$23.5 million** (aggregate cost from share repurchase table). Common dividends paid (including special cash dividend of $1.9B): **$1,881 million** (from Statement of Changes in Shareholders' Equity line ""Common share dividends""). (ACGL_10-K_2024-12-31)
+- **ACT (Enact Holdings)** – FY2024 share repurchases: **$243,968 thousand ($244.0 million)** (from Consolidated Statement of Cash Flows ""Repurchase of common stock""). Common dividends paid: **$111,719 thousand ($111.7 million)** (from Consolidated Statement of Cash Flows ""Dividends paid""). (ACT_10-K_2024-12-31)
+- **ESNT (Essent Group)** – FY2024 share repurchases under program: **$102.7 million** (cost of 1,859,695 common shares repurchased in open market). Common dividends paid: **$118,042 thousand ($118.0 million)** (from Consolidated Statement of Cash Flows ""Dividends paid""). (ESNT_10-K_2024-12-31)
+- **MTG (MGIC Investment)** – FY2024 share repurchases: **$566.6 million** (25.3 million shares, including commissions). Common dividends paid: **$130.5 million** (from MD&A: cash dividends to shareholders). (MTG_10-K_2024-12-31)
+- **NMIH (NMI Holdings)** – FY2024 share repurchases: **$97.7 million** (2.8 million shares, including costs and taxes). Common dividends: **$0** (no dividends declared or paid). (NMIH_10-K_2024-12-31)
+- **RDN (Radian Group)** – FY2024 share repurchases: **$224 million** (7.0 million shares, including commissions). Dividends and dividend equivalents: **$153 million** (from MD&A description of total dividends and dividend equivalents). (RDN_10-K_2024-12-31)
+
+## Tools called
+- dsrag_kb(doc_id=""ACGL_10-K_2024-12-31"", question=""What was Arch Capital's full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""ACT_10-K_2024-12-31"", question=""What was Enact Holdings' full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""ESNT_10-K_2024-12-31"", question=""What was Essent's full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""MTG_10-K_2024-12-31"", question=""What was MGIC's full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""NMIH_10-K_2024-12-31"", question=""What was NMI Holdings' full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""RDN_10-K_2024-12-31"", question=""What was Radian's full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""ACT_10-K_2024-12-31"", question=""What was Enact Holdings' total dividends paid to common shareholders for full-year 2024? And total share repurchases for full-year 2024?"")
+- dsrag_kb(doc_id=""ESNT_10-K_2024-12-31"", question=""What was Essent Group's total common dividends paid and total share repurchases cost for full-year 2024?"")
+- dsrag_kb(doc_id=""ESNT_10-K_2024-12-31"", question=""What was Essent Group's total dividends paid to common shareholders for full-year 2024 in dollars? And what was the total common stock repurchases cost for full-year 2024? Show from cash flow statement or statement of changes."")
+
+## Open questions
+1. **RDN – exact common dividends paid to common shareholders (excluding dividend equivalents)** – The $153 million figure includes dividend equivalents on RSUs. Need the cash dividends paid to common shareholders only, consistent with other issuers.
+2. **ACGL – confirmation that the $23.5 million share repurchase figure is the appropriate measure** – The Statement of Changes shows $63 million in “Shares repurchased for treasury” (includes tax-withholding-related repurchases). Confirm whether only open-market program repurchases should be counted.## Facts retrieved
+
+**Arch Capital (ACGL_10-K_2024-12-31)**
+- Share repurchases under publicly announced program: Aggregate cost of $23.5 million in FY2024 (ACGL_10-K_2024, Note 21, Share Repurchase table). Total shares repurchased for treasury (including share-based transactions) was $63 million per statement of changes (ACGL_10-K_2024, p. 105).
+- Common dividends paid: $1,881 million total in FY2024 (includes $1.9 billion special cash dividend of $5.00/share). Per statement of changes, common share dividends line = $1,881 million (ACGL_10-K_2024, p. 105). Cash flow shows $1,866 million paid.
+- Aggregate capital returned to common shareholders (using program buybacks): $23.5M + $1,881M = $1,904.5 million.
+
+**Enact Holdings (ACT_10-K_2024-12-31)**
+- Share repurchases: Total cost $243.968 million in FY2024 (ACT_10-K_2024, Consolidated Statements of Changes in Equity, p. 103; also cash flow).
+- Common dividends: Total dividends paid $111.719 million in FY2024 (same sources). No special dividend in 2024 (quarterly dividends: $0.16, $0.185, $0.185, $0.185 per share).
+- Aggregate: $244.0M + $111.7M = $355.7 million.
+
+**Essent (ESNT_10-K_2024-12-31)**
+- Share repurchases (program): $102.7 million cost for 1,859,695 shares (ESNT_10-K_2024, ""Share Repurchase Plan"" section, p. 54). Total treasury stock acquired per cash flow: $111.543 million (includes tax withholding repurchases).
+- Common dividends: Dividends paid $118.042 million (cash flow). Total dividends declared $119.870 million (including dividend equivalents on RSUs). Quarterly dividends $0.28/share; no special.
+- Aggregate (using program buybacks and dividends paid): $102.7M + $118.0M = $220.7 million. Using total treasury acquired: $111.5M + $118.0M = $229.5 million.
+
+**MGIC (MTG_10-K_2024-12-31)**
+- Share repurchases: $566.6 million (25.3 million shares) in FY2024 (MTG_10-K_2024, MD&A, p. 50; also Note 13).
+- Common dividends: $130.5 million paid in FY2024 (MD&A, p. 76; also Note 13: $63.3M in H1 at $0.115/share + $67.8M in H2 at $0.13/share). No special.
+- Aggregate: $566.6M + $130.5M = $697.1 million.
+
+**NMI Holdings (NMIH_10-K_2024-12-31)**
+- Share repurchases: $97.7 million (2.8 million shares) in FY2024 (NMIH_10-K_2024, MD&A, p. 75; cash flow shows $97.610M).
+- Common dividends: $0 (no dividends declared or paid, per transcript: ""We have not declared or paid dividends in the past"").
+- Aggregate: $97.7 million.
+
+**Radian (RDN_10-K_2024-12-31)**
+- Share repurchases (program): $224 million (7.0 million shares) in FY2024 (RDN_10-K_2024, MD&A, p. 97; Note 14, p. 156). Additional repurchases for tax withholding: $22.4 million (statement of changes, p. 111), totaling ~$246.4M.
+- Common dividends: $153 million total (includes dividend equivalents on RSUs) per MD&A (p. 97) and statement of changes (dividends and dividend equivalents declared $152.9M). Quarterly dividend $0.245/share; no special. Cash-only dividends estimated ~$149.4M based on shares outstanding.
+- Aggregate (using program buybacks and total dividends including dividend equivalents): $224M + $153M = $377 million.
+
+## Tools called
+- dsrag_kb(doc_id=""ACGL_10-K_2024-12-31"", question=""What was Arch Capital's full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""ACT_10-K_2024-12-31"", question=""What was Enact Holdings' full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""ESNT_10-K_2024-12-31"", question=""What was Essent's full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""MTG_10-K_2024-12-31"", question=""What was MGIC's full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""NMIH_10-K_2024-12-31"", question=""What was NMI Holdings' full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""RDN_10-K_2024-12-31"", question=""What was Radian's full-year 2024 share repurchases and common dividends paid to common shareholders?"")
+- dsrag_kb(doc_id=""ACT_10-K_2024-12-31"", question=""What was Enact Holdings' total dividends paid to common shareholders for full-year 2024? And total share repurchases for full-year 2024?"")
+- dsrag_kb(doc_id=""ESNT_10-K_2024-12-31"", question=""What was Essent Group's total common dividends paid and total share repurchases cost for full-year 2024?"")
+- dsrag_kb(doc_id=""ESNT_10-K_2024-12-31"", question=""What was Essent Group's total dividends paid to common shareholders for full-year 2024 in dollars? And what was the total common stock repurchases cost for full-year 2024? Show from cash flow statement or statement of changes."")
+- dsrag_kb(doc_id=""ACGL_10-K_2024-12-31"", question=""What was Arch Capital's full-year 2024 common stock repurchases under the publicly announced share repurchase program only, excluding tax withholding share repurchases?"")
+- dsrag_kb(doc_id=""RDN_10-K_2024-12-31"", question=""What was Radian Group's full-year 2024 common dividends paid to common shareholders only, excluding dividend equivalents on RSUs? And what were Radian's full-year 2024 common stock repurchases?"")
+
+## Open questions
+- The exact treatment of ""share repurchases"" (whether to include only open-market program repurchases or also tax-withholding repurchases) differs across companies. For Arch Capital, program repurchases were $23.5M but total treasury stock acquired was $63M. For Essent, program was $102.7M but total treasury acquired was $111.5M. For Radian, program was $224M but total repurchases including tax withholding were ~$246.4M. The question asks for ""capital returned to common shareholders"" — a consistent definition across all six would clarify. The aggregate will vary by ~$70M depending on treatment.
+- For Radian, dividends reported as $153M include dividend equivalents on RSUs; cash dividends paid to shareholders of record are estimated ~$149.4M. The question asks for ""common dividends including specials"" which typically excludes dividend equivalents. A precise cash-dividend-only figure for Radian would refine the total.
+- NMI Holdings confirms zero dividends, so no gap there.
+- (None necessary to answer the question if using the standard definitions typically employed in financial analysis: open-market repurchases under authorized programs + cash dividends declared and paid to common shareholders, excluding dividend equivalents. The missing pieces are minor.)Here is the FY 2024 aggregate for the six MI cohort issuers, using open-market share repurchases under authorized programs plus cash common dividends paid to shareholders (including Arch's $1.9B special dividend):
+
+| Issuer | Share Repurchases ($M) | Common Dividends ($M) | Total ($M) |
+|---|---|---|---|
+| **Arch Capital (ACGL)** | $23.5 | $1,881 | **$1,904.5** |
+| **MGIC (MTG)** | $566.6 | $130.5 | **$697.1** |
+| **Radian (RDN)** | $224.0 | $149.4¹ | **$373.4** |
+| **Enact (ACT)** | $244.0 | $111.7 | **$355.7** |
+| **Essent (ESNT)** | $102.7 | $118.0 | **$220.7** |
+| **NMI Holdings (NMIH)** | $97.7 | $0.0 | **$97.7** |
+| **Aggregate** | **$1,258.5** | **$2,390.6** | **$3,649.1** |
+
+¹ Radian's cash dividends to common shareholders (~$149.4M) excludes ~$3.6M of dividend equivalents on RSUs that are included in the $153M reported in the 10-K.
+
+Arch Capital dominates the cohort total, driven by its $1.9B special cash dividend ($5.00/share) in FY 2024. Excluding that special dividend, the aggregate ordinary capital return was ~$1,749M.
+
+*Sources: ACGL 10-K 2024 (Note 21, Statement of Changes); MTG 10-K 2024 (MD&A p. 50, Note 13); RDN 10-K 2024 (MD&A p. 97, Note 14); ACT 10-K 2024 (Statement of Changes, p. 103); ESNT 10-K 2024 (Share Repurchase Plan section p. 54, Cash Flow); NMIH 10-K 2024 (MD&A p. 75).*",False,"Radian dividends should be $153M (including dividend equivalents), not $149.4M. Agent's total of $3,649.1B vs. expected $3.67B—difference driven by Radian adjustment and Arch repurchase treatment.",0.039657,0.004547,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 7614}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6525}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6312}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6718}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8189}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7476}, {""tool"": ""dsrag_kb"", ""tokens_est"": 5711}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7827}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7984}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8031}, {""tool"": ""dsrag_kb"", ""tokens_est"": 9189}]",81576,260.77

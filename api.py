@@ -34,6 +34,7 @@ from pydantic import BaseModel, Field
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.application.orchestrator.streaming import get_streaming_response  # noqa: E402
+from src.auth import AuthMiddleware, BrowserIdMiddleware, register_auth_routes  # noqa: E402
 from src.infrastructure.dsrag_kb import get_kb  # noqa: E402
 
 
@@ -50,6 +51,15 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="agent_fin", version="0.1.0", lifespan=lifespan)
 
+# Auth gate — registered before the Chainlit mount so /chat/* (including
+# the WebSocket upgrade) passes through AuthMiddleware first.
+# Starlette builds middleware outside-in: the LAST add_middleware wraps
+# everything before it. We want BrowserIdMiddleware to run FIRST (so even
+# unauth'd visitors at /login get a browser_id) — so it's added LAST.
+app.add_middleware(AuthMiddleware)
+app.add_middleware(BrowserIdMiddleware)
+register_auth_routes(app)
+
 # Chainlit chat UI mounted at /chat. The handlers live in chat.py; the
 # Chainlit session id maps onto our LangGraph conversation_id so each
 # browser session keeps its own multi-turn history.
@@ -62,6 +72,15 @@ class AskRequest(BaseModel):
     question: str = Field(..., min_length=1)
     conversation_id: str | None = None
     customer_name: str = "User"
+
+
+@app.get("/")
+async def root():
+    """Redirect the root URL to the chat UI. The cookie carries auth through.
+    Without this, a logged-in user landing on / would get a 404 since the
+    only mounted UI is at /chat."""
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse("/chat", status_code=302)
 
 
 @app.get("/health")

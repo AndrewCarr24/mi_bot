@@ -124,14 +124,18 @@ cot = "full"
 
 # Specify a CSS file that can be used to customize the user interface.
 # The CSS file can be served from the public directory or via an external link.
-# custom_css = "/public/test.css"
+# Hides Chainlit's "Login to access the app" intermediate screen during
+# the brief header-auth handshake; see public/custom.css.
+custom_css = "/public/custom.css"
 
 # Specify additional attributes for a custom CSS file
 # custom_css_attributes = "media=\"print\""
 
 # Specify a JavaScript file that can be used to customize the user interface.
 # The JavaScript file can be served from the public directory.
-# custom_js = "/public/test.js"
+# Toggles the .cl-suppress-login-flash class so custom.css can hide the
+# intermediate login route. See public/custom.js.
+custom_js = "/public/custom.js"
 
 # The style of alert boxes. Can be "classic" or "modern".
 alert_style = "classic"

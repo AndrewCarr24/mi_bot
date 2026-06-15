@@ -1,0 +1,23 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"After the August 2024 PMIERs update revising Available Asset credit factors, which MI cohort issuer disclosed the largest pro-forma reduction to its YE 2024 PMIERs sufficiency ratio if the update were fully effective immediately, and how does it compare to the other five issuers' disclosures?","Arch Capital (ACGL) disclosed by far the largest pro-forma impact: its PMIERs sufficiency would drop from a reported 186% to a pro-forma 154% (a 32-percentage-point decline), with Available Assets falling 17% if fully effective at YE 2024. MGIC quantified a roughly 1% / $50M decrease in Available Assets (sufficiency essentially unchanged). Radian, Essent, NMI, and Enact each stated they do not expect the update to have a material impact on their PMIERs position.","The wiki already tells us the key figures for Arch and MGIC, but I need to check the other four issuers' disclosures for their pro-forma Guidance 2024-01 impacts. Let me pull those in parallel.**Arch Capital (ACGL) disclosed by far the largest pro-forma impact** — a 17% reduction in Available Assets, with its PMIERs sufficiency ratio falling from **186% to 154%** (a 32-percentage-point decline) if Guidance 2024-01 were fully effective at YE 2024.
+
+For comparison:
+
+| Issuer | Reported YE 2024 Ratio | Pro-forma Impact (100% phased-in) | Sufficiency Ratio Change |
+|---|---|---|---|
+| **Arch** (ACGL) | 186% | **154%** | **−32 pp** |
+| **MGIC** (MTG) | ~161% | ~160% | ~−1 pp (Available Assets −$50M / ~1%) |
+| **Essent** (ESNT) | 178% | Not quantified (qualitative only: ""no impact on Essent's Available Assets or sufficiency ratio until March 31, 2025"") | N/A |
+| **Enact** (ACT) | 167% | Not quantified (qualitative only: ""do not expect the impact to be material"") | N/A |
+| **Radian** (RDN) | ~156% | Not quantified (qualitative only: ""no material impact on capital position, PMIERs Cushion, or investment strategy"") | N/A |
+| **NMI** (NMIH) | ~170%¹ | Not quantified (qualitative only: ""do not expect the updated PMIERs to have a material impact"") | N/A |
+
+¹ NMI reports on an (Available − Required)/Required basis; ~170% on an Available/Required basis.
+
+**Key takeaways:**
+
+- **Arch** was the only issuer to disclose a specific *pro-forma sufficiency ratio* under full phase-in — **154%** — and the only one whose cushion would be materially compressed (a 32 pp drop). Arch also disclosed a **17% reduction in Available Assets**, reflecting the impact of tighter bond haircuts and concentration limits on its investment portfolio composition.
+- **MGIC** quantified the actual dollar impact (~$50M off Available Assets) but the effect on its sufficiency ratio was negligible (~1 pp), consistent with its description as immaterial.
+- **Essent, Enact, Radian, and NMI** all declined to provide a specific pro-forma numerical impact, describing the update qualitatively as ""not material"" to their sufficiency or capital position. This suggests their investment portfolios were already largely aligned with the new bond-eligibility and concentration rules.
+
+(Source: ACGL_10-K_2024-12-31; MTG_10-K_2024-12-31; ESNT_10-K_2024-12-31; ACT_10-K_2024-12-31; RDN_10-K_2024-12-31; NMIH_10-K_2024-12-31)",True,Arch's 186%→154% (−32 pp) decline and 17% Available Assets reduction accurately stated; other four issuers' immaterial/qualitative disclosures confirmed.,0.011783,0.001319,"[{""tool"": ""wiki_read_page"", ""tokens_est"": 7115}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7745}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6796}, {""tool"": ""dsrag_kb"", ""tokens_est"": 9107}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7062}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8449}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8394}]",54668,61.45

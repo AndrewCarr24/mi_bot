@@ -1,0 +1,28 @@
+{
+  "input_csv": "q28_run.csv",
+  "agent_ts": "20260509T164651Z",
+  "settings": {
+    "ORCHESTRATOR_PROVIDER": "deepseek",
+    "ORCHESTRATOR_MODEL_ID": "us.anthropic.claude-sonnet-4-6",
+    "ROUTER_MODEL_ID": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "AWS_REGION": "us-east-1",
+    "DEEPSEEK_API_KEY": "<redacted>",
+    "DEEPSEEK_MODEL_ID": "deepseek-v4-flash",
+    "DEEPSEEK_BASE_URL": "https://api.deepseek.com/v1",
+    "AGENT_PASSWORD": "",
+    "COOKIE_SECRET": "",
+    "MEMORY_ID": "",
+    "DATA_LAYER_BACKEND": "sqlite",
+    "DYNAMODB_THREADS_TABLE": "agent-fin-threads",
+    "HISTORY_STRATEGY": "trim",
+    "HISTORY_TOKEN_BUDGET": 60000,
+    "MAX_TOOL_CALLS_PER_TURN": 12,
+    "RRF_ALPHA": "0.4",
+    "DEDUP_CHUNKS": true,
+    "AUTO_QUERY_MAX": 3,
+    "MULTI_DOC_FILTER": "off",
+    "DISABLE_WIKI_PRELOAD": false,
+    "RERANKER": "",
+    "FLASHRANK_MODEL": "ms-marco-TinyBERT-L-2-v2"
+  }
+}

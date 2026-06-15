@@ -13,13 +13,13 @@ import json
 import re
 from typing import Any, AsyncGenerator
 
-from langchain_core.messages import AIMessage, AIMessageChunk, HumanMessage
+from langchain_core.messages import AIMessage, AIMessageChunk, BaseMessage, HumanMessage
 from loguru import logger
 
 from src.application.orchestrator.workflow.graph import create_graph
 from src.infrastructure.model import extract_text_content
 
-_RESPONSE_NODES = {"agent_node", "simple_response_node", "finalize_node", "cache_check_node"}
+_RESPONSE_NODES = {"agent_node", "simple_response_node", "finalize_node"}
 
 
 async def get_streaming_response(
@@ -40,9 +40,9 @@ async def get_streaming_response(
         },
         # Default 25 is snug once the agent is iterating through tool returns
         # and parallel tool calls. Scale with MAX_TOOL_CALLS_PER_TURN so
-        # a single question can actually USE the tool budget — at 16
-        # tools a question can hit ~34 node transitions; 55 keeps headroom.
-        "recursion_limit": 55,
+        # a single question can actually USE the tool budget — at 20
+        # tools a question can hit ~44 node transitions; 70 keeps headroom.
+        "recursion_limit": 70,
     }
     if callbacks:
         config["callbacks"] = callbacks
@@ -81,6 +81,11 @@ async def get_streaming_response(
 
             elif event_type == "on_chat_model_stream":
                 if current_node not in _RESPONSE_NODES:
+                    continue
+                # Skip tokens from internal LLM calls (summarize / disambiguate)
+                # invoked inside a response node. Those LLMs run for the agent's
+                # context only — their output must not reach the user.
+                if "internal_llm" in (event.get("tags") or []):
                     continue
 
                 chunk = event_data.get("chunk")
@@ -121,7 +126,7 @@ def _sanitize_actor_id(name: str) -> str:
 
 # Tool args we surface in the UI. Anything else (cache flags, internal
 # config) is omitted to keep the step display clean.
-_VISIBLE_TOOL_ARG_KEYS = {"question", "doc_id", "query", "memory_types"}
+_VISIBLE_TOOL_ARG_KEYS = {"question", "doc_id", "query", "memory_types", "slug"}
 
 
 def _sanitize_tool_args(raw: Any) -> dict:
@@ -144,7 +149,7 @@ def _sanitize_tool_args(raw: Any) -> dict:
 
 
 async def get_streaming_events(
-    messages: str,
+    messages: str | list[BaseMessage],
     customer_name: str = "Guest",
     conversation_id: str | None = None,
     callbacks: list | None = None,
@@ -152,6 +157,13 @@ async def get_streaming_events(
     """Stream tagged events for the Chainlit UI.
 
     Yields dicts with one of these `kind` values:
+      - "intent"                {kind, intent,           emitted once per turn, on
+                                  wiki_slug}              router_node's on_chain_end —
+                                                          BEFORE any answer_token /
+                                                          tool_call. Lets the UI decide
+                                                          up-front whether to show a
+                                                          Working step (rag_query only)
+                                                          before the answer streams.
       - "answer_token"          {kind, text}             live token for the final answer
       - "rewind_to_thinking"    {kind, text}             retroactively re-classify text
                                                           as reasoning (rare — only when
@@ -182,13 +194,17 @@ async def get_streaming_events(
             "customer_name": customer_name,
             "actor_id": actor_id,
         },
-        "recursion_limit": 55,
+        "recursion_limit": 70,
     }
     if callbacks:
         config["callbacks"] = callbacks
 
+    if isinstance(messages, str):
+        msg_list: list[BaseMessage] = [HumanMessage(content=messages)]
+    else:
+        msg_list = list(messages)
     input_data = {
-        "messages": [HumanMessage(content=messages)],
+        "messages": msg_list,
         "customer_name": customer_name,
         "tool_call_count": 0,
     }
@@ -211,6 +227,18 @@ async def get_streaming_events(
             name = event.get("name", "")
             data = event.get("data", {})
 
+            if event_type == "on_chain_end" and name == "router_node":
+                # Router has classified intent; surface it to the UI before
+                # any downstream node starts streaming. The UI uses this to
+                # decide whether to render a "Working" step at all.
+                output = data.get("output")
+                if isinstance(output, dict):
+                    yield {
+                        "kind": "intent",
+                        "intent": output.get("intent", "rag_query"),
+                        "wiki_slug": output.get("wiki_slug"),
+                    }
+
             if event_type == "on_chain_start" and name in _RESPONSE_NODES:
                 in_response_node = True
                 streamed_in_invocation = []
@@ -232,6 +260,11 @@ async def get_streaming_events(
 
             elif event_type == "on_chat_model_stream":
                 if not in_response_node:
+                    continue
+                # Skip tokens from internal LLM calls (summarize / disambiguate)
+                # invoked inside a response node. Those LLMs run for the agent's
+                # context only — their output must not reach the user.
+                if "internal_llm" in (event.get("tags") or []):
                     continue
                 chunk = data.get("chunk")
                 if not chunk or not isinstance(chunk, AIMessageChunk):
@@ -284,6 +317,7 @@ async def get_streaming_events(
                     yield {
                         "kind": "tool_result_segment",
                         "doc_id": seg.get("doc_id", ""),
+                        "section": seg.get("section", ""),
                         "score": seg.get("score"),
                         "content": content,
                     }

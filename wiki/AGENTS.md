@@ -12,7 +12,8 @@ LLM-Wiki pattern described by Karpathy (April 2026).
 
 1. **Raw sources** — the documents indexed in the dsRAG KB:
    - The per-MI corpus (10-Ks, 10-Qs, 8-Ks, earnings call transcripts,
-     2023 through Q4 2025) for Arch, Enact, Essent, MGIC, NMI, Radian.
+     FY2022 through Q1 2026; transcripts have a Q1-Q3 2022 gap except
+     Radian) for Arch, Enact, Essent, MGIC, NMI, Radian.
    - Industry / regulatory references (the PMIERs base requirements,
      the August 2024 PMIERs update, FHFA reports, USMI white papers,
      the Freddie Mac private mortgage insurance handbook).
@@ -24,10 +25,12 @@ LLM-Wiki pattern described by Karpathy (April 2026).
    - `topics/*.md` — regulatory and industry topic pages: GSE
      relationship, U.S. mortgage market, MI regulatory landscape,
      PMIERs (the GSE eligibility framework, including the August 2024
-     update), catastrophe impact on MI, CRT and reinsurance.
+     update), catastrophe impact on MI, CRT and reinsurance, capital
+     return (dividends/buybacks across the cohort).
    - `metrics/*.md` — explainers for the core MI metrics: NIW
-     (new insurance written), IIF (insurance in force), persistency,
-     loss ratio.
+     (new insurance written), NIW mix (FICO/LTV/purchase-refi
+     composition, harmonized cohort tables), IIF (insurance in
+     force), persistency, loss ratio, expense ratio.
    - `AGENTS.md` — this file. Read it before authoring or editing
      wiki pages.
 

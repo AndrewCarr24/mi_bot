@@ -1,48 +1,364 @@
 """LangGraph nodes: router, cache check, agent (ReAct), simple response, memory post-hook."""
 
-from langchain_core.messages import AIMessage, HumanMessage
+import os
+import re
+import uuid
+
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, RemoveMessage, ToolMessage
 from langchain_core.runnables import RunnableConfig
 from loguru import logger
 
 from src.application.orchestrator.workflow.chains import (
+    RouterOutput,
+    _TOOL_RESULT_PREFIX,
+    _is_original_user_message,
+    disambiguate_question,
     get_agent_chain,
     get_finalize_chain,
     get_router_chain,
     get_simple_response_chain,
+    summarize_history,
     trim_history,
     with_cache_on_last,
 )
 from src.application.orchestrator.workflow.state import AgentState, IntentType
+from src.application.orchestrator.workflow.tools import reset_chunk_dedup, wiki_read_page
 from src.config import settings
 from src.infrastructure.model import extract_text_content
 
 
+def _history_strategy() -> str:
+    """Read from env each call so tests / experiments can flip it
+    without restarting the process."""
+    return os.environ.get("HISTORY_STRATEGY", "summarize").strip().lower()
+
+
+def _extract_question_text(messages: list[BaseMessage]) -> str:
+    """The active turn's question is the LAST HumanMessage whose
+    content does NOT start with the tool-result prefix that finalize_node
+    uses when synthesizing tool results into HumanMessages.
+
+    Walk from the end so multi-turn sessions resolve to the current
+    turn's question, not turn 1's. (Single-turn sessions have only one
+    candidate, so the direction doesn't matter.)
+    """
+    for m in reversed(messages):
+        if isinstance(m, HumanMessage):
+            content = m.content
+            if isinstance(content, str) and not content.startswith(_TOOL_RESULT_PREFIX):
+                return content
+    return ""
+
+
+def _condense_history(
+    messages: list[BaseMessage],
+    question_text: str,
+) -> tuple[list[BaseMessage], list[BaseMessage]]:
+    """Apply the configured HISTORY_STRATEGY (trim or summarize) to
+    `messages`.
+
+    Returns (condensed_messages, state_updates):
+      - condensed_messages: feed this to the next LLM call.
+      - state_updates: list of RemoveMessage entries (and possibly a
+        new SystemMessage) the caller should pass through the messages
+        reducer so the state actually shrinks. Only summarize uses
+        state_updates; trim returns an empty list.
+    """
+    if _history_strategy() == "summarize":
+        return summarize_history(messages, question_text)
+    return trim_history(messages), []
+
+
+# Questions that explicitly reference the conversation itself — the
+# rewriter must never attempt these (it can't see beyond its window).
+_META_CONVERSATIONAL_RE = re.compile(
+    r"\b(you (gave|said|mentioned|told|showed|cited|quoted)|"
+    r"at the start|start of (this|the|our) (chat|conversation|session)|"
+    r"earlier in (this|the|our)|remind me|go(ing)? back to|"
+    r"as (you|we) (said|discussed|noted))\b",
+    re.IGNORECASE,
+)
+
+# Plainly context-dependent phrasings: if the rewriter returns one of
+# these verbatim, it failed to resolve the reference.
+_DEICTIC_RE = re.compile(
+    r"\b(the two|the three|both( of (them|those))?|the same|"
+    r"that (figure|number|metric|ratio|company|one|year|quarter)|"
+    r"those (figures|numbers|companies|years))\b"
+    r"|^\s*(and|what about|how about|now)?\s*(its|their)\b",
+    re.IGNORECASE,
+)
+
+
+def _passthrough_messages(
+    messages: list[BaseMessage],
+    prior_pairs: list[tuple[str, str]],
+    current_q: str,
+) -> list[BaseMessage]:
+    """Wipe state and re-inject the prior [Q, A] pairs plus the user's
+    original question — the guard-fallback path where the thinking agent
+    disambiguates with real context instead of a rewrite."""
+    removals = [RemoveMessage(id=m.id) for m in messages if getattr(m, "id", None)]
+    out: list[BaseMessage] = list(removals)
+    for q, a in prior_pairs:
+        out.append(HumanMessage(content=q))
+        out.append(AIMessage(content=a))
+    out.append(HumanMessage(content=current_q))
+    return out
+
+
+async def staging_node(state: AgentState, config: RunnableConfig) -> dict:
+    """First graph node: disambiguate the current question against the
+    immediately prior turn, then wipe state down to a single
+    HumanMessage so router/agent/finalize see no conversation history.
+
+    Why this seam exists: the agent's reasoning regresses in multi-turn
+    sessions because prior [Q, A] pairs in its context bias its
+    decisions (skip kb, conflate periods, partial cohort sweeps). By
+    moving pronoun-resolution out of the agent and into a dedicated
+    preprocessor that sees ONLY the previous turn (not the full
+    history), we get single-question-regime behavior from the agent
+    regardless of how long the chat session is.
+
+    First-turn case: no prior [Q, A] to disambiguate against. Returns
+    no state changes (state is already just the current HumanMessage).
+
+    Notes on multi-turn message layout: the harness/UI passes in
+    canonical history as `[HM(q1), AI(a1), HM(q2), AI(a2), ..., HM(qN)]`
+    where each AI is the final-answer assistant message. We find qN
+    (last original HumanMessage), then walk backward to find the most
+    recent AIMessage with text content + no tool_calls (that's aN-1)
+    and the HumanMessage immediately before that (qN-1). Only that
+    pair is passed to disambiguate_question.
+    """
+    # Reset per-turn chunk-dedup state. The `_SEEN_CHUNKS_PER_THREAD`
+    # set in tools.py is keyed on thread_id and was originally intended
+    # to prevent re-pulling the same chunks within a ReAct loop — but
+    # nothing was clearing it between turns, so on a shared-thread_id
+    # session, chunks returned in turn N got permanently excluded from
+    # turns N+1..end, starving later cohort retrievals. staging_node is
+    # the right reset point: it's the per-turn boundary.
+    thread_id = ((config or {}).get("configurable") or {}).get("thread_id", "_default")
+    reset_chunk_dedup(thread_id)
+
+    messages = list(state["messages"])
+    if not messages:
+        return {}
+
+    # Find the current turn's question (last original user message).
+    last_human_idx = next(
+        (
+            i
+            for i in range(len(messages) - 1, -1, -1)
+            if _is_original_user_message(messages[i])
+        ),
+        None,
+    )
+    if last_human_idx is None:
+        return {}
+
+    current_q = messages[last_human_idx].content
+    if not isinstance(current_q, str):
+        current_q = extract_text_content(current_q)
+
+    # Find up to N most recent [Q, A] pairs (chronological order).
+    # Two turns of context is enough to handle "follow-up to a follow-up"
+    # patterns where the period/scope was established two turns back.
+    _STAGING_WINDOW = 2
+    prior_pairs: list[tuple[str, str]] = []
+    cursor = last_human_idx
+    while len(prior_pairs) < _STAGING_WINDOW and cursor > 0:
+        # Find the most recent AIMessage with non-empty text + no tool_calls
+        # strictly before `cursor`.
+        ai_idx = None
+        ai_text = None
+        for j in range(cursor - 1, -1, -1):
+            m = messages[j]
+            if isinstance(m, AIMessage) and m.content and not m.tool_calls:
+                txt = extract_text_content(m.content).strip()
+                if txt:
+                    ai_idx = j
+                    ai_text = txt
+                    break
+        if ai_idx is None:
+            break
+        # Find the user HumanMessage immediately preceding that AIMessage.
+        q_idx = None
+        q_text = None
+        for j in range(ai_idx - 1, -1, -1):
+            if _is_original_user_message(messages[j]):
+                q_idx = j
+                qt = messages[j].content
+                q_text = qt if isinstance(qt, str) else extract_text_content(qt)
+                break
+        if q_idx is None:
+            break
+        prior_pairs.append((q_text, ai_text))
+        cursor = q_idx
+    # Chronological order: oldest first.
+    prior_pairs.reverse()
+
+    # First turn shortcut: no prior, no LLM call.
+    if not prior_pairs:
+        # If state has more than just the current HumanMessage, wipe the
+        # leftovers so router sees a clean single-message state.
+        leftovers = [
+            RemoveMessage(id=m.id)
+            for k, m in enumerate(messages)
+            if k != last_human_idx and getattr(m, "id", None)
+        ]
+        if leftovers:
+            logger.debug(f"staging_node: first-turn cleanup, removing {len(leftovers)} stale msgs")
+            return {"messages": leftovers}
+        return {}
+
+    # Rule A — meta-conversational references ("the figure you gave me",
+    # "remind me", "at the start") refer to conversation HISTORY, which
+    # the rewriter structurally cannot see beyond its window. Observed
+    # failure: it resolved "the NIW figure you gave me at the start" to
+    # the wrong company (the oldest thing in its window). Never let the
+    # rewriter touch these — pass context through to the thinking agent.
+    if _META_CONVERSATIONAL_RE.search(current_q):
+        logger.info(
+            f"staging_node: meta-conversational reference — skipping rewriter, "
+            f"passing {len(prior_pairs)} prior pair(s) through with "
+            f"{current_q[:80]!r}"
+        )
+        return {"messages": _passthrough_messages(messages, prior_pairs, current_q)}
+
+    # Call the disambiguator with the recent prior pairs as context.
+    disambiguated, guard_fallback = disambiguate_question(prior_pairs, current_q)
+
+    # Rule B — if the rewrite came back IDENTICAL to a question that
+    # plainly depends on context ("which of the two...", "the same for
+    # X"), resolution failed: a context-free agent can't answer it.
+    # Observed failure: "which of the two has the lower expense ratio?"
+    # passed through verbatim, history wiped, agent had to ask which two.
+    if (
+        not guard_fallback
+        and disambiguated.strip() == current_q.strip()
+        and _DEICTIC_RE.search(current_q)
+    ):
+        logger.info(
+            f"staging_node: identity rewrite on deictic question — "
+            f"passing context through with {current_q[:80]!r}"
+        )
+        guard_fallback = True
+
+    removals = [
+        RemoveMessage(id=m.id) for m in messages if getattr(m, "id", None)
+    ]
+
+    if guard_fallback:
+        # The rewrite was rejected (invented numbers / statement-ified /
+        # identity on a deictic question). The original question may not
+        # be self-contained, so pass the prior [Q, A] pairs through to
+        # the agent for THIS turn — the strong thinking model does its
+        # own disambiguation with full context. Trades one turn of the
+        # clean single-question regime for never handing the agent an
+        # unresolvable question.
+        logger.info(
+            f"staging_node: guard-fallback — passing {len(prior_pairs)} prior "
+            f"pair(s) through with original question {current_q[:80]!r}"
+        )
+        return {"messages": _passthrough_messages(messages, prior_pairs, current_q)}
+
+    action = "identity" if disambiguated.strip() == current_q.strip() else "rewrote"
+    logger.info(
+        f"staging_node: {action} — "
+        f"{current_q[:80]!r} → {disambiguated[:80]!r}"
+    )
+
+    # Wipe all messages, leave just the disambiguated current question.
+    return {"messages": removals + [HumanMessage(content=disambiguated)]}
+
+
 async def router_node(state: AgentState, config: RunnableConfig) -> dict:
-    """Classify intent and store it on state."""
+    """Classify intent + pick a wiki slug (if the question primarily matches
+    a wiki page). Stores both on state for downstream nodes.
+    """
     messages = list(state["messages"])
     chain = get_router_chain()
-    response = await chain.ainvoke({"messages": messages}, config)
-    text = extract_text_content(response.content).strip().lower()
-
-    if "rag_query" in text:
-        intent: IntentType = "rag_query"
-    elif "off_topic" in text:
-        intent = "off_topic"
-    elif "simple" in text:
-        intent = "simple"
-    else:
-        logger.warning(f"Unclear intent: {text!r}, defaulting to rag_query")
+    try:
+        response: RouterOutput = await chain.ainvoke({"messages": messages}, config)
+        intent: IntentType = response.intent
+        wiki_slug = response.wiki_slug
+    except Exception as e:
+        logger.warning(f"Router structured-output failed ({e}); defaulting to rag_query")
         intent = "rag_query"
+        wiki_slug = None
 
-    logger.info(f"Router classified intent: {intent}")
-    return {"intent": intent}
+    logger.info(f"Router classified: intent={intent} wiki_slug={wiki_slug!r}")
+    return {"intent": intent, "wiki_slug": wiki_slug}
 
 
-async def cache_check_node(state: AgentState, config: RunnableConfig) -> dict:
-    """No-op placeholder. The old embedding-based answer cache lived in
-    the retired `rag_app` package; we kept the node in the graph so the
-    topology stays stable while the facts-DB tool path matures."""
-    return {"cache_hit": False}
+async def wiki_preload_node(state: AgentState, config: RunnableConfig) -> dict:
+    """Run the wiki_read_page tool on behalf of the agent and inject the
+    result into the message list as if the agent had called it.
+
+    The agent doesn't have wiki_read_page bound as a tool — this node is
+    the only path through which a wiki page enters context. That's how
+    we enforce the "wiki at most once per turn" constraint.
+
+    To keep the message list valid for providers that require tool_calls
+    pairing (Bedrock Converse rejects orphan ToolMessages), we emit:
+      AIMessage(content="", tool_calls=[{...wiki_read_page call...}])
+      ToolMessage(content=<page>, tool_call_id=...)
+
+    The agent in the next node sees this pair as if it had made the call
+    itself. (Some Bedrock variants require AIMessage content to be
+    non-empty when tool_calls is present; we set a one-line placeholder
+    there too.)
+    """
+    slug = state.get("wiki_slug")
+    if not slug:
+        # Should be unreachable because the conditional edge gates entry,
+        # but defensive in case state mutates.
+        return {}
+
+    content = wiki_read_page.invoke({"slug": slug})
+    if isinstance(content, str) and content.lstrip().startswith('{"error"'):
+        logger.warning(
+            f"wiki_preload: slug={slug!r} returned error → skipping preload. "
+            f"Response: {content[:200]}"
+        )
+        return {}
+
+    tool_call_id = f"wiki_preload_{uuid.uuid4().hex[:8]}"
+    placeholder = (
+        f"Reading the {slug} wiki page to ground the answer "
+        f"before consulting filings."
+    )
+    ai_msg = AIMessage(
+        content=placeholder,
+        tool_calls=[
+            {
+                "name": "wiki_read_page",
+                "args": {"slug": slug},
+                "id": tool_call_id,
+                "type": "tool_call",
+            }
+        ],
+        # DeepSeek thinking-mode requires reasoning_content on every
+        # assistant message it sees — including this synthetic one we
+        # inject pre-agent. ChatDeepSeekRoundtrip reads it from
+        # additional_kwargs and emits it back to the API on the next
+        # call. A short stub is sufficient; DeepSeek doesn't validate
+        # the content.
+        additional_kwargs={
+            "reasoning_content": (
+                f"Question primary-topic matches the {slug} wiki page. "
+                f"Reading the page to ground the answer before consulting filings."
+            )
+        },
+    )
+    tool_msg = ToolMessage(
+        content=content,
+        name="wiki_read_page",
+        tool_call_id=tool_call_id,
+    )
+    logger.info(f"wiki_preload: injected slug={slug!r} ({len(content)} chars)")
+    return {"messages": [ai_msg, tool_msg]}
 
 
 async def agent_node(state: AgentState, config: RunnableConfig) -> dict:
@@ -53,43 +369,75 @@ async def agent_node(state: AgentState, config: RunnableConfig) -> dict:
     configurable = config.get("configurable", {})
     customer_name = configurable.get("customer_name", "Guest")
 
-    messages = trim_history(messages)
+    question_text = _extract_question_text(messages)
+    condensed_messages, state_updates = _condense_history(messages, question_text)
     chain = get_agent_chain(customer_name=customer_name)
     response = await chain.ainvoke(
-        {"messages": with_cache_on_last(messages)}, config
+        {"messages": with_cache_on_last(condensed_messages)}, config
     )
 
     has_tool_calls = bool(getattr(response, "tool_calls", None))
     new_count = tool_call_count + (len(response.tool_calls) if has_tool_calls else 0)
     logger.debug(
-        f"agent_node: has_tool_calls={has_tool_calls}, tool_call_count={new_count}"
+        f"agent_node: has_tool_calls={has_tool_calls}, tool_call_count={new_count}, "
+        f"state_updates={len(state_updates)}"
     )
-    return {"messages": response, "tool_call_count": new_count}
+    # state_updates (if any) carry RemoveMessage entries + the new
+    # summary; they must be returned through the reducer alongside the
+    # response so the state actually shrinks.
+    return {
+        "messages": [*state_updates, response],
+        "tool_call_count": new_count,
+    }
 
 
 async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:
     """Force a text answer after the ReAct tool budget is exhausted.
 
-    Collapses the tool-call/tool-result message pairs into plain
-    HumanMessages so Bedrock doesn't require a toolConfig, then asks
-    the model (without tools) to synthesize a final answer.
+    Two history-condensation paths, selected by HISTORY_STRATEGY env var:
+
+    - "trim" (default): collapse tool-call/tool-result pairs into plain
+      HumanMessages (so Bedrock doesn't reject the no-tools call for
+      missing toolConfig), then trim if over budget.
+
+    - "summarize": skip the conversion. summarize_history will produce
+      a single SystemMessage that contains no toolUse/toolResult blocks,
+      which sidesteps Bedrock's validation cleanly. If the history is
+      under HISTORY_TOKEN_BUDGET, summarize_history is a no-op and we
+      fall back to the conversion path so finalize can still run.
     """
-    from langchain_core.messages import ToolMessage
-
     raw_messages = list(state["messages"])
-    condensed = []
-    for msg in raw_messages:
-        if isinstance(msg, AIMessage) and msg.tool_calls:
-            continue
-        if isinstance(msg, ToolMessage):
-            condensed.append(HumanMessage(
-                content=f"[Tool result for '{msg.name}']\n{msg.content}"
-            ))
-            continue
-        condensed.append(msg)
+    question_text = _extract_question_text(raw_messages)
+    state_updates: list[BaseMessage] = []
 
-    condensed = trim_history(condensed)
-    logger.debug(f"finalize_node: condensed {len(raw_messages)} msgs → {len(condensed)}")
+    if _history_strategy() == "summarize":
+        from src.application.orchestrator.workflow.chains import HISTORY_TOKEN_BUDGET
+        from langchain_core.messages.utils import count_tokens_approximately
+
+        if count_tokens_approximately(raw_messages) >= HISTORY_TOKEN_BUDGET:
+            condensed, state_updates = summarize_history(raw_messages, question_text)
+            logger.debug(
+                f"finalize_node[summarize]: condensed {len(raw_messages)} msgs → {len(condensed)}, "
+                f"state_updates={len(state_updates)}"
+            )
+        else:
+            # Under threshold: summarize is a no-op, but tool blocks
+            # still need to be collapsed for the no-tools chain.
+            condensed = _convert_tool_messages_to_human(raw_messages)
+            condensed = trim_history(condensed)
+            state_updates = _orphan_tool_call_removals(raw_messages)
+            logger.debug(
+                f"finalize_node[summarize<threshold]: collapsed {len(raw_messages)} msgs → {len(condensed)}, "
+                f"orphan-removals={len(state_updates)}"
+            )
+    else:
+        condensed = _convert_tool_messages_to_human(raw_messages)
+        condensed = trim_history(condensed)
+        state_updates = _orphan_tool_call_removals(raw_messages)
+        logger.debug(
+            f"finalize_node[trim]: condensed {len(raw_messages)} msgs → {len(condensed)}, "
+            f"orphan-removals={len(state_updates)}"
+        )
 
     configurable = config.get("configurable", {})
     customer_name = configurable.get("customer_name", "Guest")
@@ -97,7 +445,58 @@ async def finalize_node(state: AgentState, config: RunnableConfig) -> dict:
     chain = get_finalize_chain(customer_name=customer_name)
     response = await chain.ainvoke({"messages": condensed}, config)
     logger.info("finalize_node: produced fallback answer")
-    return {"messages": response}
+    return {"messages": [*state_updates, response]}
+
+
+def _convert_tool_messages_to_human(messages: list[BaseMessage]) -> list[BaseMessage]:
+    """Collapse AIMessage(tool_calls) + ToolMessage pairs into plain
+    HumanMessages so the no-tools finalize chain doesn't trip Bedrock's
+    toolConfig validation. Used in the trim path; the summarize path
+    sidesteps this because summary text contains no tool blocks."""
+    out: list[BaseMessage] = []
+    for msg in messages:
+        if isinstance(msg, AIMessage) and msg.tool_calls:
+            continue
+        if isinstance(msg, ToolMessage):
+            out.append(HumanMessage(
+                content=f"[Tool result for '{msg.name}']\n{msg.content}"
+            ))
+            continue
+        out.append(msg)
+    return out
+
+
+def _orphan_tool_call_removals(messages: list[BaseMessage]) -> list[BaseMessage]:
+    """Build RemoveMessage entries for AIMessage(tool_calls) whose calls
+    aren't fully answered by subsequent ToolMessages, plus any unpaired
+    ToolMessages.
+
+    The trim path of finalize_node strips tool blocks from the LLM input
+    via _convert_tool_messages_to_human, but doesn't update graph state.
+    In single-turn use this is harmless (state is discarded after END).
+    In multi-turn sessions the orphan AIMessage(tool_calls) survives into
+    the next turn and OpenAI/DeepSeek's API rejects the malformed list:
+    'An assistant message with tool_calls must be followed by tool
+    messages responding to each tool_call_id.'
+
+    This helper mirrors the message-pair pruning that
+    _convert_tool_messages_to_human does logically, but expressed as
+    RemoveMessage entries the messages reducer can apply.
+    """
+    answered: set[str] = set()
+    for msg in messages:
+        if isinstance(msg, ToolMessage) and msg.tool_call_id:
+            answered.add(msg.tool_call_id)
+
+    removals: list[BaseMessage] = []
+    for msg in messages:
+        if isinstance(msg, AIMessage) and msg.tool_calls:
+            call_ids = {tc.get("id") for tc in msg.tool_calls if tc.get("id")}
+            if call_ids and not call_ids.issubset(answered):
+                msg_id = getattr(msg, "id", None)
+                if msg_id:
+                    removals.append(RemoveMessage(id=msg_id))
+    return removals
 
 
 async def simple_response_node(state: AgentState, config: RunnableConfig) -> dict:

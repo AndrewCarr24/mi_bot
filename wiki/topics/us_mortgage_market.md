@@ -46,7 +46,10 @@ The Urban Institute (2023) characterized PMI as having been "the most common exe
 
 The Urban Institute, surveying the 1994-2022 origination period, found that "the loss severity of GSE loans without [private MI] was 37.6 percent, higher than the 26.4 percent severity for loans with [private MI]" — and that "[t]he presence of [private MI] reduces the losses the GSEs experience on loans with LTV ratios above 80 percent to the same levels as the losses they experience on loans with LTV ratios up to 80 percent" (cited in INDUSTRY_USMI_RESILIENCY_2023-11).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+**Q1 2026 update**: the refinance re-emergence accelerated — refinances reached 21% of MGIC's Q1 2026 NIW (vs. 6% a year earlier) and cohort NIW rose 30-61% year-over-year despite continued affordability constraints, consistent with management commentary that rate volatility is unlocking incremental refi demand without a full easing cycle (MTG_8-K_2026-04-29; ACT_8-K_2026-05-05; ACGL_8-K_2026-04-28).
+
 
 **GSE share of U.S. residential mortgage debt**: Per Federal Reserve data cited in Enact's 10-K, the GSEs held or guaranteed approximately $7.8 trillion as of September 30, 2025 — about 53% of total U.S. 1-4 family residential mortgage debt (ACT_10-K_2025-12-31). Per FHFA, the Enterprises owned or guaranteed approximately $7.6 trillion in single-family and multifamily mortgages at year-end 2024, representing nearly half of the market (INDUSTRY_FHFA_ANNUAL_REPORT_2024).
 
@@ -97,6 +100,10 @@ Looking forward, three forces are most likely to shape 2026: (i) the path of mor
 - [NMIH_TRANSCRIPT_2025-12-31] — 2025 industry NIW estimate of ~$310 billion, NMI's "near parity" share framing, Q4 rate-driven activity pickup.
 - [ACGL_TRANSCRIPT_2025-12-31] — Q4 2025 Hurricane Melissa / cat losses framing.
 - [INDUSTRY_PMIERS_OVERVIEW_FHFA; INDUSTRY_PMIERS_2.0_BASE] — referenced for charter requirement and $500M new-entrant capital threshold.
+
+- [MTG_8-K_2026-04-29] — Q1 2026 refinance share of NIW (21%).
+- [ACT_8-K_2026-05-05] — Q1 2026 NIW +30% YoY.
+- [ACGL_8-K_2026-04-28] — Q1 2026 NIW +61% YoY.
 
 ## Related
 

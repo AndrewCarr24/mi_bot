@@ -1,6 +1,6 @@
 # Persistency
 
-> Persistency measures the percentage of insurance-in-force ("IIF") that remains in force after a twelve-month period — the complement of the run-off rate. It is a primary determinant of future earned premium (especially for monthly-premium policies, where higher persistency means more months of premium collection per policy) and is highly sensitive to mortgage interest rates, home price appreciation, and refinancing activity. Persistency rates across the six U.S. private mortgage insurers have been historically elevated since 2022 because high prevailing mortgage rates have suppressed refinance volumes — the so-called "lock-in effect." At year-end 2025, the industry persistency band ran from approximately 82% (Arch USMI Q4) to 85.7% (Essent), with most MIs in the 82-85% range. Persistency softened modestly from peak 2023 levels as rates eased through late 2024 and into 2025, but remains well above the historical lows seen during the 2020-2021 refinance boom (when MGIC reached 60.7% in March 2021) (MTG_10-K_2024-12-31).
+> Persistency measures the percentage of insurance-in-force ("IIF") that remains in force after a twelve-month period — the complement of the run-off rate. It is a primary determinant of future earned premium (especially for monthly-premium policies, where higher persistency means more months of premium collection per policy) and is highly sensitive to mortgage interest rates, home price appreciation, and refinancing activity. Persistency rates across the six U.S. private mortgage insurers have been historically elevated since 2022 because high prevailing mortgage rates have suppressed refinance volumes — the so-called "lock-in effect." At year-end 2025, the industry persistency band ran from approximately 82% (Arch USMI Q4) to 85.7% (Essent), with most MIs in the 82-85% range. Persistency softened modestly from peak 2023 levels as rates eased through late 2024 and into 2025, but remains well above the historical lows seen during the 2020-2021 refinance boom (when MGIC reached 60.7% in March 2021) (MTG_10-K_2024-12-31; year-end 2025 band per ESNT_10-K_2025-12-31, MTG_TRANSCRIPT_2025-12-31, RDN_10-K_2025-12-31, NMIH_TRANSCRIPT_2025-12-31, ACT_10-K_2025-12-31, ACGL_TRANSCRIPT_2025-12-31).
 
 ## What it is
 
@@ -32,7 +32,10 @@ When a borrower refinances, sells the home, or pays down the loan to the point w
 
 **Fourth, single-premium policies are different.** For single-premium policies, where the premium is collected upfront and earned over the estimated life of the policy, higher-than-expected persistency can *reduce* profitability because the policy remains in force longer than assumed at pricing. (Conversely, for monthly-premium policies, higher persistency *increases* profitability.) Per Enact: "the profitability of our single premium business increases when persistency rates are lower" (ACT_10-K_2025-12-31).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+**Q1 2026 update**: persistency continued its gradual decline as refinance activity returned — MGIC annual persistency 84.0% (from 84.8% at YE 2025) (MTG_8-K_2026-04-29); NMI 82.2% (from 83.4%) (NMIH_8-K_2026-04-30); Enact 80% (from 84% a year earlier) (ACT_8-K_2026-05-05); Radian quarterly-annualized 81.3% (RDN_8-K_2026-05-06). Directionally consistent across the cohort: the lock-in effect is easing but persistency remains well above 2020-2021 refi-boom lows.
+
 
 **Year-end 2025 persistency by MI**:
 
@@ -93,6 +96,11 @@ These note-rate distributions imply that persistency on the 2020-2022 vintages w
 - [ACGL_TRANSCRIPT_2025-12-31] — Arch USMI Q4 2025 persistency 81.8%.
 - [ACGL_TRANSCRIPT_2024-12-31] — Arch USMI Q4 2024 persistency context.
 - [INDUSTRY_FREDDIE_PMI_HANDBOOK_2021-09] — HOPA cancellation framework (78% automatic, 80% upon borrower request).
+
+- [MTG_8-K_2026-04-29] — Q1 2026 annual persistency 84.0%.
+- [NMIH_8-K_2026-04-30] — Q1 2026 annual persistency 82.2%.
+- [ACT_8-K_2026-05-05] — Q1 2026 persistency 80%.
+- [RDN_8-K_2026-05-06] — Q1 2026 quarterly-annualized persistency 81.3%.
 
 ## Related
 

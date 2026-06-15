@@ -20,7 +20,13 @@ Second, Enact Re is a meaningful contributor to consolidated capital and earning
 
 Third, the FHFA-mandated 18:1 maximum statutory RIF-to-statutory-capital ("RTC") ratio for reinsurance credit, combined with PMIERs and North Carolina's 25:1 RTC ceiling, define the binding constraints on capacity. EMICO's RTC ratio was 10.1:1 at year-end 2025, well below either limit (ACT_10-K_2025-12-31).
 
-## Current state (as of 2025-12-31)
+## Current state (as of 2026-03-31)
+
+### Q1 2026 update (quarter ended 2026-03-31)
+
+Adjusted operating income was $172 million ($1.21 per diluted share). NIW was $13 billion — down 11% sequentially but up 30% from Q1 2025 — comprised of 96% monthly-premium policies and 77% purchase (ACT_8-K_2026-05-05). Persistency softened to 80% (from 84% a year earlier) (ACT_8-K_2026-05-05). PMIERs sufficiency held at 162%, approximately $1.9 billion above requirements — flat with Q4 2025 (ACT_8-K_2026-05-05). The board raised the quarterly dividend 14% from $0.21 to $0.24 per share (payable June 18, 2026), and management guided to total 2026 capital returns of approximately $500 million (ACT_8-K_2026-05-05; ACT_TRANSCRIPT_2026-03-31).
+
+**Year-end 2025 detail:**
 
 For the fiscal year ended December 31, 2025, Enact reported (ACT_10-K_2025-12-31):
 
@@ -62,6 +68,9 @@ The headline operating numbers reflect both the growing in-force book and the un
 - [ACT_10-K_2025-12-31] — Primary source for full-year 2025 financials ($674M net income, $688M adjusted operating income, $51.5B NIW, $273.1B primary IIF, 35 bps net earned premium rate), 2025 PMIERs sufficiency (162%, $5,015M/$3,096M, $1.9B cushion) and 2024 comparison, EMICO RTC ratio (10.1:1), August 2024 PMIERs update phase-in, 2025 reserve release ($200M) and loss reserves ($572M), 2025 persistency (82%) and loss ratio (11%), portfolio characteristics (93% LTV, 746 FICO, 9% single-premium share, California 12%, Phoenix 3%), Genworth ownership and 80% threshold, EHI/EMICO/EMIC-NC/Enact Re structure, $500M Enact Re capitalization in 2023, $750M senior notes, $435M revolving credit facility, 2025 capital return ($121M dividends + $382M repurchases) and authorization history, September 23, 2025 quota share for 2027 NIW.
 - [ACT_10-K_2024-12-31] — Cross-check for 2024 and 2023 comparatives, definitional language on the CRT program and reserve methodology, and the precise dating of the January 8, 2024 S&P upgrade of EMICO from BBB+ to A-.
 - [ACT_TRANSCRIPT_2024-12-31] — Source for 2024 commentary on the $750M senior notes ("first investment-grade debt issuance as a public company" and "largest in the industry in over a decade"), S&P upgrade from BBB+ to A- and Fitch upgrade to A in January 2025, $1.1B+ cumulative capital return since IPO through year-end 2024, 2024 quota share program covering ~27% of 2025/2026 NIW, and forward XOL transactions ($225M / $260M).
+
+- [ACT_8-K_2026-05-05] — Q1 2026: adjusted operating income $172M / $1.21, NIW $13B, persistency 80%, PMIERs 162% ($1.9B excess), dividend raised 14% to $0.24.
+- [ACT_TRANSCRIPT_2026-03-31] — Q1 2026 call: ~$500M planned 2026 capital returns.
 
 ## Related
 

@@ -1,0 +1,19 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","Let me retrieve the full-year 2024 capital return details for the companies where the Q4 earnings releases didn't provide full-year breakouts.Let me get the remaining data points I need for Enact and Essent's full-year capital returns.Here is a side-by-side comparison of 2024 Q4 and full-year results for the four mortgage insurers.
+
+| Metric | Essent (ACT) | MGIC (MTG) | NMI Holdings (NMIH) | Radian (RDN) |
+|---|---|---|---|---|
+| **Q4 2024 Net Income** | $167.9M | $184.7M | $86.2M | $148.3M |
+| **Q4 2024 Diluted EPS** | $1.58 | $0.72 | $1.07 | $0.98 |
+| **FY 2024 Net Income** | $729.4M ($696.4M in FY23) | $763.0M ($712.9M in FY23) | $360.1M ($322.1M in FY23) | $604.4M ($603.1M in FY23) |
+| **FY 2024 Diluted EPS** | $6.85 | $2.89 | $4.43 | $3.92 |
+| **Q4 2024 NIW** | $12.2B | $15.9B | $11.9B | $13.2B |
+| **IIF (Dec 31, 2024)** | $243.6B | $295.4B | $210.2B | $275.1B |
+| **Net Premiums Earned (Q4)** | $244.5M | $241.3M | $143.5M | $235.3M (MI segment) |
+| **Persistence (Annual)** | — | 84.8% | 84.6% | 84% |
+| **PMIERs Excess / Available Assets** | — | $2.2B excess / $5.8B available | $3.1B available; $1.8B required | $2.2B excess / $6.0B available |
+
+**Key takeaways:**
+- All four companies grew FY net income year-over-year, with NMIH showing the largest percentage increase (+12%) and Essent (+5%) and Radian (flat) showing modest growth.
+- MGIC wrote the most Q4 NIW ($15.9B) and has the largest IIF ($295B), while NMIH has the smallest book ($210B).
+- Q4 loss ratios: MGIC 3.6%, NMIH 12.0%, Radian ~0% (de minimis provision), Essent had $37M provision including $8M from hurricanes.",False,Answer provides earnings/operational metrics but omits the specific capital return figures (repurchases + dividends) required to answer the question.,0.02805,0.001167,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 6574}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6480}, {""tool"": ""dsrag_kb"", ""tokens_est"": 4989}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7006}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7135}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7298}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6617}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7239}, {""tool"": ""dsrag_kb"", ""tokens_est"": 6644}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8570}]",68552,93.93

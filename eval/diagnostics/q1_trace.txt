@@ -1,0 +1,87 @@
+====================================================================================================
+Q1: At year-end 2024, what was the dispersion in PMIERs sufficiency ratios across the six MI cohort issuers — which had the highest, which had the lowest, and what was the spread?
+----------------------------------------------------------------------------------------------------
+EXPECTED:
+PMIERs sufficiency ratios at YE 2024 ranged from approximately 156% (Radian Guaranty, lowest, with a $2.2B/56% cushion over MRA) to 186% (Arch's combined eligible mortgage insurers AMIC and UGRIC, highest), a spread of about 30 percentage points. Other issuers: Essent 178%, NMI ~170%, Enact 167%, MGIC ~161%.
+
+Wall time: 18.4s
+
+[ROUTER]
+  intent='rag_query' wiki_slug='topics/pmiers' cohort_query=None
+
+[TOOL_RESULT wiki_read_page]
+  args={'slug': 'topics/pmiers'}
+  content (5003 chars):
+    : # PMIERs
+    : 
+    : > The Private Mortgage Insurer Eligibility Requirements ("PMIERs") are the coordinated GSE framework that an insurer must meet to be approved to insure loans purchased by Fannie Mae or Freddie Mac. PMIERs is administered by the GSEs at the direction of the Federal Housing Finance Agency ("FHFA"), as Conservator of the GSEs. The framework has two layers: a financial test requiring Available Assets to meet or exceed Minimum Required Assets (the greater of $400 million or a risk-based amount calculated from the insurer's adjusted RIF and risk-factor grids), and operational requirements covering quality control, claims processing, master policies, and counterparty conduct (INDUSTRY_PMIERS_OVERVIEW_FHFA; INDUSTRY_PMIERS_2.0_BASE). The current base text dates to September 27, 2018 (PMIERs 2.0); two material guidance documents in 2024 — Guidance 2024-01 (issued August 21, 2024, refining Available Assets) and Guidance 2024-02 (effective March 31, 2025, ending the COVID-era extension of the 0.30x multiplier on non-performing loans) — are the most recent significant amendments (INDUSTRY_PMIERS_GUIDANCE_2024-01; INDUSTRY_PMIERS_GUIDANCE_2024-02). At year-end 2025 all six U.S. private mortgage insurers reported PMIERs compliance, with cushions ranging from approximately $1.4-1.6 billion at the lower end (Essent, Radian, NMI) to $2.5 billion at MGIC; Guidance 2024-01 was 50% phased in with the remaining 50% scheduled for March 31 and September 30, 2026.
+    : 
+    : ## What it is
+    : 
+    : **Origin 
+
+[PRELOAD via wiki_preload_node] — 1 calls
+  → wiki_read_page({'slug': 'topics/pmiers'})
+  (1 results, 28463 total chars)
+
+[AGENT_RESPONSE]
+  REASONING (977 chars):
+    | The user is asking about year-end 2024 PMIERs sufficiency ratios for the six MI cohort issuers. The wiki page already has a table with this data. Let me extract the relevant information:
+    | 
+    | From the Wiki's "Current state (as of 2025-12-31)" section, there's a table for year-end 2024:
+    | 
+    | | MI | Available Assets | Minimum Required Assets | Cushion | Sufficiency Ratio |
+    | |---|---|---|---|---|
+    | | MGIC | $5.8B | ~$3.6B | $2.2B | ~161% |
+    | | Essent Guaranty | $3.6B | $2.0B | $1.6B | 178% |
+    | | Enact (EMICO) | $5.1B | $3.0B | $2.1B | 167% |
+    | | Radian Guaranty | $6.0B | ~$3.85B | $2.2B | ~156%† |
+    | | NMI Holdings (NMIC) | $3.1B | $1.8B | $1.3B | 70%‡ |
+    | | Arch (eligible MIs) | (group-level disclosure) | — | — | 186% |
+    | 
+    | †Radian ~156%
+    | ‡NMI ~170% on Available÷Required basis (NMI's own 70% is excess÷required)
+    | 
+    | Arch 186% is the highest
+    | Radian ~156% is the lowest
+    | 
+    | Spread: 186% - 156% = 30 percentage points.
+    | 
+    | The wiki page already contains everything needed. I can answer from the wiki alone.
+  CONTENT_TEXT (794 chars):
+    > At year-end 2024, the PMIERs sufficiency ratios (Available Assets ÷ Minimum Required Assets) across the six MI cohort were:
+    > 
+    > | Issuer | Sufficiency Ratio |
+    > |---|---|
+    > | **Arch Capital** (AMIC + UGRIC) | **186%** — highest |
+    > | Essent Guaranty | 178% |
+    > | NMI Holdings (NMIC) | ~170%* |
+    > | Enact (EMICO) | 167% |
+    > | MGIC | ~161% |
+    > | **Radian Guaranty** | **~156%** — lowest |
+    > 
+    > *NMI reports on a (excess ÷ required) basis as "70%," which converts to ~170% on the Available ÷ Required basis used by the rest of the cohort.
+    > 
+    > **Spread**: ~30 percentage points (186% − 156%). Arch at 186% sat at the top, Radian at ~156% at the bottom, with the other four clustered between 161% and 178%.
+    > 
+    > *Sources: ACGL 10-K (2024), RDN 10-K (2024), ESNT 10-K (2024), NMIH 10-K (2024), ACT 10-K (2024), MTG 10-K (2024).*
+
+====================================================================================================
+[FINAL ANSWER]
+At year-end 2024, the PMIERs sufficiency ratios (Available Assets ÷ Minimum Required Assets) across the six MI cohort were:
+
+| Issuer | Sufficiency Ratio |
+|---|---|
+| **Arch Capital** (AMIC + UGRIC) | **186%** — highest |
+| Essent Guaranty | 178% |
+| NMI Holdings (NMIC) | ~170%* |
+| Enact (EMICO) | 167% |
+| MGIC | ~161% |
+| **Radian Guaranty** | **~156%** — lowest |
+
+*NMI reports on a (excess ÷ required) basis as "70%," which converts to ~170% on the Available ÷ Required basis used by the rest of the cohort.
+
+**Spread**: ~30 percentage points (186% − 156%). Arch at 186% sat at the top, Radian at ~156% at the bottom, with the other four clustered between 161% and 178%.
+
+*Sources: ACGL 10-K (2024), RDN 10-K (2024), ESNT 10-K (2024), NMIH 10-K (2024), ACT 10-K (2024), MTG 10-K (2024).*
+====================================================================================================

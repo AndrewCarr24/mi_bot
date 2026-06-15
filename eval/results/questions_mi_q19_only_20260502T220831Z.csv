@@ -1,0 +1,14 @@
+question,expected_answer,agent_answer,correct,rationale,agent_cost_usd,judge_cost_usd,tool_calls,tool_result_tokens_est,agent_seconds
+"For full-year 2024, what was the aggregate capital returned to common shareholders (share repurchases plus common dividends including specials) across the six MI cohort issuers?","Approximately $3.67 billion was returned to common shareholders across the cohort in FY2024. Per-issuer: MGIC $697M ($566.6M repurchases + $130.5M dividends), Radian $377M ($224M + $153M), Essent $221M ($102.7M + $118.0M), NMI $98M (repurchases only — NMI does not pay a common dividend), Enact $356M ($244M + $112M), and Arch ~$1.92B (dominated by a $1.9B / $5-per-share special dividend in December 2024 plus $24M of repurchases).","I'll retrieve the full-year 2024 capital return figures from each of the six companies' 2024 fiscal-year filings in parallel.Here is the aggregate capital returned to common shareholders by each of the six MI cohort companies in full-year 2024:
+
+| Company | Share Repurchases | Common Dividends (incl. specials) | Total Returned |
+|---|---|---|---|
+| **ACGL (Arch Capital)** | $24M | $1,866M (special dividend of ~$1.9B; no regular dividends) | **$1,890M** |
+| **ACT (Enact Holdings)** | $244M | $112M | **$356M** |
+| **ESNT (Essent Group)** | $103M | $118M | **$221M** |
+| **MTG (MGIC)** | $570M | $131M | **$700M** |
+| **NMIH (NMI Holdings)** | $98M | $0 (no dividends paid) | **$98M** |
+| **RDN (Radian)** | $224M | $153M (incl. dividend equivalents) | **$377M** |
+| **Aggregate Total** | **$1,263M** | **$2,380M** | **$3,642M** |
+
+The total capital returned to common shareholders across the six-issuer cohort for FY2024 was approximately **$3.6 billion**. The figure is heavily influenced by Arch Capital's one-time special dividend of ~$1.9B, which alone accounted for about half of the aggregate total. Excluding Arch's special dividend, the remaining five issuers returned ~$1.75B combined.",True,Aggregate $3.64B matches expected $3.67B within 1% tolerance; per-issuer figures align with expected answer.,0.011947,0.000908,"[{""tool"": ""dsrag_kb"", ""tokens_est"": 6664}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8122}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7771}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8626}, {""tool"": ""dsrag_kb"", ""tokens_est"": 8450}, {""tool"": ""dsrag_kb"", ""tokens_est"": 7958}]",47591,58.01
