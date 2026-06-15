@@ -35,6 +35,30 @@ for var in AGENT_PASSWORD COOKIE_SECRET DEEPSEEK_API_KEY; do
   fi
 done
 
+# LangSmith tracing is how prod usage is observed (full Q&A + latency +
+# tool calls land in the `agent-fin` project). The vars are baked into the
+# container at deploy time from the local env, so if they're unset here
+# they silently won't reach prod. Warn loudly before we push.
+if [[ "${LANGSMITH_TRACING:-}" != "true" || -z "${LANGSMITH_API_KEY:-}" ]]; then
+  echo "[deploy] ----------------------------------------------------------" >&2
+  echo "[deploy] WARNING: LangSmith tracing is NOT fully configured:" >&2
+  echo "[deploy]   LANGSMITH_TRACING=${LANGSMITH_TRACING:-<unset>}" >&2
+  echo "[deploy]   LANGSMITH_API_KEY=$([[ -n "${LANGSMITH_API_KEY:-}" ]] && echo '<set>' || echo '<unset>')" >&2
+  echo "[deploy]   LANGSMITH_PROJECT=${LANGSMITH_PROJECT:-<unset>}" >&2
+  echo "[deploy] Prod runs will NOT be traced — you lose usage analytics." >&2
+  echo "[deploy] Fix: run  set -a && . .env && set +a  before deploying." >&2
+  echo "[deploy] ----------------------------------------------------------" >&2
+  if [[ -t 0 ]]; then
+    read -r -p "[deploy] Continue without LangSmith tracing? [y/N] " reply
+    [[ "$reply" =~ ^[Yy]$ ]] || { echo "[deploy] aborted." >&2; exit 1; }
+  else
+    echo "[deploy] (non-interactive; continuing in 5s — Ctrl-C to abort)" >&2
+    sleep 5
+  fi
+else
+  log "preflight: LangSmith tracing OK (project=${LANGSMITH_PROJECT:-agent-fin})"
+fi
+
 log "preflight: checking AWS auth"
 ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
 
@@ -74,40 +98,15 @@ docker tag "$SERVICE_NAME:latest"     "$ECR_URI:latest"
 docker push "$ECR_URI:$IMAGE_TAG"
 docker push "$ECR_URI:latest"
 
-# ---- 4. Apply infra changes.
-log "infra: cdk deploy $STACK_RUNNER"
-( cd infra/cdk && cdk deploy "$STACK_RUNNER" --require-approval never )
-
-# ---- 5. Force redeploy (in case nothing infra-side changed).
-log "redeploy: aws apprunner start-deployment"
-SERVICE_ARN="$(aws apprunner list-services --region "$REGION" \
-                --query "ServiceSummaryList[?ServiceName=='$SERVICE_NAME'].ServiceArn | [0]" \
-                --output text)"
-if [[ -z "$SERVICE_ARN" || "$SERVICE_ARN" == "None" ]]; then
-  echo "ERROR: App Runner service '$SERVICE_NAME' not found after cdk deploy." >&2
-  exit 1
-fi
-aws apprunner start-deployment --service-arn "$SERVICE_ARN" --region "$REGION" >/dev/null
-
-# ---- 6. Wait + report.
-log "wait: polling service status (timeout 5 min)"
-DEADLINE=$(( $(date +%s) + 300 ))
-while true; do
-  STATUS="$(aws apprunner describe-service --service-arn "$SERVICE_ARN" \
-            --region "$REGION" --query 'Service.Status' --output text)"
-  if [[ "$STATUS" == "RUNNING" ]]; then
-    break
-  fi
-  if [[ "$STATUS" == "CREATE_FAILED" || "$STATUS" == "DELETE_FAILED" || "$STATUS" == "OPERATION_IN_PROGRESS" ]]; then
-    log "status=$STATUS (continuing to wait)"
-  fi
-  if (( $(date +%s) > DEADLINE )); then
-    echo "ERROR: timeout waiting for service to reach RUNNING (last status=$STATUS)." >&2
-    exit 1
-  fi
-  sleep 10
-done
-
-URL="$(aws apprunner describe-service --service-arn "$SERVICE_ARN" \
-       --region "$REGION" --query 'Service.ServiceUrl' --output text)"
-log "deployed: https://$URL  (image=$IMAGE_TAG)"
+# ---- 4. Redeploy the existing service to the new image, env-safe.
+#
+# NOTE: the live `agent-fin` service is NOT CloudFormation-managed (there is
+# no AgentFin* stack), so `cdk deploy AgentFinRunnerStack` would try to
+# create a *duplicate* service and fail. Instead, _update_service.py resumes
+# the service if paused, swaps only the image tag, preserves the baked-in
+# env vars, and merges in LANGSMITH_* from the local env. If you ever need to
+# change infra (DynamoDB table, IAM, sizing), that's a separate CDK migration
+# — see infra/cdk/runner_stack.py and the note in CLAUDE.md.
+log "redeploy: update-service to $IMAGE_TAG (env-preserving)"
+./.venv/bin/python scripts/_update_service.py \
+  --service "$SERVICE_NAME" --tag "$IMAGE_TAG" --region "$REGION"
